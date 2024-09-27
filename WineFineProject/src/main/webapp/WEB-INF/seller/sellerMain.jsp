@@ -32,18 +32,18 @@
 			<div class="col-lg-2">
 				<div class="panel panel-info">
 					<div class="panel-heading">
-						<h3 class="panel-title">개인정보</h3>
+						<h3 class="panel-title">상품관리</h3>
 					</div>
 					<!-- 사이드바 메뉴목록1 -->
 					<ul class="list-group">
 						<li class="list-group-item">
-							<a href="../mypage/my_edit_member.do">회원수정</a>
+							<a href="../mypage/my_edit_member.do">상품등록</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/my_change_pwd.do">비밀번호 변경</a>
+							<a href="../mypage/my_change_pwd.do">상품목록</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/my_member_exit.do">회원탈퇴</a>
+							<a href="../mypage/my_member_exit.do">상품수정</a>
 						</li>
 					</ul>
 				</div>
