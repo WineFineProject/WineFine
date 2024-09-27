@@ -49,24 +49,15 @@
 				</div>
 				<div class="panel panel-warning">
 					<div class="panel-heading">
-						<h3 class="panel-title sinav">관리정보</h3>
+						<h3 class="panel-title sinav">고객관리</h3>
 					</div>
 					<!-- 사이드바 메뉴목록2 -->
 					<ul class="list-group">
 						<li class="list-group-item">
-							<a href="../mypage/myPayment.do">구매내역관리</a>
+							<a href="../mypage/myPayment.do">회원관리</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/my_reserve.do">예약관리</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_like.do">내 좋아요</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_playlist.do">플레이리스트</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_cart.do">장바구니</a>
+							<a href="../mypage/my_reserve.do">블랙리스트관리</a>
 						</li>
 					</ul>
 				</div>
