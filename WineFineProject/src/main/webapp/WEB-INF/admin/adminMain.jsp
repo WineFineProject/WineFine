@@ -32,41 +32,35 @@
 			<div class="col-lg-2">
 				<div class="panel panel-info">
 					<div class="panel-heading">
-						<h3 class="panel-title">개인정보</h3>
+						<h3 class="panel-title">회원관리</h3>
 					</div>
 					<!-- 사이드바 메뉴목록1 -->
 					<ul class="list-group">
 						<li class="list-group-item">
-							<a href="../mypage/my_edit_member.do">회원수정</a>
+							<a href="../mypage/my_edit_member.do">회원 목록</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/my_change_pwd.do">비밀번호 변경</a>
+							<a href="../mypage/my_change_pwd.do">가입신청 대기</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/my_member_exit.do">회원탈퇴</a>
+							<a href="../mypage/my_change_pwd.do">신고</a>
 						</li>
 					</ul>
 				</div>
 				<div class="panel panel-warning">
 					<div class="panel-heading">
-						<h3 class="panel-title sinav">관리정보</h3>
+						<h3 class="panel-title sinav">상품관리</h3>
 					</div>
 					<!-- 사이드바 메뉴목록2 -->
 					<ul class="list-group">
 						<li class="list-group-item">
-							<a href="../mypage/myPayment.do">구매내역관리</a>
+							<a href="../mypage/my_reserve.do">상품 목록</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/my_reserve.do">예약관리</a>
+							<a href="../mypage/myPayment.do">상품등록/수정 대기</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/my_like.do">내 좋아요</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_playlist.do">플레이리스트</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_cart.do">장바구니</a>
+							<a href="../mypage/myPayment.do">프로모션 관리</a>
 						</li>
 					</ul>
 				</div>
