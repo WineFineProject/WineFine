@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.WineMapper">
+	<select id="wineListData" resultType="WineVO" parameterType="hashmap">
+		SELECT wno, namekor, nameeng, type, price, poster, num
+		FROM (SELECT wno, namekor, nameeng, type, price, poster, rownum as num
+		FROM (SELECT wno,
+		namekor, nameeng, type, price, poster
+		FROM wine
+		<where>
+			<if test="sugar!=0">AND sugar = #{sugar}</if>
+			<if test="body!=0">AND body = #{body}</if>
+			<if test="acid!=0">AND acid = #{acid}</if>
+			<if test="tannin!=0">AND tannin = #{tannin}</if>
+			<if test="price!='전체'">AND TO_NUMBER(NVL(REPLACE(REPLACE(price, '원', ''), ',', ''), '30000000'))&lt;= TO_NUMBER(#{price})</if>
+			<if test="types!='전체'">
+				AND type IN
+				<foreach item="type" index="index" collection="types.split(',')" open="(" separator="," close=")">
+					#{type}
+				</foreach>
+			</if>
+		</where>
+		ORDER BY wno ASC))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+
+</mapper>
