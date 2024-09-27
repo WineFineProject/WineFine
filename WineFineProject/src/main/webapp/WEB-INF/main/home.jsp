@@ -12,7 +12,7 @@
 }
 .border-3px-dark{
 border: 3px solid #45595b !important;
-background-color: #45595b !important; 
+background-color: #45595b !important;    
 }
 .border-3px-wine{
 border: 3px solid darkred !important;
