@@ -21,4 +21,8 @@ public class WineDAO {
 	public int wineTotalPage() {
 		return mapper.wineTotalPage();
 	}
+	
+	public List<WineVO> wineFindList(String fd){
+		return mapper.wineFindList(fd);
+	}
 }

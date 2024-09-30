@@ -25,5 +25,9 @@
 		ORDER BY wno ASC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
-
+	
+	<!-- 와인 검색 출력 -->
+	<select id="wineFindList" resultType="WineVO" parameterType="String">
+	SELECT wno, namekor, poster FROM wine WHERE namekor LIKE '%'||#{fd}||'%'
+	</select>
 </mapper>

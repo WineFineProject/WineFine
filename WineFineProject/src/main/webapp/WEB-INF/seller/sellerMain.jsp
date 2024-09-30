@@ -24,9 +24,10 @@
 <link href="../tem/css/style.css" rel="stylesheet">
 <script src="https://unpkg.com/vue@3"></script>
 <script type="text/javascript" src="http://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
-<tiles:insertAttribute name="header"/>
+	<tiles:insertAttribute name="header" />
 	<div class=" container2 text-center">
 		<div class="row" style="margin-top: 150px;">
 			<div class="col-lg-2">
@@ -36,15 +37,9 @@
 					</div>
 					<!-- 사이드바 메뉴목록1 -->
 					<ul class="list-group">
-						<li class="list-group-item">
-							<a href="../mypage/my_edit_member.do">상품등록</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_change_pwd.do">상품목록</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_member_exit.do">상품수정</a>
-						</li>
+						<li class="list-group-item"><a href="../mypage/my_edit_member.do">상품등록</a></li>
+						<li class="list-group-item"><a href="../mypage/my_change_pwd.do">상품목록</a></li>
+						<li class="list-group-item"><a href="../mypage/my_member_exit.do">상품수정</a></li>
 					</ul>
 				</div>
 				<div class="panel panel-warning">
@@ -53,12 +48,8 @@
 					</div>
 					<!-- 사이드바 메뉴목록2 -->
 					<ul class="list-group">
-						<li class="list-group-item">
-							<a href="../mypage/myPayment.do">회원관리</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_reserve.do">블랙리스트관리</a>
-						</li>
+						<li class="list-group-item"><a href="../mypage/myPayment.do">회원관리</a></li>
+						<li class="list-group-item"><a href="../mypage/my_reserve.do">블랙리스트관리</a></li>
 					</ul>
 				</div>
 				<div class="panel panel-warning">
@@ -67,15 +58,9 @@
 					</div>
 					<!-- 사이드바 메뉴목록2 -->
 					<ul class="list-group">
-						<li class="list-group-item">
-							<a href="../seller/coupon.do">쿠폰프로모션</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_reserve.do">할인프로모션</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_reserve.do">배너프로모션</a>
-						</li>
+						<li class="list-group-item"><a href="../seller/coupon.do">쿠폰프로모션</a></li>
+						<li class="list-group-item"><a href="../mypage/my_reserve.do">할인프로모션</a></li>
+						<li class="list-group-item"><a href="../mypage/my_reserve.do">배너프로모션</a></li>
 					</ul>
 				</div>
 			</div>
@@ -85,8 +70,8 @@
 			</div>
 		</div>
 	</div>
-	<tiles:insertAttribute name="footer"/>
-	
+	<tiles:insertAttribute name="footer" />
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../tem/lib/easing/easing.min.js"></script>

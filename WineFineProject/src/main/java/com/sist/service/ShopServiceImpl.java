@@ -6,14 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sist.dao.ShopDAO;
+import com.sist.dao.WineDAO;
 import com.sist.vo.WineVO;
 
 @Service
 public class ShopServiceImpl implements ShopService{
 	private ShopDAO sdao;
+	private WineDAO wDao;
 	@Autowired
-	public ShopServiceImpl(ShopDAO sdao) {
+	public ShopServiceImpl(ShopDAO sdao, WineDAO wDao) {
 		this.sdao = sdao;
+		this.wDao = wDao;
 	}
 	
 	@Override
@@ -26,5 +29,10 @@ public class ShopServiceImpl implements ShopService{
 	public int shopTotalPage() {
 		// TODO Auto-generated method stub
 		return sdao.shopTotalPage();
+	}
+
+	@Override
+	public List<WineVO> wineFindList(String fd) {
+		return wDao.wineFindList(fd);
 	}
 }
