@@ -127,7 +127,7 @@ let loginApp=Vue.createApp({
 				this.$refs.pwd.focus()
 				return
 			}
-			axios.get('../member/vueLogin.do', {
+			axios.post('../member/vueLogin.do', null, {
 				params:{
 					id:this.id,
 					pwd:this.pwd
