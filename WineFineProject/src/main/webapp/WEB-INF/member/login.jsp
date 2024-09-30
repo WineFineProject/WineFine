@@ -133,7 +133,7 @@ let loginApp=Vue.createApp({
 					pwd:this.pwd
 				}
 			}).then(response=>{
-				if(response.data==='OK'){
+				if(response.data==='OK'){ 
 					location.href='../main/main.do'
 				}
 				else if(response.data==='NOID'){

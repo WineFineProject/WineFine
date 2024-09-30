@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @RestController
 public class MemberRestController {
 	@Autowired
-	private MemberService mService;
+	private MemberService mService; 
 	
 	@PostMapping(value = "member/vueLogin.do", produces = "text/plain;charset=UTF-8")
 	public String memberVueLogin(String id, String pwd, HttpSession session) {
