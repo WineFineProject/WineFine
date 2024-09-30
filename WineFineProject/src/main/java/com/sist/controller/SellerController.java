@@ -9,4 +9,8 @@ public class SellerController {
 	public String sellerHome() {
 		return "seller/sellerHome";
 	}
+	@GetMapping("seller/coupon.do")
+	public String sellerCoupon() {
+		return "seller/coupon";
+	}
 }
