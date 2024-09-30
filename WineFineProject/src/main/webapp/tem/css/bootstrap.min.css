@@ -544,7 +544,7 @@ progress {
 }
 
 .blockquote-footer::before {
-	content: "�붋�"
+	content: "占쎈텑占�"
 }
 
 .img-fluid {
@@ -7753,7 +7753,9 @@ none
 .bg-secondary {
 	background-color: #ffb524 !important
 }
-
+.bg-light{
+	background-color: var(- -bs-light) !important;
+}
 .bg-success {
 	background-color: #198754 !important
 }

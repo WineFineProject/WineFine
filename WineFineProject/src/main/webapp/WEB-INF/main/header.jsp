@@ -42,20 +42,32 @@
 				<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 					<div class="navbar-nav mx-auto">
 						<a href="../main/main.do" class="nav-item nav-link active">Home</a>
-						<a href="shop.html" class="nav-item nav-link">Shop</a>
+						<div class="nav-item dropdown">
+							<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">와인샵</a>
+							<div class="dropdown-menu m-0 bg-light rounded-0">
+								<a href="../board/list.do" class="dropdown-item">일반판매</a>
+								<a href="../replyboard/list.do" class="dropdown-item">예약판매</a>
+							</div>
+						</div>
 						<a href="../mypage/mypageHome.do" class="nav-item nav-link">mypage</a>
 						<a href="../admin/adminHome.do" class="nav-item nav-link">admin</a>
 						<a href="../seller/sellerHome.do" class="nav-item nav-link">seller</a>
 						<div class="nav-item dropdown">
-							<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-							<div class="dropdown-menu m-0 bg-secondary rounded-0">
-								<a href="cart.html" class="dropdown-item">Cart</a>
-								<a href="chackout.html" class="dropdown-item">Chackout</a>
-								<a href="testimonial.html" class="dropdown-item">Testimonial</a>
-								<a href="404.html" class="dropdown-item">404 Page</a>
+							<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">와인</a>
+							<div class="dropdown-menu m-0 bg-light rounded-0">
+								<a href="../board/list.do" class="dropdown-item">주요품종</a>
+								<a href="../noticeboard/list.do" class="dropdown-item">생산지역</a>
+								<a href="../replyboard/list.do" class="dropdown-item">생산자</a>
 							</div>
 						</div>
-						<a href="contact.html" class="nav-item nav-link">Contact</a>
+						<div class="nav-item dropdown">
+							<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">커뮤니티</a>
+							<div class="dropdown-menu m-0 bg-light rounded-0">
+								<a href="../board/list.do" class="dropdown-item">자유게시판</a>
+								<a href="../noticeboard/list.do" class="dropdown-item">공지사항</a>
+								<a href="../replyboard/list.do" class="dropdown-item">1:1 문의</a>
+							</div>
+						</div>
 					</div>
 					<div class="d-flex m-3 me-0">
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal"
