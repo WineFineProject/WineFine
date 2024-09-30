@@ -11,4 +11,5 @@ public interface WineMapper {
 	
 	@Select("SELECT CEIL(COUNT(*)/12.0) FROM wine")
 	public int wineTotalPage();
+
 }
