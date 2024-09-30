@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +16,7 @@
 			<div class="d-flex justify-content-between">
 				<div class="top-info ps-2">
 					<small class="me-3"><i class="fas fa-map-marker-alt me-2 text-wine"></i> <a href="#" class="text-white">123 Street, New York</a></small> <small
-						class="me-3"><i class="fas fa-envelope me-2 text-wine"></i>
-					<a href="#" class="text-white">Email@Example.com</a></small>
+						class="me-3"><i class="fas fa-envelope me-2 text-wine"></i> <a href="#" class="text-white">Email@Example.com</a></small>
 				</div>
 				<div class="top-link pe-2">
 					<a href="#" class="text-white">
@@ -67,9 +67,16 @@
 								class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
 								style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
 						</a>
-						<a href="#" class="my-auto">
-							<i class="fas fa-user fa-2x"></i>
-						</a>
+						<c:if test="${sessionScope.id==null }">
+							<a href="../member/login.do" class="my-auto">
+								<i class="fas fa-user fa-2x"></i>
+							</a>
+						</c:if>
+						<c:if test="${sessionScope.id!=null }">
+							<a href="../member/logout.do" class="my-auto">
+								<i class="fas fa-user fa-2x"></i>
+							</a>
+						</c:if>
 					</div>
 				</div>
 			</nav>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+	<definition name="login" template="/WEB-INF/member/login.jsp">
+	</definition>
 	<definition name="main" template="/WEB-INF/main/main.jsp">
 		<put-attribute name="header" value="/WEB-INF/main/header.jsp" />
 		<put-attribute name="home" value="/WEB-INF/main/home.jsp" />
