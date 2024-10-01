@@ -36,6 +36,7 @@
 	padding: 20px;
 	border: 1px solid #888;
 	width: 500px;
+	height:400px;
 	border-radius: 10px;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 	transform: translateY(-50px); /* 시작 위치 */
@@ -75,7 +76,8 @@
 			<table class="table">
 				<tr>
 					<td colspan="6" class="text-right">
-						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
+						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal"
+							data-bs-target="#searchModal">
 							<i class="fas fa-search text-wine"></i>
 						</button>
 					</td>
@@ -143,17 +145,17 @@
 				<table class="table" style="margin-top: 50px;">
 					<tr>
 						<th width="30%">프로모션 이름</th>
-						<td width="70%"><input type="text" style="width: 100%"></td>
+						<td width="70%"><input type="text" v-model="eventName" style="width: 100%" @keyup="checkBtn()"></td>
 					</tr>
 					<tr>
 						<th width="30%">프로모션 대상</th>
-						<td width="70%"><select style="width: 100%" v-model="option">
+						<td width="70%"><select style="width: 100%" v-model="option" @change="changeOption()">
 								<option :value="1">전체</option>
 								<option :value="2">카테고리별</option>
 								<option :value="3">제품별</option>
 						</select></td>
 					</tr>
-					<tr style="border:transparent;">
+					<tr style="border: transparent;">
 						<th width="30%"></th>
 						<td width="70%" v-if="option===1"><input type="text" value="전체" readonly></td>
 						<td width="70%" v-if="option===2"><select v-model="no">
@@ -171,7 +173,7 @@
 								</tr>
 								<tr v-show="isFind">
 									<td>
-										<div style="height: 130px; overflow-y: auto;">
+										<div style="height: 180px; overflow-y: auto;">
 											<table class="table">
 												<tr v-for="(vo, index) in list">
 													<td @click="changeNo(index)">{{vo.namekor}}</td>
@@ -183,19 +185,30 @@
 							</table>
 						</td>
 					</tr>
-					<tr>
-					<th width="30%">시작일</th>
-					<td width="70%"><input type="date"></td>
+					<tr v-show="isDate">
+						<th width="30%">할인율</th>
+						<td width="70%"><input type="number" v-model="discount" @change="checkBtn()">%</td>
 					</tr>
-					<tr>
-					<th width="30%">종료일</th>
-					<td width="70%"><input type="date"></td>
+					<tr v-show="isDate">
+						<th width="30%">시작일</th>
+						<td width="70%"><input type="date" v-model="startDate" @change="checkBtn()"></td>
+					</tr>
+					<tr v-show="isDate">
+						<th width="30%">종료일</th>
+						<td width="70%"><input type="date" v-model="endDate" @change="checkBtn()"></td>
+					</tr>
+					<tr v-show="isBtn">
+						<td colspan="2">
+							<button type="button" class="btn btn-sm btn-wine" @click="insertPromotion()">등록</button>
+							<button type="button" class="btn btn-sm btn-wine" @click="changeModal(false)">취소</button>
+						</td>
 					</tr>
 				</table>
 			</div>
 		</div>
 	</div>
 	<script>
+	let id_='${sessionScope.id}'
 	let app=Vue.createApp({
 		data(){
 			return{
@@ -205,13 +218,20 @@
 				fd:'',
 				list:[],
 				isFind:false,
-				isFd:false
+				isFd:false,
+				isDate:true,
+				isBtn:false,
+				startDate:'',
+				endDate:'',
+				today:new Date(),
+				discount:0,
+				eventName:'',
+				id:id_
 			}
 		},
 		methods:{
 			changeModal(check){
 				this.showModal=check
-				console.log(this.showModal)
 			},
 			findWine(){
 				if(this.fd===''){
@@ -234,7 +254,59 @@
 				this.isFd=true
 				this.isFind=false
 				this.fd=this.list[no].namekor
-			}
+				this.isDate=true
+			},
+			changeOption(){
+				if(this.option===2){
+					this.no=1
+					this.fd=''
+					this.isFd=false
+					this.isFind=true
+					this.isDate=true
+				}
+				else if(this.option===3){
+					this.isDate=false
+				}
+				else{
+					this.isDate=true
+				}
+				this.isBtn=false
+			},
+			checkBtn(){
+				console.log(this.startDate)
+				console.log(this.endDate)
+				if(this.eventName===''){
+					this.isBtn=false
+					return
+				}
+				if(this.discount===0){
+					this.isBtn=false
+					return
+				}
+				if(this.startDate===''){
+					return
+				}
+				if(this.endDate===''){
+					return
+				}
+				this.isBtn=true
+			},
+		insertPromotion(){
+			axios.post('../seller/couponInsert.do', null, {
+				params:{
+					title:this.eventName,
+					userid:this.id,
+					discount:this.discount,
+					type:this.option,
+					target:this.no,
+					startDay:this.startDate,
+					endDay:this.endDate
+				}
+			}).then(response=>{
+				alert('등록완료')
+				this.changeModal(false)
+			})
+		}
 		}
 	}).mount('#promotionTable')
 	</script>

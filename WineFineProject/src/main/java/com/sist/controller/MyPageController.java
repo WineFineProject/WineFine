@@ -9,4 +9,9 @@ public class MyPageController {
  public String mypageHome() {
 	 return "mypage/mypageHome";
  }
+ 
+ @GetMapping("mypage/coupon.do")
+ public String mypageCoupon() {
+	 return "mypage/coupon";
+ }
 }

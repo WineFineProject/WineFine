@@ -2770,6 +2770,11 @@ textarea.form-control-lg {
 	background-color: #81c408;
 	border-color: #81c408
 }
+.btn-wine {
+	color: #fff;
+	background-color: darkred;
+	border-color: darkred
+}
 
 .btn-primary:hover {
 	color: #000;
