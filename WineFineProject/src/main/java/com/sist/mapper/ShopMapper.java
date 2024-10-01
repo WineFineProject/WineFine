@@ -13,11 +13,11 @@ public interface ShopMapper {
 	MAKER NATION GRAPE ALCOHOL SELLER STACK SCORE HIT REGDATE LIKECOUNT POSTER STATE
 	 */
 //	와인 리스트
-	@Select("SELECT wno,namekor,nameeng,seller,type,price,score,likecount,poster,num "
-			+ "FROM (SELECT wno,namekor,nameeng,seller,type,price,score,likecount,poster,rownum as num "
-			+ "FROM (SELECT wno,namekor,nameeng,seller,type,price,score,likecount,poster "
-			+ "FROM wine ORDER BY fno ASC, ORDER BY state DESC )) "
-			+ "WHERE num BETWEEN #{start} AND #{end} ")
+	@Select("SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, num "
+	        + "FROM (SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, rownum as num "
+	        + "FROM (SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster "
+	        + "FROM wine ORDER BY wno ASC, state DESC)) "
+	        + "WHERE num BETWEEN #{start} AND #{end}")
 	public List<WineVO> wineListData(@Param("start")int start,@Param("end")int end);
 //	와인 총 페이지
 	@Select("SELECT CEIL(COUNT(*)/12.0) FROM wine")

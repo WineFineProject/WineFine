@@ -17,7 +17,7 @@ public class ShopRestController {
 		this.sservice = sservice;
 	}
 	
-	@GetMapping("shop/list_vue.do")
+	@GetMapping(value = "shop/list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String shop_list(int page) throws Exception{
 		int rowsize=12;
 		int start=(rowsize*page)-(rowsize-1);
@@ -38,11 +38,11 @@ public class ShopRestController {
 		map.put("list",list);
 		map.put("totalpage", totalpage);
 		map.put("curpage", page);
-		map.put("startpage", startpage);
-		map.put("endpage", endpage);
+		map.put("startPage", startpage);
+		map.put("endPage", endpage);
 		
 		ObjectMapper mapper=new ObjectMapper();
-		String json = mapper.writeValueAsString(mapper);
+		String json = mapper.writeValueAsString(map);
 		
 		return json;
 	}
