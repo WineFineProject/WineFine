@@ -13,7 +13,7 @@
       <table class="table">
        <tr>
         <td>
-         <a href="../replyboard/insert.do" class="btn btn-sm" style="background-color: gold;">글쓰기</a>
+         <a href="../replyboard/insert.do" class="btn btn-sm" style="background-color: #FCD500;">글쓰기</a>
         </td>
        </tr>
       </table>
@@ -43,7 +43,7 @@
 	        <td width=10% class="text-center">${vo.hit}</td>
 	        <td width=15% class="text-center">${vo.isreply}</td>
          </tr>
-         <c:set var="count" value="${count-1 }"/>
+         <c:set var="count" value="${count-1}"/>
        </c:forEach>
       </table>
       <table class="table">

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sist.service.*;
 @Controller
@@ -21,6 +22,7 @@ public class ReplyBoardController {
 	{
 		this.rService=rService;
 	}
+	// 게시판 목록
 	@GetMapping("replyboard/list.do")
 	public String replyboardList(String page,Model model)
 	{
@@ -42,6 +44,18 @@ public class ReplyBoardController {
 		model.addAttribute("count", count);
 		model.addAttribute("today", new SimpleDateFormat("yyy-MM-dd").format(new Date()));
 		return "replyboard/list";
+	}
+	// 게시글 작성
+	@GetMapping("replyboard/insert.do")
+	public String replyboardInsert()
+	{
+		return "replyboard/insert";
+	}
+	@PostMapping("replyboard/insertOk.do")
+	public String replyboardInsertOk(ReplyBoardVO vo)
+	{
+		rService.replyInsert(vo);
+		return "redirect:../replyboard/list.do";
 	}
 	
 

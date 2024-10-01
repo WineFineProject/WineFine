@@ -22,4 +22,16 @@ public class ReplyBoardServiceImpl implements ReplyBoardService{
 		// TODO Auto-generated method stub
 		return dao.replyCount();
 	}
+
+	@Override
+	public void replyInsert(ReplyBoardVO vo) {
+		// TODO Auto-generated method stub
+		dao.replyInsert(vo);
+	}
+
+	@Override
+	public ReplyBoardVO replyDetailData(int wrno) {
+		// TODO Auto-generated method stub
+		return dao.replyDetailData(wrno);
+	}
 }
