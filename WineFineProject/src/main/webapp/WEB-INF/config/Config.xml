@@ -6,8 +6,11 @@
 	<typeAliases>
 	<typeAlias type="com.sist.vo.WineVO" alias="WineVO"/>
 	<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
+	<typeAlias type="com.sist.vo.PromotionCouponVO" alias="PromotionCouponVO"/>
+	<typeAlias type="com.sist.vo.MyCouponVO" alias="MyCouponVO"/>
 	</typeAliases>
 	<mappers>
 	<mapper resource="com/sist/mapper/wine_mapper.xml"/>
+	<mapper resource="com/sist/mapper/coupon_mapper.xml"/>
 	</mappers>
 </configuration>

@@ -8,4 +8,5 @@ public class PromotionCouponVO {
 	private int pcno, discount, type, target, state;
 	private String title, userid, startDay, endDay;
 	private Date startdate, enddate;
+	private WineVO wvo=new WineVO();
 }

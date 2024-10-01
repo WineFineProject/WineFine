@@ -36,13 +36,13 @@
 	padding: 20px;
 	border: 1px solid #888;
 	width: 500px;
-	height:400px;
-	border-radius: 10px;
+	height: 400px; border-radius : 10px;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 	transform: translateY(-50px); /* 시작 위치 */
 	transition: transform 0.3s ease, opacity 0.3s ease;
 	/* 이동 및 투명도 애니메이션 */
-	opacity: 0; /* 초기 투명도 */
+	opacity: 0;
+	border-radius: 10px /* 초기 투명도 */
 }
 
 /* 모달이 활성화되었을 때 모달 컨텐츠 애니메이션 */
@@ -75,16 +75,8 @@
 		<div class="promotion_table">
 			<table class="table">
 				<tr>
-					<td colspan="6" class="text-right">
-						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal"
-							data-bs-target="#searchModal">
-							<i class="fas fa-search text-wine"></i>
-						</button>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="6" class="text-right">
-						<button @click="changeModal(true)">Open Modal</button>
+					<td colspan="6" class="text-left">
+						<button @click="changeModal(true)" type="button">프로모션 등록</button>
 					</td>
 				</tr>
 			</table>
