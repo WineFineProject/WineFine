@@ -8,4 +8,8 @@ public interface CouponService {
 	public void promotionCouponInput(PromotionCouponVO vo);
 	public List<PromotionCouponVO> promotionCouponListData(String id);
 	public void getCoupon(MyCouponVO vo);
+	public List<PromotionCouponVO> promotionWaitList(String id);
+	public List<PromotionCouponVO> promotionActiveList(String id);
+	public void promotionApproval(int pcno);
+	public void promotionRejection(int pcno);
 }

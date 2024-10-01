@@ -59,6 +59,20 @@
 						<li class="list-group-item">
 							<a href="../mypage/myPayment.do">상품등록/수정 대기</a>
 						</li>
+					</ul>
+				</div>
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<h3 class="panel-title sinav">프로모션 관리</h3>
+					</div>
+					<!-- 사이드바 메뉴목록2 -->
+					<ul class="list-group">
+						<li class="list-group-item">
+							<a href="../admin/coupon.do">쿠폰 프로모션</a>
+						</li>
+						<li class="list-group-item">
+							<a href="../mypage/myPayment.do">상품등록/수정 대기</a>
+						</li>
 						<li class="list-group-item">
 							<a href="../mypage/myPayment.do">프로모션 관리</a>
 						</li>

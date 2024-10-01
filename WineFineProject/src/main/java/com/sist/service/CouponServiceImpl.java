@@ -26,4 +26,20 @@ public class CouponServiceImpl implements CouponService{
 	public void getCoupon(MyCouponVO vo) {
 		dao.getCoupon(vo);
 	}
+	@Override
+	public List<PromotionCouponVO> promotionActiveList(String id) {
+		return dao.promotionActiveList(id);
+	}
+	@Override
+	public List<PromotionCouponVO> promotionWaitList(String id) {
+		return dao.promotionWaitList(id);
+	}
+	@Override
+	public void promotionApproval(int pcno) {
+		dao.promotionApproval(pcno);
+	}
+	@Override
+	public void promotionRejection(int pcno) {
+		dao.promotionRejection(pcno);
+	}
 }

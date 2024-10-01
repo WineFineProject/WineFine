@@ -28,6 +28,7 @@ public class SellerRestController {
 	
 	@PostMapping(value = "seller/couponInsert.do", produces = "text/plain;charset=UTF-8")
 	public void sellerCouponInsert(PromotionCouponVO vo) {
+		System.out.println(vo);
 		cService.promotionCouponInput(vo);
 	}
 }

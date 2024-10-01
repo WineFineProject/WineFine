@@ -4,7 +4,7 @@
 	<!-- mypage 수령 가능 쿠폰 목록 -->
 	<select id="promotionCouponListData" parameterType="String" resultType="PromotionCouponVO">
 		SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate, 'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay 
-		FROM promotion_coupon WHERE (sysdate BETWEEN startdate AND endDate) AND pcno NOT IN (SELECT pcno FROM my_coupon WHERE recvid=#{id}) ORDER BY discount DESC
+		FROM promotion_coupon WHERE (sysdate BETWEEN startdate AND endDate) AND pcno NOT IN (SELECT pcno FROM my_coupon WHERE recvid=#{id}) AND state=1 ORDER BY discount DESC
 	</select>
 	
 	<!-- mypage 쿠폰 수령 -->

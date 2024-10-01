@@ -2,6 +2,7 @@ package com.sist.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,5 +24,21 @@ public class CouponDAO {
 	
 	public void getCoupon(MyCouponVO vo) {
 		mapper.getCoupon(vo);
+	}
+	
+	public List<PromotionCouponVO> promotionWaitList(String id){
+		return mapper.promotionWaitList(id);
+	}
+	
+	public List<PromotionCouponVO> promotionActiveList(String id){
+		return mapper.promotionActiveList(id);
+	}
+	
+	public void promotionApproval(int pcno) {
+		mapper.promotionApproval(pcno);
+	}
+	
+	public void promotionRejection(int pcno) {
+		mapper.promotionRejection(pcno);
 	}
 }

@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div class="promotion_table">
-		<h3>수령한 쿠폰</h3>
+		<h3>진행중인 프로모션</h3>
 		<table class="table" style="height: 400px;">
 			<thead>
 				<tr>
@@ -29,15 +29,16 @@
 			<tbody>
 				<tr>
 					<td colspan="7">
-						<table>
+						<table style="width: 100%">
 							<tbody>
-								<tr v-for="vo in myCoupon">
-									<td>{{vo.title}}</td>
-									<td></td>
-									<td>{{vo.discount}}%</td>
-									<td>{{vo.startDay}}</td>
-									<td>{{vo.endDay}}</td>
-									<td></td>
+								<tr v-for="vo in activeCoupon">
+									<td width="21%">{{vo.title}}</td>
+									<td width="25%"></td>
+									<td width="10%">{{vo.discount}}%</td>
+									<td width="16%">{{vo.userid}}</td>
+									<td width="10%">{{vo.startDay}}</td>
+									<td width="10%">{{vo.endDay}}</td>
+									<td width="8%"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -45,7 +46,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<h3>수령 가능 쿠폰</h3>
+		<h3>대기 프로모션</h3>
 		<table class="table" style="height: 400px;">
 			<thead>
 				<tr>
@@ -64,7 +65,7 @@
 						<div>
 							<table style="width: 100%">
 								<tbody>
-									<tr v-for="(avo, index) in activeCoupon">
+									<tr v-for="avo in waitCoupon">
 										<td width="21%">{{avo.title}}</td>
 										<td width="25%"></td>
 										<td width="10%">{{avo.discount}}%</td>
@@ -72,7 +73,8 @@
 										<td width="10%">{{avo.startDay}}</td>
 										<td width="10%">{{avo.endDay}}</td>
 										<td width="8%">
-											<button class="btn btn-sm border-wine text-wine" type="button" @click="getCoupon(index)">받기</button>
+											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponApproval(avo.pcno)">승인</button>
+											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponRejection(avo.pcno)">거절</button>
 										</td>
 									</tr>
 								</tbody>
@@ -84,45 +86,45 @@
 		</table>
 	</div>
 	<script>
-		let couponApp=Vue.createApp({
-			data(){
-				return{
-					myCoupon:[],
-					activeCoupon:[]
-				}
-			},
-			methods:{
-				activeList(){
-					axios.get('../mypage/vueCouponList.do', null).then(response=>{
-						this.activeCoupon=response.data
-					})
-				},
-				myList(){
-					axios.get('../mypage/vueMyCouponList.do', null).then(response=>{
-						this.myCoupon=response.data
-					})
-				},
-				getCoupon(index){
-					let vo=this.activeCoupon[index]
-					console.log(vo)
-					axios.post('../mypage/vueGetCoupon.do', null, {
-						params:{
-							title:vo.title,
-							pcno:vo.pcno,
-							discount:vo.discount,
-							pcid:vo.userid,
-							startDay:vo.startDay,
-							endDay:vo.endDay
-						}
-					}).then(response=>{
-						this.activeList()
-					})
-				}
-			},
-			mounted(){
-				this.activeList()
+	let adminCouponApp=Vue.createApp({
+		data(){
+			return{
+				activeCoupon:[],
+				waitCoupon:[]
 			}
-		}).mount('.promotion_table')
+		},
+		methods:{
+			couponList(){
+				axios.get('../admin/vueCouponList.do', null).then(response=>{
+					this.activeCoupon=response.data.activeCoupon
+					this.waitCoupon=response.data.waitCoupon
+				})
+			},
+			couponApproval(pcno){
+				axios.get('../admin/vueCouponApproval.do', {
+					params:{
+						pcno:pcno
+					}
+				}).then(response=>{
+					alert('승인완료')
+					this.couponList()
+				})
+			},
+			couponRejection(pcno){
+				axios.get('../admin/vueCouponRejection.do', {
+					params:{
+						pcno:pcno
+					}
+				}).then(response=>{
+					alert('거절완료')
+					this.couponList()
+				})
+			}
+		},
+		mounted(){
+			this.couponList()
+		}
+	}).mount('.promotion_table')
 	</script>
 </body>
 </html>

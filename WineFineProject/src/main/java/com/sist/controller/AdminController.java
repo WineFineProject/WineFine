@@ -9,4 +9,9 @@ public class AdminController {
 	public String adminHome() {
 		return "admin/adminHome";
 	}
+	
+	@GetMapping("admin/coupon.do")
+	public String adminCoupon() {
+		return "admin/coupon";
+	}
 }
