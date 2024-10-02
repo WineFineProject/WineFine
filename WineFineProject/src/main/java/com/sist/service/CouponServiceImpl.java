@@ -42,4 +42,12 @@ public class CouponServiceImpl implements CouponService{
 	public void promotionRejection(int pcno) {
 		dao.promotionRejection(pcno);
 	}
+	@Override
+	public List<MyCouponVO> mypageMyCouponList(String id) {
+		return dao.mypageMyCouponList(id);
+	}
+	@Override
+	public List<PromotionCouponVO> sellerPromotionActiveList(String id) {
+		return dao.sellerPromotionActiveList(id);
+	}
 }

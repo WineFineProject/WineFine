@@ -12,6 +12,7 @@ import com.sist.vo.*;
 
 @RestController
 public class AdminRestController {
+	String[] types= {"", "레드", "화이트", "스파클링", "로제", "주정강화", "기타"};
 	@Autowired
 	private CouponService cService;
 	
@@ -20,6 +21,28 @@ public class AdminRestController {
 		Map map=new HashMap();
 		List<PromotionCouponVO> waitCoupon=cService.promotionWaitList("");
 		List<PromotionCouponVO> activeCoupon=cService.promotionActiveList("");
+		for(PromotionCouponVO vo:activeCoupon) {
+			if(vo.getType()==1) {
+				vo.setTargetname("전체");
+			}
+			else if(vo.getType()==2) {
+				vo.setTargetname(types[vo.getType()]);
+			}
+			else if(vo.getType()==3) {
+				vo.setTargetname(vo.getWvo().getNamekor());
+			}
+		}
+		for(PromotionCouponVO vo:waitCoupon) {
+			if(vo.getType()==1) {
+				vo.setTargetname("전체");
+			}
+			else if(vo.getType()==2) {
+				vo.setTargetname(types[vo.getType()]);
+			}
+			else if(vo.getType()==3) {
+				vo.setTargetname(vo.getWvo().getNamekor());
+			}
+		}
 		map.put("waitCoupon", waitCoupon);
 		map.put("activeCoupon", activeCoupon);
 		JsonMapper mapper=new JsonMapper();

@@ -36,7 +36,8 @@
 	padding: 20px;
 	border: 1px solid #888;
 	width: 500px;
-	height: 400px; border-radius : 10px;
+	height: 400px;
+	border-radius: 10px;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 	transform: translateY(-50px); /* 시작 위치 */
 	transition: transform 0.3s ease, opacity 0.3s ease;
@@ -80,50 +81,52 @@
 					</td>
 				</tr>
 			</table>
+			<h3>진행중인 프로모션</h3>
 			<table class="table" style="height: 400px;">
 				<thead>
 					<tr>
 						<th width="21%">이벤트명</th>
-						<th width="8%"></th>
 						<th width="25%">대상상품</th>
 						<th width="10%">할인율</th>
-						<th width="16%">시작일</th>
-						<th width="16%">종료일</th>
-						<th width="4%"></th>
+						<th width="16%">업체명</th>
+						<th width="10%">시작일</th>
+						<th width="10%">종료일</th>
+						<th width="8%"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="vo in currentPromotion">
-						<td>{{vo.title}}</td>
-						<td><img :src="vo.wvo.poster" class="img-fluid me-5 rounded-circle" style="width: 30px; height: 30px;" alt=""></td>
-						<td></td>
-						<td>{{vo.discount}}%</td>
-						<td>{{vo.startday}}</td>
-						<td>{{vo.endday}}</td>
-						<td></td>
+					<tr v-for="vo in activeCoupon">
+						<td width="21%">{{vo.title}}</td>
+						<td width="25%">{{vo.targetname}}</td>
+						<td width="10%">{{vo.discount}}%</td>
+						<td width="16%">{{vo.mvo.nickname}}</td>
+						<td width="10%">{{vo.startDay}}</td>
+						<td width="10%">{{vo.endDay}}</td>
+						<td width="8%"></td>
 					</tr>
 				</tbody>
 			</table>
+			<h3>승인 대기 프로모션</h3>
 			<table class="table" style="height: 400px;">
 				<thead>
 					<tr>
 						<th width="21%">이벤트명</th>
-						<th width="8%"></th>
 						<th width="25%">대상상품</th>
 						<th width="10%">할인율</th>
-						<th width="16%">시작일</th>
-						<th width="16%">종료일</th>
-						<th width="4%"></th>
+						<th width="16%">업체명</th>
+						<th width="10%">시작일</th>
+						<th width="10%">종료일</th>
+						<th width="8%"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="vo in upcommingPromotion">
-						<td>{{vo.title}}</td>
-						<td><img :src="vo.wvo.poster" class="img-fluid me-5 rounded-circle" style="width: 30px; height: 30px;" alt=""></td>
-						<td></td>
-						<td>{{vo.discount}}%</td>
-						<td>{{vo.startday}}%</td>
-						<td>{{vo.endday}}%</td>
+					<tr v-for="avo in waitCoupon">
+						<td width="21%">{{avo.title}}</td>
+						<td width="25%">{{avo.targetname}}</td>
+						<td width="10%">{{avo.discount}}%</td>
+						<td width="16%">{{avo.mvo.nickname}}</td>
+						<td width="10%">{{avo.startDay}}</td>
+						<td width="10%">{{avo.endDay}}</td>
 						<td>
 							<button class="btn btn-sm border-wine rounded-pill text-wine" type="button">X</button>
 						</td>
@@ -161,7 +164,7 @@
 						<td width="70%" v-if="option===3">
 							<table style="width: 100%">
 								<tr>
-									<td><input type="text" v-model="fd" style="width: 100%" @keyup="findWine()" ref="fd" :disabled="isFd"></td>
+									<td><input type="text" v-model="fd" style="width: 100%" @keyup.enter="findWine()" ref="fd" :disabled="isFd"></td>
 								</tr>
 								<tr v-show="isFind">
 									<td>
@@ -209,6 +212,8 @@
 				no:1,
 				fd:'',
 				list:[],
+				activeCoupon:[],
+				waitCoupon:[],
 				isFind:false,
 				isFd:false,
 				isDate:true,
@@ -283,22 +288,32 @@
 				}
 				this.isBtn=true
 			},
-		insertPromotion(){
-			axios.post('../seller/couponInsert.do', null, {
-				params:{
-					title:this.eventName,
-					userid:this.id,
-					discount:this.discount,
-					type:this.option,
-					target:this.no,
-					startDay:this.startDate,
-					endDay:this.endDate
-				}
-			}).then(response=>{
-				alert('등록완료')
-				this.changeModal(false)
-			})
-		}
+			insertPromotion(){
+				axios.post('../seller/couponInsert.do', null, {
+					params:{
+						title:this.eventName,
+						userid:this.id,
+						discount:this.discount,
+						type:this.option,
+						target:this.no,
+						startDay:this.startDate,
+						endDay:this.endDate
+					}
+				}).then(response=>{
+					alert('등록완료')
+					this.changeModal(false)
+					this.couponList()
+				})
+			},
+			couponList(){
+				axios.get('../seller/vueCouponList.do', null).then(response=>{
+					this.activeCoupon=response.data.activeCoupon
+					this.waitCoupon=response.data.waitCoupon
+				})
+			}
+		},
+		mounted(){
+			this.couponList()
 		}
 	}).mount('#promotionTable')
 	</script>

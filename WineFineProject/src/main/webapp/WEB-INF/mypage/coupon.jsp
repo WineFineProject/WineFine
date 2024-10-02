@@ -29,15 +29,16 @@
 			<tbody>
 				<tr>
 					<td colspan="7">
-						<table>
+						<table style="width: 100%">
 							<tbody>
 								<tr v-for="vo in myCoupon">
-									<td>{{vo.title}}</td>
-									<td></td>
-									<td>{{vo.discount}}%</td>
-									<td>{{vo.startDay}}</td>
-									<td>{{vo.endDay}}</td>
-									<td></td>
+									<td width="21%">{{vo.title}}</td>
+									<td width="25%">{{vo.sellname}}</td>
+									<td width="10%">{{vo.discount}}%</td>
+									<td width="16%">{{vo.pvo.mvo.nickname}}%</td>
+									<td width="10%">{{vo.startDay}}</td>
+									<td width="10%">{{vo.endDay}}</td>
+									<td width="8%"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -66,9 +67,9 @@
 								<tbody>
 									<tr v-for="(avo, index) in activeCoupon">
 										<td width="21%">{{avo.title}}</td>
-										<td width="25%"></td>
+										<td width="25%">{{avo.targetname}}</td>
 										<td width="10%">{{avo.discount}}%</td>
-										<td width="16%">{{avo.userid}}</td>
+										<td width="16%">{{avo.mvo.nickname}}</td>
 										<td width="10%">{{avo.startDay}}</td>
 										<td width="10%">{{avo.endDay}}</td>
 										<td width="8%">
@@ -94,12 +95,8 @@
 			methods:{
 				activeList(){
 					axios.get('../mypage/vueCouponList.do', null).then(response=>{
-						this.activeCoupon=response.data
-					})
-				},
-				myList(){
-					axios.get('../mypage/vueMyCouponList.do', null).then(response=>{
-						this.myCoupon=response.data
+						this.activeCoupon=response.data.activeCoupon
+						this.myCoupon=response.data.myCoupon
 					})
 				},
 				getCoupon(index){

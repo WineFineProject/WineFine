@@ -12,4 +12,6 @@ public interface CouponService {
 	public List<PromotionCouponVO> promotionActiveList(String id);
 	public void promotionApproval(int pcno);
 	public void promotionRejection(int pcno);
+	public List<MyCouponVO> mypageMyCouponList(String id);
+	public List<PromotionCouponVO> sellerPromotionActiveList(String id);
 }

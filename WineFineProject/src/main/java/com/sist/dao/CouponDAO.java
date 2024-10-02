@@ -41,4 +41,12 @@ public class CouponDAO {
 	public void promotionRejection(int pcno) {
 		mapper.promotionRejection(pcno);
 	}
+	
+	public List<MyCouponVO> mypageMyCouponList(String id){
+		return mapper.mypageMyCouponList(id);
+	}
+
+	public List<PromotionCouponVO> sellerPromotionActiveList(String id){
+		return mapper.sellerPromotionActiveList(id);
+	}
 }

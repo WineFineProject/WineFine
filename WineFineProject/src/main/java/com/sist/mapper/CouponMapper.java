@@ -12,14 +12,8 @@ public interface CouponMapper {
 			+ "#{title}, #{userid}, #{discount}, #{type}, #{target}, #{startDay}, #{endDay}, 0)")
 	public void promotionCouponInput(PromotionCouponVO vo);
 	
-	// 승인대기 쿠폰 목록
-	@Select("SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate, 'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay "
-			+ "FROM promotion_coupon WHERE enddate>sysdate AND state=0 AND userid LIKE '%'||#{id}||'%'")
 	public List<PromotionCouponVO> promotionWaitList(String id);
 	
-	// 진행중인 쿠폰 목록
-	@Select("SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate, 'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay "
-			+ "FROM promotion_coupon WHERE (sysdate BETWEEN startdate AND endDate) AND state=1 AND userid LIKE '%'||#{id}||'%'")
 	public List<PromotionCouponVO> promotionActiveList(String id);
 	
 	// 승인 대기 쿠폰 승인
@@ -30,9 +24,12 @@ public interface CouponMapper {
 	@Update("Update promotion_coupon SET state=2 WHERE pcno=#{pcno}")
 	public void promotionRejection(int pcno);
 	
+	// mypage 사용 가능 쿠폰
+	public List<MyCouponVO> mypageMyCouponList(String id);
 	
 	public List<PromotionCouponVO> promotionCouponListData(String id);
 	
 	public void getCoupon(MyCouponVO vo);
 	
+	public List<PromotionCouponVO> sellerPromotionActiveList(String id);
 }
