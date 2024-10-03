@@ -33,4 +33,5 @@ public class WineVO {
 	private int wno, sugar, acid, body, tannin, stack, score, hit, likecount;
 	private String namekor, nameeng, type, price, vol, aroma, food, maker, nation, grape, alcohol, seller, poster, dbday;
 	private Date regdate;
+	private MemberVO mvo=new MemberVO();
 }
