@@ -14,3 +14,6 @@ function findWine(instance){
 		instance.list=response.data
 	})
 }
+function changeModal(instance, check){
+	instance.showModal=check
+}

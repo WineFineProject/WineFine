@@ -27,7 +27,7 @@
 <script type="text/javascript" src="http://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-<tiles:insertAttribute name="header"/>
+	<tiles:insertAttribute name="header" />
 	<div class=" container2 text-center">
 		<div class="row" style="margin-top: 150px;">
 			<div class="col-lg-2">
@@ -37,15 +37,9 @@
 					</div>
 					<!-- 사이드바 메뉴목록1 -->
 					<ul class="list-group">
-						<li class="list-group-item">
-							<a href="../mypage/my_edit_member.do">회원수정</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_change_pwd.do">비밀번호 변경</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_member_exit.do">회원탈퇴</a>
-						</li>
+						<li class="list-group-item"><a href="../mypage/my_edit_member.do">회원수정</a></li>
+						<li class="list-group-item"><a href="../mypage/my_change_pwd.do">비밀번호 변경</a></li>
+						<li class="list-group-item"><a href="../mypage/my_member_exit.do">회원탈퇴</a></li>
 					</ul>
 				</div>
 				<div class="panel panel-warning">
@@ -54,18 +48,10 @@
 					</div>
 					<!-- 사이드바 메뉴목록2 -->
 					<ul class="list-group">
-						<li class="list-group-item">
-							<a href="../mypage/coupon.do">쿠폰함</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/myPayment.do">구매내역관리</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_reserve.do">예약관리</a>
-						</li>
-						<li class="list-group-item">
-							<a href="../mypage/my_like.do">내 좋아요</a>
-						</li>
+						<li class="list-group-item"><a href="../mypage/coupon.do">쿠폰함</a></li>
+						<li class="list-group-item"><a href="../mypage/myPayment.do">구매내역관리</a></li>
+						<li class="list-group-item"><a href="../mypage/my_reserve.do">예약관리</a></li>
+						<li class="list-group-item"><a href="../mypage/my_like.do">내 좋아요</a></li>
 					</ul>
 				</div>
 			</div>
@@ -75,8 +61,8 @@
 			</div>
 		</div>
 	</div>
-	<tiles:insertAttribute name="footer"/>
-	
+	<tiles:insertAttribute name="footer" />
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../tem/lib/easing/easing.min.js"></script>
@@ -84,5 +70,6 @@
 	<script src="../tem/lib/lightbox/js/lightbox.min.js"></script>
 	<script src="../tem/lib/owlcarousel/owl.carousel.min.js"></script>
 	<script src="../tem/js/main.js"></script>
+	<script src="../tem/js/test.js"></script>
 </body>
 </html>

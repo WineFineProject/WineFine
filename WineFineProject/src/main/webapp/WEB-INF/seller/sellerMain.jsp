@@ -80,5 +80,6 @@
 	<script src="../tem/lib/lightbox/js/lightbox.min.js"></script>
 	<script src="../tem/lib/owlcarousel/owl.carousel.min.js"></script>
 	<script src="../tem/js/main.js"></script>
+	<script src="../tem/js/test.js"></script>
 </body>
 </html>

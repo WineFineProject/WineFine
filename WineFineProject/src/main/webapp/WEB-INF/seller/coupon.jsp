@@ -9,7 +9,6 @@
 	width: 1500px;
 }
 </style>
-<script src="../tem/js/test.js"></script>
 </head>
 <body>
 	<div id="promotionTable">
@@ -168,7 +167,7 @@
 		},
 		methods:{
 			changeModal(check){
-				this.showModal=check
+				changeModal(this, check)
 			},
 			changeNo(no){
 				this.no=this.list[no].wno
