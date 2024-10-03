@@ -17,4 +17,8 @@ public class SellerController {
 	public String sellerBanner() {
 		return "seller/banner";
 	}
+	@GetMapping("seller/sale.do")
+	public String sellersale() {
+		return "seller/sale";
+	}
 }

@@ -116,4 +116,12 @@ public class AdminRestController {
 		String json=mapper.writeValueAsString(map);
 		return json;
 	}
+	@GetMapping(value = "admin/vueSaleApproval.do", produces = "text/plain;charset=UTF-8")
+	public void adminVueSaleApproval(int psno) {
+		sService.promotionApproval(psno);
+	}
+	@GetMapping(value = "admin/vueSaleRejection.do", produces = "text/plain;charset=UTF-8")
+	public void adminVueSaleRejection(int psno) {
+		sService.promotionRejection(psno);
+	}
 }

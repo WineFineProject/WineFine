@@ -75,8 +75,8 @@
 										<td width="10%">{{avo.startDay}}</td>
 										<td width="10%">{{avo.endDay}}</td>
 										<td width="8%">
-											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponApproval(avo.pcno)">승인</button>
-											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponRejection(avo.pcno)">거절</button>
+											<button class="btn btn-sm border-wine text-wine" type="button" @click="saleApproval(avo.psno)">승인</button>
+											<button class="btn btn-sm border-wine text-wine" type="button" @click="saleRejection(avo.psno)">거절</button>
 										</td>
 									</tr>
 								</tbody>

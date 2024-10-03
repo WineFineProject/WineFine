@@ -22,6 +22,8 @@ public class SellerRestController {
 	private CouponService cService;
 	@Autowired
 	private BannerService bService;
+	@Autowired
+	private SaleService ssService;
 	//와인 검색 출력
 	@GetMapping(value = "seller/findWine.do",produces = "text/plain;charset=UTF-8")
 	public String sellerFindWine(String fd, HttpSession session) throws Exception{
@@ -91,4 +93,45 @@ public class SellerRestController {
 		String json=mapper.writeValueAsString(map);
 		return json;
 	}
+	@GetMapping(value = "seller/vueSaleList.do", produces = "text/plain;charset=UTF-8")
+	public String sellerVueSaleList(HttpSession session) throws Exception{
+		Map map=new HashMap();
+		String id=(String)session.getAttribute("id");
+		List<PromotionSaleVO> waitSale=ssService.saleWaitList(id);
+		List<PromotionSaleVO> activeSale=ssService.sellerSaleActiveList(id);
+		for(PromotionSaleVO vo:activeSale) {
+			if(vo.getType()==1) {
+				vo.setTargetname("전체");
+			}
+			else if(vo.getType()==2) {
+				vo.setTargetname(types[vo.getType()]);
+			}
+			else if(vo.getType()==3) {
+				vo.setTargetname(vo.getWvo().getNamekor());
+			}
+		}
+		for(PromotionSaleVO vo:waitSale) {
+			if(vo.getType()==1) {
+				vo.setTargetname("전체");
+			}
+			else if(vo.getType()==2) {
+				vo.setTargetname(types[vo.getType()]);
+			}
+			else if(vo.getType()==3) {
+				vo.setTargetname(vo.getWvo().getNamekor());
+			}
+		}
+		map.put("waitSale", waitSale);
+		map.put("activeSale", activeSale);
+		JsonMapper mapper=new JsonMapper();
+		String json=mapper.writeValueAsString(map);
+		return json;
+	}
+	
+	@PostMapping(value = "seller/vueSaleInsert.do", produces = "text/plain;charset=UTF-8")
+	public void sellerVueSaleInsert(PromotionSaleVO vo, HttpSession session) {
+		String id=(String)session.getAttribute("id");
+		ssService.promotionSaleInput(vo);
+	}
+	
 }

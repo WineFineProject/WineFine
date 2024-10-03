@@ -39,7 +39,7 @@
 							<div>
 								<table style="width: 100%">
 									<tbody>
-										<tr v-for="vo in activeCoupon">
+										<tr v-for="vo in activeSale">
 											<td width="21%">{{vo.title}}</td>
 											<td width="25%">{{vo.targetname}}</td>
 											<td width="10%">{{vo.discount}}%</td>
@@ -74,7 +74,7 @@
 							<div>
 								<table style="width: 100%">
 									<tbody>
-										<tr v-for="avo in waitCoupon">
+										<tr v-for="avo in waitSale">
 											<td width="21%">{{avo.title}}</td>
 											<td width="25%">{{avo.targetname}}</td>
 											<td width="10%">{{avo.discount}}%</td>
@@ -171,8 +171,8 @@
 				no:1,
 				fd:'',
 				list:[],
-				activeCoupon:[],
-				waitCoupon:[],
+				activeSale:[],
+				waitSale:[],
 				isFind:false,
 				isFd:false,
 				isDate:true,
@@ -247,7 +247,7 @@
 				this.isBtn=true
 			},
 			insertPromotion(){
-				axios.post('../seller/couponInsert.do', null, {
+				axios.post('../seller/vueSaleInsert.do', null, {
 					params:{
 						title:this.eventName,
 						userid:this.id,
@@ -260,18 +260,18 @@
 				}).then(response=>{
 					alert('등록완료')
 					this.changeModal(false)
-					this.couponList()
+					this.saleList()
 				})
 			},
-			couponList(){
-				axios.get('../seller/vueCouponList.do', null).then(response=>{
-					this.activeCoupon=response.data.activeCoupon
-					this.waitCoupon=response.data.waitCoupon
+			saleList(){
+				axios.get('../seller/vueSaleList.do', null).then(response=>{
+					this.activeSale=response.data.activeSale
+					this.waitSale=response.data.waitSale
 				})
 			}
 		},
 		mounted(){
-			this.couponList()
+			this.saleList()
 		}
 	}).mount('#promotionTable')
 	</script>
