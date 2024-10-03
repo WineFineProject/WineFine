@@ -22,7 +22,7 @@ public class WineDAO {
 		return mapper.wineTotalPage();
 	}
 	
-	public List<WineVO> wineFindList(String fd){
-		return mapper.wineFindList(fd);
+	public List<WineVO> wineFindList(Map map){
+		return mapper.wineFindList(map);
 	}
 }

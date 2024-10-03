@@ -1,6 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class ShopServiceImpl implements ShopService{
 	}
 
 	@Override
-	public List<WineVO> wineFindList(String fd) {
-		return wDao.wineFindList(fd);
+	public List<WineVO> wineFindList(Map map) {
+		return wDao.wineFindList(map);
 	}
 }

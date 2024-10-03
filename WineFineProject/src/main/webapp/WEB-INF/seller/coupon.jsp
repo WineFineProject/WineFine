@@ -196,8 +196,6 @@
 				this.isBtn=false
 			},
 			checkBtn(){
-				console.log(this.startDate)
-				console.log(this.endDate)
 				if(this.eventName===''){
 					this.isBtn=false
 					return

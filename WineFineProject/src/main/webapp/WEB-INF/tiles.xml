@@ -12,26 +12,26 @@
 		<put-attribute name="header" value="/WEB-INF/main/header.jsp" />
 		<put-attribute name="mypageHome" value="/WEB-INF/mypage/mypageHome.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp" />
-</definition>
+	</definition>
 	<definition name="mypage/*" extends="mypage">
 		<put-attribute name="mypageHome" value="/WEB-INF/mypage/{1}.jsp" />
-</definition>
+	</definition>
 	<definition name="admin" template="/WEB-INF/admin/adminMain.jsp">
 		<put-attribute name="header" value="/WEB-INF/main/header.jsp" />
 		<put-attribute name="adminHome" value="/WEB-INF/admin/adminHome.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp" />
-</definition>
+	</definition>
 	<definition name="admin/*" extends="admin">
 		<put-attribute name="adminHome" value="/WEB-INF/admin/{1}.jsp" />
-</definition>
+	</definition>
 	<definition name="seller" template="/WEB-INF/seller/sellerMain.jsp">
 		<put-attribute name="header" value="/WEB-INF/main/header.jsp" />
 		<put-attribute name="sellerHome" value="/WEB-INF/seller/sellerHome.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp" />
-</definition>
+	</definition>
 	<definition name="seller/*" extends="seller">
 		<put-attribute name="sellerHome" value="/WEB-INF/seller/{1}.jsp" />
-</definition>
+	</definition>
 	<definition name="*/*" extends="main">
 		<put-attribute name="home" value="/WEB-INF/{1}/{2}.jsp" />
 	</definition>

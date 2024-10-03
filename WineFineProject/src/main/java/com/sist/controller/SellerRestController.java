@@ -20,10 +20,16 @@ public class SellerRestController {
 	private ShopService sService;
 	@Autowired
 	private CouponService cService;
+	@Autowired
+	private BannerService bService;
 	//와인 검색 출력
 	@GetMapping(value = "seller/findWine.do",produces = "text/plain;charset=UTF-8")
-	public String sellerFindWine(String fd) throws Exception{
-		List<WineVO> list=sService.wineFindList(fd);
+	public String sellerFindWine(String fd, HttpSession session) throws Exception{
+		Map map=new HashMap();
+		String id=(String)session.getAttribute("id");
+		map.put("fd", fd);
+		map.put("id", id);
+		List<WineVO> list=sService.wineFindList(map);
 		JsonMapper mapper=new JsonMapper();
 		String json=mapper.writeValueAsString(list);
 		return json;
@@ -31,7 +37,6 @@ public class SellerRestController {
 	
 	@PostMapping(value = "seller/couponInsert.do", produces = "text/plain;charset=UTF-8")
 	public void sellerCouponInsert(PromotionCouponVO vo) {
-		System.out.println(vo);
 		cService.promotionCouponInput(vo);
 	}
 	
@@ -68,5 +73,10 @@ public class SellerRestController {
 		JsonMapper mapper=new JsonMapper();
 		String json=mapper.writeValueAsString(map);
 		return json;
+	}
+	@PostMapping(value = "seller/vueBannerInsert.do", produces = "text/plain;charset=UTF-8")
+	public void sellerVueBannerInsert(PromotionBannerVO vo, HttpSession session) {
+		vo.setUserid((String)session.getAttribute("id"));
+		bService.promotionBannerInput(vo);
 	}
 }

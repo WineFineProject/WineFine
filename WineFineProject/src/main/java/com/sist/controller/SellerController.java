@@ -13,4 +13,8 @@ public class SellerController {
 	public String sellerCoupon() {
 		return "seller/coupon";
 	}
+	@GetMapping("seller/banner.do")
+	public String sellerBanner() {
+		return "seller/banner";
+	}
 }

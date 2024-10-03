@@ -11,7 +11,7 @@ public interface WineMapper {
 	public List<WineVO> wineListData(Map map);
 	
 	//와인 검색 목록 출력
-	public List<WineVO> wineFindList(String fd);
+	public List<WineVO> wineFindList(Map map);
 	
 	//와인 페이지 출력
 	@Select("SELECT CEIL(COUNT(*)/12.0) FROM wine")
