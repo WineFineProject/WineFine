@@ -13,9 +13,9 @@ public class ReplyDAO {
 	@Autowired
 	private ReplyBoardMapper mapper;
 	
-	public List<ReplyBoardVO> replyListData(int start, int end)
+	public List<ReplyBoardVO> replyListData(int start, int end, String userid)
 	{
-		return mapper.replyListData(start, end);
+		return mapper.replyListData(start, end, userid);
 	}
 	public int replyCount()
 	{

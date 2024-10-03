@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.sist.service.*;
 @Controller
@@ -24,8 +25,12 @@ public class ReplyBoardController {
 	}
 	// 게시판 목록
 	@GetMapping("replyboard/list.do")
-	public String replyboardList(String page,Model model)
+	public String replyboardList(String page,Model model, @SessionAttribute(value = "userid", required = false) String userid) 
 	{
+	    if (userid == null) {
+	        userid = "";
+	    }
+
 		if(page==null)
 			   page="1";
 		int curpage=Integer.parseInt(page);
@@ -33,7 +38,7 @@ public class ReplyBoardController {
 		int rowSize=10;
 		int start=(rowSize*curpage)-(rowSize-1);
 		int end=rowSize*curpage;
-		List<ReplyBoardVO> list=rService.replyListData(start, end);   
+		List<ReplyBoardVO> list=rService.replyListData(start, end, userid);   
 		int count=rService.replyCount();
 		int totalpage=(int)(Math.ceil(count/(double)rowSize));
 		count=count-((curpage*rowSize)-rowSize);

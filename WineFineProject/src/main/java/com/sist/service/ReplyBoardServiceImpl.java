@@ -12,9 +12,9 @@ public class ReplyBoardServiceImpl implements ReplyBoardService{
 	private ReplyDAO dao;
 
 	@Override
-	public List<ReplyBoardVO> replyListData(int start, int end) {
+	public List<ReplyBoardVO> replyListData(int start, int end, String userid) {
 		// TODO Auto-generated method stub
-		return dao.replyListData(start, end);
+	    return dao.replyListData(start, end, userid);
 	}
 
 	@Override
