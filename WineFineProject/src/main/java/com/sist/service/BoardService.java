@@ -11,8 +11,8 @@ public interface BoardService {
 	public String boardNickname(String id);
 	public void boardInsert(BoardVO vo);
 	public BoardVO boardDetailData(int bno);
-	public BoardVO databoardUpdateData(int bno);
-	public void boardUpdate(BoardVO vo);
+	public BoardVO boardUpdateData(int bno);
+	public String boardUpdate(BoardVO vo);
 	public void boardDelete(int bno);
 	public BoardVO boardFileInfoData(int bno);
 }

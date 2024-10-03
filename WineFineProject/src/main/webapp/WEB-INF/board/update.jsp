@@ -5,8 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
-#bInsert{
+#bUpdate{
    margin-top: 180px;
 }
 .row{
@@ -16,11 +17,12 @@
 </style>
 </head>
 <body>
- <div class="container" id="bInsert">
+<div class="container" id="bUpdate">
    <h3 class="text-center">자유게시판</h3>
  
    <div class="row">
    <form @submit.prevent="submitForm">
+     <h6 class="text-center" hidden>{{bno}}</h6>
      <h6 class="text-center" hidden>{{id}}</h6>
      <h6 class="text-center" hidden>{{nickname}}</h6>
      <table class="table">
@@ -58,7 +60,7 @@
       </tr>
       <tr>
         <td colspan="2" class="text-center">
-          <input type="submit" class="btn btn-sm btn-primary" value="등록">
+          <input type="submit" class="btn btn-sm btn-primary" value="수정 완료">
           <input type="button" class="btn btn-sm btn-danger" value="취소"
            onclick="javascript:history.back()">
         </td>
@@ -68,10 +70,11 @@
    </div>
   </div>
   <script>
-    let insertApp=Vue.createApp({
+    let updateApp=Vue.createApp({
     	data(){
     		return {
-    			cno:1,
+    			bno:${bno},
+    			cno:'',
     			subject:'',
     			content:'',
     			id:'${sessionScope.id}',
@@ -82,6 +85,17 @@
     	},
 		mounted(){
     		this.fetchNickname();
+    		axios.get('update_vue.do',{
+    			params:{
+    				bno:this.bno
+    			}
+    		}).then(response=>{
+    			this.cno=response.data.cno
+    			this.subject=response.data.subject
+    			this.content=response.data.content
+    		}).catch(error=>{
+    			console.log(error.response)
+    		})
     	},
     	methods:{
     		fetchNickname() {
@@ -111,11 +125,10 @@
     			}
     			
     			let formData=new FormData()
-    			formData.append("cno",this.$refs.cno.value)
-    			formData.append("id",this.id)
-    			formData.append("nickname",this.nickname)    			
+    			formData.append("cno",this.$refs.cno.value)  			
     			formData.append("subject",this.$refs.subject.value)
     			formData.append("content",this.$refs.content.value)
+    			formData.append("bno",this.bno)
     			
     			let len=this.$refs.upfiles.files.length
     			
@@ -130,14 +143,14 @@
     			for (const x of formData) {
    				 console.log(x);
    				}
-    			axios.post('../board/insert_vue.do',formData,{
+    			axios.post('../board/update_ok_vue.do',formData,{
     				headers:{
     					'Content-Type':'multipart/form-data'
     				}
     			}).then(response=>{
     				if(response.data==='yes')
     				{
-    				    location.href='list.do'	
+    					location.href='detail.do?bno='+this.bno
     				}
     				else
     				{
@@ -148,7 +161,7 @@
     			})
     		}
     	}
-    }).mount('#bInsert')
+    }).mount('#bUpdate')
   </script>
 </body>
 </html>

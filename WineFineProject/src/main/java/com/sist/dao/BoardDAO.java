@@ -42,14 +42,16 @@ public class BoardDAO {
 	 
 	 // 수정하기 
 	   //1. 이전에 입력한 데이터를 읽어서 출력 
-	   public BoardVO databoardUpdateData(int bno)
+	   public BoardVO boardUpdateData(int bno)
 	   {
 		   return mapper.boardDetailData(bno);
 	   }
 	   //2.수정
-	   public void boardUpdate(BoardVO vo)
-	   {	
+	   public String boardUpdate(BoardVO vo)
+	   {   
+		   String result="yes";
 		   mapper.boardUpdate(vo);
+		   return result;
 	   }
 	   
 	 public void boardDelete(int bno)

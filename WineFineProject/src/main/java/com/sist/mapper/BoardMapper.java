@@ -60,7 +60,7 @@ public interface BoardMapper {
 	
 	// 수정하기 
 	 @Update("UPDATE board SET "
-			 +"subject=#{subject},content=#{content},regdate=SYSDATE, "
+			 +"cno=#{cno},subject=#{subject},content=#{content},regdate=SYSDATE, "
 			 + "filename=#{filename},filesize=#{filesize},filecount=#{filecount} "
 			 +"WHERE bno=#{bno}")
 	  public void boardUpdate(BoardVO vo);

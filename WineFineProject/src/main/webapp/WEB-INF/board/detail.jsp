@@ -47,8 +47,10 @@
         </tr>
         <tr>
           <td colspan="3" class="text-left" valign="top" height="200">
-           <pre style="white-space: pre-wrap; color:black; font-size:14px; font-family: 'OpenSans', sans-serif; background-color: white; border:none;">{{vo.content}}</pre>
-          </td>
+        	<div style="white-space: pre-wrap; color:black; font-size:14px; font-family: 'OpenSans', sans-serif; background-color: white; border:none;">
+            <div v-html="vo.content"></div>
+        	</div>
+   		  </td>
         </tr>
         <tr>
           <td colspan="3" style="text-align: right; margin-right:5px; margin-left:5px; font-weight:bold; size:16px; color:#57102F;">
@@ -98,7 +100,6 @@
     				params:{
     					bno:this.bno
     				}
-    			// 결과값 읽기 => 요청 : 응답을 받는다 
     			}).then(response=>{
     					location.href="list.do"
     			}).catch(error=>{

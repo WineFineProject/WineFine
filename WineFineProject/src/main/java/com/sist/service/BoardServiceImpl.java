@@ -49,15 +49,15 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public BoardVO databoardUpdateData(int bno) {
+	public BoardVO boardUpdateData(int bno) {
 		// TODO Auto-generated method stub
-		return dao.databoardUpdateData(bno);
+		return dao.boardUpdateData(bno);
 	}
 
 	@Override
-	public void boardUpdate(BoardVO vo) {
+	public String boardUpdate(BoardVO vo) {
 		// TODO Auto-generated method stub
-		dao.boardUpdate(vo);
+		return dao.boardUpdate(vo);
 	}
 
 	@Override

@@ -23,5 +23,10 @@ public class BoardController {
 	   {
 		   return "board/insert";
 	   }
-	
+	@GetMapping("board/update.do")
+	   public String board_update(int bno,Model model)
+	   {
+		   model.addAttribute("bno", bno);
+		   return "board/update";
+	   }
 }

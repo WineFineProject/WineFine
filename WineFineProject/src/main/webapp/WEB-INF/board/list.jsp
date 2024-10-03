@@ -14,6 +14,7 @@
 }
 .page-item.active{
 	background-color: #FFF7B3;
+	display:inline-block !important;
 }
 .row{
    margin: 0px auto;
