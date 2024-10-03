@@ -70,7 +70,7 @@
 							<div>
 								<table style="width: 100%">
 									<tbody>
-										<tr v-for="avo in waitCoupon">
+										<tr v-for="avo in waitBanner">
 											<td width="31%">{{avo.title}}</td>
 											<td width="35%">{{avo.wvo.namekor}}</td>
 											<td width="10%">{{avo.stack}}회</td>
