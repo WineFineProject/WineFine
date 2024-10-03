@@ -8,68 +8,8 @@
 .promotion_table {
 	width: 1500px;
 }
-
-.modal {
-	display: none; /* 기본적으로 모달은 숨김 */
-	position: fixed;
-	z-index: 9999;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	opacity: 0; /* 초기 투명도 */
-	transition: opacity 0.3s ease; /* 투명도 변화 애니메이션 */
-}
-
-/* 모달이 활성화되었을 때 */
-.modal.show {
-	display: block; /* 블록으로 표시 */
-	opacity: 1; /* 완전 불투명 */
-}
-
-/* 모달 컨텐츠 스타일 */
-.modal-content {
-	position: relative;
-	background-color: #fff;
-	margin: 15% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 500px;
-	height: 400px;
-	border-radius: 10px;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-	transform: translateY(-50px); /* 시작 위치 */
-	transition: transform 0.3s ease, opacity 0.3s ease;
-	/* 이동 및 투명도 애니메이션 */
-	opacity: 0;
-	border-radius: 10px /* 초기 투명도 */
-}
-
-/* 모달이 활성화되었을 때 모달 컨텐츠 애니메이션 */
-.modal.show .modal-content {
-	transform: translateY(0); /* 원래 위치로 돌아옴 */
-	opacity: 1; /* 완전 불투명 */
-}
-
-/* 닫기 버튼 스타일 */
-.close {
-	position: absolute;
-	right: 10px;
-	top: 10px;
-	color: #aaa;
-	font-size: 24px;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.close:hover, .close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
 </style>
-
+<script src="../tem/js/test.js"></script>
 </head>
 <body>
 	<div id="promotionTable">
@@ -164,7 +104,7 @@
 						<td width="70%" v-if="option===3">
 							<table style="width: 100%">
 								<tr>
-									<td><input type="text" v-model="fd" style="width: 100%" @keyup.enter="findWine()" ref="fd" :disabled="isFd"></td>
+									<td><input type="text" v-model="fd" style="width: 100%" @keyup.enter="findWine_()" ref="fd" :disabled="isFd"></td>
 								</tr>
 								<tr v-show="isFind">
 									<td>
@@ -230,28 +170,15 @@
 			changeModal(check){
 				this.showModal=check
 			},
-			findWine(){
-				if(this.fd===''){
-					this.isFind=false
-				}
-				else{
-					this.isFind=true
-				}
-				axios.get('../seller/findWine.do', {
-					params:{
-						fd:this.fd
-					}
-				}).then(response=>{
-					console.log(this.fd)
-					this.list=response.data
-				})
-			},
 			changeNo(no){
 				this.no=this.list[no].wno
 				this.isFd=true
 				this.isFind=false
 				this.fd=this.list[no].namekor
 				this.isDate=true
+			},
+			findWine_(){
+				findWine(this)
 			},
 			changeOption(){
 				if(this.option===2){

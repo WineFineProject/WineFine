@@ -19,6 +19,7 @@
 <link href="../tem/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 <!-- Customized Bootstrap Stylesheet -->
 <link href="../tem/css/bootstrap.min.css" rel="stylesheet">
+<link href="../tem/css/modal.css" rel="stylesheet">
 <!-- Template Stylesheet -->
 <link href="../tem/css/style.css" rel="stylesheet">
 <script src="https://unpkg.com/vue@3"></script>
