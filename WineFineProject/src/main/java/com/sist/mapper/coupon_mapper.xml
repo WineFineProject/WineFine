@@ -50,6 +50,8 @@
 		(SELECT nickname FROM member WHERE promotion_coupon.userid=member.id) as nickname
 		FROM promotion_coupon WHERE (sysdate BETWEEN startdate AND endDate) AND state=1 AND userid LIKE '%'||#{id}||'%'
 	</select>
+	
+	<!-- 판매자 승인 완료 쿠폰 -->
 	<select id="sellerPromotionActiveList" parameterType="String" resultMap="PromotionCouponMap">
 		SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate, 'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay,
 		CASE

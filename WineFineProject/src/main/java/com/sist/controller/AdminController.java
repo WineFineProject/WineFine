@@ -18,4 +18,8 @@ public class AdminController {
 	public String adminBanner() {
 		return "admin/banner";
 	}
+	@GetMapping("admin/sale.do")
+	public String adminSale() {
+		return "admin/sale";
+	}
 }

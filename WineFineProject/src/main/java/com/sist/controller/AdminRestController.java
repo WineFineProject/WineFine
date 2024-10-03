@@ -19,6 +19,8 @@ public class AdminRestController {
 	private CouponService cService;
 	@Autowired
 	private BannerService bService;
+	@Autowired
+	private SaleService sService;
 	
 	@GetMapping(value = "admin/vueCouponList.do", produces = "text/plain;charset=UTF-8")
 	public String adminVueCouponList() throws Exception{
@@ -79,5 +81,39 @@ public class AdminRestController {
 	@GetMapping(value = "admin/vueBannerRejection.do", produces = "text/plain;charset=UTF-8")
 	public void adminVueBannerRejection(int pbno) {
 		bService.promotionRejection(pbno);
+	}
+	
+	@GetMapping(value = "admin/vueSaleList.do", produces = "text/plain;charset=UTF-8")
+	public String adminVueSaleList() throws Exception{
+		Map map=new HashMap();
+		List<PromotionSaleVO> waitSale=sService.saleWaitList("");
+		List<PromotionSaleVO> activeSale=sService.saleActiveList("");
+		for(PromotionSaleVO vo:activeSale) {
+			if(vo.getType()==1) {
+				vo.setTargetname("전체");
+			}
+			else if(vo.getType()==2) {
+				vo.setTargetname(types[vo.getType()]);
+			}
+			else if(vo.getType()==3) {
+				vo.setTargetname(vo.getWvo().getNamekor());
+			}
+		}
+		for(PromotionSaleVO vo:waitSale) {
+			if(vo.getType()==1) {
+				vo.setTargetname("전체");
+			}
+			else if(vo.getType()==2) {
+				vo.setTargetname(types[vo.getType()]);
+			}
+			else if(vo.getType()==3) {
+				vo.setTargetname(vo.getWvo().getNamekor());
+			}
+		}
+		map.put("waitSale", waitSale);
+		map.put("activeSale", activeSale);
+		JsonMapper mapper=new JsonMapper();
+		String json=mapper.writeValueAsString(map);
+		return json;
 	}
 }
