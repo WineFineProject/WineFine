@@ -49,8 +49,8 @@
 					</div>
 					<!-- 사이드바 메뉴목록2 -->
 					<ul class="list-group">
-						<li class="list-group-item"><a href="../mypage/myPayment.do">회원관리</a></li>
-						<li class="list-group-item"><a href="../mypage/my_reserve.do">블랙리스트관리</a></li>
+						<li class="list-group-item"><a href="../seller/memberList.do">회원관리</a></li>
+						<li class="list-group-item"><a href="../seller/blackList.do">블랙리스트관리</a></li>
 					</ul>
 				</div>
 				<div class="panel panel-warning">

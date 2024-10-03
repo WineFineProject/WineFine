@@ -57,9 +57,16 @@ public class ReplyBoardController {
 		return "replyboard/insert";
 	}
 	@PostMapping("replyboard/insertOk.do")
-	public String replyboardInsertOk(ReplyBoardVO vo)
+	public String replyboardInsertOk(ReplyBoardVO vo, @SessionAttribute(value = "userid", required = false) String userid,@SessionAttribute(value = "nickname", required = false) String nickname)
 	{
-		rService.replyInsert(vo);
+		vo.setUserid(userid);
+	    vo.setNickname(nickname);
+
+	    vo.setGroup_step(0);
+	    vo.setIsreply(0); 
+	    vo.setSecret(0); 
+
+	    rService.replyInsert(vo);
 		return "redirect:../replyboard/list.do";
 	}
 	
