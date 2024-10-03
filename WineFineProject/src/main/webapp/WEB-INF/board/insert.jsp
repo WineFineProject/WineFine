@@ -71,7 +71,7 @@
     let insertApp=Vue.createApp({
     	data(){
     		return {
-    			cno:'',
+    			cno:1,
     			subject:'',
     			content:'',
     			id:'${sessionScope.id}',
@@ -111,20 +111,25 @@
     			}
     			
     			let formData=new FormData()
-    			formData.append("cno",this.$refs.cno.value)
+    			formData.append("cno",1)
     			formData.append("id",this.id)
     			formData.append("nickname",this.nickname)    			
     			formData.append("subject",this.$refs.subject.value)
     			formData.append("content",this.$refs.content.value)
     			
     			let len=this.$refs.upfiles.files.length
+    			
     			if(len>0) // 업로드 파일이 있는 경우 
     			{
     				for(let i=0;i<len;i++)
     				{
-    					formData.append("files",this.$refs.upfiles.files[i]);
+    					console.log(this.$refs.upfiles.files[i])
+    					formData.append("files["+i+"]",this.$refs.upfiles.files[i]);
     				}
     			}
+    			for (const x of formData) {
+   				 console.log(x);
+   				}
     			axios.post('../board/insert_vue.do',formData,{
     				headers:{
     					'Content-Type':'multipart/form-data'

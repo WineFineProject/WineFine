@@ -2,6 +2,7 @@ package com.sist.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -80,7 +81,7 @@ public class BoardRestController {
 	     return "";  // ID가 없는 경우 빈 문자열 반환
 	 }
 	 @PostMapping(value="board/insert_vue.do",produces = "text/plain;charset=UTF-8")
-	  public String board_insert(BoardVO vo, HttpServletRequest request)
+	  public String board_insert(@ModelAttribute BoardVO vo, HttpServletRequest request)
 	  {
 		  System.out.println("cno"+vo.getCno());
 		  System.out.println("id"+vo.getId());
