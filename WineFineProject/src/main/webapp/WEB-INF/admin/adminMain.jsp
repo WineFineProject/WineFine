@@ -72,10 +72,10 @@
 							<a href="../admin/coupon.do">쿠폰 프로모션</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/myPayment.do">상품등록/수정 대기</a>
+							<a href="../admin/banner.do">배너 프로모션</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/myPayment.do">프로모션 관리</a>
+							<a href="../mypage/myPayment.do">할인 프로모션</a>
 						</li>
 					</ul>
 				</div>

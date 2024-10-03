@@ -29,19 +29,21 @@
 			<tbody>
 				<tr>
 					<td colspan="7">
-						<table style="width: 100%">
-							<tbody>
-								<tr v-for="vo in myCoupon">
-									<td width="21%">{{vo.title}}</td>
-									<td width="25%">{{vo.sellname}}</td>
-									<td width="10%">{{vo.discount}}%</td>
-									<td width="16%">{{vo.pvo.mvo.nickname}}%</td>
-									<td width="10%">{{vo.startDay}}</td>
-									<td width="10%">{{vo.endDay}}</td>
-									<td width="8%"></td>
-								</tr>
-							</tbody>
-						</table>
+						<div>
+							<table style="width: 100%">
+								<tbody>
+									<tr v-for="vo in myCoupon">
+										<td width="21%">{{vo.title}}</td>
+										<td width="25%">{{vo.sellname}}</td>
+										<td width="10%">{{vo.discount}}%</td>
+										<td width="16%">{{vo.pvo.mvo.nickname}}%</td>
+										<td width="10%">{{vo.startDay}}</td>
+										<td width="10%">{{vo.endDay}}</td>
+										<td width="8%"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</td>
 				</tr>
 			</tbody>

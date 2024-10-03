@@ -2,6 +2,8 @@ package com.sist.controller;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,8 @@ public class AdminRestController {
 	String[] types= {"", "레드", "화이트", "스파클링", "로제", "주정강화", "기타"};
 	@Autowired
 	private CouponService cService;
+	@Autowired
+	private BannerService bService;
 	
 	@GetMapping(value = "admin/vueCouponList.do", produces = "text/plain;charset=UTF-8")
 	public String adminVueCouponList() throws Exception{
@@ -56,5 +60,24 @@ public class AdminRestController {
 	@GetMapping(value = "admin/vueCouponRejection.do", produces = "text/plain;charset=UTF-8")
 	public void adminVueCouponRejection(int pcno) {
 		cService.promotionRejection(pcno);
+	}
+	@GetMapping(value = "admin/vueBannerList.do", produces = "text/plain;charset=UTF-8")
+	public String adminVueBannerList() throws Exception{
+		Map map=new HashMap();
+		List<PromotionBannerVO> waitBanner=bService.promotionWaitBanner("");
+		List<PromotionBannerVO> activeBanner=bService.promotionActiveBanner("");
+		map.put("waitBanner", waitBanner);
+		map.put("activeBanner", activeBanner);
+		JsonMapper mapper=new JsonMapper();
+		String json=mapper.writeValueAsString(map);
+		return json;
+	}
+	@GetMapping(value = "admin/vueBannerApproval.do", produces = "text/plain;charset=UTF-8")
+	public void adminVueBannerApproval(int pbno) {
+		bService.promotionApproval(pbno);
+	}
+	@GetMapping(value = "admin/vueBannerRejection.do", produces = "text/plain;charset=UTF-8")
+	public void adminVueBannerRejection(int pbno) {
+		bService.promotionRejection(pbno);
 	}
 }

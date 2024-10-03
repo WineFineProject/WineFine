@@ -34,14 +34,24 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="vo in activeCoupon">
-						<td width="21%">{{vo.title}}</td>
-						<td width="25%">{{vo.targetname}}</td>
-						<td width="10%">{{vo.discount}}%</td>
-						<td width="16%">{{vo.mvo.nickname}}</td>
-						<td width="10%">{{vo.startDay}}</td>
-						<td width="10%">{{vo.endDay}}</td>
-						<td width="8%"></td>
+					<tr>
+						<td colspan="7">
+							<div>
+								<table style="width: 100%">
+									<tbody>
+										<tr v-for="vo in activeCoupon">
+											<td width="21%">{{vo.title}}</td>
+											<td width="25%">{{vo.targetname}}</td>
+											<td width="10%">{{vo.discount}}%</td>
+											<td width="16%">{{vo.mvo.nickname}}</td>
+											<td width="10%">{{vo.startDay}}</td>
+											<td width="10%">{{vo.endDay}}</td>
+											<td width="8%"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -59,15 +69,25 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="avo in waitCoupon">
-						<td width="21%">{{avo.title}}</td>
-						<td width="25%">{{avo.targetname}}</td>
-						<td width="10%">{{avo.discount}}%</td>
-						<td width="16%">{{avo.mvo.nickname}}</td>
-						<td width="10%">{{avo.startDay}}</td>
-						<td width="10%">{{avo.endDay}}</td>
-						<td>
-							<button class="btn btn-sm border-wine rounded-pill text-wine" type="button">X</button>
+					<tr>
+						<td colspan="7">
+							<div>
+								<table style="width: 100%">
+									<tbody>
+										<tr v-for="avo in waitCoupon">
+											<td width="21%">{{avo.title}}</td>
+											<td width="25%">{{avo.targetname}}</td>
+											<td width="10%">{{avo.discount}}%</td>
+											<td width="16%">{{avo.mvo.nickname}}</td>
+											<td width="10%">{{avo.startDay}}</td>
+											<td width="10%">{{avo.endDay}}</td>
+											<td>
+												<button class="btn btn-sm border-wine rounded-pill text-wine" type="button">X</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</td>
 					</tr>
 				</tbody>

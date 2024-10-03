@@ -14,4 +14,8 @@ public class AdminController {
 	public String adminCoupon() {
 		return "admin/coupon";
 	}
+	@GetMapping("admin/banner.do")
+	public String adminBanner() {
+		return "admin/banner";
+	}
 }

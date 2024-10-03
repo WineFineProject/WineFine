@@ -79,4 +79,16 @@ public class SellerRestController {
 		vo.setUserid((String)session.getAttribute("id"));
 		bService.promotionBannerInput(vo);
 	}
+	@GetMapping(value = "seller/vueBannerList.do", produces = "text/plain;charset=UTF-8")
+	public String sellerVueBannerList(HttpSession session) throws Exception{
+		String id=(String)session.getAttribute("id");
+		List<PromotionBannerVO> activeBanner=bService.promotionActiveBanner(id);
+		List<PromotionBannerVO> waitBanner=bService.promotionWaitBanner(id);
+		Map map=new HashMap();
+		map.put("activeBanner", activeBanner);
+		map.put("waitBanner", waitBanner);
+		JsonMapper mapper=new JsonMapper();
+		String json=mapper.writeValueAsString(map);
+		return json;
+	}
 }
