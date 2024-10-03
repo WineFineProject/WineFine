@@ -86,7 +86,7 @@
 						</c:if>
 						<c:if test="${sessionScope.id!=null }">
 							<a href="../member/logout.do" class="my-auto">
-								<i class="fas fa-user fa-2x"></i>
+								<i class="fas fa-sign-out-alt fa-2x"></i>
 							</a>
 						</c:if>
 					</div>
