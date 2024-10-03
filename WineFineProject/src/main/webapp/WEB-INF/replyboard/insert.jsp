@@ -78,9 +78,9 @@
                 <textarea class="form-control" id="content" rows="5" style="resize:none;" placeholder="문의 내용을 입력하세요"></textarea>
             </div>
             <div class="form-group" style="margin-top: 10px;">
-                <input type="checkbox" id="secret" v-model="isSecret" style="margin-right: 5px;">
-                <label for="secret">비밀글</label>
-            </div>
+			    <input type="checkbox" id="secret" v-model="isSecret" style="margin-right: 5px;">
+			    <label for="secret">비밀글</label>
+			</div>
             <div style="margin-top: 10px;"></div>
             <div class="text-center">
 			    <button type="button" class="btn btn-primary" @click="sendBtn">등록</button>
@@ -133,9 +133,9 @@
                 window.location.href = '../replyboard/list.do'
             },
             sendBtn() {
-            	const title = document.getElementById('title').value;
-                const content = document.getElementById('content').value;
-                const secret = document.getElementById('secret').checked ? 0 : 1
+            	const title = document.getElementById('title').value
+                const content = document.getElementById('content').value
+                const secret = this.isSecret ? 1 : 0;
                 
                 if (!title) {
                     alert('제목을 입력해주세요.')
@@ -161,12 +161,12 @@
                     group_id: 1, 
                     group_step: 0, 
                     isreply: 0, 
-                    secret: 0
+                    secret: secret
                 }
 
                 axios.post('../replyboard/insertOk.do', sendPost)
                     .then(response => {
-                        window.location.href = '../replyboard/list.do';
+                        window.location.href = '../replyboard/list.do'
                     })
                     .catch(error => {
                         console.error(error);
