@@ -133,9 +133,9 @@
                 window.location.href = '../replyboard/list.do'
             },
             sendBtn() {
-            	const title = document.getElementById('title').value
-                const content = document.getElementById('content').value
-                const secret = this.isSecret ? 1 : 0;
+            	const title = document.getElementById('title').value;
+                const content = document.getElementById('content').value;
+                const secret = document.getElementById('secret').checked ? 0 : 1
                 
                 if (!title) {
                     alert('제목을 입력해주세요.')
@@ -161,12 +161,12 @@
                     group_id: 1, 
                     group_step: 0, 
                     isreply: 0, 
-                    secret: secret
+                    secret: 0
                 }
 
                 axios.post('../replyboard/insertOk.do', sendPost)
                     .then(response => {
-                        window.location.href = '../replyboard/list.do'
+                        window.location.href = '../replyboard/list.do';
                     })
                     .catch(error => {
                         console.error(error);
