@@ -15,19 +15,18 @@ import com.sist.service.CartService;
 import java.util.*;
 
 @Controller
-@RequestMapping("cart/")
 public class CartController {
 
 
-	@GetMapping("inMyCart")
+	@GetMapping("cart/inMyCart.do")
 	public String inMyCart(HttpSession session, Model model) {
 		String id = (String) session.getAttribute("id");
 		if (id == null) {
-			return "redirect:member/login";
+			return "redirect:/member/login.do";
 		}
 		// List<Cart>
 		/*
-		 * List<CartItemDTO> cartItems = cartService.getCartItems(userId);
+		 * List<CartItemDAO> cartItems = cartService.getCartItems(userId);
 		 * model.addAttribute("cartItems", cartItems);
 		 */
 		return "cart/inMyCart";
