@@ -151,7 +151,6 @@
 
                 const sendPost = {
                     userid: this.userid,
-                    nickname: this.nickname,
                     subject: this.title,
                     content: this.content,
                     cno: this.selectedCategory,
