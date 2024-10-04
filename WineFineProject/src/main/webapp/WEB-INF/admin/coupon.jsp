@@ -67,7 +67,7 @@
 						<div>
 							<table style="width: 100%">
 								<tbody>
-									<tr v-for="avo in waitCoupon">
+									<tr v-for="(avo, index) in waitCoupon">
 										<td width="21%">{{avo.title}}</td>
 										<td width="25%">{{avo.targetname}}</td>
 										<td width="10%">{{avo.discount}}%</td>
@@ -75,8 +75,8 @@
 										<td width="10%">{{avo.startDay}}</td>
 										<td width="10%">{{avo.endDay}}</td>
 										<td width="8%">
-											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponApproval(avo.pcno)">승인</button>
-											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponRejection(avo.pcno)">거절</button>
+											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponApproval(index)">승인</button>
+											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponRejection(index)">거절</button>
 										</td>
 									</tr>
 								</tbody>
@@ -86,13 +86,23 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="modal" :class="{ show: showModal }">
+			<div class="modal-content" style="height: 200px;">
+				<h3 class="text-center">사유 작성</h3>
+				<input type="text" v-model="message" ref="message" @keyup.enter="sendMessage()">
+			</div>
+		</div>
 	</div>
 	<script>
 	let adminCouponApp=Vue.createApp({
 		data(){
 			return{
 				activeCoupon:[],
-				waitCoupon:[]
+				waitCoupon:[],
+				showModal:false,
+				select:{},
+				message:'',
+				subject:''
 			}
 		},
 		methods:{
@@ -102,23 +112,46 @@
 					this.waitCoupon=response.data.waitCoupon
 				})
 			},
-			couponApproval(pcno){
+			couponApproval(index){
+				this.select=this.waitCoupon[index]
 				axios.get('../admin/vueCouponApproval.do', {
 					params:{
-						pcno:pcno
+						pcno:this.select.pcno
 					}
 				}).then(response=>{
 					alert('승인완료')
+					this.subject=this.select.userid+'님 '+this.select.title+' 쿠폰등록 신청이 승인되었습니다'
+					this.message=this.select.title+' 쿠폰등록 신청이 승인되었습니다'
+					this.sendMessage()
 					this.couponList()
 				})
 			},
-			couponRejection(pcno){
+			couponRejection(index){
+				this.select=this.waitCoupon[index]
 				axios.get('../admin/vueCouponRejection.do', {
 					params:{
-						pcno:pcno
+						pcno:this.select.pcno
 					}
 				}).then(response=>{
-					alert('거절완료')
+					this.subject=this.select.userid+'님 '+this.select.title+' 쿠폰등록 신청이 반려되었습니다'
+					this.showModal=true
+				})
+			},
+			sendMessage(){
+				if(this.message===''){
+					this.$refs.message.focus()
+					return
+				}
+				axios.post('../notice/vueAdminNoticeSend.do', null, {
+					params:{
+						content:this.message,
+						recvid:this.select.userid,
+						subject:this.subject
+					}
+				}).then(response=>{
+					this.showModal=false
+					this.select={}
+					this.message=''
 					this.couponList()
 				})
 			}
