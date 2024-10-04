@@ -19,7 +19,8 @@
 	z-index: 1000;
 	top: 88px;
 	width: 450px;
-	height: 600px; min-width : 10rem;
+	height: 600px;
+	min-width: 10rem;
 	padding: .5rem 0;
 	margin: 0;
 	font-size: 1rem;
@@ -31,26 +32,49 @@
 	border: 1px solid rgba(0, 0, 0, .15);
 	border-radius: 10px;
 	min-width: 10rem;
+	overflow-y: auto;
 }
 
 .notice_list::before {
-  content: "";
-  position: absolute;
-  top: -20px; /* 더 긴 삼각형 때문에 위로 이동 */
-  left: 67px; /* 위치 조정 */
-  border-width: 0 14px 20px 14px; /* 아래쪽(밑변) 길이를 늘림 */
-  border-style: solid;
-  border-color: transparent transparent rgba(0, 0, 0, 0.15) transparent; /* 테두리 색상 */
+	content: "";
+	position: absolute;
+	top: -20px; /* 더 긴 삼각형 때문에 위로 이동 */
+	left: 67px; /* 위치 조정 */
+	border-width: 0 14px 20px 14px; /* 아래쪽(밑변) 길이를 늘림 */
+	border-style: solid;
+	border-color: transparent transparent rgba(0, 0, 0, 0.15) transparent;
+	/* 테두리 색상 */
 }
 
 .notice_list::after {
-  content: "";
-  position: absolute;
-  top: -18px; /* 내부 삼각형도 위로 이동 */
-  left: 69px; /* 흰색 삼각형 위치 조정 */
-  border-width: 0 12px 18px 12px; /* 아래쪽(밑변) 길이를 늘림 */
-  border-style: solid;
-  border-color: transparent transparent #fff transparent; /* 내부 삼각형 색상 */
+	content: "";
+	position: absolute;
+	top: -18px; /* 내부 삼각형도 위로 이동 */
+	left: 69px; /* 흰색 삼각형 위치 조정 */
+	border-width: 0 12px 18px 12px; /* 아래쪽(밑변) 길이를 늘림 */
+	border-style: solid;
+	border-color: transparent transparent #fff transparent; /* 내부 삼각형 색상 */
+}
+
+.scrollable-text {
+	position: relative;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.scrollable-text p {
+	display: inline-block;
+	white-space: nowrap;
+	transform: translateX(0); /* 기본 상태에서 텍스트가 움직이지 않음 */
+}
+
+.scrollable-text:hover p {
+	transform: translateX(-100%); /* 텍스트가 왼쪽으로 이동 */
+	transition: transform 5s linear; /* 5초 동안 부드럽게 이동 */
+}
+
+.scrollable-text p {
+	transition: none; /* 마우스에서 떼면 바로 원상태로 돌아가게 */
 }
 </style>
 </head>
@@ -113,10 +137,25 @@
 							class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">{{count}}</span>
 						</a>
 						<div class="notice_list" :class="{hide:!isShow, active:isShow}">
-							<div>
-								<h3>미확인 알림</h3>
-								<table></table>
-							</div>
+							<h3 class="text-center">미확인 알림 {{count}}건</h3>
+							<table class="table" style="width: 90%; table-layout: fixed; margin: 0px auto;">
+								<tr v-for="(vo, index) in newNotice" @click="showInfo(vo)">
+									<td width="5%">{{index+1}}</td>
+									<td width="55%" class="scrollable-text"><p>{{vo.subject}}</p></td>
+									<td width="13%">{{vo.sendid}}</td>
+									<td width="27%">{{vo.dbday}}</td>
+								</tr>
+							</table>
+							<hr>
+							<h3 class="text-center" style="margin-top: 20px;">확인 알림</h3>
+							<table class="table" style="width: 90%; table-layout: fixed; margin: 0px auto;">
+								<tr v-for="(vo, index) in oldNotice" @click="showInfo(vo)">
+									<td width="5%">{{index+1}}</td>
+									<td width="55%" class="scrollable-text"><p>{{vo.subject}}</p></td>
+									<td width="13%">{{vo.sendid}}</td>
+									<td width="27%">{{vo.dbday}}</td>
+								</tr>
+							</table>
 						</div>
 						<a href="#" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span
 							class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
@@ -132,21 +171,70 @@
 					</div>
 				</div>
 			</nav>
+			<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
+				<div class="modal-content" style="height: 485px;">
+					<span class="close" @click="changeModal(false)">&times;</span>
+					<table class="table" style="table-layout: fixed;margin-top: 50px;">
+						<tr>
+							<th width="20%">제목</th>
+							<td colspan="3" class="scrollable-text"><p>{{select.subject}}</p></td>
+						</tr>
+						<tr>
+							<th width="20%">보낸이</th>
+							<td width="30%">{{select.sendid}}</td>
+							<th width="20%">작성일</th>
+							<td width="30%">{{select.dbday}}</td>
+						</tr>
+						<tr>
+							<td colspan="4"><pre>{{select.content}}</pre></td>
+						</tr>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<script>
 	let navApp=Vue.createApp({
 		data(){
 			return{
-				list:[],
+				newNotice:[],
+				oldNotice:[],
 				isShow:false,
-				count:0
+				count:0,
+				showModal:false,
+				select:{}
 			}
 		},
 		methods:{
 			changeNotice(){
 				this.isShow=!this.isShow
+			},
+			getNotice(){
+				axios.get('../notice/vueNotice.do', null).then(response=>{
+					this.count=response.data.count
+					this.newNotice=response.data.newNotice
+					this.oldNotice=response.data.oldNotice
+				})
+			},
+			changeModal(check){
+				if(check===false){
+					this.select={}
+					this.getNotice()
+				}
+				changeModal(this, check)
+			},
+			showInfo(select){
+				this.select=select
+				this.changeModal(true)
+				axios.get('../notice/vueNoticeStateUpdate.do', {
+					params:{
+						nno:this.select.nno
+					}
+				})
 			}
+		},
+		mounted(){
+			this.getNotice()
 		}
 	}).mount('#navbar')
 	</script>

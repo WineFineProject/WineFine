@@ -67,7 +67,7 @@
 						<div>
 							<table style="width: 100%">
 								<tbody>
-									<tr v-for="avo in waitSale">
+									<tr v-for="(avo, index) in waitSale">
 										<td width="21%">{{avo.title}}</td>
 										<td width="25%">{{avo.targetname}}</td>
 										<td width="10%">{{avo.discount}}%</td>
@@ -75,8 +75,8 @@
 										<td width="10%">{{avo.startDay}}</td>
 										<td width="10%">{{avo.endDay}}</td>
 										<td width="8%">
-											<button class="btn btn-sm border-wine text-wine" type="button" @click="saleApproval(avo.psno)">승인</button>
-											<button class="btn btn-sm border-wine text-wine" type="button" @click="saleRejection(avo.psno)">거절</button>
+											<button class="btn btn-sm border-wine text-wine" type="button" @click="saleApproval(index)">승인</button>
+											<button class="btn btn-sm border-wine text-wine" type="button" @click="saleRejection(index)">거절</button>
 										</td>
 									</tr>
 								</tbody>
@@ -86,13 +86,22 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="modal" :class="{ show: showModal }">
+			<div class="modal-content" style="height: 200px;">
+				<h3 class="text-center">사유 작성</h3>
+				<input type="text" v-model="message" ref="message" @keyup.enter="sendMessage()">
+			</div>
+		</div>
 	</div>
 	<script>
 	let adminCouponApp=Vue.createApp({
 		data(){
 			return{
 				activeSale:[],
-				waitSale:[]
+				waitSale:[],
+				showModal:false,
+				select:{},
+				message:''
 			}
 		},
 		methods:{
@@ -102,23 +111,45 @@
 					this.waitSale=response.data.waitSale
 				})
 			},
-			saleApproval(psno){
+			saleApproval(index){
+				this.select=this.waitSale[index]
 				axios.get('../admin/vueSaleApproval.do', {
 					params:{
-						psno:psno
+						psno:this.select.psno
 					}
 				}).then(response=>{
 					alert('승인완료')
+					this.subject=this.select.userid+'님 '+this.select.title+' 할인 신청이 승인되었습니다'
+					this.message=this.select.title+' 할인 신청이 승인되었습니다'
+					this.sendMessage()
 					this.saleList()
 				})
 			},
-			saleRejection(psno){
+			saleRejection(index){
+				this.select=this.waitSale[index]
 				axios.get('../admin/vueSaleRejection.do', {
 					params:{
-						psno:psno
+						psno:this.select.psno
 					}
 				}).then(response=>{
-					alert('거절완료')
+					this.showModal=true
+				})
+			},
+			sendMessage(){
+				if(this.message===''){
+					this.$refs.message.focus()
+					return
+				}
+				axios.post('../notice/vueAdminNoticeSend.do', null, {
+					params:{
+						content:this.message,
+						recvid:this.select.userid,
+						subject:this.select.userid+'님 할인 신청이 반려되었습니다',
+					}
+				}).then(response=>{
+					this.showModal=false
+					this.select={}
+					this.message=''
 					this.saleList()
 				})
 			}

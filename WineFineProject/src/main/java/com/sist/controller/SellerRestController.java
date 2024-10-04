@@ -15,7 +15,7 @@ import com.sist.vo.*;
 
 @RestController
 public class SellerRestController {
-	String[] types= {"", "·¹µå", "È­ÀÌÆ®", "½ºÆÄÅ¬¸µ", "·ÎÁ¦", "ÁÖÁ¤°­È­", "±âÅ¸"};
+	String[] types= {"", "ë ˆë“œ", "í™”ì´íŠ¸", "ìŠ¤íŒŒí´ë§", "ë¡œì œ", "ì£¼ì •ê°•í™”", "ê¸°íƒ€"};
 	@Autowired
 	private ShopService sService;
 	@Autowired
@@ -24,7 +24,7 @@ public class SellerRestController {
 	private BannerService bService;
 	@Autowired
 	private SaleService ssService;
-	//¿ÍÀÎ °Ë»ö Ãâ·Â
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½
 	@GetMapping(value = "seller/findWine.do",produces = "text/plain;charset=UTF-8")
 	public String sellerFindWine(String fd, HttpSession session) throws Exception{
 		Map map=new HashMap();
@@ -50,7 +50,7 @@ public class SellerRestController {
 		List<PromotionCouponVO> activeCoupon=cService.sellerPromotionActiveList(id);
 		for(PromotionCouponVO vo:activeCoupon) {
 			if(vo.getType()==1) {
-				vo.setTargetname("ÀüÃ¼");
+				vo.setTargetname("ì „ì²´");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);
@@ -61,7 +61,7 @@ public class SellerRestController {
 		}
 		for(PromotionCouponVO vo:waitCoupon) {
 			if(vo.getType()==1) {
-				vo.setTargetname("ÀüÃ¼");
+				vo.setTargetname("ï¿½ï¿½Ã¼");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);
@@ -101,7 +101,7 @@ public class SellerRestController {
 		List<PromotionSaleVO> activeSale=ssService.sellerSaleActiveList(id);
 		for(PromotionSaleVO vo:activeSale) {
 			if(vo.getType()==1) {
-				vo.setTargetname("ÀüÃ¼");
+				vo.setTargetname("ì „ì²´");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);
@@ -112,7 +112,7 @@ public class SellerRestController {
 		}
 		for(PromotionSaleVO vo:waitSale) {
 			if(vo.getType()==1) {
-				vo.setTargetname("ÀüÃ¼");
+				vo.setTargetname("ì „ì²´");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);

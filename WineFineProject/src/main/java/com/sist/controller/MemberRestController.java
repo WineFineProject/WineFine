@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.*;
 import com.sist.vo.*;
 import java.util.*;
@@ -25,4 +26,14 @@ public class MemberRestController {
 		}
 		return result;
 	}
+	
+	/*
+	 * @GetMapping(value = "seller/memberList.do", produces =
+	 * "text/plain;charset=UTF-8") public String memberList() throws Exception {
+	 * List<MemberVO> members = mService.memberList(); Map map = new HashMap();
+	 * map.put("members", members);
+	 * 
+	 * ObjectMapper mapper = new ObjectMapper(); return
+	 * mapper.writeValueAsString(map); }
+	 */
 }

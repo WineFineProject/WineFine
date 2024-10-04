@@ -63,14 +63,14 @@
 						<div>
 							<table style="width: 100%">
 								<tbody>
-									<tr v-for="avo in waitBanner">
+									<tr v-for="(avo, index) in waitBanner">
 										<td width="31%">{{avo.title}}</td>
 										<td width="35%">{{avo.wvo.namekor}}</td>
 										<td width="10%">{{avo.stack}}회</td>
 										<td width="16%">{{avo.userid}}</td>
 										<td width="8%">
 											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponApproval(avo.pbno)">승인</button>
-											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponRejection(avo.pbno)">거절</button>
+											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponRejection(index)">거절</button>
 										</td>
 									</tr>
 								</tbody>
@@ -80,13 +80,22 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="modal" :class="{ show: showModal }">
+			<div class="modal-content" style="height: 200px;">
+				<h3 class="text-center">사유 작성</h3>
+				<input type="text" v-model="message" ref="message" @keyup.enter="sendMessage()">
+			</div>
+		</div>
 	</div>
 	<script>
 	let adminCouponApp=Vue.createApp({
 		data(){
 			return{
 				activeBanner:[],
-				waitBanner:[]
+				waitBanner:[],
+				showModal:false,
+				select:{},
+				message:''
 			}
 		},
 		methods:{
@@ -96,23 +105,45 @@
 					this.waitBanner=response.data.waitBanner
 				})
 			},
-			couponApproval(pbno){
+			couponApproval(index){
+				this.select=this.waitBanner[index]
 				axios.get('../admin/vueBannerApproval.do', {
 					params:{
-						pbno:pbno
+						pbno:this.select.pbno
 					}
 				}).then(response=>{
 					alert('승인완료')
+					this.subject=this.select.userid+'님 '+this.select.title+' 배너등록 신청이 승인되었습니다'
+					this.message=this.select.title+' 배너등록 신청이 승인되었습니다'
+					this.sendMessage()
 					this.bannerList()
 				})
 			},
-			couponRejection(pbno){
+			couponRejection(index){
+				this.select=this.waitBanner[index]
 				axios.get('../admin/vueBannerRejection.do', {
 					params:{
-						pbno:pbno
+						pbno:this.select.pbno
 					}
 				}).then(response=>{
-					alert('거절완료')
+					this.showModal=true
+				})
+			},
+			sendMessage(){
+				if(this.message===''){
+					this.$refs.message.focus()
+					return
+				}
+				axios.post('../notice/vueAdminNoticeSend.do', null, {
+					params:{
+						content:this.message,
+						recvid:this.select.userid,
+						subject:this.select.userid+'님 배너등록 신청이 반려되었습니다',
+					}
+				}).then(response=>{
+					this.showModal=false
+					this.select={}
+					this.message=''
 					this.bannerList()
 				})
 			}
