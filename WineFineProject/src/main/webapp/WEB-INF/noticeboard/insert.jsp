@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#bInsert{
+#nbInsert{
    margin-top: 180px;
 }
 .row{
@@ -16,22 +16,21 @@
 </style>
 </head>
 <body>
- <div class="container" id="bInsert">
-   <h3 class="text-center">자유게시판</h3>
+ <div class="container" id="nbInsert">
+   <h3 class="text-center">공지사항</h3>
  
    <div class="row">
    <form @submit.prevent="submitForm">
      <h6 class="text-center" hidden>{{id}}</h6>
-     <h6 class="text-center" hidden>{{nickname}}</h6>
      <table class="table">
       <tr>
        <th width="20%" class="text-center">카테고리 </th>
        <td width="80%">
          <select id="bCategory" v-model="cno" ref="cno">
                     <option value="" disabled selected>카테고리 선택</option>
-                    <option value=1>자유</option>
-                    <option value=2>정보</option>
-                    <option value=3>질문</option>
+                    <option value=1>일반</option>
+                    <option value=2>이벤트</option>
+                    <option value=3>상품</option>
           </select>
        </td>
       </tr>
@@ -76,24 +75,14 @@
     			subject:'',
     			content:'',
     			id:'${sessionScope.id}',
-    			nickname:'',
     			upfiles:''
     			
     		}
     	},
 		mounted(){
-    		this.fetchNickname()
+    		
     	},
     	methods:{
-    		fetchNickname() {
-                axios.post('../board/get_nickname.do')
-                    .then(response => {
-                        this.nickname = response.data
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                    })
-            },
     		submitForm(){
     			if(this.cno==="")
     			{
@@ -113,14 +102,13 @@
     			
     			let formData=new FormData()
     			formData.append("cno",this.$refs.cno.value)
-    			formData.append("id",this.id)
-    			formData.append("nickname",this.nickname)    			
+    			formData.append("id",this.id)    			
     			formData.append("subject",this.$refs.subject.value)
     			formData.append("content",this.$refs.content.value)
     			
     			let len=this.$refs.upfiles.files.length
     			
-    			if(len>0) // 업로드 파일이 있는 경우 
+    			if(len>0) 
     			{
     				for(let i=0;i<len;i++)
     				{
@@ -128,10 +116,7 @@
     					formData.append("files["+i+"]",this.$refs.upfiles.files[i]);
     				}
     			}
-    			for (const x of formData) {
-   				 console.log(x);
-   				}
-    			axios.post('../board/insert_vue.do',formData,{
+    			axios.post('../noticeboard/insert_vue.do',formData,{
     				headers:{
     					'Content-Type':'multipart/form-data'
     				}
@@ -149,7 +134,7 @@
     			})
     		}
     	}
-    }).mount('#bInsert')
+    }).mount('#nbInsert')
   </script>
 </body>
 </html>

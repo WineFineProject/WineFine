@@ -21,7 +21,7 @@ public interface BoardMapper {
 			 +"WHERE num BETWEEN #{start} AND #{end}")
 	 public List<BoardVO> boardListData(@Param("start") int start, @Param("end") int end);
 	
-	// 카테고리 별 목록 (//댓글 수(?)//)
+	// 카테고리 별 목록 
 	 @Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
 			 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
 			 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount "
@@ -46,7 +46,7 @@ public interface BoardMapper {
 			 +"#{filename},#{filesize},#{filecount})")
 	  public void boardInsert(BoardVO vo);
 	 
-	// 내용보기(번호, 타입, 아이디, 제목, 닉네임, 작성일, 내용, 조회수, 사진 파일명, 사진 용량, 사진개수, //댓글 수//) 
+	// 내용보기(번호, 타입, 아이디, 제목, 닉네임, 작성일, 내용, 조회수, 사진 파일명, 사진 용량, 사진개수) 
 	 @Select("SELECT bno,cno,id,nickname,subject,content,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday, "
 			 +"hit,filename,filesize,filecount "
 			 +"FROM board "
@@ -78,13 +78,111 @@ public interface BoardMapper {
 	
 	// 게시글 검색(제목)
 	
-	// 댓글 추가
+	// 댓글 목록
+	 @Select("SELECT brno,bno,id,nickname,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday,root,depth "
+			 +"FROM boardreply "
+			 +"WHERE bno=#{bno} "
+			 +"ORDER BY root DESC , depth ASC")
+	  public List<BoardReplyVO> boardReplyListData(int bno);
+	 
+	// 댓글 수
+	 @Select("SELECT COUNT(*) FROM boardreply WHERE bno=#{bno}")
+	 public int boardReplyCount(int bno);
+	 
+	 // 댓글 추가
+	 @SelectKey(keyProperty = "brno",resultType = int.class,before = true, 
+			  statement = "SELECT NVL(MAX(brno)+1,1) as brno FROM boardreply")
+	 @Insert("INSERT INTO boardreply(brno,bno,id,nickname,msg,root,depth) VALUES("
+			 +"#{brno},#{bno},#{id},#{nickname},#{msg},(SELECT NVL(MAX(root)+1,1) as root FROM boardreply),1)")
+	 public void boardReplyInsert(BoardReplyVO vo);
+	 
+	 // 대댓글 추가
+	 @SelectKey(keyProperty = "brno",resultType = int.class,before = true, 
+			  statement = "SELECT NVL(MAX(brno)+1,1) as brno FROM boardreply")
+	 @Insert("INSERT INTO boardreply(brno,bno,id,nickname,msg,root,depth) VALUES "
+	 		+ "(#{brno}, #{bno}, #{id},#{nickname}, #{msg}, #{root}, 2)")
+	 public void boardReReplyInsert(BoardReplyVO vo);
+	 
+	 // 대댓글 여부 확인
+	 @Select("SELECT COUNT(*) FROM boardreply WHERE root=#{root} AND depth=2")
+	 public int boardReReplyCount(int root);
+	 
+	 // 댓글 수정
+	 @Update("UPDATE boardreply SET "
+			 +"msg=#{msg} "
+			 +"WHERE brno=#{brno}")
+	  public void boardReplyUpdate(BoardReplyVO vo);
+	 
+	 // 댓글 삭제
+	 @Delete("DELETE FROM boardreply "
+			 +"WHERE brno=#{brno}")
+	 public void boardReplyDelete(int brno);
 	
-	// 댓글 출력
-	
-	// 댓글 수정
-	
-	// 댓글 삭제
-	
+	 //게시물의 댓글 전체 삭제
+	 @Delete("DELETE FROM boardreply "
+			 +"WHERE bno=#{bno}")
+	 public void boardReplyAllDelete(int bno);
+	 
+	 //noticeboard
+	// 전체 게시글 목록
+		@Select("SELECT nbno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
+				 +"FROM (SELECT nbno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
+				 +"FROM (SELECT nbno, cno, subject, nickname, regdate, hit, filecount "
+				 +"FROM noticeboard ORDER BY nbno DESC)) "
+				 +"WHERE num BETWEEN #{start} AND #{end}")
+		 public List<NoticeBoardVO> noticeboardListData(@Param("start") int start, @Param("end") int end);
+		
+		// 카테고리 별 목록 
+		 @Select("SELECT nbno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
+				 +"FROM (SELECT nbno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
+				 +"FROM (SELECT nbno, cno, subject, nickname, regdate, hit, filecount "
+				 +"FROM noticeboard WHERE cno = #{cno} ORDER BY nbno DESC)) "
+				 +"WHERE num BETWEEN #{start} AND #{end}")
+		 public List<NoticeBoardVO> noticeboardTypeListData(@Param("cno") int type, @Param("start") int start, @Param("end") int end);
+		 
+		// 전체 총페이지
+		 @Select("SELECT CEIL(COUNT(*)/10.0) FROM noticeboard")
+		  public int noticeboardTotalPage();
+		 
+		// 권한 구하기
+		 @Select("SELECT admin FROM member WHERE id LIKE '%'||#{id}||'%' ")
+		 public int noticeboardadmin(String id);
+		 
+		// 추가(글쓰기)
+		 @SelectKey(keyProperty = "nbno",resultType = int.class,before = true,
+				  statement = "SELECT NVL(MAX(nbno)+1,1) as nbno FROM noticeboard")
+		 @Insert("INSERT INTO noticeboard(nbno,cno,id,nickname,subject,content, "
+				 +"filename,filesize,filecount) VALUES("
+				 +"#{nbno},#{cno},#{id},'관리자',#{subject},#{content}, "
+				 +"#{filename},#{filesize},#{filecount})")
+		  public void noticeboardInsert(NoticeBoardVO vo);
+		 
+		// 내용보기(번호, 타입, 아이디, 제목, 닉네임, 작성일, 내용, 조회수, 사진 파일명, 사진 용량, 사진개수) 
+		 @Select("SELECT nbno,cno,id,nickname,subject,content,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday, "
+				 +"hit,filename,filesize,filecount "
+				 +"FROM noticeboard "
+				 +"WHERE nbno=#{nbno}")
+		  public NoticeBoardVO noticeboardDetailData(int nbno);
+		// 조회수 증가
+		 @Update("UPDATE noticeboard SET "
+				 +"hit=hit+1 "
+				 +"WHERE nbno=#{nbno}")
+		  public void noticehitIncrement(int nbno);
+		
+		// 수정하기 
+		 @Update("UPDATE noticeboard SET "
+				 +"cno=#{cno},subject=#{subject},content=#{content},regdate=SYSDATE, "
+				 + "filename=#{filename},filesize=#{filesize},filecount=#{filecount} "
+				 +"WHERE nbno=#{nbno}")
+		  public void noticeboardUpdate(NoticeBoardVO vo);
+		 
+		// 삭제하기
+		 @Delete("DELETE FROM noticeboard "
+				  +"WHERE nbno=#{nbno}")
+		  public void noticeboardDelete(int nbno);
+		// 첨부파일 정보
+		 @Select("SELECT filename,filecount FROM noticeboard "
+				  +"WHERE nbno=#{nbno}")
+		  public NoticeBoardVO noticeboardFileInfoData(int nbno);
 	
 }

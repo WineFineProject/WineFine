@@ -19,7 +19,7 @@ public class BoardController {
 		   return "board/detail";
 	   }
 	@GetMapping("board/insert.do")
-	   public String databoard_insert()
+	   public String board_insert()
 	   {
 		   return "board/insert";
 	   }
@@ -29,4 +29,27 @@ public class BoardController {
 		   model.addAttribute("bno", bno);
 		   return "board/update";
 	   }
+	
+	@GetMapping("noticeboard/list.do")
+	public String noticeboard_list()
+	{
+		return "noticeboard/list";
+	}
+	@GetMapping("noticeboard/detail.do")
+	public String noticeboard_detail(int nbno, Model model)
+	{
+		model.addAttribute("nbno", nbno);
+		return "noticeboard/detail";
+	}
+	@GetMapping("noticeboard/insert.do")
+	public String noticeboard_insert()
+	{
+		return "noticeboard/insert";
+	}
+	@GetMapping("noticeboard/update.do")
+	public String noticeboard_update(int nbno,Model model)
+	{
+		model.addAttribute("nbno", nbno);
+		return "noticeboard/update";
+	}
 }

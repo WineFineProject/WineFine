@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#bList{
+#nbList{
    margin-top: 180px;
 }
 .page-item{
@@ -24,19 +24,19 @@
 </style>
 </head>
 <body>
-  <div class="container" id="bList">
-    <h3 class="text-center">자유게시판</h3>
+  <div class="container" id="nbList">
+    <h3 class="text-center">공지사항</h3>
     <div class="row">
       <table class="cTable">
         <tr>
         <td width="40%">
          <input type="button" value="전체" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(0)">
-     	 <input type="button" value="자유" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(1)">
-     	 <input type="button" value="정보" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(2)">
-    	 <input type="button" value="질문" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(3)">
+     	 <input type="button" value="일반" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(1)">
+     	 <input type="button" value="이벤트" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(2)">
+    	 <input type="button" value="상품" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(3)">
     	 </td>
     	 <td width="60%" class="text-right">
-    	 <!-- 검색 -->
+    	 &nbsp;
     	 </td>
         </tr>
       </table>
@@ -54,42 +54,41 @@
        </thead>
 		<tbody v-if="type===0">
         <tr v-for="vo in list">
-         <td width="5%" class="text-center">{{vo.bno}}</td>
+         <td width="5%" class="text-center">{{vo.nbno}}</td>
          <td width="10%" class="text-center">
-         	<span v-if="vo.cno==1">[자유]</span>
-         	<span v-if="vo.cno==2">[정보]</span>
-         	<span v-if="vo.cno==3">[질문]</span>
+         	<span v-if="vo.cno==1">[일반]</span>
+         	<span v-if="vo.cno==2">[이벤트]</span>
+         	<span v-if="vo.cno==3">[상품]</span>
          </td>
-         <td width="30%"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.replycount}})</a></td>
+         <td width="30%"><a :href="'detail.do?nbno='+vo.nbno">{{vo.subject}}</a></td>
          <td width="10%"  v-if="vo.filecount>0" class="text-center">📎</td>
          <td width="10%"  v-else class="text-center"></td>
-         <td width="15%" class="text-center">{{vo.nickname}}</td>
+         <td width="15%" class="text-center">관리자</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
          <td width="15%" class="text-center">{{vo.hit}}</td>
         </tr>
        </tbody>
        <tbody v-else>
        <tr v-for="vo in cList">
-         <td width="5%" class="text-center">{{vo.bno}}</td>
+         <td width="5%" class="text-center">{{vo.nbno}}</td>
          <td width="10%" class="text-center">
-         	<span v-if="vo.cno==1">[자유]</span>
-         	<span v-if="vo.cno==2">[정보]</span>
-         	<span v-if="vo.cno==3">[질문]</span>
+         	<span v-if="vo.cno==1">[일반]</span>
+         	<span v-if="vo.cno==2">[이벤트]</span>
+         	<span v-if="vo.cno==3">[상품]</span>
          </td>
-         <td width="30%"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.replycount}})</a></td>
+         <td width="30%"><a :href="'detail.do?nbno='+vo.nbno">{{vo.subject}}</a></td>
          <td width="10%"  v-if="vo.filecount>0" class="text-center">📎</td>
          <td width="10%"  v-else class="text-center"></td>
-         <td width="15%" class="text-center">{{vo.nickname}}</td>
+         <td width="15%" class="text-center">관리자</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
          <td width="15%" class="text-center">{{vo.hit}}</td>
         </tr>
        </tbody>
        <tfoot style="border-color:white;">
-         <tr>
-          <!-- 로그인 상태에서만 글쓰기 버튼 보이게 -->
+       <tr>
+          <!-- 관리자만 글쓰기 버튼 보이게 -->
          <td colspan="3" class="text-left">
-            <a v-if="id!=''" href="../board/insert.do" class="btn btn-sm" style="background-color: #FFF7B3; color:gray;">글쓰기</a>
-    		<p v-else>로그인 후 글을 작성할 수 있습니다</p>
+            <a href="../noticeboard/insert.do" class="btn btn-sm" style="background-color: #FFF7B3; color:gray;">공지글쓰기</a>
          </td>
         </tr>
         <tr>
@@ -108,7 +107,7 @@
     </div>
   </div>
   <script>
-    let listApp=Vue.createApp({
+    let nlistApp=Vue.createApp({
     	data(){
     		return {
     			list:[],
@@ -117,16 +116,19 @@
     			totalpage:0,
     			startPage:0,
     			endPage:0,
-    			id:'${sessionScope.id}',
+    			admin:0,
+    			id:'',
     			type:0
     		}
     	},  
     	mounted(){
     		this.dataRecv()
+    		
     	},
     	methods:{
+    		
     		dataRecv(){
-    			axios.get('../board/list_vue.do',{
+    			axios.get('../noticeboard/list_vue.do',{
     				params:{
     					page:this.curpage,
     					type:this.type
@@ -170,7 +172,7 @@
  	 			 return arr
  	 		 },
     	}
-    }).mount('#bList')
+    }).mount('#nbList')
   </script>
 </body>
 </html>

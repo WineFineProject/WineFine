@@ -61,9 +61,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public void boardDelete(int bno) {
+	public String boardDelete(int bno) {
 		// TODO Auto-generated method stub
-		dao.boardDelete(bno);
+		return dao.boardDelete(bno);
 	}
 
 	@Override
@@ -72,6 +72,113 @@ public class BoardServiceImpl implements BoardService{
 		return dao.boardFileInfoData(bno);
 	}
 
-	
-	
+	@Override
+	public List<BoardReplyVO> boardReplyListData(int bno) {
+		// TODO Auto-generated method stub
+		return dao.boardReplyListData(bno);
+	}
+
+	@Override
+	public int boardReplyCount(int bno) {
+		// TODO Auto-generated method stub
+		return dao.boardReplyCount(bno);
+	}
+
+	@Override
+	public void boardReplyInsert(BoardReplyVO vo) {
+		// TODO Auto-generated method stub
+		dao.boardReplyInsert(vo);
+	}
+
+	@Override
+	public void boardReReplyInsert(BoardReplyVO vo) {
+		// TODO Auto-generated method stub
+		dao.boardReReplyInsert(vo);
+	}
+
+	@Override
+	public void boardReplyUpdate(BoardReplyVO vo) {
+		// TODO Auto-generated method stub
+		dao.boardReplyUpdate(vo);
+	}
+
+	@Override
+	public void boardReplyDelete(int brno) {
+		// TODO Auto-generated method stub
+		dao.boardReplyDelete(brno);
+	}
+
+	@Override
+	public void boardReplyAllDelete(int bno) {
+		// TODO Auto-generated method stub
+		dao.boardReplyAllDelete(bno);
+	}
+
+	@Override
+	public int boardReReplyCount(int root) {
+		// TODO Auto-generated method stub
+		return dao.boardReReplyCount(root);
+	}
+
+	@Override
+	public List<NoticeBoardVO> noticeboardListData(int start, int end) {
+		// TODO Auto-generated method stub
+		return dao.noticeboardListData(start, end);
+	}
+
+	@Override
+	public List<NoticeBoardVO> noticeboardTypeListData(int cno, int start, int end) {
+		// TODO Auto-generated method stub
+		return dao.noticeboardTypeListData(cno, start, end);
+	}
+
+	@Override
+	public int noticeboardTotalPage() {
+		// TODO Auto-generated method stub
+		return dao.noticeboardTotalPage();
+	}
+
+	@Override
+	public void noticeboardInsert(NoticeBoardVO vo) {
+		// TODO Auto-generated method stub
+		dao.noticeboardInsert(vo);
+	}
+
+	@Override
+	public NoticeBoardVO noticeboardDetailData(int nbno) {
+		// TODO Auto-generated method stub
+		return dao.noticeboardDetailData(nbno);
+	}
+
+	@Override
+	public NoticeBoardVO noticeboardUpdateData(int nbno) {
+		// TODO Auto-generated method stub
+		return dao.noticeboardUpdateData(nbno);
+	}
+
+	@Override
+	public String noticeboardUpdate(NoticeBoardVO vo) {
+		// TODO Auto-generated method stub
+		return dao.noticeboardUpdate(vo);
+	}
+
+	@Override
+	public String noticeboardDelete(int nbno) {
+		// TODO Auto-generated method stub
+		return dao.noticeboardDelete(nbno);
+	}
+
+	@Override
+	public NoticeBoardVO noticeboardFileInfoData(int nbno) {
+		// TODO Auto-generated method stub
+		return dao.noticeboardFileInfoData(nbno);
+	}
+
+	@Override
+	public int noticeboardadmin(String id) {
+		// TODO Auto-generated method stub
+		return dao.noticeboardadmin(id);
+	}
+
+
 }

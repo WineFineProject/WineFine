@@ -5,8 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
-#bInsert{
+#nbUpdate{
    margin-top: 180px;
 }
 .row{
@@ -16,22 +17,22 @@
 </style>
 </head>
 <body>
- <div class="container" id="bInsert">
-   <h3 class="text-center">자유게시판</h3>
+<div class="container" id="nbUpdate">
+   <h3 class="text-center">공지사항</h3>
  
    <div class="row">
    <form @submit.prevent="submitForm">
+     <h6 class="text-center" hidden>{{nbno}}</h6>
      <h6 class="text-center" hidden>{{id}}</h6>
-     <h6 class="text-center" hidden>{{nickname}}</h6>
      <table class="table">
       <tr>
        <th width="20%" class="text-center">카테고리 </th>
        <td width="80%">
          <select id="bCategory" v-model="cno" ref="cno">
                     <option value="" disabled selected>카테고리 선택</option>
-                    <option value=1>자유</option>
-                    <option value=2>정보</option>
-                    <option value=3>질문</option>
+                    <option value=1>일반</option>
+                    <option value=2>이벤트</option>
+                    <option value=3>상품</option>
           </select>
        </td>
       </tr>
@@ -69,31 +70,32 @@
    </div>
   </div>
   <script>
-    let insertApp=Vue.createApp({
+    let updateApp=Vue.createApp({
     	data(){
     		return {
-    			cno:1,
+    			nbno:${nbno},
+    			cno:'',
     			subject:'',
     			content:'',
     			id:'${sessionScope.id}',
-    			nickname:'',
     			upfiles:''
     			
     		}
     	},
 		mounted(){
-    		this.fetchNickname()
+    		axios.get('update_vue.do',{
+    			params:{
+    				nbno:this.nbno
+    			}
+    		}).then(response=>{
+    			this.cno=response.data.cno
+    			this.subject=response.data.subject
+    			this.content=response.data.content
+    		}).catch(error=>{
+    			console.log(error.response)
+    		})
     	},
     	methods:{
-    		fetchNickname() {
-                axios.post('../board/get_nickname.do')
-                    .then(response => {
-                        this.nickname = response.data
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                    })
-            },
     		submitForm(){
     			if(this.cno==="")
     			{
@@ -112,11 +114,10 @@
     			}
     			
     			let formData=new FormData()
-    			formData.append("cno",this.$refs.cno.value)
-    			formData.append("id",this.id)
-    			formData.append("nickname",this.nickname)    			
+    			formData.append("cno",this.$refs.cno.value)  			
     			formData.append("subject",this.$refs.subject.value)
     			formData.append("content",this.$refs.content.value)
+    			formData.append("nbno",this.nbno)
     			
     			let len=this.$refs.upfiles.files.length
     			
@@ -128,17 +129,14 @@
     					formData.append("files["+i+"]",this.$refs.upfiles.files[i]);
     				}
     			}
-    			for (const x of formData) {
-   				 console.log(x);
-   				}
-    			axios.post('../board/insert_vue.do',formData,{
+    			axios.post('../noticeboard/update_ok_vue.do',formData,{
     				headers:{
     					'Content-Type':'multipart/form-data'
     				}
     			}).then(response=>{
     				if(response.data==='yes')
     				{
-    				    location.href='list.do'	
+    					location.href='detail.do?nbno='+this.nbno
     				}
     				else
     				{
@@ -149,7 +147,7 @@
     			})
     		}
     	}
-    }).mount('#bInsert')
+    }).mount('#nbUpdate')
   </script>
 </body>
 </html>
