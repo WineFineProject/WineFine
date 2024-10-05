@@ -52,7 +52,7 @@
                     <td>{{vo.email}}</td>
                     <td>{{vo.grade}}</td>
                     <td>
-                      <input type="button" class="btn btn-lg btn-primary" id="blackListBtn" value="블랙리스트">
+                     <input type="button" class="btn btn-lg btn-primary" id="blackListBtn" value="블랙리스트">
                     </td>
                 </tr>
             </tbody>
