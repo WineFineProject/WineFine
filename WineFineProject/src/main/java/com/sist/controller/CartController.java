@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sist.service.CartService;
+import com.sist.vo.CartVO;
 
 import java.util.*;
 
 @Controller
 public class CartController {
-
+	@Autowired
+	private CartService cService;
 
 	@GetMapping("cart/inMyCart.do")
 	public String inMyCart(HttpSession session, Model model) {
@@ -24,6 +26,10 @@ public class CartController {
 		if (id == null) {
 			return "redirect:/member/login.do";
 		}
+		
+		List<CartVO> cartListData = cService.cartListData(id);
+		model.addAttribute("cartList",cartListData);
+		
 		// List<Cart>
 		/*
 		 * List<CartItemDAO> cartItems = cartService.getCartItems(userId);
