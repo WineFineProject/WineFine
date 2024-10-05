@@ -16,7 +16,9 @@ public interface MemberMapper {
 	public String memberGetPwd(String id);
 	
 	// 회원 목록 조회
-    @Select("SELECT * FROM member ORDER BY regdate DESC")
+    @Select("SELECT id, nickname, name, TO_CHAR(birthdate, 'YYYY-MM-DD') as dbbirthday, sex, phone, post, addr1, addr2, grade, photo, admin, TO_CHAR(regdate, 'YYYY-MM-DD') as dbregdate, email "
+    		+"FROM member WHERE admin = 0 " 
+            +"ORDER BY regdate DESC")
     public List<MemberVO> memberList();
 
     // 회원 삭제
@@ -24,7 +26,9 @@ public interface MemberMapper {
     public void deleteMember(String id);
 
     // 회원 상세 조회
-    @Select("SELECT * FROM member WHERE id=#{id}")
+    @Select("SELECT id, nickname, name, TO_CHAR(birthdate, 'YYYY-MM-DD') as dbbirthday, sex, phone,"
+    		+"post, addr1, addr2, grade, photo, admin, TO_CHAR(regdate, 'YYYY-MM-DD') as dbregdate, email "
+    		+"FROM member WHERE id=#{id}")
     public MemberVO memberDetail(String id);
 
     // 회원 정보 수정

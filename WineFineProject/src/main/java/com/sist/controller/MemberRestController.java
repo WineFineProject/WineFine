@@ -10,7 +10,6 @@ import com.sist.service.*;
 import com.sist.vo.*;
 import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -27,15 +26,28 @@ public class MemberRestController {
 		return result;
 	}
 
-		
-	@GetMapping(value = "seller/memberList.do", produces ="text/plain;charset=UTF-8") 
+	// 회원 목록 페이지	
+	@GetMapping(value = "seller/memberListVue.do", produces ="text/plain;charset=UTF-8") 
 	public String memberList() throws Exception 
 	{
-		 List<MemberVO> members = mService.memberList(); Map map = new HashMap();
+		 List<MemberVO> members = mService.memberList(); 
+		 Map map = new HashMap();
 		 map.put("members", members);
 		 
-		 ObjectMapper mapper = new ObjectMapper(); return
-		 mapper.writeValueAsString(map); 
+		 ObjectMapper mapper = new ObjectMapper(); 
+		 return mapper.writeValueAsString(map); 
 	}
+	
+	// 회원 상세 조회
+    @GetMapping(value = "seller/memberDetailVue.do", produces ="text/plain;charset=UTF-8")
+    public String memberDetail(String id) throws Exception
+    {
+    	MemberVO member = mService.memberDetail(id); 
+        Map map = new HashMap();
+        map.put("member", member);
+        
+        ObjectMapper mapper = new ObjectMapper(); 
+		return mapper.writeValueAsString(map); 
+    }
 	
 }

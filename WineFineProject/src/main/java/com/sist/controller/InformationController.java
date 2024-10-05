@@ -32,7 +32,7 @@ public class InformationController {
       return "grape/detail";
   }
   
-  //생산지역 목록 페이지
+  // 생산지역 목록 페이지
   @GetMapping("nation/list.do")
   public String nationListData(Model model) 
   {

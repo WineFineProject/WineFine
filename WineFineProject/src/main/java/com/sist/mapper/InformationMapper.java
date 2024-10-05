@@ -5,7 +5,7 @@ import java.util.*;
 import org.apache.ibatis.annotations.Select;
 public interface InformationMapper {
 	// 포도 품종 목록 
-    @Select("SELECT namekor, nameeng, content FROM grape ORDER BY no")
+    @Select("SELECT no, namekor, nameeng, content FROM grape ORDER BY no")
     public List<GrapeVO> grapeListData();
 
     // 포도 품종 상세 

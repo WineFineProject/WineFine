@@ -1,0 +1,19 @@
+.table {
+	width: 90%;
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+.table th, .table td {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+.table th {
+	background-color: #f2f2f2;
+}
+.btn {
+	cursor: pointer;
+	color: white;
+	background-color: red; 
+	border: none;
+	border-radius: 5px;
+}

@@ -28,13 +28,13 @@ public class MemberController {
 		return "redirect:../main/main.do";
 	}
 	
-	/*
-	 * // 회원 목록 페이지
-	 * 
-	 * @GetMapping("seller/memberList.do") public String memberList(Model model) {
-	 * List<MemberVO> members = mService.memberList(); model.addAttribute("members",
-	 * members); return "seller/memberList"; }
-	 */
+	
+	 // 회원 목록 페이지
+	 @GetMapping("seller/memberList.do") public String memberList(Model model) {
+	 List<MemberVO> members = mService.memberList(); 
+	 model.addAttribute("members", members); 
+	 return "seller/memberList"; }
+	 
 
     // 회원 상세 조회
     @GetMapping("seller/memberDetail.do")

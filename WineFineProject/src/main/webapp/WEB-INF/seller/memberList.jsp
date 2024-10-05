@@ -2,36 +2,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>회원 목록</title>
-    <style>
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .table th, .table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        .table th {
-            background-color: #f2f2f2;
-        }
-        .btn {
-            cursor: pointer;
-            color: white;
-            background-color: olive; 
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-    </style>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<meta charset="UTF-8">
+<title>회원 목록</title>
+<link rel="stylesheet" href="../tem/css/memberlist.css">
 </head>
 <body>
     <div id="list" class="row">
-        <h1>회원 목록</h1>
-        <table class="table">
+        <h1>회원 관리</h1>
+        <table class="table" style="margin-top: 20px">
             <thead>
                 <tr>
                     <th>번호</th>
@@ -39,6 +17,7 @@
                     <th>이름</th>
                     <th>성별</th>
                     <th>이메일</th>
+                    <th>가입일</th>
                     <th>등급</th>
                     <th>관리</th>
                 </tr>
@@ -50,9 +29,10 @@
                     <td>{{vo.name}}</td>
                     <td>{{vo.sex}}</td>
                     <td>{{vo.email}}</td>
+                    <td>{{vo.dbregdate}}</td>
                     <td>{{vo.grade}}</td>
                     <td>
-                     <input type="button" class="btn btn-lg btn-primary" id="blackListBtn" value="블랙리스트">
+                     <input type="button" class="btn btn-xs btn-danger" id="blackListBtn" value="블랙리스트">
                     </td>
                 </tr>
             </tbody>
@@ -70,7 +50,7 @@
             },
             methods: {
                 mList(){
-                    axios.get('../seller/memberList.do') 
+                    axios.get('../seller/memberListVue.do') 
                         .then(response=>{
                             this.members=response.data.members
                         })
