@@ -157,7 +157,7 @@
 								</tr>
 							</table>
 						</div>
-						<a href="#" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span
+						<a href="../cart/inMyCart.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span
 							class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
 						</a>
 						<c:if test="${sessionScope.id==null }">
