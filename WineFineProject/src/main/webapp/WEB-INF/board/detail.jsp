@@ -103,7 +103,7 @@
             </td>
             <td width="20%"> </td>
         </tr>
-          <tr v-if="rvo.showReplyInput">
+          <tr v-if="rvo.showReplyInput && id!==''">
 		    <td colspan="6">
 		        <textarea rows="4" cols="62" ref="msg" v-model="replyMsg[rvo.brno]" style="float: left; border-radius: 5px; ">{{rvo.msg}}</textarea>
 		        <button style="float: left; background-color:#57102F; color:white;width: 100px;height: 100px; border-radius: 5px;" @click="reReplyWrite(rvo.brno, rvo.root)">답글쓰기</button>
