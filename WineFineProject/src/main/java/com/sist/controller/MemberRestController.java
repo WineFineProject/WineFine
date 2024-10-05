@@ -26,5 +26,16 @@ public class MemberRestController {
 		}
 		return result;
 	}
+
+		
+	@GetMapping(value = "seller/memberList.do", produces ="text/plain;charset=UTF-8") 
+	public String memberList() throws Exception 
+	{
+		 List<MemberVO> members = mService.memberList(); Map map = new HashMap();
+		 map.put("members", members);
+		 
+		 ObjectMapper mapper = new ObjectMapper(); return
+		 mapper.writeValueAsString(map); 
+	}
 	
 }
