@@ -25,11 +25,11 @@
             border-radius: 5px;
         }
     </style>
-    <script src="https://unpkg.com/vue@3"></script>
-   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div id="list" class="row">
         <h1>회원 목록</h1>
         <table class="table">
             <thead>
@@ -44,8 +44,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(vo,index) in members">
-                    <td>{{index + 1}}</td>
+                <tr v-for="(vo, index) in members" :key="vo.id">
+                    <td>{{index+1}}</td>
                     <td>{{vo.id}}</td>
                     <td>{{vo.name}}</td>
                     <td>{{vo.sex}}</td>
@@ -62,24 +62,25 @@
         let memberListApp=Vue.createApp({
             data() {
                 return {
-                    members: []
+                    members:[]
                 }
             },
             mounted() {
                 this.mList()
             },
             methods: {
-                mList() {
+                mList(){
                     axios.get('../seller/memberList.do') 
-                        .then(response => {
-                            this.members = response.data
-                        }).catch(error => {
-                        	alert(error.response)
-           				 console.log(error.response)
+                        .then(response=>{
+                            this.members=response.data.members
+                        })
+                        .catch(error=>{
+                            alert(error.response)
+                            console.log(error.response)
                         })
                 }
             }
-        }).mount('.container')
+        }).mount('#list')
     </script>
 </body>
 </html>
