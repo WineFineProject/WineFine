@@ -31,6 +31,8 @@ public class NoticeRestController {
 	public String noticeVueNoticeNewCount(HttpSession session) throws Exception{
 		Map map=new HashMap();
 		String id=(String)session.getAttribute("id");
+		if(id==null)
+			id="";
 		int count=nService.noticeNewCount(id);
 		List<NoticeVO> newNotice=nService.noticeNewListData(id);
 		List<NoticeVO> oldNotice=nService.noticeOldListData(id);
