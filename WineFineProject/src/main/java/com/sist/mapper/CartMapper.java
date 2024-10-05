@@ -1,6 +1,7 @@
 package com.sist.mapper;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -17,10 +18,26 @@ public interface CartMapper {
 	public String addCart(CartVO vo);
 	
 	// 목록
-	@Select("SELECT c.cno,w.wno,w.namekor,w.poster,w.price,c.count "
-			+ "FROM cart c,wine w "
-			+ "WHERE c.id=#{id} AND w.wno=c.wno")
+	@Select("SELECT c.cno, c.wno, c.price as cart_price, c.count, " +
+            "w.namekor, w.poster, w.price as wine_price " +
+            "FROM cart c JOIN wine w ON c.wno = w.wno " +
+            "WHERE c.id = #{id}")
+    @Results({
+        @Result(property = "cno", column = "cno"),
+        @Result(property = "wno", column = "wno"),
+        @Result(property = "price", column = "cart_price"),
+        @Result(property = "count", column = "count"),
+        @Result(property = "wine.namekor", column = "namekor"),
+        @Result(property = "wine.poster", column = "poster"),
+        @Result(property = "wine.price", column = "wine_price")
+    })
 	public List<CartVO> cartListData(String id);
+	
+	@Select("SELECT wno,namekor,poster,price "
+			+ "FROM wine"
+			+ "WHERE wno=#{wno}")
+	WineVO getWine(int wno);
+	
 	
 	// 수정(개수 변경)
 	

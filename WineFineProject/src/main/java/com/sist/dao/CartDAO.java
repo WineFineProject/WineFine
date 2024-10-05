@@ -19,8 +19,6 @@ public class CartDAO {
 	
 	public List<CartVO> cartListData(String id){
 		return mapper.cartListData(id);
-	}
-	
-	
+	}	
 	
 }

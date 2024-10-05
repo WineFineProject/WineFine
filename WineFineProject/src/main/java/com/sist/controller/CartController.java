@@ -27,14 +27,7 @@ public class CartController {
 			return "redirect:/member/login.do";
 		}
 		
-		List<CartVO> cartListData = cService.cartListData(id);
-		model.addAttribute("cartList",cartListData);
-		
-		// List<Cart>
-		/*
-		 * List<CartItemDAO> cartItems = cartService.getCartItems(userId);
-		 * model.addAttribute("cartItems", cartItems);
-		 */
+
 		return "cart/inMyCart";
 	}
 

@@ -23,11 +23,11 @@
             <div class="container py-5">        
             <div class="row">
             	<div class="col-lg-9">
-                <div class="table-responsive">
-                    <table v-for="(seller,i) in sellers" :key="i" class="table">
+                <div class="table-responsive" id="cartListTable">
+                    <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">{{sellers.seller}}</th>
+                            <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -37,7 +37,7 @@
                         </thead>
                         
                         <tbody> 
-                            <tr v-for="(wine,i) in wines" :key="wine.wno">
+                            <tr v-for="wine in wines" :key="wine.wno">
                                 <th scope="row">
                                     <div class="d-flex align-items-center">
                                         <img :src="wine.poster" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;">
@@ -112,36 +112,66 @@
 	let cartListApp=Vue.createApp({
 		data(){
 			return {
-				sellers:[],
-				wines:[{
-					wno:'',
-					poster:'',
-					namekor:'',
-					price:'',
-					count:1
-				}],
-				totalPrice:0,
+				wines:[],
+				cno:0
+			}
+		},
+		mounted(){
+			this.dataRecv()
+		},	
+		computed:{
+			totalPrice(){
+				return this.wines.reduce((total,wine)=>{
+					return total + (wine.price * wine.count)
+				},0)
 			}
 		},
 		methods:{
 			plus(wine){
-				this.wine.count++;
+				wine.count++;
+				this.updateCart(wine)
 			},
 			minus(wine){
-				this.wine.count--;
+				if(wine.count>1){
+				wine.count--;
+				this.updateCart(wine)
+				}
 			},
-			drop( /*  작성필요  */ ){
-				
-				console.log("장바구니에서 삭제되었습니다")
-			},
+			/* drop(){
+				axios.get("../inMyCartDrop_vue.do", {
+			        params: { 
+			        	cno: this.cno 
+			        	}
+			      }).then(() => {
+			        console.log("장바구니에서 삭제되었습니다");
+			        
+			      }).catch(error => {
+			        console.error("error-Drop", error);
+			      })
+				},		 */			
+			/* updateCart(wine){
+				axios.post("../updateCart_vue.do", {
+			        wno: wine.wno,
+			        count: wine.count
+			      }).then(() => {
+			        console.log("수량 변경 완료");
+			      }).catch(error => {
+			        console.error("수량변경 오류", error);
+			      })
+			}, */
 			onePrice(wine){
-				return this.wine.count * this.wine.price
+				return wine.count * wine.price
 			},
-			totalPrice(){
-				
+			dataRecv(){
+				axios.get("../cart/inMyCart_vue.do"
+				).then(response => {
+					console.log(response.data)
+					this.wines=response.data	
+				}).catch(error => {
+					console.error("error-dataRecv()",error)
+				})				
 			}
-		},
-		mounted(){}		
-	}).mount('#')
+		}			
+	}).mount('#cartListTable')
 </script>
 </html>
