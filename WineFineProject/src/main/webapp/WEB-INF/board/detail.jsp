@@ -103,7 +103,7 @@
             </td>
             <td width="20%"> </td>
         </tr>
-          <tr v-if="rvo.depth === 1 && rvo.showReplyInput && id!==''">
+          <tr v-if="rvo.showReplyInput">
 		    <td colspan="6">
 		        <textarea rows="4" cols="62" ref="msg" v-model="replyMsg[rvo.brno]" style="float: left; border-radius: 5px; ">{{rvo.msg}}</textarea>
 		        <button style="float: left; background-color:#57102F; color:white;width: 100px;height: 100px; border-radius: 5px;" @click="reReplyWrite(rvo.brno, rvo.root)">답글쓰기</button>
@@ -174,12 +174,26 @@
                         console.log(error.response)
                     })
             	},
-                toggleReplyInput(rvo) {
-                    // 답글이 작성되었는지 확인
-                    if (rvo.replyWritten) {
-                        alert("답글은 1개까지 작성이 가능합니다.")
-                        rvo.showReplyInput=false
-                    } 
+            	toggleReplyInput(rvo) {
+            	    axios.post('../board/reReply_count_vue.do', null, {
+            	        params: {
+            	            root: rvo.root
+            	        }
+            	    }).then(response => {
+            	        const rereplycount = response.data; 
+            	        if (rereplycount === "NO") {
+            	            alert("답글은 1개까지 작성이 가능합니다.")
+            	            rvo.showReplyInput = false
+            	        } 
+            	        else {
+            	        	const reply = this.reply_list.find(reply => reply.root === rvo.root)
+            	            if (reply) {
+            	                reply.showReplyInput = !reply.showReplyInput
+            	            }
+            	        }
+            	    }).catch(error => {
+            	        console.log(error.response)
+            	    })
                 },
                 reReplyWrite(brno, root) {
                 	const msg = this.replyMsg[brno]
@@ -201,10 +215,6 @@
                         console.log(response.data)
                         this.reply_list = response.data.list
                         const reply = this.reply_list.find(r => r.brno === brno)
-                        if (reply) {
-                            reply.replyWritten = true // 답글 작성 상태 업데이트
-                            rvo.showReplyInput = false
-                        } // 답글 작성 상태 업데이트
                         this.replyRead(this.bno)
                     }).catch(error => {
                         console.log(error.response)

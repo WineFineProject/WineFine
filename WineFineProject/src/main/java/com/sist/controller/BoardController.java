@@ -12,6 +12,11 @@ public class BoardController {
 	  {
 		  return "board/list";
 	  }
+	@GetMapping("board/find.do")
+	  public String board_find()
+	  {
+		  return "board/find";
+	  }
 	@GetMapping("board/detail.do")
 	   public String board_detail(int bno, Model model)
 	   {

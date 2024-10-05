@@ -32,6 +32,12 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
+	public int cboardTotalPage(int type) {
+		// TODO Auto-generated method stub
+		return dao.cboardTotalPage(type);
+	}
+	
+	@Override
 	public String boardNickname(String id) {
 		// TODO Auto-generated method stub
 		return dao.boardNickname(id);
@@ -71,7 +77,56 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return dao.boardFileInfoData(bno);
 	}
+	
+	@Override
+	public List<BoardVO> boardfindnListData(String find, int start, int end) {
+		// TODO Auto-generated method stub
+		return dao.boardfindnListData(find, start, end);
+	}
 
+	@Override
+	public List<BoardVO> boardfindTypenListData(int type, String find, int start, int end) {
+		// TODO Auto-generated method stub
+		return dao.boardfindTypenListData(type, find, start, end);
+	}
+
+	@Override
+	public List<BoardVO> boardfindsListData(String find, int start, int end) {
+		// TODO Auto-generated method stub
+		return dao.boardfindsListData(find, start, end);
+	}
+
+	@Override
+	public List<BoardVO> boardfindTypesListData(int type, String find, int start, int end) {
+		// TODO Auto-generated method stub
+		return dao.boardfindTypesListData(type, find, start, end);
+	}
+
+	@Override
+	public int boardnfTotalPage(String find) {
+		// TODO Auto-generated method stub
+		return dao.boardnfTotalPage(find);
+	}
+
+	@Override
+	public int cboardnfTotalPage(int type, String find) {
+		// TODO Auto-generated method stub
+		return dao.cboardnfTotalPage(type, find);
+	}
+
+	@Override
+	public int boardsfTotalPage(String find) {
+		// TODO Auto-generated method stub
+		return dao.boardsfTotalPage(find);
+	}
+
+	@Override
+	public int cboardsfTotalPage(int type, String find) {
+		// TODO Auto-generated method stub
+		return dao.cboardsfTotalPage(type, find);
+	}
+	
+// 댓글
 	@Override
 	public List<BoardReplyVO> boardReplyListData(int bno) {
 		// TODO Auto-generated method stub
@@ -120,6 +175,7 @@ public class BoardServiceImpl implements BoardService{
 		return dao.boardReReplyCount(root);
 	}
 
+//noticboard
 	@Override
 	public List<NoticeBoardVO> noticeboardListData(int start, int end) {
 		// TODO Auto-generated method stub
@@ -173,12 +229,5 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return dao.noticeboardFileInfoData(nbno);
 	}
-
-	@Override
-	public int noticeboardadmin(String id) {
-		// TODO Auto-generated method stub
-		return dao.noticeboardadmin(id);
-	}
-
 
 }

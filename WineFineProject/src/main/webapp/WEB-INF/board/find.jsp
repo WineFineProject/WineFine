@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#bList{
+#fbList{
    margin-top: 180px;
 }
 .page-item{
@@ -24,8 +24,11 @@
 </style>
 </head>
 <body>
-  <div class="container" id="bList">
-    <h3 class="text-center">자유게시판</h3>
+  <div class="container" id="fbList">
+    <h3 class="text-center">자유게시판 검색결과</h3>
+    <div v-if="noResults" class="text-center" style="color: red; margin: 20px;">
+   			 검색 결과가 없습니다.
+  	</div>
     <div class="row">
       <table class="cTable">
         <tr>
@@ -37,12 +40,12 @@
     	 </td>
     	 <!-- 검색 -->
     	 <td width="60%" style="float: right;">
-    		<select id="bfilter" v-model="isSearch" ref="isSearch">
+    		<select id="bfilter" v-model="isSearch">
                     <option value="0">제목</option>
                     <option value="1">작성자</option>
             </select>
-          <input type=text size=20 v-model="find" ref="find" class="input-sm" placeholder="검색어를 입력해주세요">
-          <input type="button" value="검색" class="fbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="findboard()">
+          <input type=text size=20 v-model="find" ref="find" class="input-sm">
+          <input type="button" value="검색" class="fbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="dataRecv()">
     	 </td>
         </tr>
       </table>
@@ -91,14 +94,7 @@
         </tr>
        </tbody>
        <tfoot style="border-color:white;">
-         <tr>
-          <!-- 로그인 상태에서만 글쓰기 버튼 보이게 -->
-         <td colspan="3" class="text-left">
-            <a v-if="id!=''" href="../board/insert.do" class="btn btn-sm" style="background-color: #FFF7B3; color:gray;">글쓰기</a>
-    		<p v-else>로그인 후 글을 작성할 수 있습니다</p>
-         </td>
-        </tr>
-        <tr>
+       <tr>
           <td colspan="7" class="text-center">
             <input type=button value="<" class="btn-sm btn-danger" @click="prev()">
                 &nbsp;
@@ -114,7 +110,7 @@
     </div>
   </div>
   <script>
-    let listApp=Vue.createApp({
+    let findApp=Vue.createApp({
     	data(){
     		return {
     			list:[],
@@ -124,19 +120,25 @@
     			endPage:0,
     			id:'${sessionScope.id}',
     			type:0,
+    			find:'',
     			isSearch:0,
-    			find:''
+    			noResults: false
     		}
     	},  
     	mounted(){
-    		this.dataRecv()
+    		 this.isSearch = localStorage.getItem('isSearch') || 0
+    		 this.find = localStorage.getItem('find') || ''
+    		 this.type = 0
+    		 this.dataRecv()
     	},
     	methods:{
     		dataRecv(){
-    			axios.get('../board/list_vue.do',{
+    			axios.get('../board/find_vue.do',{
     				params:{
     					page:this.curpage,
-    					type:this.type
+    					type:this.type,
+    					find:this.find,
+    					isSearch:this.isSearch
     				}
     			}).then(response=>{
     				this.list=response.data.list
@@ -145,16 +147,11 @@
     				this.startPage=response.data.startPage
     				this.endPage=response.data.endPage
     				
+    				this.noResults = this.list.length === 0 && this.cList.length === 0;
     			}).catch(error=>{
     				console.log(error.response)
     			})
     		},
-    		 findboard() {
-    			localStorage.setItem('isSearch', this.isSearch);
-    		    localStorage.setItem('find', this.find.trim());
-    		    localStorage.setItem('type', this.type);
-    		    location.href = "../board/find.do";
-    	    },
     		typeChange(type){
     			this.curpage=1
     			this.type=type
@@ -183,7 +180,7 @@
  	 			 return arr
  	 		 },
     	}
-    }).mount('#bList')
+    }).mount('#fbList')
   </script>
 </body>
 </html>

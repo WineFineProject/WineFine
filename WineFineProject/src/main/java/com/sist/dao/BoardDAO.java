@@ -28,6 +28,10 @@ public class BoardDAO {
 	 {
 		 return mapper.boardTotalPage();
 	 }
+	 public int cboardTotalPage(int type)
+	 {
+		 return mapper.cboardTotalPage(type);
+	 }
 	 public String boardNickname(String id)
 	 {
 		 return mapper.boardNickname(id);
@@ -41,14 +45,11 @@ public class BoardDAO {
 		 mapper.hitIncrement(bno);
 		 return mapper.boardDetailData(bno);
 	 }
-	 
-	 // 수정하기 
-	   //1. 이전에 입력한 데이터를 읽어서 출력 
 	   public BoardVO boardUpdateData(int bno)
 	   {
 		   return mapper.boardDetailData(bno);
 	   }
-	   //2.수정
+	  
 	   public String boardUpdate(BoardVO vo)
 	   {   
 		   String result="yes";
@@ -67,7 +68,40 @@ public class BoardDAO {
 		 return mapper.boardFileInfoData(bno);
 	 }
 	 
-	 // 댓글
+	 public List<BoardVO> boardfindnListData(String find, int start, int end)
+	 {
+		 return mapper.boardfindnListData(find, start, end);
+	 }
+	 public List<BoardVO> boardfindTypenListData(int type, String find, int start, int end)
+	 {
+		 return mapper.boardfindTypenListData(type, find, start, end);
+	 }
+	 public List<BoardVO> boardfindsListData(String find, int start, int end)
+	 {
+		 return mapper.boardfindsListData(find, start, end);
+	 }
+	 public List<BoardVO> boardfindTypesListData(int type, String find, int start, int end)
+	 {
+		 return mapper.boardfindTypesListData(type, find, start, end);
+	 }
+	 public int boardnfTotalPage(String find)
+	 {
+		 return mapper.boardnfTotalPage(find);
+	 }
+	 public int cboardnfTotalPage(int type, String find)
+	 {
+		 return mapper.cboardnfTotalPage(type, find);
+	 }
+	 public int boardsfTotalPage(String find)
+	 {
+		 return mapper.boardsfTotalPage(find);
+	 }
+	 public int cboardsfTotalPage(int type, String find)
+	 {
+		 return mapper.cboardsfTotalPage(type, find);
+	 }
+	 
+// 댓글
 	 
 	 public List<BoardReplyVO> boardReplyListData(int bno)
 	 {
@@ -114,10 +148,6 @@ public class BoardDAO {
 	 public int noticeboardTotalPage()
 	 {
 		 return mapper.noticeboardTotalPage();
-	 }
-	 public int noticeboardadmin(String id)
-	 {
-		 return mapper.noticeboardadmin(id);
 	 }
 	 public void noticeboardInsert(NoticeBoardVO vo)
 	 {

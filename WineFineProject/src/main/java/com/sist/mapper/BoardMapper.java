@@ -32,6 +32,10 @@ public interface BoardMapper {
 	// 전체 총페이지
 	 @Select("SELECT CEIL(COUNT(*)/10.0) FROM board")
 	  public int boardTotalPage();
+	
+	 // 카테고리별 총페이지
+	 @Select("SELECT CEIL(COUNT(*)/10.0) FROM board WHERE cno = #{cno}")
+	  public int cboardTotalPage(@Param("cno") int type);
 	 
 	// 닉네임 구하기
 	 @Select("SELECT nickname FROM member WHERE id LIKE '%'||#{id}||'%' ")
@@ -74,10 +78,57 @@ public interface BoardMapper {
 			  +"WHERE bno=#{bno}")
 	  public BoardVO boardFileInfoData(int bno);
 	 
-	// 게시글 검색(닉네임)
-	
-	// 게시글 검색(제목)
-	
+	// 게시글 검색(작성자-닉네임)
+	// 전체 게시글 목록
+		@Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
+				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
+				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount "
+				 +"FROM board WHERE nickname LIKE '%'||#{find}||'%' ORDER BY bno DESC)) "
+				 +"WHERE num BETWEEN #{start} AND #{end}")
+		 public List<BoardVO> boardfindnListData(@Param("find") String find, @Param("start") int start, @Param("end") int end);
+		
+		// 카테고리 별 목록 
+		 @Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
+				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
+				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount "
+				 +"FROM board WHERE cno = #{cno} AND nickname LIKE '%'||#{find}||'%' ORDER BY bno DESC)) "
+				 +"WHERE num BETWEEN #{start} AND #{end}")
+		 public List<BoardVO> boardfindTypenListData(@Param("cno") int type, @Param("find") String find, @Param("start") int start, @Param("end") int end);
+
+		// 닉네임 검색 전체 총페이지
+		 @Select("SELECT CEIL(COUNT(*)/10.0) FROM board WHERE nickname LIKE '%'||#{find}||'%' ")
+		  public int boardnfTotalPage(@Param("find") String find);
+		
+		 // 닉네임 검색 카테고리별 총페이지
+		 @Select("SELECT CEIL(COUNT(*)/10.0) FROM board WHERE cno = #{cno} AND nickname LIKE '%'||#{find}||'%' ")
+		  public int cboardnfTotalPage(@Param("cno") int type, @Param("find") String find);
+		 
+		 // 게시글 검색(제목)
+		// 전체 게시글 목록
+			@Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
+					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
+					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount "
+					 +"FROM board WHERE subject LIKE '%'||#{find}||'%' ORDER BY bno DESC)) "
+					 +"WHERE num BETWEEN #{start} AND #{end}")
+			 public List<BoardVO> boardfindsListData(@Param("find") String find, @Param("start") int start, @Param("end") int end);
+			
+			// 카테고리 별 목록 
+			 @Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
+					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
+					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount "
+					 +"FROM board WHERE cno = #{cno} AND subject LIKE '%'||#{find}||'%' ORDER BY bno DESC)) "
+					 +"WHERE num BETWEEN #{start} AND #{end}")
+			 public List<BoardVO> boardfindTypesListData(@Param("cno") int type, @Param("find") String find, @Param("start") int start, @Param("end") int end);
+			
+			 // 제목 검색 전체 총페이지
+			 @Select("SELECT CEIL(COUNT(*)/10.0) FROM board WHERE subject LIKE '%'||#{find}||'%'")
+			  public int boardsfTotalPage(@Param("find") String find);
+			
+			 // 제목 검색 카테고리 별 총페이지
+			 @Select("SELECT CEIL(COUNT(*)/10.0) FROM board WHERE cno = #{cno} AND subject LIKE '%'||#{find}||'%'")
+			  public int cboardsfTotalPage(@Param("cno") int type, @Param("find") String find);
+// 댓글
+		 
 	// 댓글 목록
 	 @Select("SELECT brno,bno,id,nickname,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday,root,depth "
 			 +"FROM boardreply "
@@ -123,7 +174,7 @@ public interface BoardMapper {
 			 +"WHERE bno=#{bno}")
 	 public void boardReplyAllDelete(int bno);
 	 
-	 //noticeboard
+//noticeboard
 	// 전체 게시글 목록
 		@Select("SELECT nbno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
 				 +"FROM (SELECT nbno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
@@ -143,11 +194,7 @@ public interface BoardMapper {
 		// 전체 총페이지
 		 @Select("SELECT CEIL(COUNT(*)/10.0) FROM noticeboard")
 		  public int noticeboardTotalPage();
-		 
-		// 권한 구하기
-		 @Select("SELECT admin FROM member WHERE id LIKE '%'||#{id}||'%' ")
-		 public int noticeboardadmin(String id);
-		 
+				 
 		// 추가(글쓰기)
 		 @SelectKey(keyProperty = "nbno",resultType = int.class,before = true,
 				  statement = "SELECT NVL(MAX(nbno)+1,1) as nbno FROM noticeboard")

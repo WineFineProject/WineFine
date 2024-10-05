@@ -10,6 +10,7 @@ public interface BoardService {
 	public List<BoardVO> boardListData(int start, int end);
 	public List<BoardVO> boardTypeListData(int cno, int start, int end);
 	public int boardTotalPage();
+	public int cboardTotalPage(int type);
 	public String boardNickname(String id);
 	public void boardInsert(BoardVO vo);
 	public BoardVO boardDetailData(int bno);
@@ -17,6 +18,14 @@ public interface BoardService {
 	public String boardUpdate(BoardVO vo);
 	public String boardDelete(int bno);
 	public BoardVO boardFileInfoData(int bno);
+	public List<BoardVO> boardfindnListData(String find, int start, int end);
+	public List<BoardVO> boardfindTypenListData(int type, String find, int start, int end);
+	public List<BoardVO> boardfindsListData(String find, int start, int end);
+	public List<BoardVO> boardfindTypesListData(int type, String find, int start, int end);
+	public int boardnfTotalPage(String find);
+	public int cboardnfTotalPage(int type, String find);
+	public int boardsfTotalPage(String find);
+	public int cboardsfTotalPage(int type, String find);
 	
 	public List<BoardReplyVO> boardReplyListData(int bno);
 	public int boardReplyCount(int bno);
@@ -30,7 +39,6 @@ public interface BoardService {
 	public List<NoticeBoardVO> noticeboardListData(int start, int end);
 	public List<NoticeBoardVO> noticeboardTypeListData(int cno, int start, int end);
 	public int noticeboardTotalPage();
-	public int noticeboardadmin(String id);
 	public void noticeboardInsert(NoticeBoardVO vo);
 	public NoticeBoardVO noticeboardDetailData(int nbno);
 	public NoticeBoardVO noticeboardUpdateData(int nbno);
