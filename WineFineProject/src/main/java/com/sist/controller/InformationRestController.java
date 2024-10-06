@@ -1,5 +1,6 @@
 package com.sist.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,65 +20,72 @@ public class InformationRestController {
 	public String grapeListData() throws Exception 
 	{
         List<GrapeVO> grapes=iService.grapeListData();
-        Map map = new HashMap();
+        Map map=new HashMap();
         map.put("grapes", grapes);
         
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper=new ObjectMapper();
         return mapper.writeValueAsString(map);
     }
 	// 포도 상세 페이지
 	@GetMapping(value = "grape/detailVue.do", produces = "text/plain;charset=UTF-8")
     public String grapeDetailData(int no) throws Exception 
 	{
-        GrapeVO grape=iService.grapeDetailData(no);
-        Map map = new HashMap();
-        map.put("grape", grape);
+        GrapeVO vo=iService.grapeDetailData(no);
+        ObjectMapper mapper=new ObjectMapper();
+        String json=mapper.writeValueAsString(vo);
         
-        ObjectMapper mapper = new ObjectMapper();
+        return json;
+    }
+	// 포도 품종 검색
+    @GetMapping(value = "grape/find.do", produces = "text/plain;charset=UTF-8")
+    public String findGrapes(String fd) throws Exception 
+    {
+        Map map=new HashMap();
+        map.put("fd", fd);
+        
+        ObjectMapper mapper=new ObjectMapper();
         return mapper.writeValueAsString(map);
     }
 	// 생산지역 목록 페이지
 	@GetMapping(value = "nation/listVue.do", produces = "text/plain;charset=UTF-8")
 	public String nationListData() throws Exception 
 	{
-	    List<NationVO> nations = iService.nationListData();
-	    Map map = new HashMap();
+	    List<NationVO> nations=iService.nationListData();
+	    Map map=new HashMap();
 	    map.put("nations", nations);
 	        
-	    ObjectMapper mapper = new ObjectMapper();
+	    ObjectMapper mapper=new ObjectMapper();
 	    return mapper.writeValueAsString(map);
 	}
 	// 생산지역 상세 페이지
 	@GetMapping(value = "nation/detailVue.do", produces = "text/json;charset=UTF-8")
     public String nationDetailData(int no) throws Exception 
 	{
-        NationVO nation = iService.nationDetailData(no);
-        Map map = new HashMap();
-        map.put("nation", nation);
+        NationVO vo=iService.nationDetailData(no);
+        ObjectMapper mapper=new ObjectMapper();
+        String json=mapper.writeValueAsString(vo);
         
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(map);
+        return json;
     }
 	// 생산자 목록 
-	@GetMapping(value = "maker/list.do", produces = "text/json;charset=UTF-8")
+	@GetMapping(value = "maker/listVue.do", produces = "text/json;charset=UTF-8")
     public String makerListData() throws Exception 
 	{
-        List<MakerVO> makers = iService.makerListData();
-        Map map = new HashMap();
+        List<MakerVO> makers=iService.makerListData();
+        Map map=new HashMap();
         map.put("makers", makers);
         
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper=new ObjectMapper();
         return mapper.writeValueAsString(map);
     }
 	// 생산자 상세 
-	@GetMapping(value = "maker/detail.do", produces = "text/json;charset=UTF-8")
+	@GetMapping(value = "maker/detailVue.do", produces = "text/json;charset=UTF-8")
 	public String makerDetailData(int no) throws Exception 
 	{
-	    MakerVO maker = iService.makerDetailData(no);
-	    Map map = new HashMap();
-	    map.put("maker", maker);
-	        
-	    ObjectMapper mapper = new ObjectMapper();
-	    return mapper.writeValueAsString(map);
+	    MakerVO vo=iService.makerDetailData(no);
+	    ObjectMapper mapper=new ObjectMapper();
+        String json=mapper.writeValueAsString(vo);
+        
+        return json;
 	}
 }

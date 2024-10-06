@@ -3,9 +3,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주요 품종</title>
+<title>생산지역</title>
 <style>
-.GrapeList {
+.NationList {
 	list-style-type: none; 
 	padding: 0; 
 	margin: 0; 
@@ -70,14 +70,14 @@
 </head>
 <body>
   <div class="container py-5">
-    <div class="row" id="grapeList" style="margin-top: 150px">
+    <div class="row" id="nationList" style="margin-top: 150px">
     <div class="search-container" style="padding: 0px">
-            <h3>주요 품종({{grapes.length}}건)</h3>
-            <input type="text" class="search-input" placeholder=" 주요품종 내 검색" v-model="fd">
+            <h3>생산지역({{nations.length}}건)</h3>
+            <input type="text" class="search-input" placeholder=" 생산지역 내 검색" v-model="fd">
             </div>
             <div class="header-line"></div>
-            <ul class="GrapeList">
-                <li v-for="vo in listGrapes" :key="vo.no" class="item">
+            <ul class="NationList">
+                <li v-for="vo in listNations" :key="vo.no" class="item">
                     <div>
                       <a :href="'detail.do?no='+vo.no">
                         <span class="namekor">{{vo.namekor}}</span>
@@ -90,35 +90,34 @@
                 </li>
             </ul>
            <div class="center"> 
-            <input type="button" v-if="MoreGrapes" class="load-more" @click="loadMore" value="더보기">
+            <input type="button" v-if="MoreNations" class="load-more" @click="loadMore" value="더보기">
            </div> 
         </div>
    </div> 
     <script>
-        let grapeListapp = Vue.createApp({
+        let nationListapp = Vue.createApp({
             data() {
                 return {
-                    grapes: [],
-                    Showgrapes: 10, 
-                    fd: ''
+                    nations: [],
+                    Shownations: 10, 
                 }
             },
             computed: {
-            	listGrapes() {
-                    return this.grapes.slice(0, this.Showgrapes)
+            	listNations() {
+                    return this.nations.slice(0, this.Shownations)
                 },
-                MoreGrapes() {
-                    return this.Showgrapes<this.grapes.length
+                MoreNations() {
+                    return this.Shownations<this.nations.length
                 }
             },
             methods: {
             	loadMore() {
-                    this.Showgrapes+=10
+                    this.Shownations+=10
                 },
-                gList() {
-                    axios.get('../grape/listVue.do')
+                nList() {
+                    axios.get('../nation/listVue.do')
                         .then(response=>{
-                            this.grapes=response.data.grapes
+                            this.nations=response.data.nations
                         })
                         .catch(error=>{
                             console.error(error)
@@ -126,9 +125,9 @@
                 }
             },
             mounted() {
-                this.gList()
+                this.nList()
             }
-        }).mount('#grapeList')
+        }).mount('#nationList')
     </script>
 </body>
 </html>

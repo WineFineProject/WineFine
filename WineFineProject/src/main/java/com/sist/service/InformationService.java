@@ -10,4 +10,5 @@ public interface InformationService {
     public NationVO nationDetailData(int no);
     public List<MakerVO> makerListData(); 
     public MakerVO makerDetailData(int no); 
+    public List<GrapeVO> findGrapes(String fd);
 }

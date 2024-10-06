@@ -8,9 +8,9 @@
 </head>
 <body>
     <div id="list" class="row">
-        <h1>회원 관리</h1>
+        <h3 class="text-center">회원 관리</h3>
         <table class="table" style="margin-top: 20px">
-            <thead>
+            <thead class="text-center">
                 <tr>
                     <th>번호</th>
                     <th>아이디</th>
@@ -22,7 +22,7 @@
                     <th>관리</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
                 <tr v-for="(vo, index) in members" :key="vo.id">
                     <td>{{index+1}}</td>
                     <td>{{vo.id}}</td>

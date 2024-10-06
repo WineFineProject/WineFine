@@ -18,17 +18,16 @@ public class InformationController {
   @GetMapping("grape/list.do")
   public String grapeListData(Model model) 
   {
-      List<GrapeVO> grapes = iService.grapeListData();
+      List<GrapeVO> grapes=iService.grapeListData();
       model.addAttribute("grapes", grapes);
       return "grape/list"; 
   }
 
   // 포도 상세 페이지
   @GetMapping("grape/detail.do")
-  public String grapeDetailData(@Param("no") int no, Model model) 
+  public String grapeDetailData(int no, Model model) 
   {
-      GrapeVO grape = iService.grapeDetailData(no);
-      model.addAttribute("grape", grape);
+      model.addAttribute("no", no);
       return "grape/detail";
   }
   
@@ -36,17 +35,16 @@ public class InformationController {
   @GetMapping("nation/list.do")
   public String nationListData(Model model) 
   {
-      List<NationVO> nations = iService.nationListData();
+      List<NationVO> nations=iService.nationListData();
       model.addAttribute("nations", nations);
       return "nation/list";
   }
 
   // 생산지역 상세 페이지
   @GetMapping("nation/detail.do")
-  public String nationDetailData(@Param("no") int no, Model model) 
+  public String nationDetailData(int no, Model model) 
   {
-      NationVO nation = iService.nationDetailData(no);
-      model.addAttribute("nation", nation);
+      model.addAttribute("no", no);
       return "nation/detail"; 
   }
   
@@ -54,17 +52,16 @@ public class InformationController {
   @GetMapping("maker/list.do")
   public String makerListData(Model model) 
   {
-      List<MakerVO> makers = iService.makerListData();
+      List<MakerVO> makers=iService.makerListData();
       model.addAttribute("makers", makers);
       return "maker/list"; 
   }
 
   // 생산자 상세 
   @GetMapping("maker/detail.do")
-  public String makerDetailData(@Param("no") int no, Model model) 
+  public String makerDetailData(int no, Model model) 
   {
-      MakerVO maker = iService.makerDetailData(no);
-      model.addAttribute("maker", maker);
+      model.addAttribute("no", no);
       return "maker/detail"; 
   }
 }

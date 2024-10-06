@@ -3,9 +3,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주요 품종</title>
+<title>생산자</title>
 <style>
-.GrapeList {
+.MakerList {
 	list-style-type: none; 
 	padding: 0; 
 	margin: 0; 
@@ -70,14 +70,14 @@
 </head>
 <body>
   <div class="container py-5">
-    <div class="row" id="grapeList" style="margin-top: 150px">
+    <div class="row" id="makerList" style="margin-top: 150px">
     <div class="search-container" style="padding: 0px">
-            <h3>주요 품종({{grapes.length}}건)</h3>
-            <input type="text" class="search-input" placeholder=" 주요품종 내 검색" v-model="fd">
+            <h3>생산자({{makers.length}}건)</h3>
+            <input type="text" class="search-input" placeholder=" 생산자 내 검색">
             </div>
             <div class="header-line"></div>
-            <ul class="GrapeList">
-                <li v-for="vo in listGrapes" :key="vo.no" class="item">
+            <ul class="MakerList">
+                <li v-for="vo in listMakers" :key="vo.no" class="item">
                     <div>
                       <a :href="'detail.do?no='+vo.no">
                         <span class="namekor">{{vo.namekor}}</span>
@@ -87,38 +87,38 @@
                     <div style="height: 10px"></div>
                     <div class="content">{{vo.content}}</div>
                     <div style="height: 10px"></div>
+                    <div style="font-weight: bold;">{{vo.nation}}</div>
                 </li>
             </ul>
            <div class="center"> 
-            <input type="button" v-if="MoreGrapes" class="load-more" @click="loadMore" value="더보기">
+            <input type="button" v-if="MoreMakers" class="load-more" @click="loadMore" value="더보기">
            </div> 
         </div>
    </div> 
     <script>
-        let grapeListapp = Vue.createApp({
+        let makerListapp = Vue.createApp({
             data() {
                 return {
-                    grapes: [],
-                    Showgrapes: 10, 
-                    fd: ''
+                	makers: [],
+                    Showmakers: 10, 
                 }
             },
             computed: {
-            	listGrapes() {
-                    return this.grapes.slice(0, this.Showgrapes)
+            	listMakers() {
+                    return this.makers.slice(0, this.Showmakers)
                 },
-                MoreGrapes() {
-                    return this.Showgrapes<this.grapes.length
+                MoreMakers() {
+                    return this.Showmakers<this.makers.length
                 }
             },
             methods: {
             	loadMore() {
-                    this.Showgrapes+=10
+                    this.Showmakers+=10
                 },
-                gList() {
-                    axios.get('../grape/listVue.do')
+                mList() {
+                    axios.get('../maker/listVue.do')
                         .then(response=>{
-                            this.grapes=response.data.grapes
+                            this.makers=response.data.makers
                         })
                         .catch(error=>{
                             console.error(error)
@@ -126,9 +126,9 @@
                 }
             },
             mounted() {
-                this.gList()
+                this.mList()
             }
-        }).mount('#grapeList')
+        }).mount('#makerList')
     </script>
 </body>
 </html>

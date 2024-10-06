@@ -46,4 +46,10 @@ public class InformationServiceImpl implements InformationService {
 		return dao.makerDetailData(no);
 	}
 
+	@Override
+	public List<GrapeVO> findGrapes(String fd) {
+		// TODO Auto-generated method stub
+		return dao.findGrapes(fd);
+	}
+
 }
