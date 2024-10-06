@@ -14,11 +14,13 @@
                 <tr>
                     <th>번호</th>
                     <th>아이디</th>
+                    <th>닉네임</th>
                     <th>이름</th>
-                    <th>성별</th>
                     <th>이메일</th>
-                    <th>가입일</th>
+                    <th>성별</th>
+                    <th>휴대폰번호</th>
                     <th>등급</th>
+                    <th>가입일</th>
                     <th>관리</th>
                 </tr>
             </thead>
@@ -26,11 +28,13 @@
                 <tr v-for="(vo, index) in members" :key="vo.id">
                     <td>{{index+1}}</td>
                     <td>{{vo.id}}</td>
+                    <td>{{vo.nickname}}</td>
                     <td>{{vo.name}}</td>
-                    <td>{{vo.sex}}</td>
                     <td>{{vo.email}}</td>
-                    <td>{{vo.dbregdate}}</td>
+                    <td>{{vo.sex}}</td>
+                    <td>{{vo.phone}}</td>
                     <td>{{vo.grade}}</td>
+                    <td>{{vo.dbregdate}}</td>
                     <td>
                      <input type="button" class="btn btn-xs btn-danger" id="blackListBtn" value="블랙리스트">
                     </td>
