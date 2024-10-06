@@ -44,7 +44,8 @@
                                     </div>
                                 </th>
                                 <td>
-                                    <p class="mb-0 mt-4">{{wine.namekor}}</p>
+                                    <p class="mb-0 mt-4"><b style="font-size: 1.2em">{{wine.namekor}}</b></p><br>
+                                    <p class="mb-0 mt-4">{{wine.seller}}</p>
                                 </td>
                                 <td>
                                     <p class="mb-0 mt-4">{{wine.price}}</p>
@@ -113,7 +114,7 @@
 		data(){
 			return {
 				wines:[],
-				cno:0
+				cno:''
 			}
 		},
 		mounted(){
@@ -166,7 +167,7 @@
 				axios.get("../cart/inMyCart_vue.do"
 				).then(response => {
 					console.log(response.data)
-					this.wines=response.data	
+					this.wines=response.data.cartListData
 				}).catch(error => {
 					console.error("error-dataRecv()",error)
 				})				

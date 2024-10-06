@@ -1,11 +1,14 @@
 package com.sist.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 
@@ -18,8 +21,8 @@ public interface CartMapper {
 	public String addCart(CartVO vo);
 	
 	// 목록
-	@Select("SELECT c.cno, c.wno, c.price as cart_price, c.count, " +
-            "w.namekor, w.poster, w.price as wine_price " +
+	@Select("SELECT c.cno,c.wno,c.price as cart_price,c.count,c.id " +
+            "w.namekor,w.poster,w.price as wine_price " +
             "FROM cart c JOIN wine w ON c.wno = w.wno " +
             "WHERE c.id = #{id}")
     @Results({
@@ -27,21 +30,27 @@ public interface CartMapper {
         @Result(property = "wno", column = "wno"),
         @Result(property = "price", column = "cart_price"),
         @Result(property = "count", column = "count"),
+        @Result(property = "id", column = "id"),
         @Result(property = "wine.namekor", column = "namekor"),
         @Result(property = "wine.poster", column = "poster"),
         @Result(property = "wine.price", column = "wine_price")
     })
-	public List<CartVO> cartListData(String id);
+	public List<CartVO> cartListData(@Param("id") String id);
 	
 	@Select("SELECT wno,namekor,poster,price "
-			+ "FROM wine"
+			+ "FROM wine "
 			+ "WHERE wno=#{wno}")
-	WineVO getWine(int wno);
+	public WineVO getWine(@Param("wno") int wno);
 	
 	
 	// 수정(개수 변경)
+	@Update("UPDATE cart SET count=#{count} "
+			+ "WHERE cno=#{cno} AND id=#{id}")
+	public int updateCart(@Param("cno") int cno,@Param("count") int count,@Param("id") String id);
 	
 	// 삭제
-	 
+	@Delete("DELETE FROM cart "
+			+ "WHERE cno=#{cno}")
+	public int delCart(@Param("cno") int cno);
 	
 }

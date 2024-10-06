@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sist.dao.CartDAO;
 import com.sist.vo.CartVO;
+import com.sist.vo.WineVO;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -19,8 +20,23 @@ public class CartServiceImpl implements CartService{
 	}
 	@Override
 	public List<CartVO> cartListData(String id) {
-		// TODO Auto-generated method stub
+		
 		return dao.cartListData(id);
+	}
+	@Override
+	public WineVO getWine(int wno) {
+		// TODO Auto-generated method stub
+		return dao.getWine(wno);
+	}
+	@Override
+	public int updateCart(int cno, int count, String id) {
+		// TODO Auto-generated method stub
+		return dao.updateCart(cno, count, id);
+	}
+	@Override
+	public int delCart(int cno) {
+		// TODO Auto-generated method stub
+		return dao.delCart(cno);
 	}
 
 }
