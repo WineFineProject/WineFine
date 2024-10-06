@@ -120,13 +120,6 @@
 		mounted(){
 			this.dataRecv()
 		},	
-		computed:{
-			totalPrice(){
-				return this.wines.reduce((total,wine)=>{
-					return total + (wine.price * wine.count)
-				},0)
-			}
-		},
 		methods:{
 			plus(wine){
 				wine.count++;
@@ -136,8 +129,12 @@
 				if(wine.count>1){
 				wine.count--;
 				this.updateCart(wine)
-				}
+				}				
 			},
+			totalPrice(wine) {
+			    return this.wines.reduce((total, wine) => {
+			      return total + (wine.price * wine.count);
+			    }, 0)},
 			/* drop(){
 				axios.get("../inMyCartDrop_vue.do", {
 			        params: { 
@@ -164,7 +161,11 @@
 				return wine.count * wine.price
 			},
 			dataRecv(){
-				axios.get("../cart/inMyCart_vue.do"
+				axios.get("../cart/inMyCart_vue.do"{
+					params:{
+						wine:
+					}
+				}
 				).then(response => {
 					console.log(response.data)
 					this.wines=response.data.cartListData
