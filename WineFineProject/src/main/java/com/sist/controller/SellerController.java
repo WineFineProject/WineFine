@@ -21,4 +21,12 @@ public class SellerController {
 	public String sellersale() {
 		return "seller/sale";
 	}
+	@GetMapping("seller/notice.do")
+	public String sellerNotice() {
+		return "seller/notice";
+	}
+	@GetMapping("seller/noticeInsert.do")
+	public String sellerNoticeInsert() {
+		return "seller/noticeInsert";
+	}
 }

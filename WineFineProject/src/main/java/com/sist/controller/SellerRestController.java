@@ -24,6 +24,8 @@ public class SellerRestController {
 	private BannerService bService;
 	@Autowired
 	private SaleService ssService;
+	@Autowired
+	private NoticeBoardService nService;
 	//���� �˻� ���
 	@GetMapping(value = "seller/findWine.do",produces = "text/plain;charset=UTF-8")
 	public String sellerFindWine(String fd, HttpSession session) throws Exception{
@@ -134,4 +136,13 @@ public class SellerRestController {
 		ssService.promotionSaleInput(vo);
 	}
 	
+	@PostMapping(value = "seller/insertNotice.do", produces = "text/plain;charset=UTF-8")
+	public void sellerInsertNotice(NoticeBoardVO vo, HttpSession session) {
+		String id=(String)session.getAttribute("id");
+		String nickname=(String)session.getAttribute("nickname");
+		vo.setUserid(id);
+		vo.setNickname(nickname);
+		System.out.println(vo);
+		nService.noticeBoardInsert(vo);
+	}
 }

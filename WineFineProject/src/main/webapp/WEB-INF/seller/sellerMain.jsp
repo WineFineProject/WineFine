@@ -29,9 +29,9 @@
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
-	<div class=" container2 text-center">
+	<div class=" container2">
 		<div class="row" style="margin-top: 150px;">
-			<div class="col-lg-2">
+			<div class="col-lg-2 text-center">
 				<div class="panel panel-info">
 					<div class="panel-heading">
 						<h3 class="panel-title">상품관리</h3>
@@ -51,6 +51,7 @@
 					<ul class="list-group">
 						<li class="list-group-item"><a href="../seller/memberList.do">회원관리</a></li>
 						<li class="list-group-item"><a href="../seller/blackList.do">블랙리스트관리</a></li>
+						<li class="list-group-item"><a href="../seller/notice.do">공지사항</a></li>
 					</ul>
 				</div>
 				<div class="panel panel-warning">

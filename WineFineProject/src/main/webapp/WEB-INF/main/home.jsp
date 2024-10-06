@@ -33,6 +33,8 @@
 }
 
 .layer-popup {
+	border:1px solid black;
+	display:none;
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -288,7 +290,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="layer-popup" style="display: none;" id="popup" :class="{active:popupVisible}">
+		<div class="layer-popup" id="popup" :class="{active:popupVisible}">
 			<div class="layer-popup-header">
 				<h2>Popup Title</h2>
 				<span class="layer-popup-close" @click="popupClose()">X</span>
