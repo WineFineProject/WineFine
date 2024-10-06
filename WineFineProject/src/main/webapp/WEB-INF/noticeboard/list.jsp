@@ -31,9 +31,9 @@
         <tr>
         <td width="40%">
          <input type="button" value="전체" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(0)">
-     	 <input type="button" value="일반" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(1)">
-     	 <input type="button" value="이벤트" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(2)">
-    	 <input type="button" value="상품" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(3)">
+     	 <input type="button" value="일반" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(4)">
+     	 <input type="button" value="이벤트" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(5)">
+    	 <input type="button" value="상품" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(6)">
     	 </td>
     	 <td width="60%" class="text-right">
     	 &nbsp;
@@ -45,8 +45,7 @@
         <tr>
          <th width="5%" class="text-center">번호</th>
          <th width="10%" class="text-center">분류</th>
-         <th width="30%" class="text-center">제목</th>
-         <th width="10%" class="text-center">첨부파일</th>
+         <th width="40%" class="text-center">제목</th>
          <th width="15%" class="text-center">작성자</th>
          <th width="15%" class="text-center">작성일</th>
          <th width="15%" class="text-center">조회수</th>
@@ -54,15 +53,13 @@
        </thead>
 		<tbody v-if="type===0">
         <tr v-for="vo in list">
-         <td width="5%" class="text-center">{{vo.nbno}}</td>
+         <td width="5%" class="text-center">{{vo.bno}}</td>
          <td width="10%" class="text-center">
-         	<span v-if="vo.cno==1">[일반]</span>
-         	<span v-if="vo.cno==2">[이벤트]</span>
-         	<span v-if="vo.cno==3">[상품]</span>
+         	<span v-if="vo.cno==4">[일반]</span>
+         	<span v-if="vo.cno==5">[이벤트]</span>
+         	<span v-if="vo.cno==6">[상품]</span>
          </td>
-         <td width="30%"><a :href="'detail.do?nbno='+vo.nbno">{{vo.subject}}</a></td>
-         <td width="10%"  v-if="vo.filecount>0" class="text-center">📎</td>
-         <td width="10%"  v-else class="text-center"></td>
+         <td width="40%"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}</a></td>
          <td width="15%" class="text-center">관리자</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
          <td width="15%" class="text-center">{{vo.hit}}</td>
@@ -70,15 +67,13 @@
        </tbody>
        <tbody v-else>
        <tr v-for="vo in cList">
-         <td width="5%" class="text-center">{{vo.nbno}}</td>
+         <td width="5%" class="text-center">{{vo.bno}}</td>
          <td width="10%" class="text-center">
-         	<span v-if="vo.cno==1">[일반]</span>
-         	<span v-if="vo.cno==2">[이벤트]</span>
-         	<span v-if="vo.cno==3">[상품]</span>
+         	<span v-if="vo.cno==4">[일반]</span>
+         	<span v-if="vo.cno==5">[이벤트]</span>
+         	<span v-if="vo.cno==6">[상품]</span>
          </td>
-         <td width="30%"><a :href="'detail.do?nbno='+vo.nbno">{{vo.subject}}</a></td>
-         <td width="10%"  v-if="vo.filecount>0" class="text-center">📎</td>
-         <td width="10%"  v-else class="text-center"></td>
+         <td width="40%"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}</a></td>
          <td width="15%" class="text-center">관리자</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
          <td width="15%" class="text-center">{{vo.hit}}</td>
@@ -123,7 +118,6 @@
     	},  
     	mounted(){
     		this.dataRecv()
-    		
     	},
     	methods:{
     		

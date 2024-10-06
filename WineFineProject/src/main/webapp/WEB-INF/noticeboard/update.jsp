@@ -22,7 +22,7 @@
  
    <div class="row">
    <form @submit.prevent="submitForm">
-     <h6 class="text-center" hidden>{{nbno}}</h6>
+     <h6 class="text-center" hidden>{{bno}}</h6>
      <h6 class="text-center" hidden>{{id}}</h6>
      <table class="table">
       <tr>
@@ -30,9 +30,9 @@
        <td width="80%">
          <select id="bCategory" v-model="cno" ref="cno">
                     <option value="" disabled selected>카테고리 선택</option>
-                    <option value=1>일반</option>
-                    <option value=2>이벤트</option>
-                    <option value=3>상품</option>
+                    <option value=4>일반</option>
+                    <option value=5>이벤트</option>
+                    <option value=6>상품</option>
           </select>
        </td>
       </tr>
@@ -47,15 +47,6 @@
        <td width="80%">
         <textarea rows="10" cols="52" v-model="content" ref="content"></textarea>
        </td>
-      </tr>
-      <tr>
-        <th width="20%" class="text-center">첨부파일</th>
-        <td width="80%">
-         <input type="file" ref="upfiles" class="input-sm" 
-           multiple="multiple"
-           accept="upload/*"
-         />
-        </td>
       </tr>
       <tr>
         <td colspan="2" class="text-center">
@@ -73,19 +64,17 @@
     let updateApp=Vue.createApp({
     	data(){
     		return {
-    			nbno:${nbno},
+    			bno:${bno},
     			cno:'',
     			subject:'',
     			content:'',
-    			id:'${sessionScope.id}',
-    			upfiles:''
-    			
+    			id:'${sessionScope.id}'
     		}
     	},
 		mounted(){
     		axios.get('update_vue.do',{
     			params:{
-    				nbno:this.nbno
+    				bno:this.bno
     			}
     		}).then(response=>{
     			this.cno=response.data.cno
@@ -117,26 +106,13 @@
     			formData.append("cno",this.$refs.cno.value)  			
     			formData.append("subject",this.$refs.subject.value)
     			formData.append("content",this.$refs.content.value)
-    			formData.append("nbno",this.nbno)
+    			formData.append("bno",this.bno)
     			
-    			let len=this.$refs.upfiles.files.length
-    			
-    			if(len>0) // 업로드 파일이 있는 경우 
-    			{
-    				for(let i=0;i<len;i++)
-    				{
-    					console.log(this.$refs.upfiles.files[i])
-    					formData.append("files["+i+"]",this.$refs.upfiles.files[i]);
-    				}
-    			}
     			axios.post('../noticeboard/update_ok_vue.do',formData,{
-    				headers:{
-    					'Content-Type':'multipart/form-data'
-    				}
     			}).then(response=>{
     				if(response.data==='yes')
     				{
-    					location.href='detail.do?nbno='+this.nbno
+    					location.href='detail.do?bno='+this.bno
     				}
     				else
     				{

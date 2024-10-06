@@ -28,9 +28,9 @@
        <td width="80%">
          <select id="bCategory" v-model="cno" ref="cno">
                     <option value="" disabled selected>카테고리 선택</option>
-                    <option value=1>일반</option>
-                    <option value=2>이벤트</option>
-                    <option value=3>상품</option>
+                    <option value=4>일반</option>
+                    <option value=5>이벤트</option>
+                    <option value=6>상품</option>
           </select>
        </td>
       </tr>
@@ -45,15 +45,6 @@
        <td width="80%">
         <textarea rows="10" cols="52" v-model="content" ref="content"></textarea>
        </td>
-      </tr>
-      <tr>
-        <th width="20%" class="text-center">첨부파일</th>
-        <td width="80%">
-         <input type="file" ref="upfiles" class="input-sm" 
-           multiple="multiple"
-           accept="upload/*"
-         />
-        </td>
       </tr>
       <tr>
         <td colspan="2" class="text-center">
@@ -74,8 +65,7 @@
     			cno:1,
     			subject:'',
     			content:'',
-    			id:'${sessionScope.id}',
-    			upfiles:''
+    			id:'${sessionScope.id}'
     			
     		}
     	},
@@ -106,20 +96,7 @@
     			formData.append("subject",this.$refs.subject.value)
     			formData.append("content",this.$refs.content.value)
     			
-    			let len=this.$refs.upfiles.files.length
-    			
-    			if(len>0) 
-    			{
-    				for(let i=0;i<len;i++)
-    				{
-    					console.log(this.$refs.upfiles.files[i])
-    					formData.append("files["+i+"]",this.$refs.upfiles.files[i]);
-    				}
-    			}
     			axios.post('../noticeboard/insert_vue.do',formData,{
-    				headers:{
-    					'Content-Type':'multipart/form-data'
-    				}
     			}).then(response=>{
     				if(response.data==='yes')
     				{

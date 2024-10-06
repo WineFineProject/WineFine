@@ -79,8 +79,14 @@
       <td> <h6 class="text-center" hidden style="font-size: 5px;">{{rvo.bno}}</h6></td>
       </tr>
      	<tr class="text-left" style="border-bottom-color: white; border-top-color: white;">
-     		<td colspan="3" v-if="rvo.depth===1" style="color:black; font-weight: bold; ">{{rvo.nickname}}</td>
-     		<td colspan="3" v-if="rvo.depth===2" style="color:black; font-weight: bold; margin-left: 15px;">⤷&nbsp;{{rvo.nickname}}</td>
+     		<td colspan="2" v-if="rvo.depth===1" style="color:black; font-weight: bold; ">{{rvo.nickname}}</td>
+     		<td v-if="rvo.depth===1 && id!==''">
+     		<button @click="changeModal(true)" v-model="sbrno" type="button" style="background-color: white;border: none; font-family: 'OpenSans', sans-serif;">신고</button>
+     	</td>
+     		<td colspan="2" v-if="rvo.depth===2" style="color:black; font-weight: bold; margin-left: 15px;">⤷&nbsp;{{rvo.nickname}}</td>
+     		<td v-if="rvo.depth===2 && id!==''">
+     		<button @click="changeModal(true)" v-model="sbrno[rvo.brno]" type="button" style="background-color: white;border: none; font-family: 'OpenSans', sans-serif;">신고</button>
+     		</td>
      	</tr>
      	<tr class="text-left" style="border-color: white;">
             <td colspan="3" v-if="rvo.depth===1"><pre style="white-space: pre-wrap;background-color: white;border: none; font-family: 'OpenSans', sans-serif;">{{rvo.msg}}</pre></td>
@@ -119,6 +125,39 @@
       <div>
       <h1>   </h1>
       </div>
+      <div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
+			<div class="modal-content">
+				<span class="close" @click="changeModal(false)">&times;</span>
+				<table class="table" style="margin-top: 50px;">
+					<tr>
+						<td hidden>{{sbrno}}</td>
+						<td hidden>{{vo.dbday}}</td>
+					<tr>
+					<tr>
+						<th width="30%">신고 댓글 내용:</th>
+						<td width="70%">{{smsg}}</td>
+					</tr>
+					<tr>
+						<th width="30%">신고자 ID : </th>
+						<td width="70%">${sessionScope.id}</td>
+					</tr>
+					<tr>
+						<th width="30%">신고대상 ID : </th>
+						<td width="70%">{{vo.id}}</td>
+					</tr>
+					<tr>
+						<th width="30%">신고 사유:</th>
+						<td width="70%"><textarea rows="2" cols="30"  v-model="brrcontent" style="width: 100%"></textarea>
+					</tr>
+					<tr v-show="isBtn">
+						<td colspan="2">
+							<button type="button" class="btn btn-sm btn-wine" @click="">접수</button>
+							<button type="button" class="btn btn-sm btn-wine" @click="changeModal(false)">취소</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
      </div>
    </div>
    <script>
@@ -133,6 +172,7 @@
     			msg:'',
     			bno:${bno},
     			brno:0,
+    			sbrno:0,
     			nickname:'',
     			root:'',
     			isEditing:false,
@@ -174,7 +214,36 @@
                         console.log(error.response)
                     })
             	},
-            	toggleReplyInput(rvo) {
+            	changeModal(check){
+    				if(check===false){
+    					
+    					this.sbrno=0
+    					this.sid=''
+    					this.smsg=''
+    					this.isBtn=false
+    					this.brrcontent=''
+    				}
+    				changeModal(this, check)
+    			},
+    			insertrreport(){
+    				if(this.brrcontent==="")
+    				  {
+    					 alert("신고 사유를 입력해주세요")
+    					  return
+    				  }
+    				axios.post('../board/rreport_Insert.do', null, {
+    					params:{
+    						tno:this.sbrno,
+    						sendid:sessionScope.id,
+    						recvid:this.id,
+    						content:this.brrcontent
+    					}
+    				}).then(response=>{
+    					alert('댓글 신고 접수완료')
+    					this.changeModal(false)
+    				})
+    			},
+          	toggleReplyInput(rvo) {
             	    axios.post('../board/reReply_count_vue.do', null, {
             	        params: {
             	            root: rvo.root
@@ -195,7 +264,7 @@
             	        console.log(error.response)
             	    })
                 },
-                reReplyWrite(brno, root) {
+            reReplyWrite(brno, root) {
                 	const msg = this.replyMsg[brno]
                 	
                     if (msg === "") {

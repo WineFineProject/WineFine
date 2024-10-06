@@ -82,7 +82,7 @@
          	<span v-if="vo.cno==2">[정보]</span>
          	<span v-if="vo.cno==3">[질문]</span>
          </td>
-         <td width="30%"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.replycount}})</a></td>
+         <td width="30%"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.creplycount}})</a></td>
          <td width="10%"  v-if="vo.filecount>0" class="text-center">📎</td>
          <td width="10%"  v-else class="text-center"></td>
          <td width="15%" class="text-center">{{vo.nickname}}</td>

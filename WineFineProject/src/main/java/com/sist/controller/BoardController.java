@@ -41,9 +41,9 @@ public class BoardController {
 		return "noticeboard/list";
 	}
 	@GetMapping("noticeboard/detail.do")
-	public String noticeboard_detail(int nbno, Model model)
+	public String noticeboard_detail(int bno, Model model)
 	{
-		model.addAttribute("nbno", nbno);
+		model.addAttribute("bno", bno);
 		return "noticeboard/detail";
 	}
 	@GetMapping("noticeboard/insert.do")
@@ -52,9 +52,9 @@ public class BoardController {
 		return "noticeboard/insert";
 	}
 	@GetMapping("noticeboard/update.do")
-	public String noticeboard_update(int nbno,Model model)
+	public String noticeboard_update(int bno,Model model)
 	{
-		model.addAttribute("nbno", nbno);
+		model.addAttribute("bno", bno);
 		return "noticeboard/update";
 	}
 }

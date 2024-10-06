@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.sist.vo.BoardReplyVO;
 import com.sist.vo.BoardVO;
-import com.sist.vo.NoticeBoardVO;
 
 public interface BoardService {
 	public List<BoardVO> boardListData(int start, int end);
@@ -36,13 +35,11 @@ public interface BoardService {
 	public void boardReplyDelete(int brno);
 	public void boardReplyAllDelete(int bno);
 	
-	public List<NoticeBoardVO> noticeboardListData(int start, int end);
-	public List<NoticeBoardVO> noticeboardTypeListData(int cno, int start, int end);
+	public List<BoardVO> noticeboardListData(int start, int end);
+	public List<BoardVO> noticeboardTypeListData(int cno, int start, int end);
 	public int noticeboardTotalPage();
-	public void noticeboardInsert(NoticeBoardVO vo);
-	public NoticeBoardVO noticeboardDetailData(int nbno);
-	public NoticeBoardVO noticeboardUpdateData(int nbno);
-	public String noticeboardUpdate(NoticeBoardVO vo);
-	public String noticeboardDelete(int nbno);
-	public NoticeBoardVO noticeboardFileInfoData(int nbno);
+	public void noticeboardInsert(BoardVO vo);
+	public BoardVO noticeboardDetailData(int bno);
+	public BoardVO noticeboardUpdateData(int bno);
+	public String noticeboardUpdate(BoardVO vo);
 }
