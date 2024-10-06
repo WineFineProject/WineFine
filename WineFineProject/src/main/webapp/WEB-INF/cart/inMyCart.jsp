@@ -168,6 +168,7 @@
 				).then(response => {
 					console.log(response.data)
 					this.wines=response.data.cartListData
+					//this.cno=response.data.cno
 				}).catch(error => {
 					console.error("error-dataRecv()",error)
 				})				

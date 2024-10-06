@@ -24,9 +24,9 @@ public class CartServiceImpl implements CartService{
 		return dao.cartListData(id);
 	}
 	@Override
-	public WineVO getWine(int wno) {
+	public WineVO getWine(int wno,int cno) {
 		// TODO Auto-generated method stub
-		return dao.getWine(wno);
+		return dao.getWine(wno,cno);
 	}
 	@Override
 	public int updateCart(int cno, int count, String id) {
