@@ -1,5 +1,8 @@
 package com.sist.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +17,15 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	@Override
 	public void noticeBoardInsert(NoticeBoardVO vo) {
 		dao.noticeBoardInsert(vo);
+	}
+	
+	@Override
+	public List<NoticeBoardVO> sellerNoticeList(Map map) {
+		return dao.sellerNoticeList(map);
+	}
+	
+	@Override
+	public int sellerNoticeTotalPage(Map map) {
+		return dao.sellerNoticeTotalPage(map);
 	}
 }

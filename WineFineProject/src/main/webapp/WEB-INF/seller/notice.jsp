@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="row" style="width: 1200px;"> 
+	<div class="row" style="width: 1200px;" id="noticeList">
 		<h3 class="text-center">공지사항</h3>
 		<table class="table">
 			<tr>
@@ -21,30 +21,51 @@
 				<th width=15% class="text-center">이름</th>
 				<th width=15% class="text-center">작성일</th>
 				<th width=10% class="text-center">조회수</th>
-				<th width=15% class="text-center">답변상태</th>
 			</tr>
-			<c:set var="count" value="${count}" />
-			<c:forEach var="vo" items="${list}">
-				<tr>
-					<td width=10% class="text-center">${count}</td>
-					<td width=35%><c:if test="${vo.subject!=type}">
-							<a href="../replyboard/detail.do?no=${vo.wrno}">${vo.subject}</a>
-						</c:if> <c:if test="${vo.subject==type}">
-							<span style="color: gray">${vo.subject}</span>
-						</c:if></td>
-					<td width=15% class="text-center">${vo.nickname}</td>
-					<td width=15% class="text-center">${vo.dbday}</td>
-					<td width=10% class="text-center">${vo.hit}</td>
-					<td width=15% class="text-center">${vo.isreply}</td>
-				</tr>
-				<c:set var="count" value="${count-1}" />
-			</c:forEach>
+			<tr v-for="(vo, index) in list">
+				<td width=10% class="text-center"></td>
+				<td width=35%><c:if test="${vo.subject!=type}">
+						<a href="../seller/detail.do?no=${vo.wrno}">${vo.subject}</a>
+					</c:if> <c:if test="${vo.subject==type}">
+						<span style="color: gray">${vo.subject}</span>
+					</c:if></td>
+				<td width=15% class="text-center">${vo.nickname}</td>
+				<td width=15% class="text-center">${vo.dbday}</td>
+				<td width=10% class="text-center">${vo.hit}</td>
+			</tr>
 		</table>
 		<table class="table">
 			<tr>
-				<td class="text-center"><a href="#" class="btn btn-sm btn-danger">이전</a> ${curpage } page / ${totalpage } pages <a href="#" class="btn btn-sm btn-danger">다음</a></td>
+				<td class="text-center"><a href="#" class="btn btn-sm btn-danger">이전</a> ${curpage } page / ${totalpage } page <a href="#" class="btn btn-sm btn-danger">다음</a></td>
 			</tr>
 		</table>
 	</div>
+	<script>
+	let noticeApp=Vue.createApp({
+		data(){
+			return{
+				list:[],
+				curPage:1,
+				totalPage:0
+			}
+		},
+		methods:{
+			noticeList(page){
+				axios.get('../seller/noticeList.do', {
+					params:{
+						page:page
+					}
+				}).then(response=>{
+					this.list=response.data.list
+					this.curPage=response.data.curPage
+					this.totalPage=response.data.totalPage
+				})
+			}
+		},
+		mounted(){
+			this.noticeList(1)
+		}
+	}).mount('#noticeList')
+	</script>
 </body>
 </html>

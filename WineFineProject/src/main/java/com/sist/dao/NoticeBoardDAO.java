@@ -15,4 +15,12 @@ public class NoticeBoardDAO {
 		mapper.noticeBoardPopupUpdate(vo);
 		mapper.noticeBoardInsert(vo);
 	}
+	
+	public List<NoticeBoardVO> sellerNoticeList(Map map){
+		return mapper.sellerNoticeList(map);
+	}
+	
+	public int sellerNoticeTotalPage(Map map) {
+		return mapper.sellerNoticeTotalPage(map);
+	}
 }

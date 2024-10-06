@@ -145,4 +145,26 @@ public class SellerRestController {
 		System.out.println(vo);
 		nService.noticeBoardInsert(vo);
 	}
+	
+	@GetMapping(value = "seller/noticeList.do", produces = "text/plain;charset=UTF-8")
+	public String sellerNoticeList(int page, HttpSession session) throws Exception{
+		String id= (String)session.getAttribute("id");
+		Map map=new HashMap();
+		int start=(page-1)*10+1;
+		int end=start+10-1;
+		map.put("start", start);
+		map.put("end", end);
+		map.put("id", id);
+		List<NoticeBoardVO> list=nService.sellerNoticeList(map);
+		int count=nService.sellerNoticeTotalPage(map);
+		int totalPage=(int)(Math.ceil(count/10.0));
+		count=count-(page-1)*10;
+		map.put("count", count);
+		map.put("totalPage", totalPage);
+		map.put("curPage", page);
+		map.put("list", list);
+		
+		JsonMapper mapper=new JsonMapper();
+		return mapper.writeValueAsString(map);
+	}
 }

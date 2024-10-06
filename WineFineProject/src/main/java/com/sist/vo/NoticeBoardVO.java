@@ -9,4 +9,5 @@ public class NoticeBoardVO {
 	private int nbno, type, target, hit, isNotice;
 	private String userid, nickname, subject, content, dbday, targetName;
 	private Date regdate;
+	private WineVO wvo=new WineVO();
 }
