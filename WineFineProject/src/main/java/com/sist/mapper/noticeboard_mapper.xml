@@ -4,7 +4,7 @@
 <resultMap type="com.sist.vo.NoticeBoardVO" id="noticeBoardMap">
 <result property="wvo.namekor" column="namekor"/>
 </resultMap>
-<select id="noticeList" parameterType="hashmap" resultMap="noticeBoardMap">
+<select id="sellerNoticeList" parameterType="hashmap" resultMap="noticeBoardMap">
 SELECT nbno, subject, content, nickname, type, target, to_char(regdate, 'YYYY-MM-DD') as dbday, hit, isNotice, num 
 FROM (SELECT nbno, subject, content, nickname, type, target, regdate, hit, isNotice, rownum as num 
 FROM (SELECT nbno, subject, content, nickname, type, target, regdate, hit, isNotice

@@ -28,4 +28,9 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	public int sellerNoticeTotalPage(Map map) {
 		return dao.sellerNoticeTotalPage(map);
 	}
+	
+	@Override
+	public NoticeBoardVO noticeDetail(int nbno) {
+		return dao.noticeDetail(nbno);
+	}
 }

@@ -23,20 +23,16 @@
 				<th width=10% class="text-center">조회수</th>
 			</tr>
 			<tr v-for="(vo, index) in list">
-				<td width=10% class="text-center"></td>
-				<td width=35%><c:if test="${vo.subject!=type}">
-						<a href="../seller/detail.do?no=${vo.wrno}">${vo.subject}</a>
-					</c:if> <c:if test="${vo.subject==type}">
-						<span style="color: gray">${vo.subject}</span>
-					</c:if></td>
-				<td width=15% class="text-center">${vo.nickname}</td>
-				<td width=15% class="text-center">${vo.dbday}</td>
-				<td width=10% class="text-center">${vo.hit}</td>
+				<td width=10% class="text-center">{{count-index}}</td>
+				<td width=35%><a :href="'../seller/detail.do?nbno='+vo.nbno">{{vo.subject}}</a></td>
+				<td width=15% class="text-center">{{vo.nickname}}</td>
+				<td width=15% class="text-center">{{vo.dbday}}</td>
+				<td width=10% class="text-center">{{vo.hit}}</td>
 			</tr>
 		</table>
 		<table class="table">
 			<tr>
-				<td class="text-center"><a href="#" class="btn btn-sm btn-danger">이전</a> ${curpage } page / ${totalpage } page <a href="#" class="btn btn-sm btn-danger">다음</a></td>
+				<td class="text-center"><a href="#" class="btn btn-sm btn-danger">이전</a> ${curPage } page / ${totalPage } page <a href="#" class="btn btn-sm btn-danger">다음</a></td>
 			</tr>
 		</table>
 	</div>
@@ -46,7 +42,8 @@
 			return{
 				list:[],
 				curPage:1,
-				totalPage:0
+				totalPage:0,
+				count:0
 			}
 		},
 		methods:{
@@ -56,9 +53,11 @@
 						page:page
 					}
 				}).then(response=>{
+					console.log(response.data)
 					this.list=response.data.list
 					this.curPage=response.data.curPage
 					this.totalPage=response.data.totalPage
+					this.count=response.data.count
 				})
 			}
 		},

@@ -167,4 +167,11 @@ public class SellerRestController {
 		JsonMapper mapper=new JsonMapper();
 		return mapper.writeValueAsString(map);
 	}
+	
+	@GetMapping(value = "seller/vueNoticeDetail.do", produces = "text/plain;charset=UTF-8")
+	public String sellerVueNoticeDetail(int nbno) throws Exception{
+		NoticeBoardVO vo=nService.noticeDetail(nbno);
+		JsonMapper mapper=new JsonMapper();
+		return mapper.writeValueAsString(vo);
+	}
 }

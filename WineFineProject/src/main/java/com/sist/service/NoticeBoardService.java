@@ -9,4 +9,5 @@ public interface NoticeBoardService {
 	public void noticeBoardInsert(NoticeBoardVO vo);
 	public List<NoticeBoardVO> sellerNoticeList(Map map);
 	public int sellerNoticeTotalPage(Map map);
+	public NoticeBoardVO noticeDetail(int nbno);
 }

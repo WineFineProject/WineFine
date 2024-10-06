@@ -40,23 +40,23 @@
 			<label>공지 대상을 선택하세요</label>
 			<div style="margin-top: 5px;">
 				<div style="display: inline-block;">
-					<input type="radio" name="type" :value="1" v-model="type" checked id="type1" @change="changeType()">
+					<input type="radio" name="type" :value="1" v-model="type" :checked="detail.type==1" id="type1" @change="changeType()">
 					<label for="type1" style="margin-right: 5px;">전체</label>
-					<input type="radio" name="type" :value="2" v-model="type" id="type2" @change="changeType()">
+					<input type="radio" name="type" :value="2" v-model="type" :checked="detail.type==2" id="type2" @change="changeType()">
 					<label for="type2" style="margin-right: 5px;">카테고리별</label>
-					<input type="radio" name="type" :value="3" v-model="type" id="type3" @change="changeType()">
+					<input type="radio" name="type" :value="3" v-model="type" :checked="detail.type==3" id="type3" @change="changeType()">
 					<label for="type3" style="margin-right: 5px;">제품별</label>
 				</div>
 			</div>
 			<div v-if="type===2" style="margin-top: 10px;">
 				<span>카테고리 선택</span><br>
 				<select class="result-list" v-model="target">
-					<option :value="1" class="result-item">레드</option>
-					<option :value="2" class="result-item">화이트</option>
-					<option :value="3" class="result-item">스파클링</option>
-					<option :value="4" class="result-item">로제</option>
-					<option :value="5" class="result-item">주정강화</option>
-					<option :value="6" class="result-item">기타</option>
+					<option :value="1" class="result-item" :selected="detail.target==1">레드</option>
+					<option :value="2" class="result-item" :selected="detail.target==2">화이트</option>
+					<option :value="3" class="result-item" :selected="detail.target==3">스파클링</option>
+					<option :value="4" class="result-item" :selected="detail.target==4">로제</option>
+					<option :value="5" class="result-item" :selected="detail.target==5">주정강화</option>
+					<option :value="6" class="result-item" :selected="detail.target==6">기타</option>
 				</select> 
 			</div>
 			<div v-if="type===3" style="margin-top: 10px;">
@@ -73,7 +73,7 @@
 			</div>
 			<div class="form-group" style="margin-top: 10px;">
 				<label for="content">내용</label>
-				<textarea class="form-control" ref="content" v-model="content" id="content" rows="5" style="resize: none;" placeholder="공지 내용을 입력하세요"></textarea>
+				<textarea class="form-control" ref="content" v-model="content" id="content" rows="5" style="resize: none;" placeholder="공지 내용을 입력하세요">{{detail.content}}</textarea>
 			</div>
 			<div class="form-group" style="margin-top: 10px;">
 				<label for="secret" style="margin-right: 5px;">팝업공지 등록</label>
@@ -98,7 +98,9 @@
 					isFind:false,
 					isNotice:false,
 					isFd:false,
-					foundProducts:[]
+					foundProducts:[],
+					nbno:${nbno},
+					detail:{}
 				}
 			},
 			methods:{
@@ -149,8 +151,9 @@
 	            		return
 	            	}
 	            	let notice=this.isNotice?1:0
-	            	axios.post('../seller/insertNotice.do', null, {
+	            	axios.post('../seller/vueNoticeUpdate.do', null, {
 	            		params:{
+	            			nbno:this.nbno,
 	            			subject:this.subject,
 	            			content:this.content,
 	            			type:this.type,
@@ -161,6 +164,15 @@
 	            		location.href="../seller/notice.do"
 	            	})
 	            }
+			},
+			mounted(){
+				axios.get('../seller/vueNoticeDetail.do', {
+					params:{
+						nbno:this.nbno
+					}
+				}).then(response=>{
+					this.detail=response.data
+				})
 			}
 		}).mount('#noticeTable')
 	</script>

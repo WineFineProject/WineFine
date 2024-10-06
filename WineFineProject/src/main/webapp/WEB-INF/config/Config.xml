@@ -17,5 +17,6 @@
 	<mapper resource="com/sist/mapper/coupon_mapper.xml"/>
 	<mapper resource="com/sist/mapper/banner_mapper.xml"/>
 	<mapper resource="com/sist/mapper/sale_mapper.xml"/>
+	<mapper resource="com/sist/mapper/noticeboard_mapper.xml"/>
 	</mappers>
 </configuration>

@@ -1,6 +1,7 @@
 package com.sist.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -28,5 +29,10 @@ public class SellerController {
 	@GetMapping("seller/noticeInsert.do")
 	public String sellerNoticeInsert() {
 		return "seller/noticeInsert";
+	}
+	@GetMapping("seller/noticeUpdate.do")
+	public String sellerNoticeUpdate(int nbno, Model model) {
+		model.addAttribute("nbno", nbno);
+		return "seller/noticeUpdate";
 	}
 }
