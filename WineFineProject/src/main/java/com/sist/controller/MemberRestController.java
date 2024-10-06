@@ -32,7 +32,18 @@ public class MemberRestController {
 	// 회원 목록 페이지
 	@GetMapping(value = "seller/memberListVue.do", produces = "text/plain;charset=UTF-8")
 	public String memberList() throws Exception {
-		List<MemberVO> members = mService.memberList();
+		List<MemberVO> members=mService.memberList();
+		Map map=new HashMap();
+		map.put("members", members);
+
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(map);
+	}
+	
+	// 관리자 회원 목록 페이지
+	@GetMapping(value = "admin/memberListVue.do", produces = "text/plain;charset=UTF-8")
+	public String adminmemberList() throws Exception {
+		List<MemberVO> members=mService.adminmemberList();
 		Map map = new HashMap();
 		map.put("members", members);
 

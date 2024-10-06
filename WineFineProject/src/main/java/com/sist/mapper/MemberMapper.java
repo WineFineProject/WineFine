@@ -17,9 +17,15 @@ public interface MemberMapper {
 	
 	// 회원 목록 조회
     @Select("SELECT id, nickname, name, TO_CHAR(birthdate, 'YYYY-MM-DD') as dbbirthday, sex, phone, post, addr1, addr2, grade, photo, admin, TO_CHAR(regdate, 'YYYY-MM-DD') as dbregdate, email "
-    		+"FROM member WHERE admin = 0 " 
+    		+"FROM member WHERE admin=0 " 
             +"ORDER BY regdate DESC")
     public List<MemberVO> memberList();
+    
+    // 관리자 회원 목록 조회
+    @Select("SELECT id, nickname, name, TO_CHAR(birthdate, 'YYYY-MM-DD') as dbbirthday, sex, phone, post, addr1, addr2, grade, photo, admin, TO_CHAR(regdate, 'YYYY-MM-DD') as dbregdate, email "
+    		+"FROM member WHERE admin IN (0, 2) " 
+            +"ORDER BY regdate DESC")
+    public List<MemberVO> adminmemberList();
 
     // 회원 삭제
     @Delete("DELETE FROM member WHERE id=#{id}")

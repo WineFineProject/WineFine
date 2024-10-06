@@ -36,6 +36,12 @@ public class MemberDAO {
         return mapper.memberList();
     }
 
+	// 관리자 회원 목록 조회
+	public List<MemberVO> adminmemberList()
+	{
+		return mapper.adminmemberList();
+	}
+	
     // 회원 삭제
 	public void deleteMember(String id) 
 	{

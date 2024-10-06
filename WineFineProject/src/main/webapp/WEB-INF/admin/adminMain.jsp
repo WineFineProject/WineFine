@@ -38,7 +38,7 @@
 					<!-- 사이드바 메뉴목록1 -->
 					<ul class="list-group">
 						<li class="list-group-item">
-							<a href="../mypage/my_edit_member.do">회원 목록</a>
+							<a href="../admin/memberList.do">회원 목록</a>
 						</li>
 						<li class="list-group-item">
 							<a href="../mypage/my_change_pwd.do">가입신청 대기</a>

@@ -36,5 +36,10 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		dao.deleteMember(null);
 	}
+	@Override
+	public List<MemberVO> adminmemberList() {
+		// TODO Auto-generated method stub
+		return dao.adminmemberList();
+	}
 
 }
