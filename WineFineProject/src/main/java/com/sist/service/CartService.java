@@ -15,7 +15,7 @@ import com.sist.vo.WineVO;
 public interface CartService {
 	public String addCart(CartVO vo);
 	public List<CartVO> cartListData(String id);
-	public WineVO getWine(int wno);
+	public WineVO getWine(int wno,int cno);
 	public int updateCart(int cno,int count,String id);
 	public int delCart(int cno);
 }

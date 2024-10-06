@@ -26,7 +26,7 @@ public class CartRestController {
 	private CartDAO cDao;
 	
 	@GetMapping(value = "cart/inMyCart_vue.do",produces = "text/plain;charset=UTF-8")
-	public String inMyCart(@RequestParam(required = false) String id,int wno) throws Exception
+	public String inMyCart(@RequestParam(required = false) String id) throws Exception
 	{
 		 if (id == null) {
 		        return "redirect:/member/login.do";
@@ -45,19 +45,19 @@ public class CartRestController {
 		return "json";
 	}
 	
-//	@GetMapping(value = "", produces = "text/plain;charset=UTF-8")
+//	@GetMapping(value = "cart/insert_vue_ok.do", produces = "text/plain;charset=UTF-8")
 //	public String addCart(CartVO vo)
 //	{
 //		return cService.addCart(vo);
 //	}
 //	
-//	@GetMapping(value = "",produces = "text/plain;charset=UTF-8")
-//	public int updateCart(int cno,int count,String id)
+//	@GetMapping(value = "cart/update_vue_ok.do",produces = "text/plain;charset=UTF-8")
+//	public int updateCart(int cno)
 //	{
-//		return cService.updateCart(cno, count, id);
+//		return cService.updateCart(cno);
 //	}
 //	
-//	@GetMapping(value = "cart/",produces = "text/plain;charset=UTF-8")
+//	@GetMapping(value = "cart/delete_vue.do",produces = "text/plain;charset=UTF-8")
 //	public int delCart(int cno)
 //	{
 //		return cService.delCart(cno);

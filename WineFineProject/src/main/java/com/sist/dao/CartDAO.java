@@ -26,8 +26,8 @@ public class CartDAO {
 		return mapper.cartListData(id);
 	}	
 	
-	public WineVO getWine(int wno) {
-		return mapper.getWine(wno);
+	public WineVO getWine(int wno,int cno) {
+		return mapper.getWine(wno,cno);
 	}
 
 	public int updateCart(int cno,int count,String id)

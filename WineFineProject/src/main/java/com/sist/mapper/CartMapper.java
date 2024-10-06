@@ -37,10 +37,11 @@ public interface CartMapper {
     })
 	public List<CartVO> cartListData(@Param("id") String id);
 	
-	@Select("SELECT wno,namekor,poster,price "
-			+ "FROM wine "
-			+ "WHERE wno=#{wno}")
-	public WineVO getWine(@Param("wno") int wno);
+	@Select("SELECT w.wno,w.namekor,w.poster,w.price,"
+			+ "c.wno"
+			+ "FROM wine w JOIN cart c ON w.wno=c.cno "
+			+ "WHERE wno=#{wno},cno=#{cno}")
+	public WineVO getWine(@Param("wno") int wno,@Param("cno") int cno);
 	
 	
 	// 수정(개수 변경)
