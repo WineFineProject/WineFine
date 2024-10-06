@@ -9,7 +9,41 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
-
+.text-ellipsis {
+    white-space: nowrap;  
+    overflow: hidden;       
+    text-overflow: ellipsis;
+}
+.fon-cor-gr {
+	color: gray;
+}
+.small-text {
+    font-size: 0.8rem; /* 원하는 크기로 조정 */
+    line-height: 1.2; /* 줄 간격 */
+}
+.pagination{
+	cursor: pointer;
+}
+.winecor{
+	background-color: #881824 !important;
+	color: white !important;
+}
+.whitecor {
+    background-color: white !important;
+    color: #881824 !important;
+    border: solid 1px #881824 !important;
+}
+.page-link {
+    position: relative;
+    display: block;
+    color : #881824 !important;
+    background-color: #fff;
+    border: 1px solid #881824 !important;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.border-secondary {
+    border-color: #881824 !important;
+}
 </style>
 </head>
 <body>
@@ -163,7 +197,7 @@
                                         </div>
 
                                         <div class="d-flex justify-content-center my-4">
-                                            <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
+                                            <a href="../shop/mainhome.do" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
                                         </div>
                                         
                                     </div>
@@ -183,50 +217,55 @@
                                 <div class="row g-4 justify-content-center">
                                 
                                 	<!-- 상품 list -->
-                                    <div class="col-md-6 col-lg-6 col-xl-4" v-for="vo in list" style="height: 550px;">
+                                    <div class="col-md-6 col-lg-6 col-xl-4" v-for="vo in list" style="height: 550px;margin-bottom: 30px;">
+                                    <a :href="'../shop/detail.do?wno=' + vo.wno + '&page=' + curpage">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
                                                 <img :src="vo.poster" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">{{vo.type}}</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom" style="height: 180px">
-                                                <h6>{{ vo.namekor.length > 24 ? vo.namekor.substring(0, 24) + '...' : vo.namekor }}</h6>
-                                                <!-- <p>{{vo.nameeng}}</p> -->
+                                            <div class="text-white px-3 py-1 rounded position-absolute" :class="vo.type === '화이트' ? 'whitecor' : 'winecor'" style="top: 10px; left: 10px;">{{vo.type}}</div>
+                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom" style="height: 134px">
+                                                <h6 class="text-ellipsis">{{ vo.namekor }}</h6>
+                                                <h6 class="text-ellipsis fon-cor-gr">{{ vo.nameeng }}</h6>
                                                 <div class="d-flex justify-content-between flex-lg-wrap text-center" v-if="vo.price!=null">                                                
-                                                    <p class="text-dark fs-5 fw-bold mb-0">{{vo.price}}</p><br>                                              
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                    <p class="text-dark fs-5 fw-bold mb-0">{{vo.price}}<br></p>                                              
+                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary small-text"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                                                 </div>
                                                 <div class="d-flex justify-content-between flex-lg-wrap text-center" v-if="vo.price===null">                                                
-                                                    <p class="text-dark fs-5 fw-bold mb-0">가격문의</p><br>                                             
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                    <p class="text-dark fs-5 fw-bold mb-0">가격문의<br></p>                                             
+                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary small-text"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                                                 </div>
                                             </div>
                                         </div>
+                                        </a>
                                     </div>
 									<!-- 상품 list end -->
 									
-                <div class="col-12 text-center">
-                    <div class="pagination-area d-sm-flex mt-15">
-                        <nav aria-label="#">
-                            <ul class="pagination">
-                                <li class="page-item" v-if="startPage>1">
-                                    <a class="page-link" @click="prev()"><i class="fa fa-angle-double-left" aria-hidden="true">이전</i></a>
-                                </li>
-                                
-                                <li :class="i===curpage?'page-item active':''" v-for="i in range(startPage,endPage)">
-                                    <a class="page-link" @click="pageChange(i)">{{i}}</a>
-                                </li>
+<div class="col-12 text-center" >
+    <div class="pagination-area d-sm-flex mt-15" style="margin-left: 65px;">
+        <nav aria-label="#">
+            <ul class="pagination" style="display: flex;">
+                <li class="page-item">
+                    <a class="page-link" @click="prev()">
+                        <i class="fa fa-angle-double-left" aria-hidden="true">이전</i>
+                    </a>
+                </li>
 
-                                <li class="page-item" v-if="endPage<totalpage">
-                                    <a class="page-link" @click="next()"><i class="fa fa-angle-double-right" aria-hidden="true">다음</i></a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <div class="page-status">
-                            <p>{{curpage}} page / {{totalpage}} pages </p>
-                        </div>
-                    </div>
-                </div>
+                <li :class="i===curpage?'page-item active':''" v-for="i in range(startPage, endPage)" style="display: inline;">
+                    <a class="page-link" @click="pageChange(i)">{{i}}</a>
+                </li>
+
+                <li class="page-item" v-if="endPage<totalpage">
+                    <a class="page-link" @click="next()">
+                        <i class="fa fa-angle-double-right" aria-hidden="true">다음</i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
                                     
                                 </div>
                             </div>
@@ -258,14 +297,18 @@
 				this.dataRecv()
         	},
     		methods:{
-        		prev(){
-        			this.curpage=this.startPage-1
-        			this.dataRecv()
-        		},
-        		next(){
-        			this.curpage=this.endPage+1
-        			this.dataRecv()
-        		},
+    			prev(){
+    				if(this.curpage === 1){
+    					alert('첫 페이지 입니다')
+    					return
+    				}
+    			        this.curpage = this.curpage - 1;
+    			        this.dataRecv();   			    
+    			},
+    			next(){
+    			        this.curpage = this.curpage + 1;
+    			        this.dataRecv();  			  
+    			},
         		pageChange(page){
         			this.curpage=page
         			this.dataRecv()

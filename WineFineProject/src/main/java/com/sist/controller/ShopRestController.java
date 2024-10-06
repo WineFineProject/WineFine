@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sist.dao.ShopDAO;
+import com.sist.dao.WineDAO;
 import com.sist.service.ShopService;
 import com.sist.vo.*;
 
@@ -16,6 +18,10 @@ public class ShopRestController {
 	public ShopRestController(ShopService sservice) {
 		this.sservice = sservice;
 	}
+	@Autowired
+	private WineDAO wdao;
+	@Autowired
+	private ShopDAO sdao;
 	
 	@GetMapping(value = "shop/list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String shop_list(int page) throws Exception{
@@ -33,7 +39,7 @@ public class ShopRestController {
 		
 		if(endpage>totalpage)
 			endpage=totalpage;
-//		데이터를 모아서 => JSON => VueJS로 전송
+//		�뜲�씠�꽣瑜� 紐⑥븘�꽌 => JSON => VueJS濡� �쟾�넚
 		Map map=new HashMap();
 		map.put("list",list);
 		map.put("totalpage", totalpage);
@@ -47,5 +53,19 @@ public class ShopRestController {
 		return json;
 	}
 	
+	@GetMapping(value = "shop/detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String wine_detail(int wno) throws Exception{
+		WineVO vo = sdao.wineDetailData(wno);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	
 	
 }
+
+
+
+
+
+

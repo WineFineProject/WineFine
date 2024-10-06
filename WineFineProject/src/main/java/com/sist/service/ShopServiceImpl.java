@@ -36,4 +36,9 @@ public class ShopServiceImpl implements ShopService{
 	public List<WineVO> wineFindList(Map map) {
 		return wDao.wineFindList(map);
 	}
+	
+	@Override
+	public WineVO wineDetailData(int wno) {		
+		return sdao.wineDetailData(wno);
+	}
 }
