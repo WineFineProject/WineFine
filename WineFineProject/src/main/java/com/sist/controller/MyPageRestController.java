@@ -15,7 +15,7 @@ import com.sist.vo.*;
 
 @RestController
 public class MyPageRestController {
-	String[] types= {"", "·¹µå", "È­ÀÌÆ®", "½ºÆÄÅ¬¸µ", "·ÎÁ¦", "ÁÖÁ¤°­È­", "±âÅ¸"};
+	String[] types= {"", "ï¿½ï¿½ï¿½ï¿½", "È­ï¿½ï¿½Æ®", "ï¿½ï¿½ï¿½ï¿½Å¬ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­", "ï¿½ï¿½Å¸"};
 	@Autowired
 	private CouponService cService;
 	
@@ -27,7 +27,7 @@ public class MyPageRestController {
 		List<MyCouponVO> myCoupon=cService.mypageMyCouponList(id);
 		for(MyCouponVO vo:myCoupon) {
 			if(vo.getPvo().getType()==1) {
-				vo.setSellname("ÀüÃ¼");
+				vo.setSellname("ï¿½ï¿½Ã¼");
 			}
 			else if(vo.getPvo().getType()==2) {
 				vo.setSellname(types[vo.getPvo().getType()]);
@@ -38,7 +38,7 @@ public class MyPageRestController {
 		}
 		for(PromotionCouponVO vo:activeCoupon) {
 			if(vo.getType()==1) {
-				vo.setTargetname("ÀüÃ¼");
+				vo.setTargetname("ï¿½ï¿½Ã¼");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);
@@ -59,4 +59,10 @@ public class MyPageRestController {
 		vo.setRecvid((String) session.getAttribute("id"));
 		cService.getCoupon(vo);
 	}
+	
+//	@GetMapping(value = "mypage/myBoardList.do",produces = "text/plain;charset=UTF-8")
+//	public void 
+//	{
+//		
+//	}
 }
