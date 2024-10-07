@@ -163,7 +163,7 @@
 			dataRecv(){
 				axios.get("../cart/inMyCart_vue.do"{
 					params:{
-						wine:
+						
 					}
 				}
 				).then(response => {

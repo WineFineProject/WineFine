@@ -14,4 +14,15 @@ public class MyPageController {
  public String mypageCoupon() {
 	 return "mypage/coupon";
  }
+ //구매내역
+ //예약내역
+ 
+ //작성한글
+ @GetMapping("mypage/myBoardList.do")
+ public String mypageBoardList(String id){
+	 return "mypage/myBoardList"; 
+ } //작성리뷰
+ 
+ //좋아요
+ 
 }
