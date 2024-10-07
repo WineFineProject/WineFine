@@ -66,6 +66,7 @@ public class ShopRestController {
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);
 		return json;
+		
 	}
 	
 	
