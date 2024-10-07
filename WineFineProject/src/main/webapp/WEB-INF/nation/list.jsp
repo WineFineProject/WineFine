@@ -79,7 +79,7 @@
             <ul class="NationList">
                 <li v-for="vo in listNations" :key="vo.no" class="item">
                     <div>
-                      <a :href="'detail.do?no='+vo.no">
+                      <a :href="'../nation/detail.do?no='+vo.no">
                         <span class="namekor">{{vo.namekor}}</span>
                         <span class="nameeng">{{vo.nameeng}}</span>
                       </a>  
