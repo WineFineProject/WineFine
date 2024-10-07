@@ -87,10 +87,66 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>
-		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
-			<div class="modal-content" style="height: 485px;">
-				<span class="close" @click="changeModal(false)">&times;</span>
+
+			<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
+				<div class="modal-content" style="height: 485px;">
+					<span class="close" @click="changeModal(false)">&times;</span>
+					<table class="table" style="margin-top: 50px;">
+						<tr>
+							<th width="30%">프로모션 이름</th>
+							<td width="70%">
+								<input type="text" v-model="eventName" style="width: 100%" @keyup="checkBtn()">
+							</td>
+						</tr>
+						<tr>
+							<th width="30%">배너위치</th>
+							<td width="70%">
+								<select v-model="option" style="width: 100%;">
+									<option :value="1" selected="selected">옵션 1 : 상단배너 (클릭횟수당 700원)</option>
+									<option :value="2">옵션 2 : 하단배너 (클릭횟수당 500원)</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th width="30%">노출횟수</th>
+							<td width="70%">
+								<input type="number" v-model="count" @change="checkBtn()" min="0" max="9999">
+								회
+							</td>
+						</tr>
+						<tr>
+							<th width="30%">결제액</th>
+							<td width="70%">{{option===1?700*count:500*count}}원</td>
+						</tr>
+						<tr>
+							<th width="30%">프로모션 대상</th>
+							<td width="70%">
+								<table style="width: 100%">
+									<tr>
+										<td>
+											<input type="text" v-model="fd" style="width: 100%" @keyup.enter="findWine_()" ref="fd" :disabled="isFd">
+										</td>
+									</tr>
+									<tr v-show="isFind">
+										<td>
+											<div style="height: 180px; overflow-y: auto;">
+												<table class="table">
+													<tr v-for="(vo, index) in list">
+														<td @click="changeNo(index)">{{vo.namekor}}</td>
+													</tr>
+												</table>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+					<div v-show="isBtn" style="margin-top: auto;">
+						<button type="button" class="btn btn-sm btn-wine" @click="insertPromotion()">등록</button>
+						<button type="button" class="btn btn-sm btn-wine" @click="changeModal(false)">취소</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -137,6 +193,7 @@
 				this.isFd=true
 				this.isFind=false
 				this.fd=this.list[index].namekor
+				this.checkBtn()
 			},
 			checkBtn(){
 				if(this.eventName===''){
@@ -144,6 +201,10 @@
 					return
 				}
 				if(this.count===0){
+					this.isBtn=false
+					return
+				}
+				if(this.isFd===false){
 					this.isBtn=false
 					return
 				}
