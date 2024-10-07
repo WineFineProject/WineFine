@@ -20,18 +20,18 @@ public interface InformationMapper {
     public List<GrapeVO> findGrapes(String fd);
     
     // 생산지역 목록 
-    @Select("SELECT namekor, nameeng, nation, content FROM nation ORDER BY no")
+    @Select("SELECT no, namekor, nameeng, nation, content FROM nation ORDER BY no")
     List<NationVO> nationListData();
 
     // 생산지역 상세 
-    @Select("SELECT namekor, nameeng, nation, grape, content FROM nation WHERE no=#{no}")
+    @Select("SELECT no, namekor, nameeng, nation, grape, content FROM nation WHERE no=#{no}")
     NationVO nationDetailData(int no); 
     
     // 생산자 목록 
-    @Select("SELECT namekor, nameeng, nation, content FROM maker ORDER BY no")
+    @Select("SELECT no, namekor, nameeng, nation, content FROM maker ORDER BY no")
     List<MakerVO> makerListData();
 
     // 생산자 상세 
-    @Select("SELECT namekor, nameeng, nation, content FROM maker WHERE no=#{no}")
+    @Select("SELECT no, namekor, nameeng, nation, content FROM maker WHERE no=#{no}")
     MakerVO makerDetailData(int no);
 }

@@ -119,7 +119,7 @@
 						<div class="nav-item dropdown">
 							<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">와인</a>
 							<div class="dropdown-menu m-0 bg-light rounded-0">
-								<a href="../board/list.do" class="dropdown-item">주요품종</a> <a href="../noticeboard/list.do" class="dropdown-item">생산지역</a> <a href="../replyboard/list.do" class="dropdown-item">생산자</a>
+								<a href="../grape/list.do" class="dropdown-item">주요품종</a> <a href="../nation/list.do" class="dropdown-item">생산지역</a> <a href="../maker/list.do" class="dropdown-item">생산자</a>
 							</div>
 						</div>
 						<div class="nav-item dropdown">
