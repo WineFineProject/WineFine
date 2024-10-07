@@ -1,6 +1,5 @@
 package com.sist.dao;
 
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,11 +12,15 @@ public class InformationDAO {
     private InformationMapper mapper;
 
 	// 포도 품종 목록 
-	public List<GrapeVO> grapeListData() 
+	public List<GrapeVO> grapeListData(int start, int end)
 	{
-        return mapper.grapeListData();
+        return mapper.grapeListData(start, end);
     }
-
+	// 포도 품종 총페이지
+	public int grapeTotalPage()
+	{
+		return mapper.grapeTotalPage();
+	}
     // 포도 품종 상세 
 	public GrapeVO grapeDetailData(int no) 
 	{

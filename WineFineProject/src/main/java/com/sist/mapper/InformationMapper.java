@@ -2,12 +2,20 @@ package com.sist.mapper;
 import com.sist.vo.*;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 public interface InformationMapper {
 	// 포도 품종 목록 
-    @Select("SELECT no, namekor, nameeng, content FROM grape ORDER BY no")
-    public List<GrapeVO> grapeListData();
-
+    @Select("SELECT no, namekor, nameeng, content, num "
+    		+"FROM (SELECT no, namekor, nameeng, content, rownum as num "
+    		+"FROM (SELECT no, namekor, nameeng, content "
+    		+"FROM grape ORDER BY no ASC)) "
+    		+"WHERE num BETWEEN #{start} AND #{end}")
+    public List<GrapeVO> grapeListData(@Param("start") int start,@Param("end") int end);
+    // 포도 품종 총페이지
+    @Select("SELECT CEIL(COUNT(*)/12.0) FROM grape")
+	public int grapeTotalPage();
+    
     // 포도 품종 상세 
     @Select("SELECT no, sugar, acid, body, tannin, namekor, nameeng, aroma, food, nation, content FROM grape WHERE no=#{no}")
     public GrapeVO grapeDetailData(int no);

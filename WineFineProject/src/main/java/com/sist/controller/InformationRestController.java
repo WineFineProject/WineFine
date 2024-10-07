@@ -1,8 +1,6 @@
 package com.sist.controller;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,14 +15,32 @@ public class InformationRestController {
 	
 	// 포도 목록 페이지
 	@GetMapping(value = "grape/listVue.do", produces ="text/plain;charset=UTF-8")
-	public String grapeListData() throws Exception 
+	public String grapeListData(int page) throws Exception 
 	{
-        List<GrapeVO> grapes=iService.grapeListData();
+		int rowSize=12;
+		int start=(rowSize*page)-(rowSize-1);
+		int end=rowSize*page;
+		  
+        List<GrapeVO> grapes=iService.grapeListData(start, end);
+        int totalpage=iService.grapeTotalPage();
+        
+        final int BLOCK=10;
+  	    int startPage=((page-1)/BLOCK*BLOCK)+1;
+  	    int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+  	    
+  	    if(endPage>totalpage)
+		    endPage=totalpage;
+  	    
         Map map=new HashMap();
         map.put("grapes", grapes);
+        map.put("curpage", page);
+  	    map.put("totalpage", totalpage);
+  	    map.put("startPage", startPage);
+  	    map.put("endPage", endPage);
         
         ObjectMapper mapper=new ObjectMapper();
-        return mapper.writeValueAsString(map);
+        String json=mapper.writeValueAsString(map);
+        return json;
     }
 	// 포도 상세 페이지
 	@GetMapping(value = "grape/detailVue.do", produces = "text/plain;charset=UTF-8")
@@ -40,11 +56,8 @@ public class InformationRestController {
     @GetMapping(value = "grape/find.do", produces = "text/plain;charset=UTF-8")
     public String findGrapes(String fd) throws Exception 
     {
-        Map map=new HashMap();
-        map.put("fd", fd);
-        
         ObjectMapper mapper=new ObjectMapper();
-        return mapper.writeValueAsString(map);
+        return mapper.writeValueAsString(fd);
     }
 	// 생산지역 목록 페이지
 	@GetMapping(value = "nation/listVue.do", produces = "text/plain;charset=UTF-8")

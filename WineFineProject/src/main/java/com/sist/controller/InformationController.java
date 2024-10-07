@@ -1,7 +1,6 @@
 package com.sist.controller;
 import java.util.*;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +15,8 @@ public class InformationController {
 
   // 포도 목록 페이지
   @GetMapping("grape/list.do")
-  public String grapeListData(Model model) 
+  public String grapeListData() 
   {
-      List<GrapeVO> grapes=iService.grapeListData();
-      model.addAttribute("grapes", grapes);
       return "grape/list"; 
   }
 

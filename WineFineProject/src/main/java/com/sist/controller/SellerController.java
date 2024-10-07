@@ -35,4 +35,5 @@ public class SellerController {
 		model.addAttribute("nbno", nbno);
 		return "seller/noticeUpdate";
 	}
+	
 }

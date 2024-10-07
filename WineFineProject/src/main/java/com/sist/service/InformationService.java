@@ -1,10 +1,9 @@
 package com.sist.service;
 import com.sist.vo.*;
 import java.util.*;
-
-import org.springframework.stereotype.Service;
 public interface InformationService {
-	public List<GrapeVO> grapeListData(); 
+	public List<GrapeVO> grapeListData(int start, int end); 
+	public int grapeTotalPage();
 	public GrapeVO grapeDetailData(int no); 
 	public List<NationVO> nationListData();
     public NationVO nationDetailData(int no);

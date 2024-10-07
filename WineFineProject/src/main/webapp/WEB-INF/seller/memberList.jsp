@@ -36,23 +36,56 @@
                     <td>{{vo.grade}}</td>
                     <td>{{vo.dbregdate}}</td>
                     <td>
-                     <input type="button" class="btn btn-xs btn-danger" id="blackListBtn" value="블랙리스트">
+                     <input type="button" class="btn btn-xs btn-danger" id="blackListBtn" value="블랙리스트" @click="blackListInsert(vo.id)">
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div class="modal" :class="{ show: showModal }">
+			<div class="modal-content" style="height: 200px;">
+				<h3 class="text-center">사유 작성</h3>
+				<input type="text" v-model="message" ref="message" @keyup.enter="sendMessage()">
+			</div>
+		</div>
     </div>
     <script>
         let memberListApp=Vue.createApp({
             data() {
                 return {
-                    members:[]
+                    members:[],
+                    tmp:'',
+                    showModal:false,
+                    message:''
                 }
             },
             mounted() {
                 this.mList()
             },
             methods: {
+            	sendMessage(){
+            		if(this.message===''){
+    					this.$refs.message.focus()
+    					return
+    				}
+    				axios.post('../seller/blackListInsert.do', null, {
+    					params:{
+    						content:this.message,
+    						recvid:this.tmp
+    					}
+    				}).then(response=>{
+    					this.showModal=false
+    				})
+    				axios.post('../notice/vueSellerNoticeSend.do',null,{
+    					params:{
+    						content:this.message,
+    						recvid:this.tmp,
+    						subject:'블랙리스트 등록 안내 공지'
+    					}
+    				}).then(response=>{
+    					this.message=''
+    					this.tmp=''
+    				})
+            	},
                 mList(){
                     axios.get('../seller/memberListVue.do') 
                         .then(response=>{
@@ -62,6 +95,10 @@
                             alert(error.response)
                             console.log(error.response)
                         })
+                },
+                blackListInsert(id){
+                	this.tmp=id
+                	this.showModal=true
                 }
             }
         }).mount('#list')

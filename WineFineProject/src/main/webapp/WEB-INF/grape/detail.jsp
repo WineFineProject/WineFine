@@ -48,7 +48,14 @@ th, td {
 }
 .left-align {
     text-align: left;
-}    
+}  
+.fa-circle {
+    color: lightgray; 
+}
+
+.fa-circle.filled {
+    color: #CF1D56; 
+}  
 </style>
 </head>
 <body>
@@ -66,22 +73,22 @@ th, td {
                         <th>맛</th>
                         <td v-if="vo" class="text-left">
                          <div class="text-left" id="flavor">
-                            <div>당도: {{vo.sugar}}</div>
-                            <div>산도: {{vo.acid}}</div>
-                            <div>바디: {{vo.body}}</div>
-                            <div>타닌: {{vo.tannin}}</div>
+                            <div>당도&nbsp;<span class="fa fa-circle" v-for="n in 5" :class="{'filled':n<=vo.sugar, 'empty':n>vo.sugar}"></span></div>
+                            <div>산도&nbsp;<span class="fa fa-circle" v-for="n in 5" :class="{'filled':n<=vo.acid, 'empty':n>vo.acid}"></span></div>
+                            <div>바디&nbsp;<span class="fa fa-circle" v-for="n in 5" :class="{'filled':n<=vo.body, 'empty':n>vo.body}"></span></div>
+                            <div>타닌&nbsp;<span class="fa fa-circle" v-for="n in 5" :class="{'filled':n<=vo.tannin, 'empty':n>vo.tannin}"></span></div>
                          </div>    
                         </td>
                     </tr>
-                    <tr>
+                    <tr v-show="vo.aroma!==null">
                         <th>아로마</th>
                         <td class="left-align">{{vo.aroma}}</td>
                     </tr>
-                    <tr>
+                    <tr v-if="vo.nation!==null">
                         <th>주재배지역</th>
                         <td class="left-align">{{vo.nation}}</td>
                     </tr>
-                    <tr>
+                    <tr v-show="vo.food!==null">
                         <th>추천음식</th>
                         <td class="left-align">{{vo.food}}</td>
                     </tr>
@@ -91,7 +98,7 @@ th, td {
                 <p>{{vo.content}}</p>
             </div>
           </div>
-		 <div class="button-container"> 
+		 <div class="button-container" style="margin-top: 150px"> 
            <input type="button" class="listBtn" @click="List" value="목록">
          </div>
       </div>
@@ -105,7 +112,7 @@ th, td {
                  }
              },
              mounted() {
-                 this.dataRecv()
+            	 this.dataRecv()
              },
              methods: {
                  dataRecv() {
@@ -115,6 +122,8 @@ th, td {
              			}
                      }).then(response=>{
                              this.vo=response.data
+                             console.log(response.data)
+                             console.log(this.vo)
                          }).catch(error=>{
                              console.error(error)
                          })

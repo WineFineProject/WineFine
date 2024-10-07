@@ -10,10 +10,16 @@ import com.sist.dao.*;
 public class InformationServiceImpl implements InformationService {
     @Autowired
     private InformationDAO dao;
-	@Override
-	public List<GrapeVO> grapeListData() {
+    @Override
+	public List<GrapeVO> grapeListData(int start, int end) {
 		// TODO Auto-generated method stub
-		return dao.grapeListData();
+		return dao.grapeListData(start, end);
+	}
+
+	@Override
+	public int grapeTotalPage() {
+		// TODO Auto-generated method stub
+		return dao.grapeTotalPage();
 	}
 
 	@Override
@@ -51,5 +57,6 @@ public class InformationServiceImpl implements InformationService {
 		// TODO Auto-generated method stub
 		return dao.findGrapes(fd);
 	}
+
 
 }
