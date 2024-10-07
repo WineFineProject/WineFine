@@ -1,6 +1,7 @@
 package com.sist.dao;
 import java.util.*;
 import com.sist.mapper.*;
+import com.sist.vo.LikeVO;
 import com.sist.vo.WineVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,15 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ShopDAO {
+	private LikeMapper lmapper;
 	private ShopMapper mapper;
 	@Autowired
 	public ShopDAO(ShopMapper mapper) {
 		this.mapper = mapper;
+	}
+	@Autowired
+	public ShopDAO(LikeMapper lmapper) {
+		this.lmapper = lmapper;
 	}
 
 	
@@ -27,6 +33,14 @@ public class ShopDAO {
 	public WineVO wineDetailData(int wno) {
 	    mapper.hitIncrement(wno);
 	    return mapper.wineDetailData(wno);
+	}
+// 	포도명 가져오기
+	public String grapeName(int wno){
+		return mapper.grapeName(wno);
+	}
+//	나라명 가져오기
+	public String nationName(int wno){
+		return mapper.nationName(wno);
 	}
 
 

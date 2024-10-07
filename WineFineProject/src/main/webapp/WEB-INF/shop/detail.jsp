@@ -373,7 +373,7 @@
 <ul class="info-list">
     <li>
         <span class="title">· 생산자</span>
-        <span class="content">{{ vo.seller != null ? vo.seller : '정보없음' }}</span>
+        <span class="content">{{ vo.makerkor != null ? vo.makerkor : '정보없음' }} / {{ vo.makereng != null ? vo.makereng : '' }}</span>
     </li>
     <li>
         <span class="title">· 국가/생산지역</span>
@@ -384,7 +384,7 @@
         <span class="content">{{ vo.grape != null ? vo.grape : '정보없음' }}</span>
     </li>
     <li>
-        <span class="title">· 음용온도</span>
+        <span class="title">· 도수</span>
         <span class="content">{{ vo.alcohol != null ? vo.alcohol : '정보없음' }}</span>
     </li>
     <li>

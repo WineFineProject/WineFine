@@ -41,4 +41,14 @@ public class ShopServiceImpl implements ShopService{
 	public WineVO wineDetailData(int wno) {		
 		return sdao.wineDetailData(wno);
 	}
+	@Override
+	public String grapeName(int wno) {
+		// TODO Auto-generated method stub
+		return sdao.grapeName(wno);
+	}
+	@Override
+	public String nationName(int wno) {
+		// TODO Auto-generated method stub
+		return sdao.nationName(wno);
+	}
 }

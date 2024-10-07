@@ -8,9 +8,8 @@ import lombok.Data;
 @Data
 public class WineVO {
     private int wno, sugar, acid, body, tannin, stack, score, hit, likecount;
-    private String namekor, nameeng, type, price, vol, aroma, food, maker, alcohol, seller, poster, grape, nation;
-    private List<String> nationname; 
-    private List<String> grapename;  
+    private String namekor, nameeng, type, price, vol, aroma, food, makerkor, makereng,
+    			   alcohol, seller, poster, grapename, nationname;
     private Date regdate;
     private MemberVO mvo = new MemberVO();
 }
