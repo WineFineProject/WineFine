@@ -41,5 +41,20 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return dao.adminmemberList();
 	}
-
+	@Override
+	public int memberEmailCheck(String email) {
+		return dao.memberEmailCheck(email);
+	}
+	@Override
+	public int memberIdCheck(String userId) {
+		return dao.memberIdCheck(userId);
+	}
+	@Override
+	public int memberNickCheck(String nickName) {
+		return dao.memberNickCheck(nickName);
+	}
+	@Override
+	public int memberPhoneCheck(String phone) {
+		return dao.memberPhoneCheck(phone);
+	}
 }

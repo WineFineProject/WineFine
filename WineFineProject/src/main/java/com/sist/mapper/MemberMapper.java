@@ -10,10 +10,26 @@ public interface MemberMapper {
 	// 회원 아이디 확인
 	@Select("SELECT COUNT(*) FROM member WHERE id=#{id}")
     public int memberCountId(String id);
-		
+	@Select("SELECT COUNT(*) FROM wine_member WHERE userId=#{userId}")
+	public int memberIdCheck(String userId);
+	
 	// 회원 비밀번호 찾기
 	@Select("SELECT pwd FROM member WHERE id=#{id}")
 	public String memberGetPwd(String id);
+	@Select("SELECT userId, userName, userPwd, enabled FROM wine_member WHERE userId=#{userId}")
+	public MemberVO memberInfo(String userId);
+	
+	// 회원 닉네임 중복체크
+	@Select("SELECT COUNT(*) FROM wine_member WHERE nickname=#{nickName}")
+	public int memberNickCheck(String nickName);
+	
+	// 회원 이메일 중복체크
+	@Select("SELECT COUNT(*) FROM wine_member WHERE email=#{eamil}")
+	public int memberEmailCheck(String email);
+	
+	// 회원 전화번호 중복체크
+	@Select("SELECT COUNT(*) FROM wine_member WHERE phone=#{phone}")
+	public int memberPhoneCheck(String phone);
 	
 	// 회원 목록 조회
     @Select("SELECT id, nickname, name, TO_CHAR(birthdate, 'YYYY-MM-DD') as dbbirthday, sex, phone, post, addr1, addr2, grade, photo, admin, TO_CHAR(regdate, 'YYYY-MM-DD') as dbregdate, email "
@@ -41,4 +57,6 @@ public interface MemberMapper {
     @Update("UPDATE member SET nickname=#{nickname}, name=#{name}, phone=#{phone}," 
             +"addr1=#{addr1}, addr2=#{addr2}, email=#{email} WHERE id=#{id}")
     public void updateMember(MemberVO member);
+    
+    
 }

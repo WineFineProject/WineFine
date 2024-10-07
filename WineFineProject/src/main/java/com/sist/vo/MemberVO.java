@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-	private String id, nickname, pwd, name, dbbirthday, dbregdate, sex, phone, post, addr1, addr2, photo, msg, email;
-	private int grade, admin;
-	private Date birthdate, regdate;
+	private String userId, nickName, userPwd, userName, sex, birthday, email, post, addr1, addr2, phone, phone1, phone2, phone3, photo, regday, motifyday,lastloginday;
+	private int grade, point, enabled, state;
+	private Date modifydate, regdate, lastlogin;
 	
 	
 }

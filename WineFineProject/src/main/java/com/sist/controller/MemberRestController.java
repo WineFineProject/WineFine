@@ -17,17 +17,6 @@ public class MemberRestController {
 	@Autowired
 	private MemberService mService;
 
-	@PostMapping(value = "member/vueLogin.do", produces = "text/plain;charset=UTF-8")
-	public String memberVueLogin(String id, String pwd, HttpSession session) {
-		String result = mService.memberLogin(id, pwd);
-		MemberVO vo=mService.memberDetail(id);
-		if (result == "OK") {
-			session.setAttribute("id", vo.getId());
-			session.setAttribute("nickname", vo.getNickname());
-			session.setAttribute("admin", vo.getAdmin());
-		}
-		return result;
-	}
 
 	// 회원 목록 페이지
 	@GetMapping(value = "seller/memberListVue.do", produces = "text/plain;charset=UTF-8")
@@ -60,6 +49,34 @@ public class MemberRestController {
 
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(map);
+	}
+	
+	// 멤버 아이디 중복체크
+	@GetMapping(value = "member/memberIdCheck.do", produces = "text/plain;charset=UTF-8")
+	public String memberIdCheck(String userId) {
+		int count=mService.memberIdCheck(userId);
+		return String.valueOf(count);
+	}
+
+	// 멤버 닉네임 중복체크
+	@GetMapping(value = "member/memberNickCheck.do", produces = "text/plain;charset=UTF-8")
+	public String memberNickCheck(String nickName) {
+		int count=mService.memberNickCheck(nickName);
+		return String.valueOf(count);
+	}
+	
+	// 멤버 전화번호 중복체크
+	@GetMapping(value = "member/memberPhoneCheck.do", produces = "text/plain;charset=UTF-8")
+	public String memberPhoneCheck(String phone) {
+		int count=mService.memberPhoneCheck(phone);
+		return String.valueOf(count);
+	}
+	
+	// 멤버 이메일 중복체크
+	@GetMapping(value = "member/memberEmailCheck.do", produces = "text/plain;charset=UTF-8")
+	public String memberEmailCheck(String email) {
+		int count=mService.memberEmailCheck(email);
+		return String.valueOf(count);
 	}
 
 }

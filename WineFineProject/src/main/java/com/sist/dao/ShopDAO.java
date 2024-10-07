@@ -12,14 +12,10 @@ public class ShopDAO {
 	private LikeMapper lmapper;
 	private ShopMapper mapper;
 	@Autowired
-	public ShopDAO(ShopMapper mapper) {
+	public ShopDAO(ShopMapper mapper, LikeMapper lmapper) {
 		this.mapper = mapper;
-	}
-	@Autowired
-	public ShopDAO(LikeMapper lmapper) {
 		this.lmapper = lmapper;
 	}
-
 	
 //	���씤 由ъ뒪�듃 異쒕젰
 	public List<WineVO> wineListData(int start,int end){

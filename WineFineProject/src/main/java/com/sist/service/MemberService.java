@@ -11,5 +11,8 @@ public interface MemberService {
 	public void deleteMember(String id);
 	public MemberVO memberDetail(String id);
 	public void updateMember(MemberVO member);
-	
+	public int memberPhoneCheck(String phone);
+	public int memberEmailCheck(String email);
+	public int memberNickCheck(String nickName);
+	public int memberIdCheck(String userId);
 }
