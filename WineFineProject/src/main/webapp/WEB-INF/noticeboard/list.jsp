@@ -52,8 +52,8 @@
         </tr>
        </thead>
 		<tbody v-if="type===0">
-        <tr v-for="vo in list">
-         <td width="5%" class="text-center">{{vo.bno}}</td>
+        <tr v-for="(vo, index) in list">
+         <td width="5%" class="text-center">{{list.length - index}}</td>
          <td width="10%" class="text-center">
          	<span v-if="vo.cno==4">[일반]</span>
          	<span v-if="vo.cno==5">[이벤트]</span>
@@ -120,7 +120,6 @@
     		this.dataRecv()
     	},
     	methods:{
-    		
     		dataRecv(){
     			axios.get('../noticeboard/list_vue.do',{
     				params:{

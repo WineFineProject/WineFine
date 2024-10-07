@@ -81,11 +81,15 @@
      	<tr class="text-left" style="border-bottom-color: white; border-top-color: white;">
      		<td colspan="2" v-if="rvo.depth===1" style="color:black; font-weight: bold; ">{{rvo.nickname}}</td>
      		<td v-if="rvo.depth===1 && id!==''">
+     		<!--  
      		<button @click="changeModal(true)" v-model="sbrno" type="button" style="background-color: white;border: none; font-family: 'OpenSans', sans-serif;">신고</button>
+     		-->
      	</td>
      		<td colspan="2" v-if="rvo.depth===2" style="color:black; font-weight: bold; margin-left: 15px;">⤷&nbsp;{{rvo.nickname}}</td>
      		<td v-if="rvo.depth===2 && id!==''">
+     		<!-- 
      		<button @click="changeModal(true)" v-model="sbrno[rvo.brno]" type="button" style="background-color: white;border: none; font-family: 'OpenSans', sans-serif;">신고</button>
+     		-->
      		</td>
      	</tr>
      	<tr class="text-left" style="border-color: white;">
@@ -125,6 +129,7 @@
       <div>
       <h1>   </h1>
       </div>
+     <!-- 
       <div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
 			<div class="modal-content">
 				<span class="close" @click="changeModal(false)">&times;</span>
@@ -158,6 +163,7 @@
 				</table>
 			</div>
 		</div>
+		-->
      </div>
    </div>
    <script>
@@ -214,7 +220,7 @@
                         console.log(error.response)
                     })
             	},
-            	changeModal(check){
+            	/* changeModal(check){
     				if(check===false){
     					
     					this.sbrno=0
@@ -225,6 +231,7 @@
     				}
     				changeModal(this, check)
     			},
+    		
     			insertrreport(){
     				if(this.brrcontent==="")
     				  {
@@ -243,23 +250,24 @@
     					this.changeModal(false)
     				})
     			},
+    			*/
           	toggleReplyInput(rvo) {
-            	    axios.post('../board/reReply_count_vue.do', null, {
+    				const reply = this.reply_list.find(reply => reply.root === rvo.root)
+            	    if (reply) {
+            	                reply.showReplyInput = !reply.showReplyInput
+            	            }
+            	    else {
+            	        this.reply_list.push({
+            	            root: rvo.root,
+            	            showReplyInput: true 
+            	        })
+            	    }
+    				axios.post('../board/reReply_count_vue.do', null, {
             	        params: {
             	            root: rvo.root
             	        }
             	    }).then(response => {
-            	        const rereplycount = response.data; 
-            	        if (rereplycount === "NO") {
-            	            alert("답글은 1개까지 작성이 가능합니다.")
-            	            rvo.showReplyInput = false
-            	        } 
-            	        else {
-            	        	const reply = this.reply_list.find(reply => reply.root === rvo.root)
-            	            if (reply) {
-            	                reply.showReplyInput = !reply.showReplyInput
-            	            }
-            	        }
+            	        const rereplycount = response.data
             	    }).catch(error => {
             	        console.log(error.response)
             	    })

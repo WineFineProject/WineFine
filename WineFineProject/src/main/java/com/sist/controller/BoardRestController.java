@@ -392,12 +392,9 @@ public class BoardRestController {
 		// String nickname=(String)session.getAttribute("nickname");
 		//vo.setId(id);
 		//vo.setNickname(nickname);
-		int root=vo.getRoot();
-		int rereplycount = bService.boardReReplyCount(root);
-		if(rereplycount==0)
-		{
+		
 			bService.boardReReplyInsert(vo);
-		}
+		
 		return boardReply_list(vo.getBno());
 	}
 	@PostMapping(value="board/reReply_count_vue.do", produces = "text/plain;charset=UTF-8")
