@@ -60,9 +60,10 @@ public class MyPageRestController {
 		cService.getCoupon(vo);
 	}
 	
-//	@GetMapping(value = "mypage/myBoardList.do",produces = "text/plain;charset=UTF-8")
-//	public void 
-//	{
-//		
-//	}
+		/*
+		 * @GetMapping(value = "mypage/myBoardList.do",produces =
+		 * "text/plain;charset=UTF-8") public String mypageBoardList() throws Exception{
+		 * 
+		 * }
+		 */
 }

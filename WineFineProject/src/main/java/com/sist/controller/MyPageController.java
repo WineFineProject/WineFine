@@ -18,9 +18,9 @@ public class MyPageController {
  //예약내역
  
  //작성한글
- @GetMapping("mypage/myBoard.do")
+ @GetMapping("mypage/myBoardList.do")
  public String mypageBoardList(String id){
-	 return "mypage/myBoard"; 
+	 return "mypage/myBoardList"; 
  } //작성리뷰
  
  //좋아요
