@@ -10,7 +10,6 @@ public interface BoardService {
 	public List<BoardVO> boardTypeListData(int cno, int start, int end);
 	public int boardTotalPage();
 	public int cboardTotalPage(int type);
-	public String boardNickname(String id);
 	public void boardInsert(BoardVO vo);
 	public BoardVO boardDetailData(int bno);
 	public BoardVO boardUpdateData(int bno);

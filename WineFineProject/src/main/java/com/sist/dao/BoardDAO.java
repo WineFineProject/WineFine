@@ -31,10 +31,6 @@ public class BoardDAO {
 	 {
 		 return mapper.cboardTotalPage(type);
 	 }
-	 public String boardNickname(String id)
-	 {
-		 return mapper.boardNickname(id);
-	 }
 	 public void boardInsert(BoardVO vo)
 	 {
 		 mapper.boardInsert(vo);

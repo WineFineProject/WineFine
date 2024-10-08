@@ -162,16 +162,6 @@ public class BoardRestController {
 		String json=mapper.writeValueAsString(vo);
 		return json;
 	}
-	@PostMapping(value = "board/get_nickname.do", produces = "text/plain;charset=UTF-8")
-	public String getNickname(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("id");
-		if (id != null) {
-			String nickname = bService.boardNickname(id);
-			return nickname;  // 닉네임 반환
-		}
-		return "";  // ID가 없는 경우 빈 문자열 반환
-	}
 
 	@PostMapping(value="board/insert_vue.do",produces = "text/plain;charset=UTF-8")
 	public String board_insert(@ModelAttribute BoardVO vo, HttpServletRequest request)

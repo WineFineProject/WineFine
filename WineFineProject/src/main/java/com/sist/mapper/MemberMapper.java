@@ -69,7 +69,7 @@ public interface MemberMapper {
     @Select("SELECT userId, userName, userPwd, enabled, authority FROM wine_member sm JOIN authority au ON sm.userId=au.userId AND pm.userId=#{userId}")
   	public MemberVO memberInfo(String userId);
   	
-  	@Select("SELECT userId, userName, userPwd, sex, email, phone, post, addr1, addr2 "
+  	@Select("SELECT userId, userName, userPwd, sex, email, phone, post, addr1, addr2, nickName "
   			+ "FROM wine_member "
   			+ "WHERE userId=#{userId}")
   	public MemberVO memberSessionData(String userId);

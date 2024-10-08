@@ -79,13 +79,13 @@
     			subject:'',
     			content:'',
     			id:'${sessionScope.id}',
-    			nickname:'',
+    			nickname:'${sessionScope.nickName}',
     			upfiles:''
     			
     		}
     	},
 		mounted(){
-    		this.fetchNickname();
+    		
     		axios.get('update_vue.do',{
     			params:{
     				bno:this.bno
@@ -99,15 +99,6 @@
     		})
     	},
     	methods:{
-    		fetchNickname() {
-                axios.post('../board/get_nickname.do')
-                    .then(response => {
-                        this.nickname = response.data
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                    })
-            },
     		submitForm(){
     			if(this.cno==="")
     			{

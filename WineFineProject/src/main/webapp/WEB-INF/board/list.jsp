@@ -13,12 +13,26 @@
 	cursor: pointer;
 }
 .page-item.active{
-	background-color: #FFF7B3;
+	background-color: #FFCC52;
 	display:inline-block !important;
 }
 .row{
    margin: 0px auto;
    width: 1080px;
+}
+.ctbtn{
+width: 15%; 
+display: inline-block; 
+margin-left:5px;
+background-color: #C91C40 !important; 
+border-color: white;
+color: white;
+}
+.bsbtn{
+	background-color: #FFCC52 !important;
+	color:gray;
+	width: 18%; 
+	text-align: center;
 }
 
 </style>
@@ -30,19 +44,19 @@
       <table class="cTable">
         <tr>
         <td width="40%">
-         <input type="button" value="전체" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(0)">
-     	 <input type="button" value="자유" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(1)">
-     	 <input type="button" value="정보" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(2)">
-    	 <input type="button" value="질문" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(3)">
+         <input type="button" value="전체" class="ctbtn form-control" @click="typeChange(0)">
+     	 <input type="button" value="자유" class="ctbtn form-control"  @click="typeChange(1)">
+     	 <input type="button" value="정보" class="ctbtn form-control"  @click="typeChange(2)">
+    	 <input type="button" value="질문" class="ctbtn form-control"  @click="typeChange(3)">
     	 </td>
     	 <!-- 검색 -->
     	 <td width="60%" style="float: right;">
-    		<select id="bfilter" v-model="isSearch" ref="isSearch">
+    		<select id="bfilter" v-model="isSearch" ref="isSearch" class="form-control" style="width: 25%; display: inline-block; margin-right:5px;">
                     <option value="0">제목</option>
                     <option value="1">작성자</option>
             </select>
-          <input type=text size=20 v-model="find" ref="find" class="input-sm" placeholder="검색어를 입력해주세요">
-          <input type="button" value="검색" class="fbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="findboard()">
+          <input type=text size=20 v-model="find" ref="find" class="form-control" placeholder="검색어를 입력해주세요" style="width: 50%; display: inline-block; margin-right:5px;">
+          <input type="button" value="검색" class="ctbtn form-control" @click="findboard()">
     	 </td>
         </tr>
       </table>
@@ -94,7 +108,7 @@
          <tr>
           <!-- 로그인 상태에서만 글쓰기 버튼 보이게 -->
          <td colspan="3" class="text-left">
-            <a v-if="id!=''" href="../board/insert.do" class="btn btn-sm" style="background-color: #FFF7B3; color:gray;">글쓰기</a>
+            <a v-if="id!=''" href="../board/insert.do" class="bsbtn form-control">글쓰기</a>
     		<p v-else>로그인 후 글을 작성할 수 있습니다</p>
          </td>
         </tr>
@@ -122,7 +136,7 @@
     			curpage:1,
     			startPage:0,
     			endPage:0,
-    			id:'${sessionScope.id}',
+    			id:'${sessionScope.userId}',
     			type:0,
     			isSearch:0,
     			find:''

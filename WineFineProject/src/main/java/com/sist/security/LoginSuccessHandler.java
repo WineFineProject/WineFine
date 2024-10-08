@@ -33,7 +33,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		session.setAttribute("address", vo.getAddr1() + " " + vo.getAddr2());
 		session.setAttribute("phone", vo.getPhone());
 		session.setAttribute("email", vo.getEmail());
-
+		session.setAttribute("nickName", vo.getNickName());
 		response.sendRedirect("../main/main.do");
 	}
 

@@ -37,10 +37,7 @@ public interface BoardMapper {
 	 @Select("SELECT CEIL(COUNT(*)/10.0) FROM board WHERE cno = #{cno}")
 	  public int cboardTotalPage(@Param("cno") int type);
 	 
-	// 닉네임 구하기
-	 @Select("SELECT nickname FROM member WHERE id LIKE '%'||#{id}||'%' ")
-	 public String boardNickname(String id);
-	 
+		 
 	// 추가(글쓰기)
 	 @SelectKey(keyProperty = "bno",resultType = int.class,before = true,
 			  statement = "SELECT NVL(MAX(bno)+1,1) as bno FROM board")

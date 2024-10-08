@@ -27,7 +27,7 @@
       <tr>
        <th width="20%" class="text-center">카테고리 </th>
        <td width="80%">
-         <select id="bCategory" v-model="cno" ref="cno">
+         <select id="bCategory" class="form-control" v-model="cno" ref="cno">
                     <option value="" disabled selected>카테고리 선택</option>
                     <option value=1>자유</option>
                     <option value=2>정보</option>
@@ -38,19 +38,19 @@
       <tr>
        <th width="20%" class="text-center">제목</th>
        <td width="80%">
-        <input type=text size=50 v-model="subject" ref="subject" class="input-sm">
+        <input type=text size=50 class="form-control" v-model="subject" ref="subject" class="input-sm">
        </td>
       </tr>
       <tr>
        <th width="20%" class="text-center">내용</th>
        <td width="80%">
-        <textarea rows="10" cols="52" v-model="content" ref="content"></textarea>
+        <textarea rows="10" cols="52" class="form-control" v-model="content" ref="content" style="resize: none;"></textarea>
        </td>
       </tr>
       <tr>
         <th width="20%" class="text-center">첨부파일</th>
         <td width="80%">
-         <input type="file" ref="upfiles" class="input-sm" 
+         <input type="file" class="form-control" ref="upfiles" class="input-sm" 
            multiple="multiple"
            accept="upload/*"
          />
@@ -58,9 +58,9 @@
       </tr>
       <tr>
         <td colspan="2" class="text-center">
-          <input type="submit" class="btn btn-sm btn-danger" value="등록">
+          <input type="submit"  class="btn btn-danger" value="등록">
           &nbsp;
-          <input type="button" class="btn btn-sm btn-success" value="취소"
+          <input type="button"  class="btn btn-secondary" value="취소"
            onclick="javascript:history.back()">
         </td>
       </tr>
@@ -75,25 +75,16 @@
     			cno:1,
     			subject:'',
     			content:'',
-    			id:'${sessionScope.id}',
-    			nickname:'',
+    			id:'${sessionScope.userId}',
+    			nickname:'${sessionScope.nickName}',
     			upfiles:''
     			
     		}
     	},
 		mounted(){
-    		this.fetchNickname()
+    
     	},
     	methods:{
-    		fetchNickname() {
-                axios.post('../board/get_nickname.do')
-                    .then(response => {
-                        this.nickname = response.data
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                    })
-            },
     		submitForm(){
     			if(this.cno==="")
     			{

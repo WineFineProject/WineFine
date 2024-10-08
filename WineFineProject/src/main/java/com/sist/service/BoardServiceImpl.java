@@ -38,11 +38,6 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
-	public String boardNickname(String id) {
-		// TODO Auto-generated method stub
-		return dao.boardNickname(id);
-	}
-	@Override
 	public void boardInsert(BoardVO vo) {
 		// TODO Auto-generated method stub
 		dao.boardInsert(vo);

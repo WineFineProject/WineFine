@@ -58,10 +58,52 @@
                 <span style="position: absolute; right: 0; top: -25px; font-weight: bold;">{{ sugar }}</span>
      		  </td>
      		  <td rowspan="2" width="20%"> 
-     		  	<input type=text size=20 v-model="aroma" ref="aroma" class="input-sm" placeholder="ex) 베리, 사과, 허브  예시와 같이 작성해주세요">
+     		  	<textarea rows="2" cols="20" v-model="aroma" ref="aroma" placeholder=" ex) 베리, 사과, 허브 	  	예시와 같이 작성해주세요"></textarea>
      		  </td>
-     		  <td width="20%"></td>
+     		  <td rowspan="2" width="20%">
+     		  <textarea rows="2" cols="20" v-model="aroma" ref="aroma" placeholder=" ex) 소, 비빔밥, 피자  	  	예시와 같이 작성해주세요"></textarea>
+     		  </td>
+     		 </tr>
      		 <tr>
+     		 <td width="7%"> 이름 (영어) : </td>
+     		 	<td width="8%">
+     		 	<input type=text size=10 v-model="nameeng" ref="namekor" class="input-sm">
+     		 </td>
+     		 <td width="10%">  </td>
+     		 <td width="10%"> </td>
+     		 <td width="5%"> </td>
+     		 <td width="7%"> 산도 :</td>
+     		  <td width="13%"> 
+     		  	<input type="range" v-model="acid" min="0" max="5" step="1" style="width: 100%;">
+                <span style="position: absolute; right: 0; top: -25px; font-weight: bold;">{{ acid }}</span>
+     		  </td>
+     		 </tr>
+     		 <tr>
+     		 	<td colspan="2" width="15%"> </td>
+     		 	<td width="10%">  </td>
+     		 	<td width="10%"> </td>
+     		 	<td width="5%"> </td>
+     		 	<td width="7%"> 바디 :</td>
+     		  	<td width="13%"> 
+     		  	<input type="range" v-model="body" min="0" max="5" step="1" style="width: 100%;">
+                <span style="position: absolute; right: 0; top: -25px; font-weight: bold;">{{ body }}</span>
+     		  	</td>
+     		  	<td width="20%"> </td>
+     		  	<td width="20%"> </td>
+     		 </tr>
+     		  <tr>
+     		 	<td colspan="2" width="15%"> </td>
+     		 	<td width="10%">  </td>
+     		 	<td width="10%"> </td>
+     		 	<td width="5%"> </td>
+     		 	<td width="7%"> 타닌 :</td>
+     		  	<td width="13%"> 
+     		  	<input type="range" v-model="tannin" min="0" max="5" step="1" style="width: 100%;">
+                <span style="position: absolute; right: 0; top: -25px; font-weight: bold;">{{ tannin }}</span>
+     		  	</td>
+     		  	<td width="20%"> </td>
+     		  	<td width="20%"> </td>
+     		 </tr>
      	 </table>
      	 <table class="text-center">
      	 	 <tr>
@@ -70,8 +112,8 @@
      		  <th width="15%">품종</th>
      		  <th width="10%">도수</th>
      		  <th width="10%">재고</th>
-     		  <th width="10%">상품 이미지</th>
-     		  <th width="15%">-</th>
+     		  <th width="15%">상품 이미지</th>
+     		  <th width="10%">-</th>
      		</tr>
      	</table>
      </div>

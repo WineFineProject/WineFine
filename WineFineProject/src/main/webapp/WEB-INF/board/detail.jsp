@@ -14,6 +14,14 @@
    margin: 0px auto;
    width: 1080px;
 }
+.brbtn{
+	font-weight:bold; 
+	size:16px; 
+	color:#57102F;
+	background-color:white !important;
+	width: 70px;
+	height: 40px;
+}
 </style>
 </head>
 <body>
@@ -68,8 +76,8 @@
       <p v-if="reply_list.count === 0 || rcount===0" style="color:black;">댓글이 없습니다.</p>
       <p v-else class="text-left" style="color:black; font-weight: bold;">댓글 수: &nbsp;{{rcount}}&nbsp;</p>
       <div v-if="id!==''">
-     	    <textarea rows="4" cols="62" ref="msg" v-model="msg" style="float: left; border-radius: 5px;"></textarea>
-            <button style="float: left;background-color:#57102F; color:white;width: 100px;height: 100px; border-radius: 5px;" @click="replyWrite()">댓글쓰기</button>
+     	    <textarea rows="4" cols="62" ref="msg" v-model="msg" class= "form-control" style="width: 70%; float: left; resize: none; display:inline-block;"></textarea>
+            <button class= "form-control" style="float: left;background-color:#57102F; color:white; width: 100px; height: 110px; display:inline-block;" @click="replyWrite()">댓글쓰기</button>
          </div>
       <div v-if="id===''">
     		<p>로그인 후 댓글을 작성할 수 있습니다.</p>
@@ -102,14 +110,14 @@
         </tr>
         <tr class="text-left">
             <td width="20%" v-if="rvo.depth===1">
-            <button style="float: left; font-weight:bold; size:16px; color:#57102F;background-color:white; border-radius: 5px; width: 50px;height: 30px" @click="toggleReplyInput(rvo)">답글</button>
+            <button class="brbtn form-control" style="float: left; " @click="toggleReplyInput(rvo)">답글</button>
             </td>
             <td width="20%" v-if="rvo.depth===2">
             <h5> </h5>
             </td>
             <td width="60%" v-if="id===rvo.id">
-            <button style="float: right;  font-weight:bold; size:16px; color:#57102F;background-color:white; border-radius: 5px; width: 50px;height: 30px" @click="replyDelete(rvo.brno)">삭제</button>
-            <button style="float: right;  font-weight:bold; size:16px; color:#57102F;background-color:white; border-radius: 5px; width: 50px;height: 30px; margin-right: 5px;" class="brupbtn ups" :id="'up'+rvo.brno" @click="replyUpdateForm(rvo.brno)">수정</button>
+            <button class="brbtn form-control" style="float: right;  " @click="replyDelete(rvo.brno)">삭제</button>
+            <button class="brbtn form-control" style="float: right; margin-right: 5px;" class="brupbtn ups" :id="'up'+rvo.brno" @click="replyUpdateForm(rvo.brno)">수정</button>
             </td>
             <td width="20%"> </td>
         </tr>
@@ -179,12 +187,12 @@
     			bno:${bno},
     			brno:0,
     			sbrno:0,
-    			nickname:'',
+    			nickname:'${sessionScope.nickName}',
     			root:'',
     			isEditing:false,
     			filename:[],
     			filesize:[],
-     			id:'${sessionScope.id}'
+     			id:'${sessionScope.userId}'
     			
     		}
     	},
@@ -207,19 +215,8 @@
     		
     		// 댓글 읽기
     		this.replyRead()
-    		
-    		this.fetchNickname()
     	},
     	methods:{
-    		fetchNickname() {
-                axios.post('../board/get_nickname.do')
-                    .then(response => {
-                        this.nickname = response.data
-                    })
-                    .catch(error => {
-                        console.log(error.response)
-                    })
-            	},
             	/* changeModal(check){
     				if(check===false){
     					
