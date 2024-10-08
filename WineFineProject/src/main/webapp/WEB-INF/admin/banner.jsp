@@ -27,7 +27,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="7">
+					<td style="padding: 0px;" colspan="7">
 						<div>
 							<table style="width: 100%">
 								<tbody>
@@ -59,7 +59,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="7">
+					<td style="padding: 0px;" colspan="7">
 						<div>
 							<table style="width: 100%">
 								<tbody>

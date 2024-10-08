@@ -29,7 +29,7 @@
 <body>
 	<tiles:insertAttribute name="header" />
 	<div class=" container2 text-center">
-		<div class="row" style="margin-top: 150px;">
+		<div class="row">
 			<div class="col-lg-2">
 				<div class="panel panel-info">
 					<div class="panel-heading">

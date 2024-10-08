@@ -13,6 +13,7 @@
 
 
     // Fixed Navbar
+    /*
     $(window).scroll(function () {
         if ($(window).width() < 992) {
             if ($(this).scrollTop() > 55) {
@@ -28,6 +29,7 @@
             }
         } 
     });
+    */
     
     
    // Back to top button

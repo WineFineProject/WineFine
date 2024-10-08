@@ -82,7 +82,7 @@
 	<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
 		<div class="spinner-grow text-wine" role="status"></div>
 	</div>
-	<div class="container-fluid fixed-top" id="navbar">
+	<div class="container-fluid" id="navbar">
 		<div class="container topbar bg-wine d-none d-lg-block">
 			<div class="d-flex justify-content-between">
 				<div class="top-info ps-2">
