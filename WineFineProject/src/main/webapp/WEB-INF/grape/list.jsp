@@ -81,10 +81,10 @@
 </head>
 <body>
   <div class="container py-5">
-    <div class="row" id="grapeList" style="margin-top: 150px">
+    <div class="row" id="grapeList">
     <div class="search-container" style="padding: 0px">
-            <h3>주요 품종({{grapes.length}}건)</h3>
-            <input type="text" class="search-input" placeholder=" 주요품종 내 검색">
+            <h3>주요 품종({{count}}건)</h3>
+            <input type="text" class="search-input" placeholder=" 주요품종 내 검색" v-model="fd" @keyup.enter="gList()">
             </div>
             <div class="header-line"></div>
             <ul class="GrapeList">
@@ -101,29 +101,23 @@
                 </li>
             </ul>
     <div class="col-12 text-center" >
-    <div class="pagination-area d-sm-flex mt-15" style="justify-content: center">
-        <nav aria-label="#">
-            <ul class="pagination" style="display: flex;">
-                <li class="page-item">
-                    <a class="page-link" @click="prev()">
-                        <i class="fa fa-angle-double-left" aria-hidden="true">이전</i>
-                    </a>
-                </li>
-
-                <li :class="i===curpage?'page-item active':''" v-for="i in range(startPage, endPage)" style="display: inline;">
-                    <a class="page-link" @click="pageChange(i)">{{i}}</a>
-                </li>
-
-                <li class="page-item" v-if="endPage<totalpage">
-                    <a class="page-link" @click="next()">
-                        <i class="fa fa-angle-double-right" aria-hidden="true">다음</i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <div class="pagination-area d-sm-flex mt-15" style="justify-content: center">
+            <nav aria-label="#">
+               <ul class="pagination" style="display: flex;">
+                   <li class="page-item" v-if="startPage>1">
+                     <a class="page-link" @click="prev()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> 이전</a>
+                    </li>
+                     <li :class="i===curpage?'page-item active':'page-item'" v-for="i in range(startPage,endPage)">
+                      <a class="page-link" @click="pageChange(i)">{{i}}</a>
+                     </li>
+                     <li class="page-item" v-if="endPage<totalpage">
+                      <a class="page-link" @click="next()">다음 <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                     </li>
+                 </ul>
+             </nav>
+          </div>
+       </div>
     </div>
-</div>
-        </div>
    </div> 
     <script>
         let grapeListapp = Vue.createApp({
@@ -133,7 +127,9 @@
                     curpage:1,
 	       			totalpage:0,
 	       			startPage:0,
-	       			endPage:0
+	       			endPage:0,
+	       			count:0,
+	       			fd:''
                 }
             },
             methods: {
@@ -160,17 +156,21 @@
         			 return arr
         		 },
                 gList() {
+        			if(this.fd) {
+        			       this.curpage = 1
+        			   } 
                     axios.get('../grape/listVue.do',{
                     	params:{
-                    		page:this.curpage
+                    		page:this.curpage,
+                    		fd:this.fd
                     	}
-                    })
-                        .then(response=>{
+                    }).then(response=>{
                             this.grapes=response.data.grapes
                             this.curpage=response.data.curpage
 	           				this.totalpage=response.data.totalpage
 	           				this.startPage=response.data.startPage
 	           				this.endPage=response.data.endPage
+	           				this.count=response.data.count
                         })
                         .catch(error=>{
                             console.error(error)

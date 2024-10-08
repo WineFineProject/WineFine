@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,14 +59,13 @@ public class ReplyBoardController {
 		return "replyboard/insert";
 	}
 	@PostMapping("replyboard/insertOk.do")
-	public String replyboardInsertOk(ReplyBoardVO vo, @SessionAttribute(value = "userid", required = false) String userid,@SessionAttribute(value = "nickname", required = false) String nickname)
+	public String replyboardInsertOk(ReplyBoardVO vo, HttpSession session)
 	{
-		vo.setUserid(userid);
-	    vo.setNickname(nickname);
-
+		vo.setUserid((String)session.getAttribute("userId"));
+	    vo.setNickname((String)session.getAttribute("nickName"));
+	    
 	    vo.setGroup_step(0);
 	    vo.setIsreply(0); 
-	    vo.setSecret(0); 
 
 	    rService.replyInsert(vo);
 		return "redirect:../replyboard/list.do";

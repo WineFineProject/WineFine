@@ -27,7 +27,7 @@ public interface ReplyBoardMapper {
     	    + "group_id, group_step, isreply, secret) "
     	    + "VALUES((SELECT NVL(MAX(wrno)+1, 1) FROM wine_replyboard), "
     	    + "#{userid}, #{nickname}, #{subject}, #{content}, SYSDATE, #{cno}, #{type}, #{recvid}, #{wno}, "
-    	    + "#{group_id}, #{group_step}, 0, #{secret})")
+    	    + "(SELECT NVL(MAX(wrno)+1, 1) FROM wine_replyboard), #{group_step}, 0, #{secret})")
     public void replyInsert(ReplyBoardVO vo);
     
     // 조회수 

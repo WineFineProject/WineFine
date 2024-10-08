@@ -11,15 +11,15 @@ public class InformationServiceImpl implements InformationService {
     @Autowired
     private InformationDAO dao;
     @Override
-	public List<GrapeVO> grapeListData(int start, int end) {
+    public List<GrapeVO> grapeListData(Map map) {
 		// TODO Auto-generated method stub
-		return dao.grapeListData(start, end);
+		return dao.grapeListData(map);
 	}
 
 	@Override
-	public int grapeTotalPage() {
+	public int grapeTotalPage(Map map) {
 		// TODO Auto-generated method stub
-		return dao.grapeTotalPage();
+		return dao.grapeTotalPage(map);
 	}
 
 	@Override
@@ -29,9 +29,15 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	public List<NationVO> nationListData() {
+	public List<NationVO> nationListData(Map map) {
 		// TODO Auto-generated method stub
-		return dao.nationListData();
+		return dao.nationListData(map);
+	}
+	
+	@Override
+	public int nationTotalPage(Map map) {
+		// TODO Auto-generated method stub
+		return dao.nationTotalPage(map);
 	}
 	
 	@Override
@@ -41,21 +47,21 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	public List<MakerVO> makerListData() {
+	public List<MakerVO> makerListData(Map map) {
 		// TODO Auto-generated method stub
-		return dao.makerListData();
+		return dao.makerListData(map);
 	}
 
+	@Override
+	public int makerTotalPage(Map map) {
+		// TODO Auto-generated method stub
+		return dao.makerTotalPage(map);
+	}
+	
 	@Override
 	public MakerVO makerDetailData(int no) {
 		// TODO Auto-generated method stub
 		return dao.makerDetailData(no);
-	}
-
-	@Override
-	public List<GrapeVO> findGrapes(String fd) {
-		// TODO Auto-generated method stub
-		return dao.findGrapes(fd);
 	}
 
 

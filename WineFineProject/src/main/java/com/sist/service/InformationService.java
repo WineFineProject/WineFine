@@ -2,12 +2,13 @@ package com.sist.service;
 import com.sist.vo.*;
 import java.util.*;
 public interface InformationService {
-	public List<GrapeVO> grapeListData(int start, int end); 
-	public int grapeTotalPage();
+	public List<GrapeVO> grapeListData(Map map); 
+	public int grapeTotalPage(Map map);
 	public GrapeVO grapeDetailData(int no); 
-	public List<NationVO> nationListData();
+	public List<NationVO> nationListData(Map map);
+	public int nationTotalPage(Map map);
     public NationVO nationDetailData(int no);
-    public List<MakerVO> makerListData(); 
+    public List<MakerVO> makerListData(Map map); 
+    public int makerTotalPage(Map map);
     public MakerVO makerDetailData(int no); 
-    public List<GrapeVO> findGrapes(String fd);
 }

@@ -16,15 +16,17 @@
     margin-left: 10px;
 }
 table {
-    width: 80%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 th, td {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 10px 5px 10px 5px;
     text-align: center;
 } 
+th {
+    color: black;
+}
 .listBtn {
 	cursor: pointer; 
 	margin-top: 20px;
@@ -32,6 +34,10 @@ th, td {
 	width: 88px;
 	height: 30px;
 	align-content: center;
+	background-color: #96C4FF;
+	border: none;
+	border-radius: 3px;
+	color: white;
 }
 .header-line {
 	border-top: 3px solid black;
@@ -59,8 +65,8 @@ th, td {
 </style>
 </head>
 <body>
-<div class="container py-5">
-		<div class="row" id="grapeDetail" style="margin-top: 150px">
+<div class="container py-5" style="width: 35%; margin-left: 280px;">
+		<div class="row" id="grapeDetail">
 			<div v-if="vo">
             <div>
                 <span class="namekor">{{vo.namekor}}</span>

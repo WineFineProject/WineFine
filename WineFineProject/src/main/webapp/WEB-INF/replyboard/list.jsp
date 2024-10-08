@@ -8,11 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container" style="margin-top:150px;">
+<div class="container" style="margin-top:50px;">
      <h3 class="text-center">1:1 문의게시판</h3>
      <div class="row">
      <table class="table">
-       <c:if test="${not empty sessionScope.id}"> 
+       <c:if test="${not empty sessionScope.userId}"> 
            <tr>
                <td>
                    <a href="../replyboard/insert.do" class="btn btn-sm" style="background-color: #FCD500;">글쓰기</a>

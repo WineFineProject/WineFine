@@ -1,5 +1,6 @@
 package com.sist.dao;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,15 +12,15 @@ public class InformationDAO {
 	@Autowired
     private InformationMapper mapper;
 
-	// 포도 품종 목록 
-	public List<GrapeVO> grapeListData(int start, int end)
+	// 포도 품종 목록, 검색
+	public List<GrapeVO> grapeListData(Map map)
 	{
-        return mapper.grapeListData(start, end);
+        return mapper.grapeListData(map);
     }
 	// 포도 품종 총페이지
-	public int grapeTotalPage()
+	public int grapeTotalPage(Map map)
 	{
-		return mapper.grapeTotalPage();
+		return mapper.grapeTotalPage(map);
 	}
     // 포도 품종 상세 
 	public GrapeVO grapeDetailData(int no) 
@@ -27,30 +28,33 @@ public class InformationDAO {
         return mapper.grapeDetailData(no);
     }
 	
-	// 포도 품종 검색
-    public List<GrapeVO> findGrapes(String fd)
+	// 생산지역 목록, 검색
+	public List<NationVO> nationListData(Map map)
     {
-    	return mapper.findGrapes(fd);
+        return mapper.nationListData(map);
     }
-    
-	// 생산지역 목록 
-    public List<NationVO> nationListData() 
-    {
-        return mapper.nationListData();
-    }
-
+    // 생산지역 총페이지
+	public int nationTotalPage(Map map)
+ 	{
+ 		return mapper.nationTotalPage(map);
+ 	}
+ 	
     // 생산지역 상세 
     public NationVO nationDetailData(int no) 
     {
         return mapper.nationDetailData(no);
     }
     
-    // 생산자 목록 
-    public List<MakerVO> makerListData() 
+    // 생산자 목록, 검색
+    public List<MakerVO> makerListData(Map map)
     {
-        return mapper.makerListData();
+        return mapper.makerListData(map);
     }
-
+    // 생산자 총페이지
+    public int makerTotalPage(Map map)
+  	{
+  		return mapper.makerTotalPage(map);
+  	}
     // 생산자 상세 
     public MakerVO makerDetailData(int no) 
     {

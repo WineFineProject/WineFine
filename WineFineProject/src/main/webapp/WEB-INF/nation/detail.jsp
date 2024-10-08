@@ -48,7 +48,7 @@ th, td {
 </head>
 <body>
 <div class="container py-5">
-		<div class="row" id="nationDetail" style="margin-top: 150px">
+		<div class="row" id="nationDetail">
 			<div v-if="vo">
             <div>
                 <span class="namekor">{{vo.namekor}}</span>

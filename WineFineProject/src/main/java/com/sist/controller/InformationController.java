@@ -30,10 +30,8 @@ public class InformationController {
   
   // 생산지역 목록 페이지
   @GetMapping("nation/list.do")
-  public String nationListData(Model model) 
+  public String nationListData() 
   {
-      List<NationVO> nations=iService.nationListData();
-      model.addAttribute("nations", nations);
       return "nation/list";
   }
 
@@ -47,10 +45,8 @@ public class InformationController {
   
   // 생산자 목록 
   @GetMapping("maker/list.do")
-  public String makerListData(Model model) 
+  public String makerListData() 
   {
-      List<MakerVO> makers=iService.makerListData();
-      model.addAttribute("makers", makers);
       return "maker/list"; 
   }
 

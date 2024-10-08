@@ -35,31 +35,31 @@
 <body>
 <div class="container" style="width: 800px;">
    <div class="row">
-        <h3 class="text-center" style="margin-top:150px;">1:1 문의 게시판</h3>
+        <h3 class="text-center" style="margin-top:50px;">1:1 문의 게시판</h3>
             <div class="form-group">
                 <label for="category">카테고리 선택</label>
-                <select class="form-control" id="category">
-                    <option value="">선택하세요</option>
-                    <option value="product">상품 관련</option>
-                    <option value="delivery">배송 관련</option>
-                    <option value="service">서비스 관련</option>
-                    <option value="payment">결제 관련</option>
-                    <option value="other">기타</option>
+                <select class="form-control" id="category" v-model="cno" ref="cno">
+                    <option value="" disabled selected>선택하세요</option>
+                    <option value="1">상품 관련</option>
+                    <option value="2">배송 관련</option>
+                    <option value="3">서비스 관련</option>
+                    <option value="4">결제 관련</option>
+                    <option value="5">기타</option>
                 </select>
             </div>
             <div class="form-group" style="margin-top: 10px;">
                 <label>문의할 대상을 선택하세요</label>
                 <div style="margin-top: 5px;">
-				    <input type="radio" id="admin" name="contact" value="admin" checked @change="Contact('admin')" style="margin-right: 10px;">
+				    <input type="radio" id="admin" name="contact" value="3" v-model="contact" style="margin-right: 10px;">
 				    <label for="admin">관리자에게 문의</label>
 				    <div style="display: inline-block; margin-left: 20px;">
-				        <input type="radio" id="seller" name="contact" value="seller" @change="Contact('seller')" style="margin-right: 10px;">
+				        <input type="radio" id="seller" name="contact" value="2" v-model="contact" style="margin-right: 10px;">
 				        <label for="seller">판매자에게 문의</label>
 				    </div>
 				</div>
-				 <div v-if="contact === 'seller'" style="margin-top: 10px;">
+				 <div v-if="contact === '2'" style="margin-top: 10px;">
                 <label for="search">상품 검색</label>
-                <input type="text" class="form-control" v-model="fd" placeholder="상품명을 입력하세요" @input="searchProducts">
+                <input type="text" class="form-control" v-model="fd" :disabled="isFd" placeholder="상품명을 입력하세요" @keyup.enter="searchProducts">
                 <div class="result-list" v-if="foundProducts.length > 0">
                         <li v-for="product in foundProducts" :key="product.wno" class="result-item" @click="selectProduct(product)">
                             <img :src="product.poster" style="width: 30px;">
@@ -93,20 +93,20 @@
     let app = Vue.createApp({
         data() {
             return {
-                contact: 'admin', 
+                contact: 3, 
                 fd: '', 
                 foundProducts: [], 
                 sellerName: '',
                 title: '',
                 content: '',
                 selectedCategory: '',
-                isSecret: false 
+                isSecret: false ,
+                cno:1,
+                isFd:false,
+                select:{}
             }
         },
         methods: {
-        	Contact(value) {
-                this.contact = value
-            },
             searchProducts() { 
                 if (this.fd.length === 0) {
                     this.foundProducts = []
@@ -125,9 +125,11 @@
                 })
             },
             selectProduct(product) {
+            	this.select=product
                 this.fd = product.namekor
                 this.sellerName = product.seller
                 this.foundProducts = []
+                this.isFd=true
             },
             cancelBtn() {
                 window.location.href = '../replyboard/list.do'
@@ -150,17 +152,13 @@
                 }
 
                 const sendPost = {
-                    userid: this.userid,
                     subject: this.title,
                     content: this.content,
-                    cno: this.selectedCategory,
+                    cno: this.cno,
                     type: this.contact,
                     recvid: this.sellerName,
-                    wno: this.productId,
-                    group_id: 1, 
-                    group_step: 0, 
-                    isreply: 0, 
-                    secret: 0
+                    wno: this.select.wno,
+                    secret: secret
                 }
 
                 axios.post('../replyboard/insertOk.do', sendPost)

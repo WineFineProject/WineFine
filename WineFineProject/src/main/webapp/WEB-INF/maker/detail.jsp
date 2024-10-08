@@ -53,7 +53,7 @@ th, td {
 </head>
 <body>
 <div class="container py-5">
-		<div class="row" id="makerDetail" style="margin-top: 150px">
+		<div class="row" id="makerDetail">
 			<div v-if="vo">
             <div>
                 <span class="namekor">{{vo.namekor}}</span>
