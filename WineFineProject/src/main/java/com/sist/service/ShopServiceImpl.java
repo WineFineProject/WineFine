@@ -51,4 +51,5 @@ public class ShopServiceImpl implements ShopService{
 		// TODO Auto-generated method stub
 		return sdao.nationName(wno);
 	}
+
 }

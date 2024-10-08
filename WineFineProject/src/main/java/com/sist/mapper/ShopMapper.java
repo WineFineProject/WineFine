@@ -37,7 +37,13 @@ public interface ShopMapper {
 //	나라명 가져오기
 	@Select("SELECT namekor FROM nation WHERE (SELECT nation FROM wine WHERE wno = #{wno}) LIKE '%'||no||'%' ")
 	public List<String> nationName(int wno); 
-
+	
+//  같은 생산자가 만든 다른 와인
+	@Select("SELECT wno "
+			+ "FROM wine "
+			+ "WHERE (select maker from wine where wno = #{wno}) = maker")
+	public List<String> anotherWine(int wno);
+	
 
 	@Select("SELECT w.wno, w.vol, w.type, w.tannin, w.sugar, w.state, w.stack, "
 	        + "w.seller, w.score, w.regdate, w.price, w.poster, w.nation, "

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +63,7 @@
 }
 
 .img-margin {
-	margin-right: 62px;
+	margin-left: auto;
 }
 
 .img-text {
@@ -72,7 +71,9 @@
 	margin-left: 3px;
 	margin-right: 6px;
 }
-
+.a-color{
+	color: gray;
+}
 .img-hover {
 	cursor: pointer;
 }
@@ -115,24 +116,28 @@
 					<div class="row g-4">
 						<div class="col-lg-5">
 							<div class="border rounded" style="width: 400px;">
-								<a href="#"> <img :src="vo.poster" class="img-fluid rounded"
-									alt="Image">
+								<a href="#"> <img :src="vo.poster" class="img-fluid rounded" alt="Image">
 								</a>
 							</div>
 						</div>
 
 						<div class="col-lg-7">
 							<h4 class="fw-bold mb-3"></h4>
-							<p class="mb-3 d-flex justify-content-between align-items-center">
-								<span>{{vo.type}} | {{vo.nation}}</span> <span
-									class="img-margin"> <span> <img
-										src="../img/like_off.png" class="img-size img-hover"><span
-										class="img-text"><b>0</b></span>
-								</span> <img src="../img/eye.png" class="img-size "><span
-									class="img-text"><b>{{vo.hit}}</b></span> <span
-									@click="copyLink()" class="img-hover"> <img
-										src="../img/share.png" class="img-size "><span></span>
-								</span>
+							<p class="mb-3 d-flex align-items-center">
+								<span>{{vo.type}} | </span>
+								<span v-for="(nvo,index) in nname">{{index === 0 ?'':'&nbsp;|&nbsp;'}}<a>{{nvo}}</a></span> 
+								<span class="img-margin">
+								 	<span> 
+										<img src="../img/like_off.png" class="img-size img-hover">
+										<span class="img-text"><b>0</b></span>
+									</span> 
+									<img src="../img/eye.png" class="img-size ">
+									<span class="img-text"><b>{{vo.hit}}</b></span> 
+									<span @click="copyLink()" class="img-hover"> 
+										<img src="../img/share.png" class="img-size ">
+										<span>
+										</span>
+									</span>
 								</span>
 							</p>
 							<h4 class="fw-bold mb-3">{{vo.namekor}}</h4>
@@ -141,157 +146,34 @@
 							</p>
 							<h5 class="fw-bold mb-3">{{vo.price}}({{vo.vol}})</h5>
 							<div class="d-flex mb-4">
-								<i class="fa fa-star text-secondary"></i> <i
-									class="fa fa-star text-secondary"></i> <i
-									class="fa fa-star text-secondary"></i> <i
-									class="fa fa-star text-secondary"></i> <i class="fa fa-star"></i>
+								<i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star text-secondary"></i> <i class="fa fa-star"></i>
 							</div>
 							<div class="d-flex mb-4">
 								<p>
-									<b class="font-style">당도</b> <span v-if="vo.sugar === 0">
-										<img class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png">
-									</span> <span v-if="vo.sugar === 1"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.sugar === 2"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.sugar === 3"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.sugar === 4"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/4.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.sugar === 5"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/4.png"> <img class="image-margin"
-										src="../img/5.png">
-									</span> <b class="font-style">산도</b> <span v-if="vo.acid === 0">
-										<img class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png">
-									</span> <span v-if="vo.acid === 1"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.acid === 2"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.acid === 3"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.acid === 4"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/4.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.acid === 5"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/4.png"> <img class="image-margin"
-										src="../img/5.png">
-									</span> <b class="font-style">바디</b> <span v-if="vo.body === 0">
-										<img class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png">
-									</span> <span v-if="vo.body === 1"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.body === 2"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.body === 3"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.body === 4"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/4.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.body === 5"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/4.png"> <img class="image-margin"
-										src="../img/5.png">
-									</span> <b class="font-style">타닌</b> <span v-if="vo.tannin === 0">
-										<img class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png"> <img
-										class="image-margin" src="../img/0.png">
-									</span> <span v-if="vo.tannin === 1"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.tannin === 2"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.tannin === 3"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/0.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.tannin === 4"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/4.png"> <img class="image-margin"
-										src="../img/0.png">
-									</span> <span v-if="vo.tannin === 5"> <img class="image-margin"
-										src="../img/1.png"> <img class="image-margin"
-										src="../img/2.png"> <img class="image-margin"
-										src="../img/3.png"> <img class="image-margin"
-										src="../img/4.png"> <img class="image-margin"
-										src="../img/5.png">
+									<b class="font-style">당도</b> <span v-if="vo.sugar === 0"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.sugar === 1"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.sugar === 2"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.sugar === 3"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.sugar === 4"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/4.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.sugar === 5"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/4.png"> <img class="image-margin" src="../img/5.png">
+									</span> <b class="font-style">산도</b> <span v-if="vo.acid === 0"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.acid === 1"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.acid === 2"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.acid === 3"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.acid === 4"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/4.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.acid === 5"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/4.png"> <img class="image-margin" src="../img/5.png">
+									</span> <b class="font-style">바디</b> <span v-if="vo.body === 0"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.body === 1"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.body === 2"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.body === 3"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.body === 4"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/4.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.body === 5"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/4.png"> <img class="image-margin" src="../img/5.png">
+									</span> <b class="font-style">타닌</b> <span v-if="vo.tannin === 0"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.tannin === 1"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.tannin === 2"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.tannin === 3"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/0.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.tannin === 4"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/4.png"> <img class="image-margin" src="../img/0.png">
+									</span> <span v-if="vo.tannin === 5"> <img class="image-margin" src="../img/1.png"> <img class="image-margin" src="../img/2.png"> <img class="image-margin" src="../img/3.png"> <img class="image-margin" src="../img/4.png"> <img class="image-margin" src="../img/5.png">
 									</span>
 								</p>
 							</div>
@@ -315,26 +197,19 @@
 							<div class="d-flex align-items-center mb-5">
 								<div class="input-group quantity" style="width: 100px;">
 									<div class="input-group-btn">
-										<button
-											class="btn btn-sm btn-minus rounded-circle bg-light border">
+										<button class="btn btn-sm btn-minus rounded-circle bg-light border">
 											<i class="fa fa-minus"></i>
 										</button>
 									</div>
-									<input type="text"
-										class="form-control form-control-sm text-center border-0"
-										value="1">
+									<input type="text" class="form-control form-control-sm text-center border-0" value="1">
 									<div class="input-group-btn">
-										<button
-											class="btn btn-sm btn-plus rounded-circle bg-light border">
+										<button class="btn btn-sm btn-plus rounded-circle bg-light border">
 											<i class="fa fa-plus"></i>
 										</button>
 									</div>
 								</div>
 
-								<a href="#"
-									class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary">
-									<i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-									cart
+								<a href="#" class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
 								</a>
 							</div>
 
@@ -344,52 +219,36 @@
 						<div class="col-lg-12">
 							<nav>
 								<div class="nav nav-tabs mb-3">
-									<button class="nav-link active custom-nav-link" type="button"
-										role="tab" id="nav-about-tab" data-bs-toggle="tab"
-										data-bs-target="#nav-about" aria-controls="nav-about"
-										aria-selected="true">상세정보</button>
-									<button class="nav-link border-white custom-nav-link"
-										type="button" role="tab" id="nav-mission-tab"
-										data-bs-toggle="tab" data-bs-target="#nav-mission"
-										aria-controls="nav-mission" aria-selected="false">판매처</button>
+									<button class="nav-link active custom-nav-link" type="button" role="tab" id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about" aria-controls="nav-about" aria-selected="true">상세정보</button>
+									<button class="nav-link border-white custom-nav-link" type="button" role="tab" id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission" aria-controls="nav-mission" aria-selected="false">판매처</button>
 								</div>
 							</nav>
 
 							<div class="tab-content mb-5">
-								<div class="tab-pane active" id="nav-about" role="tabpanel"
-									aria-labelledby="nav-about-tab">
+								<div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
 									<div class="px-2">
 										<div class="row g-4">
 											<div class="col-6">
 												<ul class="info-list">
-													<li><span class="title">· 생산자</span> <span
-														class="content">{{ vo.makerkor != null ?
-															vo.makerkor : '정보없음' }} / {{ vo.makereng != null ?
-															vo.makereng : '' }}</span></li>
-													<li><span class="title">· 국가/생산지역</span> <span
-														class="content">{{ vo.nation != null ? vo.nation :
-															'정보없음' }}</span></li>
-													<li><span class="title">· 주요품종</span> <span
-														class="content">{{ vo.grape != null ? vo.grape :
-															'정보없음' }}</span></li>
-													<li><span class="title">· 도수</span> <span
-														class="content">{{ vo.alcohol != null ? vo.alcohol
-															: '정보없음' }}</span></li>
-													<li><span class="title">· 추천음식</span> <span
-														class="content">{{ vo.food != null ? vo.food :
-															'정보없음' }}</span></li>
+													<li><span class="title">· 생산자</span> 
+													<span><a :href="'../maker/detail.do?no='+vo.maker" class="a-color">{{ vo.makerkor != null ? vo.makerkor : '정보없음' }} / {{ vo.makereng != null ? vo.makereng : '' }}</a></span></li>
+													<li><span class="title">· 국가/생산지역</span> 
+													<span v-for="(nvo,index) in nname">{{index === 0 ?'':'&nbsp;|&nbsp;'}}<a :href="'../nation/detail.do?no='+nnolink[index]" class="a-color" >{{ nvo != null ? nvo : '정보없음' }}</a></span></li>
+													<li><span class="title">· 주요품종</span> 
+													<span v-for="(gvo,index) in gname">{{index === 0 ? '':'&nbsp;|&nbsp;'}}<a :href="'../grape/detail.do?no='+gnolink[index]" class="a-color">{{ gvo != null ? gvo : '정보없음' }}</a></span></li>
+													<li><span class="title">· 도수</span> 
+													<span class="content">{{ vo.alcohol != null ? vo.alcohol : '정보없음' }}</span></li>
+													<li><span class="title">· 추천음식</span> 
+													<span class="content">{{ vo.food != null ? vo.food : '정보없음' }}</span></li>
 												</ul>
 											</div>
 										</div>
 									</div>
 								</div>
 
-								<div class="tab-pane" id="nav-mission" role="tabpanel"
-									aria-labelledby="nav-mission-tab">
+								<div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
 									<ul class="info-list">
-										<li><span class="title">· 판매자 정보</span> <span
-											class="content">{{vo.seller!=null ? vo.seller:'정보없음'}}</span>
-										</li>
+										<li><span class="title">· 판매자 정보</span> <span class="content">{{vo.seller!=null ? vo.seller:'정보없음'}}</span></li>
 									</ul>
 								</div>
 							</div>
@@ -401,37 +260,28 @@
 							<div class="row g-4">
 								<div class="col-lg-6">
 									<div class="border-bottom rounded">
-										<input type="text" class="form-control border-0 me-4"
-											placeholder="Yur Name *">
+										<input type="text" class="form-control border-0 me-4" placeholder="Yur Name *">
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="border-bottom rounded">
-										<input type="email" class="form-control border-0"
-											placeholder="Your Email *">
+										<input type="email" class="form-control border-0" placeholder="Your Email *">
 									</div>
 								</div>
 								<div class="col-lg-12">
 									<div class="border-bottom rounded my-4">
-										<textarea name="" id="" class="form-control border-0"
-											cols="30" rows="8" placeholder="Your Review *"
-											spellcheck="false"></textarea>
+										<textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
 									</div>
 								</div>
 								<div class="col-lg-12">
 									<div class="d-flex justify-content-between py-3 mb-5">
 										<div class="d-flex align-items-center">
 											<p class="mb-0 me-3">Please rate:</p>
-											<div class="d-flex align-items-center"
-												style="font-size: 12px;">
-												<i class="fa fa-star text-muted"></i> <i class="fa fa-star"></i>
-												<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-													class="fa fa-star"></i>
+											<div class="d-flex align-items-center" style="font-size: 12px;">
+												<i class="fa fa-star text-muted"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
 											</div>
 										</div>
-										<a href="#"
-											class="btn border border-secondary text-primary rounded-pill px-4 py-3">
-											Post Comment</a>
+										<a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</a>
 									</div>
 								</div>
 							</div>
@@ -443,25 +293,19 @@
 
 			<h4 class="fw-bold mb-0">관련정보</h4>
 			<div class="vesitable">
-				<div class="owl-carousel vegetable-carousel justify-content-center"
-					data-autoplay="true" data-autoplay-timeout="5000">
-					<div
-						class="border border-primary rounded position-relative vesitable-item">
+				<div class="owl-carousel vegetable-carousel justify-content-center" data-autoplay="true" data-autoplay-timeout="5000">
+					<div class="border border-primary rounded position-relative vesitable-item">
 						<div class="vesitable-img">
 							<img src="#" class="img-fluid w-100 rounded-top" alt="">
 						</div>
-						<div class="text-white px-3 py-1 rounded position-absolute "
-							:class="vo.type === '화이트' ? 'whitecor' : 'winecor'"
-							style="top: 10px; right: 10px;">{{vo.type}}</div>
+						<div class="text-white px-3 py-1 rounded position-absolute " :class="vo.type === '화이트' ? 'whitecor' : 'winecor'" style="top: 10px; right: 10px;">{{vo.type}}</div>
 						<div class="p-4 pb-0 rounded-bottom">
 							<img :src="vo.poster" class="img-fluid rounded" alt="Image">
 							<h4>{{vo.namekor}}</h4>
 							<p></p>
 							<div class="d-flex justify-content-between flex-lg-wrap">
 								<p class="text-dark fs-5 fw-bold">{{vo.price}} ({{vo.vol}})</p>
-								<a href="#"
-									class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-									class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+								<a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
 							</div>
 						</div>
 					</div>
@@ -470,8 +314,7 @@
 			</div>
 
 			<div class="text-center">
-				<a href="../shop/list.do" class="btn btn-default winecor"
-					style="width: 150px; color: white;">목록</a>
+				<a href="../shop/list.do" class="btn btn-default winecor" style="width: 150px; color: white;">목록</a>
 			</div>
 
 		</div>
@@ -480,9 +323,7 @@
 
 
 	<!-- Back to Top -->
-	<a href="#"
-		class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
-		class="fa fa-arrow-up"></i></a>
+	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 	<script>
 		let detailApp=Vue.createApp({
 			data() {
@@ -496,7 +337,8 @@
 			        gname:[],
 			        nname:[],
 			        gnolink:[],
-			        nnolink:[]
+			        nnolink:[],
+			        mnolink:''
 			    }
 			},
 	    	mounted(){
@@ -511,8 +353,10 @@
 	    			this.vo = response.data.vo
 	    			this.gname = response.data.gname 
 	    			this.nname = response.data.nname  
+	    			this.mname = response.data.mname
 	    			this.gnolink = response.data.gnolink
 	    			this.nnolink = response.data.nnolink
+	    			this.mnolink = response.data.mnolink
 	    		}).catch(error=>{
 	    			console.log(error.response)
 	    		})

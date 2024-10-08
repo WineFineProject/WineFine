@@ -58,8 +58,10 @@ public class ShopRestController {
 		WineVO vo = sdao.wineDetailData(wno);
 		List<String> gname = sdao.grapeName(wno);
 		List<String> nname = sdao.nationName(wno);
+		
 		String[] gnolink = vo.getGrape().split(",");
 		String[] nnolink = vo.getNation().split(",");	
+		String mnolink = vo.getMaker();
 		
 		Map map = new HashMap();
 		map.put("vo", vo);
@@ -67,6 +69,8 @@ public class ShopRestController {
 		map.put("nname", nname);
 		map.put("gnolink", gnolink);
 		map.put("nnolink", nnolink);
+		map.put("mnolink", mnolink);
+		
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);

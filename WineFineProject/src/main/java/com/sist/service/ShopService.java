@@ -11,4 +11,5 @@ public interface ShopService {
 	public WineVO wineDetailData(int wno);
 	public List<String> grapeName(int wno);
 	public List<String> nationName(int wno);
+
 }
