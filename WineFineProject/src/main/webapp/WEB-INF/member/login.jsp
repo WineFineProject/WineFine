@@ -11,14 +11,6 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="http://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
-body {
-	margin: 0;
-	padding: 0;
-	background: url('dust.png') no-repeat center center fixed;
-	background-size: cover;
-	font-family: Arial, sans-serif;
-}
-
 .login {
 	display: flex;
 	justify-content: center;
@@ -34,6 +26,13 @@ body {
 	color: green !important;
 }
 </style>
+<script type="text/javascript">
+$('#sign-up').click(function() {
+	console.log('hi')
+	$('#loginApp').hide()
+	$('#login-up').show()
+})
+</script>
 </head>
 <body>
 	<!-- partial:index.partial.html -->
@@ -42,16 +41,16 @@ body {
 		<div class="login__content">
 			<div class="login__forms">
 				<!--         login form -->
-				<div id="loginApp">
+				<div id="loginApp" v-show="!showLogin">
 					<form action="../member/login.do" method="post" class="login__register" id="login-in">
 						<h1 class="login__title">Sign In</h1>
 						<div class="login__box">
 							<i class='bx bx-user login__icon'></i>
-							<input type="text" placeholder="Username" class="login__input" name="userId" v-model="userId" ref="userId">
+							<input type="text" placeholder="Username" class="login__input" name="userId" v-model="userIdL" ref="userIdL">
 						</div>
 						<div class="login__box">
 							<i class='bx bx-lock login__icon'></i>
-							<input type="password" placeholder="Password" class="login__input" name="userPwd" v-model="userPwd" ref="userPwd">
+							<input type="password" placeholder="Password" class="login__input" name="userPwd" v-model="userPwdL" ref="userPwdL">
 						</div>
 						<div class="login__box">
 							<input type="checkbox" class="login__input" name="remember-me">자동로그인
@@ -63,12 +62,12 @@ body {
 						<div>
 							<span class="login__signin login__signin--signup" id="forgot">Forgot Account? </span>&nbsp;<span class="login__signin login__signin--signup"
 								id="forgotPwd">Forgot Password? </span><br> <span class="login__account login__account--account">Don't Have an Account?</span> <span
-								class="login__signin login__signin--signup" id="sign-up">Sign Up</span>
+								class="login__signin login__signin--signup" id="sign-up" @click="chagePage()">Sign Up</span>
 						</div>
 					</form>
 				</div>
 				<!-- 회원가입 -->
-				<div class="login__create none" id="login-up">
+				<div class="login__create" id="login-up" v-show="showLogin">
 					<form action="../member/joinOk.do" method="post" @submit.prevent="insertMember()" id="signupForm">
 						<h1 class="login__title">Create Account</h1>
 						<div class="login__box">
@@ -156,7 +155,7 @@ body {
 						<button type="submit" class="login__button" id="signUpBtn">Sign Up</button>
 						<div>
 							<span class="login__account login__account--account">Already have an Account?</span> <span class="login__signup login__signup--signup"
-								id="sign-in">Sign In</span>
+								id="sign-in" @click="chagePage()">Sign In</span>
 						</div>
 					</form>
 				</div>
@@ -264,6 +263,8 @@ body {
 				pwdMsg:'',
 				pwdCheck:'',
 				checkPwdMsg:'',
+				userIdL:'',
+	   		userPwdL:'',
 				sex:'남자',
 				email:'',
 				isIdCheck:false,
@@ -272,7 +273,8 @@ body {
 				isPhoneCheck:false,
 				isPhoneNone:false,
 				isPwdCheck:false,
-				isPwdValid:false
+				isPwdValid:false,
+				showLogin:false
 			}
 		},
 		methods:{
@@ -458,32 +460,25 @@ body {
 					this.isPwdCheck=false
 					this.checkPwdMsg='비밀번호가 일치하지 않습니다'
 				}
-			}
+			},
+			login(){
+	   			 if(this.userIdL==="")
+	   			 {
+	   				 this.$refs.userIdL.focus()
+	   				 return
+	   			 }
+	   			 if(this.userPwdL==="")
+	   			 {
+	   				 this.$refs.userPwdL.focus()
+	   				 return 
+	   			 }
+	   			 $('#login-in').submit()
+	   		 },
+	 		chagePage(){
+	 			 this.showLogin=!this.showLogin
+	 		 }
 		}
-	}).mount('#login-up')
-	let loginApp=Vue.createApp({
-		data(){
-   		 return {
-   			 userId:'',
-   			 userPwd:''
-   		 }
-   	 },
-   	 methods:{
-   		 login(){
-   			 if(this.userId==="")
-   			 {
-   				 this.$refs.userId.focus()
-   				 return
-   			 }
-   			 if(this.userPwd==="")
-   			 {
-   				 this.$refs.userPwd.focus()
-   				 return 
-   			 }
-   			 $('#login-in').submit()
-   		 }
-   	 }
-	}).mount('#loginApp')
+	}).mount('.login')
 	</script>
 </body>
 </html>

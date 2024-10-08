@@ -87,6 +87,9 @@ public class MemberController {
 		if (vo.getPhone1() != "") {
 			vo.setPhone(vo.getPhone1() + "-" + vo.getPhone2() + "-" + vo.getPhone3());
 		}
+		else {
+			vo.setPhone("");
+		}
 		mService.insertMember(vo);
 		mService.insertAuthority(vo.getUserId());
 		return "redirect:../main/main.do";
