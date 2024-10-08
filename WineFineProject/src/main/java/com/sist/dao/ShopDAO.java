@@ -4,6 +4,7 @@ import com.sist.mapper.*;
 import com.sist.vo.LikeVO;
 import com.sist.vo.WineVO;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -31,11 +32,11 @@ public class ShopDAO {
 	    return mapper.wineDetailData(wno);
 	}
 // 	포도명 가져오기
-	public String grapeName(int wno){
+	public List<String> grapeName(int wno) {
 		return mapper.grapeName(wno);
 	}
 //	나라명 가져오기
-	public String nationName(int wno){
+	public List<String> nationName(int wno){
 		return mapper.nationName(wno);
 	}
 
