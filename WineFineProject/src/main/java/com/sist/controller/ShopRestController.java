@@ -56,12 +56,17 @@ public class ShopRestController {
 	@GetMapping(value = "shop/detail_vue.do",produces = "text/plain;charset=UTF-8")
 	public String wine_detail(int wno) throws Exception{
 		WineVO vo = sdao.wineDetailData(wno);
-		String gname = sdao.grapeName(wno);
-		String nname = sdao.nationName(wno);
+		List<String> gname = sdao.grapeName(wno);
+		List<String> nname = sdao.nationName(wno);
+		String[] gnolink = vo.getGrape().split(",");
+		String[] nnolink = vo.getNation().split(",");	
+		
 		Map map = new HashMap();
 		map.put("vo", vo);
 		map.put("gname", gname);
 		map.put("nname", nname);
+		map.put("gnolink", gnolink);
+		map.put("nnolink", nnolink);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);

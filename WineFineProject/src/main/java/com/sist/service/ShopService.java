@@ -9,6 +9,6 @@ public interface ShopService {
 	public int shopTotalPage();
 	public List<WineVO> wineFindList(Map map);
 	public WineVO wineDetailData(int wno);
-	public String grapeName(int wno);
-	public String nationName(int wno);
+	public List<String> grapeName(int wno);
+	public List<String> nationName(int wno);
 }

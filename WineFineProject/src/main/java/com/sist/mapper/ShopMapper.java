@@ -31,18 +31,12 @@ public interface ShopMapper {
 	public void hitIncrement(int wno);
 	
 //  포도명 가져오기
-	@Select("SELECT LISTAGG(g.namekor, ', ') AS grapenames "
-	        + "FROM wine w "
-	        + "JOIN grape g ON ',' || w.grape || ',' LIKE '%,' || g.no || ',%' "
-	        + "WHERE w.wno = #{wno}")
-	public String grapeName(int wno);
+	@Select("SELECT namekor FROM grape WHERE (SELECT grape FROM wine WHERE wno = #{wno}) LIKE '%'||no||'%' ")
+	public List<String> grapeName(int wno);
 
 //	나라명 가져오기
-	@Select("SELECT LISTAGG(n.namekor, ', ') AS nationnames "
-			+ "FROM wine w "
-			+ "JOIN nation n ON ',' || w.nation || ',' LIKE '%,' || n.no || ',%' "
-			+ "WHERE w.wno = #{wno}")
-	public String nationName(int wno); 
+	@Select("SELECT namekor FROM nation WHERE (SELECT nation FROM wine WHERE wno = #{wno}) LIKE '%'||no||'%' ")
+	public List<String> nationName(int wno); 
 
 
 	@Select("SELECT w.wno, w.vol, w.type, w.tannin, w.sugar, w.state, w.stack, "

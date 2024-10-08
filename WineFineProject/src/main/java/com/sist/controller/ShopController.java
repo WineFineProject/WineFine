@@ -32,7 +32,6 @@ public class ShopController {
 		String id=(String)session.getAttribute("id");
 		model.addAttribute("wno",wno);
 		model.addAttribute("session",id);
-		model.addAttribute("page", page);
 		return "shop/detail";
 	}
 }
