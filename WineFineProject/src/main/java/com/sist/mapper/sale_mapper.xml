@@ -3,7 +3,7 @@
 <mapper namespace="com.sist.mapper.SaleMapper">
 	<resultMap type="com.sist.vo.PromotionSaleVO" id="SaleMap">
 		<result property="wvo.namekor" column="namekor" />
-		<result property="mvo.nickname" column="nickname" />
+		<result property="mvo.nickName" column="nickname" />
 	</resultMap>
 	
 	<!-- 승인 대기 쿠폰 목록 -->
@@ -13,7 +13,7 @@
 		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wine.wno = target)
 		ELSE NULL
 		END as namekor,
-		(SELECT nickname FROM member WHERE promotion_sale.userid=member.id) as nickname
+		(SELECT nickname FROM wine_member WHERE promotion_sale.userid=wine_member.userid) as nickname
 		FROM promotion_sale WHERE enddate>sysdate AND state=0 AND userid LIKE '%'||#{id}||'%'
 	</select>
 
@@ -24,7 +24,7 @@
 		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wine.wno = target)
 		ELSE NULL
 		END as namekor,
-		(SELECT nickname FROM member WHERE promotion_sale.userid=member.id) as nickname
+		(SELECT nickname FROM wine_member WHERE promotion_sale.userid=wine_member.userid) as nickname
 		FROM promotion_sale WHERE (sysdate BETWEEN startdate AND endDate) AND state=1 AND userid LIKE '%'||#{id}||'%'
 	</select>
 	
@@ -35,7 +35,7 @@
 		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wine.wno = target)
 		ELSE NULL
 		END as namekor,
-		(SELECT nickname FROM member WHERE promotion_sale.userid=member.id) as nickname
+		(SELECT nickname FROM wine_member WHERE promotion_sale.userid=wine_member.userid) as nickname
 		FROM promotion_sale WHERE state=1 AND userid LIKE '%'||#{id}||'%'
 	</select>
 </mapper>

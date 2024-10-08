@@ -2,22 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.BannerMapper">
 	<resultMap type="com.sist.vo.PromotionBannerVO" id="BannerMap">
-	<result property="wvo.namekor" column="namekor"/>
+		<result property="wvo.namekor" column="namekor" />
+		<result property="mvo.nickName" column="nickName" />
 	</resultMap>
 	
 	<!-- 등록 대기 배너 -->
 	<select id="promotionWaitBanner" parameterType="String" resultMap="BannerMap">
-	SELECT pbno, title, userid, stack, wno, type, state, (SELECT namekor FROM wine WHERE promotion_banner.wno=wine.wno) as namekor 
-	FROM promotion_banner 
-	WHERE userid LIKE '%'||#{id}||'%' AND state=0
-	ORDER BY pbno ASC
+		SELECT pbno, title, userid, stack, wno, type, state, (SELECT namekor FROM wine WHERE promotion_banner.wno=wine.wno) as namekor,
+		(SELECT nickname FROM wine_member WHERE promotion_banner.userid=wine_member.userid) as nickName
+		FROM promotion_banner
+		WHERE userid LIKE '%'||#{id}||'%' AND state=0
+		ORDER BY pbno ASC
 	</select>
 	
 	<!-- 진행중 배너 -->
 	<select id="promotionActiveBanner" parameterType="String" resultMap="BannerMap">
-	SELECT pbno, title, userid, stack, wno, type, TO_CHAR(startdate, 'YY-MM-DD') as startDay, state, (SELECT namekor FROM wine WHERE promotion_banner.wno=wine.wno) as namekor 
-	FROM promotion_banner 
-	WHERE userid LIKE '%'||#{id}||'%' AND state=1
-	ORDER BY pbno ASC
+		SELECT pbno, title, userid, stack, wno, type, TO_CHAR(startdate, 'YY-MM-DD') as startDay, state, (SELECT namekor FROM wine WHERE
+		promotion_banner.wno=wine.wno) as namekor,
+		(SELECT nickname FROM wine_member WHERE promotion_banner.userid=wine_member.userid) as nickName
+		FROM promotion_banner
+		WHERE userid LIKE '%'||#{id}||'%' AND state=1
+		ORDER BY pbno ASC
 	</select>
 </mapper>

@@ -57,4 +57,16 @@ public class MemberServiceImpl implements MemberService{
 	public int memberPhoneCheck(String phone) {
 		return dao.memberPhoneCheck(phone);
 	}
+	@Override
+	public void insertAuthority(String userId) {
+		dao.insertAuthority(userId);
+	}
+	@Override
+	public void insertMember(MemberVO vo) {
+		dao.insertMember(vo);
+	}
+	@Override
+	public MemberVO memberSessionData(String userId) {
+		return dao.memberSessionData(userId);
+	}
 }

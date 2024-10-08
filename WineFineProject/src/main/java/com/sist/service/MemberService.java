@@ -15,4 +15,7 @@ public interface MemberService {
 	public int memberEmailCheck(String email);
 	public int memberNickCheck(String nickName);
 	public int memberIdCheck(String userId);
+	public void insertAuthority(String userId);
+  public void insertMember(MemberVO vo);
+  public MemberVO memberSessionData(String userId);
 }

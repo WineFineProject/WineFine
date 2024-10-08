@@ -22,7 +22,7 @@ public class MyPageRestController {
 	@GetMapping(value = "mypage/vueCouponList.do", produces = "text/plain;charset=UTF-8")
 	public String mypageVueCouponList(HttpSession session) throws Exception{
 		Map map=new HashMap();
-		String id=(String)session.getAttribute("id");
+		String id=(String)session.getAttribute("userId");
 		List<PromotionCouponVO> activeCoupon=cService.promotionCouponListData(id);
 		List<MyCouponVO> myCoupon=cService.mypageMyCouponList(id);
 		for(MyCouponVO vo:myCoupon) {
@@ -56,7 +56,7 @@ public class MyPageRestController {
 	
 	@PostMapping(value = "mypage/vueGetCoupon.do", produces = "text/plain;charset=UTF-8")
 	public void mypageVueGetCoupon(MyCouponVO vo, HttpSession session) {
-		vo.setRecvid((String) session.getAttribute("id"));
+		vo.setRecvid((String) session.getAttribute("userId"));
 		cService.getCoupon(vo);
 	}
 	

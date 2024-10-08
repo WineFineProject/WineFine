@@ -29,14 +29,14 @@ public class NoticeRestController {
 	
 	@PostMapping(value = "notice/vueSellerNoticeSend.do", produces = "text/plain;charset=UTF-8")
 	public void noticeVueSellerNoticeSend(NoticeVO vo,HttpSession session) {
-		vo.setSendid((String)session.getAttribute("id"));
+		vo.setSendid((String)session.getAttribute("userId"));
 		nService.noticeInsert(vo);
 	}
 	
 	@GetMapping(value = "notice/vueNotice.do", produces = "text/plain;charset=UTF-8")
 	public String noticeVueNoticeNewCount(HttpSession session) throws Exception{
 		Map map=new HashMap();
-		String id=(String)session.getAttribute("id");
+		String id=(String)session.getAttribute("userId");
 		if(id==null)
 			id="";
 		int count=nService.noticeNewCount(id);

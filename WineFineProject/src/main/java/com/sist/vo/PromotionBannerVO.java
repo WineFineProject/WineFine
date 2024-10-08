@@ -10,4 +10,5 @@ public class PromotionBannerVO {
 	private String title,userid, startDay, endDay;
 	private Date startdate, enddate;
 	private WineVO wvo=new WineVO();
+	private MemberVO mvo=new MemberVO();
 }

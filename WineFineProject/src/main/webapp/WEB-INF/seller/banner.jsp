@@ -42,7 +42,7 @@
 											<td width="23%">{{vo.title}}</td>
 											<td width="27%">{{vo.wvo.namekor}}</td>
 											<td width="12%">{{vo.stack}}회</td>
-											<td width="18%">{{vo.userid}}</td>
+											<td width="18%">{{vo.mvo.nickName}}</td>
 											<td width="12%">{{vo.startDay}}</td>
 											<td width="8%"></td>
 										</tr>
@@ -74,7 +74,7 @@
 											<td width="31%">{{avo.title}}</td>
 											<td width="35%">{{avo.wvo.namekor}}</td>
 											<td width="10%">{{avo.stack}}회</td>
-											<td width="16%">{{avo.userid}}</td>
+											<td width="16%">{{avo.mvo.nickName}}</td>
 											<td width="8%">
 												<button class="btn btn-sm border-wine text-wine" type="button" @click="couponApproval(avo.pcno)">승인</button>
 												<button class="btn btn-sm border-wine text-wine" type="button" @click="couponRejection(avo.pcno)">거절</button>

@@ -29,27 +29,27 @@ public class MemberDAO {
 		return result;
 	}
 
-	// 회원 목록 조회
+	// �쉶�썝 紐⑸줉 議고쉶
 	public List<MemberVO> memberList() {
 		return mapper.memberList();
 	}
 
-	// 관리자 회원 목록 조회
+	// 愿�由ъ옄 �쉶�썝 紐⑸줉 議고쉶
 	public List<MemberVO> adminmemberList() {
 		return mapper.adminmemberList();
 	}
 
-	// 회원 삭제
+	// �쉶�썝 �궘�젣
 	public void deleteMember(String id) {
 		mapper.deleteMember(id);
 	}
 
-	// 회원 상세 조회
+	// �쉶�썝 �긽�꽭 議고쉶
 	public MemberVO memberDetail(String id) {
 		return mapper.memberDetail(id);
 	}
 
-	// 회원 정보 수정
+	// �쉶�썝 �젙蹂� �닔�젙
 	public void updateMember(MemberVO member) {
 		mapper.updateMember(member);
 	}
@@ -69,4 +69,14 @@ public class MemberDAO {
 	public int memberIdCheck(String userId) {
 		return mapper.memberIdCheck(userId);
 	}
+	
+	public void insertAuthority(String userId) {
+		mapper.insertAuthority(userId);
+	}
+  public void insertMember(MemberVO vo) {
+  	mapper.insertMember(vo);
+  }
+  public MemberVO memberSessionData(String userId) {
+  	return mapper.memberSessionData(userId);
+  }
 }

@@ -160,11 +160,11 @@
 						<a href="../cart/inMyCart.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span
 							class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
 						</a>
-						<c:if test="${sessionScope.id==null }">
+						<c:if test="${sessionScope.userId==null }">
 							<a href="../member/login.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
 							</a>
 						</c:if>
-						<c:if test="${sessionScope.id!=null }">
+						<c:if test="${sessionScope.userId!=null }">
 							<a href="../member/logout.do" class="my-auto"> <i class="fas fa-sign-out-alt fa-2x"></i>
 							</a>
 						</c:if>

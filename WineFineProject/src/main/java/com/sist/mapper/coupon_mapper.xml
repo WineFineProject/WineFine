@@ -5,11 +5,11 @@
 		<result property="pvo.target" column="target" />
 		<result property="pvo.type" column="type" />
 		<result property="pvo.wvo.namekor" column="namekor" />
-		<result property="pvo.mvo.nickname" column="nickname" />
+		<result property="pvo.mvo.nickName" column="nickName" />
 	</resultMap>
 	<resultMap type="com.sist.vo.PromotionCouponVO" id="PromotionCouponMap">
 		<result property="wvo.namekor" column="namekor" />
-		<result property="mvo.nickname" column="nickname" />
+		<result property="mvo.nickName" column="nickName" />
 	</resultMap>
 
 	<!-- mypage 수령 가능 쿠폰 목록 -->
@@ -21,7 +21,7 @@
 		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wno = target)
 		ELSE NULL
 		END as namekor ,
-		(SELECT nickname FROM member WHERE promotion_coupon.userid=member.id) as nickname
+		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
 		FROM promotion_coupon WHERE (sysdate BETWEEN
 		startdate AND endDate) AND
 		pcno NOT IN (SELECT pcno FROM my_coupon
@@ -36,7 +36,7 @@
 		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wine.wno = target)
 		ELSE NULL
 		END as namekor,
-		(SELECT nickname FROM member WHERE promotion_coupon.userid=member.id) as nickname
+		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
 		FROM promotion_coupon WHERE enddate>sysdate AND state=0 AND userid LIKE '%'||#{id}||'%'
 	</select>
 
@@ -47,7 +47,7 @@
 		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wine.wno = target)
 		ELSE NULL
 		END as namekor,
-		(SELECT nickname FROM member WHERE promotion_coupon.userid=member.id) as nickname
+		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
 		FROM promotion_coupon WHERE (sysdate BETWEEN startdate AND endDate) AND state=1 AND userid LIKE '%'||#{id}||'%'
 	</select>
 	
@@ -58,7 +58,7 @@
 		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wine.wno = target)
 		ELSE NULL
 		END as namekor,
-		(SELECT nickname FROM member WHERE promotion_coupon.userid=member.id) as nickname
+		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
 		FROM promotion_coupon WHERE state=1 AND userid LIKE '%'||#{id}||'%'
 	</select>
 
@@ -81,7 +81,7 @@
 		WHEN (SELECT type FROM promotion_coupon WHERE my_coupon.pcno=promotion_coupon.pcno) = 3 THEN (SELECT namekor FROM wine WHERE wno = (SELECT target FROM promotion_coupon WHERE promotion_coupon.pcno = my_coupon.pcno))
 		ELSE NULL
 		END as namekor ,
-		(SELECT nickname FROM member WHERE pcid=member.id) as nickname
+		(SELECT nickname FROM wine_member WHERE pcid=wine_member.userid) as nickName
 		FROM my_coupon WHERE recvid=#{id} AND state=0
 		ORDER BY MCNO ASC
 	</select>
