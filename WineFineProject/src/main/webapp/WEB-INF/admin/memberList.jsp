@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../tem/css/memberlist.css">
 </head>
 <body>
-    <div id="list" class="row">
+    <div id="list" class="row"> 
         <h3 class="text-center">회원 목록</h3>
         <table class="table" style="margin-top: 20px">
             <thead class="text-center">
