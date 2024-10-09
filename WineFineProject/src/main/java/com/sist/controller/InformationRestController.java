@@ -55,38 +55,19 @@ public class InformationRestController {
         
         return json;
     }
-	// 포도 품종 검색
-    @GetMapping(value = "grape/find.do", produces = "text/plain;charset=UTF-8")
-    public String findGrapes(int page,String fd) throws Exception 
+    // 포도 품종 관련 와인
+    @GetMapping(value = "grape/relatedWines.do", produces = "text/plain;charset=UTF-8")
+    public String grapeRelatedWines(int no) throws Exception 
     {
-    	int rowSize=12;
- 	    int start=(rowSize*page)-(rowSize-1);
- 	    int end=rowSize*page;
- 	    Map map=new HashMap();
- 	    map.put("start",start);
- 	    map.put("end", end);
- 	    map.put("fd", fd);
- 	    
- 	    List<GrapeVO> list=iService.grapeListData(map);
- 	    int totalpage=iService.grapeTotalPage(map);
- 	    
- 	    final int BLOCK=10;
-	    int startPage=((page-1)/BLOCK*BLOCK)+1;
-	    int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
-	   
-	    if(endPage>totalpage)
-		    endPage=totalpage;
-	   
-	    map=new HashMap();
-	    map.put("list", list);
-	    map.put("curpage", page);
-	    map.put("totalpage", totalpage);
-	    map.put("startPage", startPage);
-	    map.put("endPage", endPage);
-	   
-	    ObjectMapper mapper=new ObjectMapper();
-	    String json=mapper.writeValueAsString(map);
-	    return json;
+        Map map = new HashMap();
+        List<WineVO> gWines = iService.grapeRelatedWines(map);
+        map.put("no", no); 
+        map.put("gWines", gWines); 
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(map);
+        
+        return json;
     }
 	// 생산지역 목록 페이지
 	@GetMapping(value = "nation/listVue.do", produces = "text/plain;charset=UTF-8")
@@ -132,6 +113,20 @@ public class InformationRestController {
         
         return json;
     }
+	// 생산지역 관련 와인
+    @GetMapping(value = "nation/relatedWines.do", produces = "text/plain;charset=UTF-8")
+    public String nationRelatedWines(int no) throws Exception 
+    {
+        Map map = new HashMap();
+        map.put("no", no); 
+        List<WineVO> nWines = iService.nationRelatedWines(map);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(nWines);
+        
+        return json;
+    }
+    
 	// 생산자 목록 
 	@GetMapping(value = "maker/listVue.do", produces = "text/json;charset=UTF-8")
     public String makerListData(int page, String fd) throws Exception 
@@ -176,4 +171,17 @@ public class InformationRestController {
         
         return json;
 	}
+	// 생산자 관련 와인
+    @GetMapping(value = "maker/relatedWines.do", produces = "text/plain;charset=UTF-8")
+    public String makerRelatedWines(int no) throws Exception 
+    {
+        Map map = new HashMap();
+        map.put("no", no); 
+        List<WineVO> mWines = iService.makerRelatedWines(map);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(mWines);
+        
+        return json;
+    }
 }

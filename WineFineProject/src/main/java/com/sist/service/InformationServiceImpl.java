@@ -27,6 +27,12 @@ public class InformationServiceImpl implements InformationService {
 		// TODO Auto-generated method stub
 		return dao.grapeDetailData(no);
 	}
+	
+	@Override
+	public List<WineVO> grapeRelatedWines(Map map) {
+		// TODO Auto-generated method stub
+		return dao.grapeRelatedWines(map);
+	}
 
 	@Override
 	public List<NationVO> nationListData(Map map) {
@@ -47,6 +53,12 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
+	public List<WineVO> nationRelatedWines(Map map) {
+		// TODO Auto-generated method stub
+		return dao.nationRelatedWines(map);
+	}
+	
+	@Override
 	public List<MakerVO> makerListData(Map map) {
 		// TODO Auto-generated method stub
 		return dao.makerListData(map);
@@ -62,6 +74,12 @@ public class InformationServiceImpl implements InformationService {
 	public MakerVO makerDetailData(int no) {
 		// TODO Auto-generated method stub
 		return dao.makerDetailData(no);
+	}
+
+	@Override
+	public List<WineVO> makerRelatedWines(Map map) {
+		// TODO Auto-generated method stub
+		return dao.makerRelatedWines(map);
 	}
 
 

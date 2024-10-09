@@ -16,7 +16,7 @@ public interface InformationMapper {
             +"ORDER BY no)) "
             +"WHERE num BETWEEN #{start} AND #{end}")
     public List<GrapeVO> grapeListData(Map map);
-    // 포도 품종 검색 총페이지
+    // 포도 품종 총페이지
     @Select("SELECT COUNT(*) FROM grape "
     		+"WHERE namekor LIKE '%'||#{fd}||'%' "
             +"OR nameeng LIKE '%'||#{fd}||'%'")
@@ -27,10 +27,16 @@ public interface InformationMapper {
     public GrapeVO grapeDetailData(int no);
     
     // 포도 품종 관련 와인
-    @Select("SELECT wno, namekor, nameeng, type, maker, nation, grape, poster " 
-    		+"FROM wine "
-    		+"WHERE (SELECT no FROM grape LIKE '%'||#{wno}||'%'")
-    public List<WineVO> wineListData(int no);
+    @Select("SELECT wno, namekor, nameeng, type, (SELECT namekor FROM maker WHERE no = wine.maker) AS maker, poster,"
+    		+ "(SELECT LISTAGG(namekor, ', ') WITHIN GROUP (ORDER BY namekor DESC) "
+    		+ "FROM grape "
+    		+ "WHERE (SELECT grape FROM wine w WHERE w.wno = wine.wno) LIKE '%'||#{no}||'%') AS grape,"
+    		+ "(SELECT LISTAGG(namekor, ', ') WITHIN GROUP (ORDER BY no ASC) "
+    		+ "FROM nation "
+    		+ "WHERE (SELECT nation FROM wine w WHERE w.wno = wine.wno) LIKE '%'||#{no}||'%') AS nation "
+    		+ "FROM wine "
+    		+ "WHERE grape LIKE '%'||#{wno}||'%'")
+    public List<WineVO> grapeRelatedWines(Map map);
     
     // 생산지역 목록, 검색 
     @Select("SELECT no, namekor, nameeng, nation, content , num "
@@ -52,6 +58,18 @@ public interface InformationMapper {
     @Select("SELECT no, namekor, nameeng, nation, grape, content FROM nation WHERE no=#{no}")
     public NationVO nationDetailData(int no); 
     
+    // 생산지역 관련 와인
+    @Select("SELECT wno, namekor, nameeng, type, (SELECT namekor FROM maker WHERE no = wine.maker) AS maker, poster,"
+    		+ "(SELECT LISTAGG(namekor, ', ') WITHIN GROUP (ORDER BY namekor DESC) "
+    		+ "FROM grape "
+    		+ "WHERE (SELECT grape FROM wine w WHERE w.wno = wine.wno) LIKE '%'||#{no}||'%') AS grape,"
+    		+ "(SELECT LISTAGG(namekor, ', ') WITHIN GROUP (ORDER BY no ASC) "
+    		+ "FROM nation "
+    		+ "WHERE (SELECT nation FROM wine w WHERE w.wno = wine.wno) LIKE '%'||#{no}||'%') AS nation "
+    		+ "FROM wine "
+    		+ "WHERE nation LIKE '%'||#{wno}||'%'")
+    public List<WineVO> nationRelatedWines(Map map);
+    
     // 생산자 목록 
     @Select("SELECT no, namekor, nameeng, nation, content, num "
     		+"FROM (SELECT no, namekor, nameeng, nation, content, rownum as num "
@@ -71,4 +89,16 @@ public interface InformationMapper {
     // 생산자 상세 
     @Select("SELECT no, namekor, nameeng, nation, content FROM maker WHERE no=#{no}")
     public MakerVO makerDetailData(int no);
+    
+    // 생산자 관련 와인
+    @Select("SELECT wno, namekor, nameeng, type, (SELECT namekor FROM maker WHERE no = wine.maker) AS maker, poster,"
+    		+ "(SELECT LISTAGG(namekor, ', ') WITHIN GROUP (ORDER BY namekor DESC) "
+    		+ "FROM grape "
+    		+ "WHERE (SELECT grape FROM wine w WHERE w.wno = wine.wno) LIKE '%'||#{no}||'%') AS grape,"
+    		+ "(SELECT LISTAGG(namekor, ', ') WITHIN GROUP (ORDER BY no ASC) "
+    		+ "FROM nation "
+    		+ "WHERE (SELECT nation FROM wine w WHERE w.wno = wine.wno) LIKE '%'||#{no}||'%') AS nation "
+    		+ "FROM wine "
+    		+ "WHERE maker LIKE '%'||#{wno}||'%'")
+    public List<WineVO> makerRelatedWines(Map map);
 }
