@@ -26,6 +26,11 @@ public class SellerController {
 	public String sellerNotice() {
 		return "seller/notice";
 	}
+	@GetMapping("seller/noticeDetail.do")
+	public String sellerNoticeDetail(int nbno, Model model) {
+		model.addAttribute("nbno", nbno);
+		return "seller/noticeDetail";
+	}
 	@GetMapping("seller/noticeInsert.do")
 	public String sellerNoticeInsert() {
 		return "seller/noticeInsert";

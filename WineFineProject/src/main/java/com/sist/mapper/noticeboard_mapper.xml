@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.NoticeBoardMapper">
-<resultMap type="com.sist.vo.NoticeBoardVO" id="noticeBoardMap">
-<result property="wvo.namekor" column="namekor"/>
-</resultMap>
-<select id="sellerNoticeList" parameterType="hashmap" resultMap="noticeBoardMap">
-SELECT nbno, subject, content, nickname, type, target, to_char(regdate, 'YYYY-MM-DD') as dbday, hit, isNotice, num 
-FROM (SELECT nbno, subject, content, nickname, type, target, regdate, hit, isNotice, rownum as num 
-FROM (SELECT nbno, subject, content, nickname, type, target, regdate, hit, isNotice
-FROM noticeboard WHERE userid=#{id} ORDER BY nbno DESC))
-WHERE num BETWEEN #{start} AND #{end}
-</select>
+	<resultMap type="com.sist.vo.NoticeBoardVO" id="noticeBoardMap">
+		<result property="wvo.namekor" column="namekor" />
+	</resultMap>
+	<select id="sellerNoticeList" parameterType="hashmap" resultMap="noticeBoardMap">
+		SELECT nbno, subject, content, nickname, type, target, to_char(regdate, 'YYYY-MM-DD') as dbday, hit, isNotice, num
+		FROM (SELECT nbno, subject, content, nickname, type, target, regdate, hit, isNotice, rownum as num
+		FROM (SELECT nbno, subject, content, nickname, type, target, regdate, hit, isNotice
+		FROM noticeboard WHERE userid=#{id} ORDER BY nbno DESC))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<select id="noticeDetailData" parameterType="int" resultMap="noticeBoardMap">
+		SELECT nbno, subject, content, userid, nickname, type, target, to_char(regdate, 'YYYY-MM-DD') as dbday, hit, isNotice, (SELECT namekor FROM wine WHERE wno=target) as namekor
+		FROM noticeboard WHERE nbno=#{nbno}
+	</select>
 </mapper>

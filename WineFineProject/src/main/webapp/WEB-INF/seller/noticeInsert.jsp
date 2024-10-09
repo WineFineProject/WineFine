@@ -82,7 +82,7 @@
 			<div style="margin-top: 10px;"></div>
 			<div class="text-center">
 				<button type="button" class="btn btn-primary" @click="insertNotice()">등록</button>
-				<input type="button" class="btn btn-secondary" value="취소">
+				<input type="button" class="btn btn-secondary" value="취소" onclick="javascript:history.back()">
 			</div>
 		</div>
 	</div>

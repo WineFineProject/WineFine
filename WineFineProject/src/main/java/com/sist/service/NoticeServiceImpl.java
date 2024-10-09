@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sist.dao.NoticeDAO;
+import com.sist.vo.NoticeBoardVO;
 import com.sist.vo.NoticeVO;
 
 @Service
@@ -36,4 +37,5 @@ public class NoticeServiceImpl implements NoticeService{
 	public void noticeStateUpdate(int nno) {
 		dao.noticeStateUpdate(nno);
 	}
+	
 }

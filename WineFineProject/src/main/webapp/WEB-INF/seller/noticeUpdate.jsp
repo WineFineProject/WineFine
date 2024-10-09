@@ -37,39 +37,15 @@
 	<div class="row" style="width: 1200px;" id="noticeTable">
 		<h3 class="text-center">1:1 문의 게시판</h3>
 		<div class="form-group" style="margin-top: 10px;">
-			<label>공지 대상을 선택하세요</label>
-			<div style="margin-top: 5px;">
-				<div style="display: inline-block;">
-					<input type="radio" name="type" :value="1" v-model="type" :checked="detail.type==1" id="type1" @change="changeType()">
-					<label for="type1" style="margin-right: 5px;">전체</label>
-					<input type="radio" name="type" :value="2" v-model="type" :checked="detail.type==2" id="type2" @change="changeType()">
-					<label for="type2" style="margin-right: 5px;">카테고리별</label>
-					<input type="radio" name="type" :value="3" v-model="type" :checked="detail.type==3" id="type3" @change="changeType()">
-					<label for="type3" style="margin-right: 5px;">제품별</label>
-				</div>
-			</div>
-			<div v-if="type===2" style="margin-top: 10px;">
-				<span>카테고리 선택</span><br>
-				<select class="result-list" v-model="target">
-					<option :value="1" class="result-item" :selected="detail.target==1">레드</option>
-					<option :value="2" class="result-item" :selected="detail.target==2">화이트</option>
-					<option :value="3" class="result-item" :selected="detail.target==3">스파클링</option>
-					<option :value="4" class="result-item" :selected="detail.target==4">로제</option>
-					<option :value="5" class="result-item" :selected="detail.target==5">주정강화</option>
-					<option :value="6" class="result-item" :selected="detail.target==6">기타</option>
-				</select> 
-			</div>
-			<div v-if="type===3" style="margin-top: 10px;">
-				<label for="search">상품 검색</label>
-				<input type="text" class="form-control" v-model="fd" placeholder="상품명을 입력하세요" @keyup.enter="searchProducts()" :disabled="isFd">
-				<div class="result-list" v-show="isFind">
-					<li v-for="product in foundProducts" class="result-item" @click="selectProduct(product)"><img :src="product.poster" style="width: 30px;"> <a>{{product.namekor}}</a>
-					</li>
-				</div>
-			</div>
 			<div class="form-group" style="margin-top: 10px;">
 				<label for="subject">제목</label>
 				<input type="text" class="form-control" ref="subject" v-model="subject" id="subject" placeholder="제목을 입력하세요">
+			</div>
+			<div class="form-group" style="margin-top: 10px;">
+				<label for="subject">대상</label> 
+				<span class="form-control" v-if="detail.type===1">전체</span>
+				<span class="form-control" v-if="detail.type===2">{{types[detail.target]}}</span>
+				<span class="form-control" v-if="detail.type===3">{{detail.wvo.namekor}}</span>
 			</div>
 			<div class="form-group" style="margin-top: 10px;">
 				<label for="content">내용</label>
@@ -81,7 +57,7 @@
 			</div>
 			<div style="margin-top: 10px;"></div>
 			<div class="text-center">
-				<button type="button" class="btn btn-primary" @click="insertNotice()">등록</button>
+				<button type="button" class="btn btn-primary" @click="updateNotice()">등록</button>
 				<input type="button" class="btn btn-secondary" value="취소">
 			</div>
 		</div>
@@ -90,56 +66,16 @@
 		let noticeInsertApp=Vue.createApp({
 			data(){
 				return{
-					type:1,
-					target:1,
 					content:'',
 					subject:'',
-					fd:'',
-					isFind:false,
 					isNotice:false,
-					isFd:false,
-					foundProducts:[],
+					types:['', '레드', '화이트', '스파클링', '로제', '주정강화', '기타'],
 					nbno:${nbno},
 					detail:{}
 				}
 			},
 			methods:{
-				searchProducts() { 
-	                if (this.fd === '') {
-	                    this.foundProducts = []
-	                    return
-	                }
-	                axios.get('../replyboard/findWine.do', { 
-	                    params: { 
-	                    	fd: this.fd 
-	                    }
-	                }).then(response => {
-	                    this.foundProducts = response.data
-	                    this.isFind=true
-	                }).catch(error => {
-	                	alert(error.response)
-	   				    console.log(error.response)
-	                })
-	            },
-	            selectProduct(product){
-	            	this.target=product.wno
-	            	this.fd=product.namekor
-	            	this.isFind=false
-	            	this.isFd=true
-	            	this.foundProducts=[]
-	            },
-	            changeType(){
-            		this.fd=''
-            		this.isFind=false
-            		this.isFd=false
-            		this.target=1
-            		this.foundProducts=[]
-	            },
-	            insertNotice(){
-	            	if(this.type===3 && this.target===1){
-	            		alert('제품을 선택해주세요')
-	            		return
-	            	}
+				updateNotice(){
 	            	if(this.subject===''){
 	            		alert('제목을 작성해주세요')
 	            		this.$refs.subject.focus()
@@ -156,22 +92,24 @@
 	            			nbno:this.nbno,
 	            			subject:this.subject,
 	            			content:this.content,
-	            			type:this.type,
-	            			target:this.target,
+	            			type:this.detail.type,
+	            			target:this.detail.target,
 	            			isNotice:notice
 	            		}
 	            	}).then(response=>{
-	            		location.href="../seller/notice.do"
+	            		location.href="../seller/noticeDetail.do?nbno="+this.nbno
 	            	})
 	            }
 			},
 			mounted(){
-				axios.get('../seller/vueNoticeDetail.do', {
+				axios.get('../seller/vueNoticeDetailData.do', {
 					params:{
 						nbno:this.nbno
 					}
 				}).then(response=>{
 					this.detail=response.data
+					this.subject=response.data.subject
+					this.content=response.data.content
 				})
 			}
 		}).mount('#noticeTable')

@@ -40,6 +40,7 @@
 						<li class="list-group-item"><a href="../mypage/my_edit_member.do">회원수정</a></li>
 						<li class="list-group-item"><a href="../mypage/my_change_pwd.do">비밀번호 변경</a></li>
 						<li class="list-group-item"><a href="../mypage/my_member_exit.do">회원탈퇴</a></li>
+						<li class="list-group-item"><a href="../mypage/delivery.do">배송주소</a></li>
 					</ul>
 				</div>
 				<div class="panel panel-warning">

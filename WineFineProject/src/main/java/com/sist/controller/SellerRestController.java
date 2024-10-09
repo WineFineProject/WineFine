@@ -141,12 +141,22 @@ public class SellerRestController {
 	@PostMapping(value = "seller/insertNotice.do", produces = "text/plain;charset=UTF-8")
 	public void sellerInsertNotice(NoticeBoardVO vo, HttpSession session) {
 		String id=(String)session.getAttribute("userId");
-		String nickname=(String)session.getAttribute("nickname");
+		String nickname=(String)session.getAttribute("nickName");
 		vo.setUserid(id);
 		vo.setNickname(nickname);
 		System.out.println(vo);
 		nService.noticeBoardInsert(vo);
 	}
+	@PostMapping(value = "seller/vueNoticeUpdate.do", produces = "text/plain;charset=UTF-8")
+	public void sellerVueNoticeUpdate(NoticeBoardVO vo, HttpSession session) {
+		String id=(String)session.getAttribute("userId");
+		String nickname=(String)session.getAttribute("nickName");
+		vo.setUserid(id);
+		vo.setNickname(nickname);
+		System.out.println(vo);
+		nService.noticeBoardUpdate(vo);
+	}
+	
 	
 	@GetMapping(value = "seller/noticeList.do", produces = "text/plain;charset=UTF-8")
 	public String sellerNoticeList(int page, HttpSession session) throws Exception{
@@ -173,6 +183,12 @@ public class SellerRestController {
 	@GetMapping(value = "seller/vueNoticeDetail.do", produces = "text/plain;charset=UTF-8")
 	public String sellerVueNoticeDetail(int nbno) throws Exception{
 		NoticeBoardVO vo=nService.noticeDetail(nbno);
+		JsonMapper mapper=new JsonMapper();
+		return mapper.writeValueAsString(vo);
+	}
+	@GetMapping(value = "seller/vueNoticeDetailData.do", produces = "text/plain;charset=UTF-8")
+	public String sellerVueNoticeDetailData(int nbno) throws Exception{
+		NoticeBoardVO vo=nService.noticeDetailData(nbno);
 		JsonMapper mapper=new JsonMapper();
 		return mapper.writeValueAsString(vo);
 	}

@@ -14,7 +14,9 @@ public class NoticeBoardDAO {
 	private NoticeBoardMapper mapper;
 
 	public void noticeBoardInsert(NoticeBoardVO vo) {
-		mapper.noticeBoardPopupUpdate(vo);
+		if (vo.getIsNotice() == 1) {
+			mapper.noticeBoardPopupUpdate(vo);
+		}
 		mapper.noticeBoardInsert(vo);
 	}
 
@@ -29,5 +31,15 @@ public class NoticeBoardDAO {
 	public NoticeBoardVO noticeDetail(int nbno) {
 		mapper.noticeHitIncrement(nbno);
 		return mapper.noticeDetailData(nbno);
+	}
+	public NoticeBoardVO noticeDetailData(int nbno) {
+		return mapper.noticeDetailData(nbno);
+	}
+
+	public void noticeBoardUpdate(NoticeBoardVO vo) {
+		if (vo.getIsNotice() == 1) {
+			mapper.noticeBoardPopupUpdate(vo);
+		}
+		mapper.noticeBoardUpdate(vo);
 	}
 }

@@ -25,4 +25,9 @@ public class MyPageController {
  
  //좋아요
  
+ //배송주소 등록
+ @GetMapping("mypage/delivery.do")
+ public String mypageDelivery() {
+	 return "mypage/delivery";
+ }
 }

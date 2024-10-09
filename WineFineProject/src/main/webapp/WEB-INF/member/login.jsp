@@ -264,7 +264,7 @@ $('#sign-up').click(function() {
 				pwdCheck:'',
 				checkPwdMsg:'',
 				userIdL:'',
-	   		userPwdL:'',
+	   			userPwdL:'',
 				sex:'남자',
 				email:'',
 				isIdCheck:false,

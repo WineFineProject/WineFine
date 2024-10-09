@@ -24,7 +24,7 @@
 			</tr>
 			<tr v-for="(vo, index) in list">
 				<td width=10% class="text-center">{{count-index}}</td>
-				<td width=35%><a :href="'../seller/detail.do?nbno='+vo.nbno">{{vo.subject}}</a></td>
+				<td width=35%><a :href="'../seller/noticeDetail.do?nbno='+vo.nbno">{{vo.subject}}</a></td>
 				<td width=15% class="text-center">{{vo.nickname}}</td>
 				<td width=15% class="text-center">{{vo.dbday}}</td>
 				<td width=10% class="text-center">{{vo.hit}}</td>

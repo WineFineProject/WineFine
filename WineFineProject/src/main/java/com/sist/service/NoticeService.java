@@ -2,6 +2,7 @@ package com.sist.service;
 
 import java.util.List;
 
+import com.sist.vo.NoticeBoardVO;
 import com.sist.vo.NoticeVO;
 
 public interface NoticeService {

@@ -33,4 +33,14 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	public NoticeBoardVO noticeDetail(int nbno) {
 		return dao.noticeDetail(nbno);
 	}
+	
+	@Override
+	public void noticeBoardUpdate(NoticeBoardVO vo) {
+		dao.noticeBoardUpdate(vo);
+	}
+	
+	@Override
+	public NoticeBoardVO noticeDetailData(int nbno) {
+		return dao.noticeDetailData(nbno);
+	}
 }

@@ -26,12 +26,13 @@ public interface NoticeBoardMapper {
 	public int sellerNoticeTotalPage(Map map);
 	
 	// 판매자 공지 상세
-	@Select("SELECT nbno, subject, content, userid, nickname, type, target, to_char(regdate, 'YYYY-MM-DD') as dbday, hit, isNotice "
-			+ "FROM noticeboard WHERE nbno=#{nbno}")
 	public NoticeBoardVO noticeDetailData(int nbno);
 	
 	// 공지 조회수 상승
 	@Update("UPDATE noticeboard SET hit=hit+1 WHERE nbno=#{nbno}")
 	public void noticeHitIncrement(int nbno);
 	
+	//판매자 공지 업데이트
+	@Update("UPDATE noticeboard SET content=#{content}, subject=#{subject}, type=#{type}, target=#{target}, isNotice=#{isNotice}")
+	public void noticeBoardUpdate(NoticeBoardVO vo);
 }
