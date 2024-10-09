@@ -1,8 +1,7 @@
 package com.sist.dao;
 import java.util.*;
 import com.sist.mapper.*;
-import com.sist.vo.LikeVO;
-import com.sist.vo.WineVO;
+import com.sist.vo.*;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,35 +9,45 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ShopDAO {
-	private LikeMapper lmapper;
-	private ShopMapper mapper;
 	@Autowired
-	public ShopDAO(ShopMapper mapper, LikeMapper lmapper) {
-		this.mapper = mapper;
-		this.lmapper = lmapper;
-	}
+	private ShopMapper mapper;
 	
-//	���씤 由ъ뒪�듃 異쒕젰
+//	占쏙옙占쎌뵥 �뵳�딅뮞占쎈뱜 �빊�뮆�젾
 	public List<WineVO> wineListData(int start,int end){
 		return mapper.wineListData(start, end);
 	}
-//	���씤 珥� �럹�씠吏�
+//	占쏙옙占쎌뵥 �룯占� 占쎈읂占쎌뵠筌욑옙
 	public int shopTotalPage() {
 		return mapper.shopTotalPage();
 	}
-//	상세보기
+//	�긽�꽭蹂닿린
 	public WineVO wineDetailData(int wno) {
 	    mapper.hitIncrement(wno);
 	    return mapper.wineDetailData(wno);
 	}
-// 	포도명 가져오기
+// 	�룷�룄紐� 媛��졇�삤湲�
 	public List<String> grapeName(int wno) {
 		return mapper.grapeName(wno);
 	}
-//	나라명 가져오기
+//	�굹�씪紐� 媛��졇�삤湲�
 	public List<String> nationName(int wno){
 		return mapper.nationName(wno);
 	}
+
+//	와인구매
+	public WineVO winebuy(int wno) {
+		return mapper.winebuy(wno);
+	}
+//	사용 가능한 쿠폰 리스트
+	public List<MyCouponVO> selectCoupon(String id) {
+		return mapper.selectCoupon(id);
+	}
+//	쿠폰 사용하기
+	public MyCouponVO useCoupon(String id) {
+		return mapper.useCoupon(id);
+	}
+
+
 
 
 

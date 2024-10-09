@@ -32,6 +32,14 @@ public class ShopController {
 		String id=(String)session.getAttribute("id");
 		model.addAttribute("wno",wno);
 		model.addAttribute("session",id);
+		model.addAttribute("page", page);
 		return "shop/detail";
 	}
+	
+	@GetMapping("shop/buy.do")
+	public String buy(int wno,Model model ) {
+		model.addAttribute("wno",wno);
+		return "shop/buy";
+	}
+	
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sist.dao.ShopDAO;
 import com.sist.dao.WineDAO;
+import com.sist.vo.MyCouponVO;
 import com.sist.vo.WineVO;
 
 @Service
@@ -50,6 +51,21 @@ public class ShopServiceImpl implements ShopService{
 	public List<String> nationName(int wno) {
 		// TODO Auto-generated method stub
 		return sdao.nationName(wno);
+	}
+	@Override
+	public WineVO winebuy(int wno) {
+		// TODO Auto-generated method stub
+		return sdao.winebuy(wno);
+	}
+	@Override
+	public List<MyCouponVO> selectCoupon(String id) {
+		// TODO Auto-generated method stub
+		return sdao.selectCoupon(id);
+	}
+	@Override
+	public MyCouponVO useCoupon(String id) {
+		// TODO Auto-generated method stub
+		return sdao.useCoupon(id);
 	}
 
 }

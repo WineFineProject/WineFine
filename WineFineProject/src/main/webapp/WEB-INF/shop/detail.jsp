@@ -209,8 +209,12 @@
 									</div>
 								</div>
 
-								<a href="#" class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-								</a>
+								<a href="#" class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary" @click="addToCart()"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>								
+								<a :href="'../shop/buy.do?wno='+vo.wno" class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary"> 
+								<i class="fa fa-shopping-bag me-2 text-primary"></i> Buy Now</a>								
+							</div>
+							<div style="text-align: right;">
+								<a href="../shop/list.do" class="btn btn-default winecor" style="width: 150px; color: white;">목록</a>
 							</div>
 
 						</div>
@@ -258,29 +262,20 @@
 						<form action="#">
 							<h4 class="mb-5 fw-bold">Leave a Reply</h4>
 							<div class="row g-4">
-								<div class="col-lg-6">
-									<div class="border-bottom rounded">
-										<input type="text" class="form-control border-0 me-4" placeholder="Yur Name *">
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="border-bottom rounded">
-										<input type="email" class="form-control border-0" placeholder="Your Email *">
-									</div>
-								</div>
-								<div class="col-lg-12">
-									<div class="border-bottom rounded my-4">
-										<textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
-									</div>
-								</div>
-								<div class="col-lg-12">
-									<div class="d-flex justify-content-between py-3 mb-5">
 										<div class="d-flex align-items-center">
 											<p class="mb-0 me-3">Please rate:</p>
 											<div class="d-flex align-items-center" style="font-size: 12px;">
 												<i class="fa fa-star text-muted"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
 											</div>
 										</div>
+
+								<div class="col-lg-12">
+									<div class="border-bottom rounded my-4">
+										<textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="d-flex py-3 mb-5" >
 										<a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</a>
 									</div>
 								</div>
@@ -313,9 +308,7 @@
 				</div>
 			</div>
 
-			<div class="text-center">
-				<a href="../shop/list.do" class="btn btn-default winecor" style="width: 150px; color: white;">목록</a>
-			</div>
+
 
 		</div>
 	</div>
@@ -324,58 +317,57 @@
 
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
-	<script>
-		let detailApp=Vue.createApp({
-			data() {
-			    return {
-			        vo: {},
-			        wno: ${wno},
-			        sessionId: '${session}',
-			        list: [],
-			        msg: '',
-			        isUps: false,
-			        gname:[],
-			        nname:[],
-			        gnolink:[],
-			        nnolink:[],
-			        mnolink:''
-			    }
-			},
-	    	mounted(){
-	    		// jquery 설정 => $(function(){})
-	    		
-	    		axios.get('../shop/detail_vue.do',{
-	    			params:{
-	    				wno:this.wno
-	    			}
-	    		}).then(response=>{
-	    			console.log(response.data)
-	    			this.vo = response.data.vo
-	    			this.gname = response.data.gname 
-	    			this.nname = response.data.nname  
-	    			this.mname = response.data.mname
-	    			this.gnolink = response.data.gnolink
-	    			this.nnolink = response.data.nnolink
-	    			this.mnolink = response.data.mnolink
-	    		}).catch(error=>{
-	    			console.log(error.response)
-	    		})
+<script>
+	let detailApp = Vue.createApp({
+		data() {
+		    return {
+		        vo: {},
+		        wno: ${wno},  // 와인 번호
+		        sessionId: '${session}',  // 사용자 세션 ID
+		        list: [],
+		        msg: '',
+		        isUps: false,
+		        gname:[],
+		        nname:[],
+		        gnolink:[],
+		        nnolink:[],
+		        mnolink:''
+		    }
+		},
+    	mounted() {
+    		// 초기 데이터 로드
+    		axios.get('../shop/detail_vue.do', {
+    			params: {
+    				wno: this.wno
+    			}
+    		}).then(response => {
+    			console.log(response.data)
+    			this.vo = response.data.vo
+    			this.gname = response.data.gname 
+    			this.nname = response.data.nname  
+    			this.mname = response.data.mname
+    			this.gnolink = response.data.gnolink
+    			this.nnolink = response.data.nnolink
+    			this.mnolink = response.data.mnolink
+    		}).catch(error => {
+    			console.log(error.response)
+    		})
+    	},
+    	methods: {    
+    	    // 링크 복사 메서드
+    	    copyLink() {
+    	        const urlToCopy = window.location.href
+    	        navigator.clipboard.writeText(urlToCopy)
+    	            .then(() => {
+    	                alert('링크가 복사되었습니다 ')
+    	            })
+    	            .catch(err => {
+    	                console.error('링크 복사 실패')
+    	            })
+    	    }
+    	}
+	}).mount('.shopcontainer')
+</script>
 
-	    	},
-	    	methods: {
-	    	    copyLink() {
-	    	        const urlToCopy = window.location.href;
-	    	        navigator.clipboard.writeText(urlToCopy)
-	    	            .then(() => {
-	    	                alert('링크가 복사되었습니다 ');
-	    	            })
-	    	            .catch(err => {
-	    	                console.error('링크 복사 실패');
-	    	            });
-	    	    }
-	    	}
-
-		}).mount('.shopcontainer')
-	</script>
 </body>
 </html>

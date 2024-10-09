@@ -3,6 +3,9 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,7 +42,7 @@ public class ShopRestController {
 		
 		if(endpage>totalpage)
 			endpage=totalpage;
-//		�뜲�씠�꽣瑜� 紐⑥븘�꽌 => JSON => VueJS濡� �쟾�넚
+//		占쎈쑓占쎌뵠占쎄숲�몴占� 筌뤴뫁釉섓옙苑� => JSON => VueJS嚥∽옙 占쎌읈占쎈꽊
 		Map map=new HashMap();
 		map.put("list",list);
 		map.put("totalpage", totalpage);
@@ -77,6 +80,20 @@ public class ShopRestController {
 		return json;
 		
 	}
+	@GetMapping(value = "shop/buy_vue.do", produces = "text/plain;charset=UTF-8")
+	public String wine_buy(int wno, String id) throws Exception{
+		WineVO vo = sdao.winebuy(wno);
+		List<MyCouponVO> cvo = sdao.selectCoupon(id);
+		
+		Map map = new HashMap();
+		map.put("vo", vo);
+		map.put("cvo", cvo);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(map);
+		return json;
+	}
+	
 	
 	
 	

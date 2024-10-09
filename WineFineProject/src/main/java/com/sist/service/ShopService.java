@@ -11,5 +11,8 @@ public interface ShopService {
 	public WineVO wineDetailData(int wno);
 	public List<String> grapeName(int wno);
 	public List<String> nationName(int wno);
+	public WineVO winebuy(int wno);
+	public List<MyCouponVO> selectCoupon(String id);
+	public MyCouponVO useCoupon(String id);
 
 }
