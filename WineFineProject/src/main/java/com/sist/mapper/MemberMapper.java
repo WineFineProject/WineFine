@@ -30,31 +30,37 @@ public interface MemberMapper {
 	@Select("SELECT COUNT(*) FROM wine_member WHERE phone=#{phone}")
 	public int memberPhoneCheck(String phone);
 	
-	// �쉶�썝 紐⑸줉 議고쉶
-    @Select("SELECT id, nickname, name, TO_CHAR(birthdate, 'YYYY-MM-DD') as dbbirthday, sex, phone, post, addr1, addr2, grade, photo, admin, TO_CHAR(regdate, 'YYYY-MM-DD') as dbregdate, email "
-    		+"FROM member WHERE admin=0 " 
-            +"ORDER BY regdate DESC")
+	// 회원 목록
+    @Select("SELECT wm.userId, wm.nickName, wm.userName, birthday, wm.sex, wm.phone, wm.post, wm.addr1, wm.addr2, wm.grade, wm.photo, "
+    		+"a.authority, TO_CHAR(wm.regdate, 'YYYY-MM-DD') as regday, wm.email "
+    		+"FROM wine_member wm "
+    		+"JOIN authority a ON wm.userid = a.userid "
+    		+"WHERE a.authority = 'ROLE_USER' "
+    		+"ORDER BY wm.regdate DESC")
     public List<MemberVO> memberList();
     
-    // 愿�由ъ옄 �쉶�썝 紐⑸줉 議고쉶
-    @Select("SELECT id, nickname, name, TO_CHAR(birthdate, 'YYYY-MM-DD') as dbbirthday, sex, phone, post, addr1, addr2, grade, photo, admin, TO_CHAR(regdate, 'YYYY-MM-DD') as dbregdate, email "
-    		+"FROM member WHERE admin IN (0, 2) " 
-            +"ORDER BY regdate DESC")
+    // 관리자 회원 목록
+    @Select("SELECT wm.userId, wm.nickName, wm.userName, birthday, wm.sex, wm.phone, wm.post, wm.addr1, wm.addr2, wm.grade, wm.photo, "
+    		+"a.authority, TO_CHAR(wm.regdate, 'YYYY-MM-DD') as regday, wm.email "
+    		+"FROM wine_member wm "
+    		+"JOIN authority a ON wm.userid = a.userid "
+    		+"WHERE a.authority IN ('ROLE_USER', 'ROLE_SELLER') "
+    		+"ORDER BY wm.regdate DESC")
     public List<MemberVO> adminmemberList();
 
-    // �쉶�썝 �궘�젣
-    @Delete("DELETE FROM member WHERE id=#{id}")
+    // 회원 삭제
+    @Delete("DELETE FROM wine_member WHERE userId=#{userId}")
     public void deleteMember(String id);
 
-    // �쉶�썝 �긽�꽭 議고쉶
-    @Select("SELECT id, nickname, name, TO_CHAR(birthdate, 'YYYY-MM-DD') as dbbirthday, sex, phone,"
-    		+"post, addr1, addr2, grade, photo, admin, TO_CHAR(regdate, 'YYYY-MM-DD') as dbregdate, email "
-    		+"FROM member WHERE id=#{id}")
+    // 회원 상세보기
+    @Select("SELECT userId, nickName, userName, birthday, sex, phone, post, addr1, addr2, grade, photo, point, "
+    		+"TO_CHAR(regdate, 'YYYY-MM-DD') as regday, email "
+    		+"FROM wine_member WHERE userId=#{userId}")
     public MemberVO memberDetail(String id);
 
-    // �쉶�썝 �젙蹂� �닔�젙
-    @Update("UPDATE member SET nickname=#{nickname}, name=#{name}, phone=#{phone}," 
-            +"addr1=#{addr1}, addr2=#{addr2}, email=#{email} WHERE id=#{id}")
+    // 회원 수정
+    @Update("UPDATE wine_member SET nickName=#{nickName}, userName=#{userName}, phone=#{phone}," 
+            +"addr1=#{addr1}, addr2=#{addr2}, email=#{email} WHERE userId=#{userId}")
     public void updateMember(MemberVO member);
     
     // 멤버 등록

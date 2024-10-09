@@ -58,18 +58,7 @@ public class ReplyBoardController {
 	{
 		return "replyboard/insert";
 	}
-	@PostMapping("replyboard/insertOk.do")
-	public String replyboardInsertOk(ReplyBoardVO vo, HttpSession session)
-	{
-		vo.setUserid((String)session.getAttribute("userId"));
-	    vo.setNickname((String)session.getAttribute("nickName"));
-	    
-	    vo.setGroup_step(0);
-	    vo.setIsreply(0); 
-
-	    rService.replyInsert(vo);
-		return "redirect:../replyboard/list.do";
-	}
+	
 	
 
 }

@@ -27,6 +27,11 @@ public class InformationDAO {
 	{
         return mapper.grapeDetailData(no);
     }
+	// 포도 품종 관련 와인
+	public List<WineVO> grapeRelatedWines(Map map)
+	{
+		return mapper.grapeRelatedWines(map);
+	}
 	
 	// 생산지역 목록, 검색
 	public List<NationVO> nationListData(Map map)
@@ -45,6 +50,12 @@ public class InformationDAO {
         return mapper.nationDetailData(no);
     }
     
+    // 생산지역 관련 와인
+    public List<WineVO> nationRelatedWines(Map map)
+    {
+    	return mapper.nationRelatedWines(map);
+    }
+    
     // 생산자 목록, 검색
     public List<MakerVO> makerListData(Map map)
     {
@@ -55,9 +66,17 @@ public class InformationDAO {
   	{
   		return mapper.makerTotalPage(map);
   	}
+    
     // 생산자 상세 
     public MakerVO makerDetailData(int no) 
     {
         return mapper.makerDetailData(no);
     }
+    
+    // 생산자 관련 와인
+    public List<WineVO> makerRelatedWines(Map map)
+    {
+    	return mapper.makerRelatedWines(map);
+    }
+    
 }

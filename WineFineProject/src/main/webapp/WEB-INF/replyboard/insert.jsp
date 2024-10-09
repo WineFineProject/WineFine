@@ -71,7 +71,7 @@
             </div>
             <div class="form-group" style="margin-top: 10px;">
                 <label for="title">제목</label>
-                <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
+                <input type="text" class="form-control" id="title" v-model="title" placeholder="제목을 입력하세요">
             </div>
             <div class="form-group" style="margin-top: 10px;">
                 <label for="content">내용</label>
@@ -135,8 +135,8 @@
                 window.location.href = '../replyboard/list.do'
             },
             sendBtn() {
-            	const title = document.getElementById('title').value;
-                const content = document.getElementById('content').value;
+            	const title = document.getElementById('title').value
+                const content = document.getElementById('content').value
                 const secret = document.getElementById('secret').checked ? 0 : 1
                 
                 if (!title) {

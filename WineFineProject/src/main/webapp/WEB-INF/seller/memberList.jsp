@@ -25,16 +25,16 @@
                 </tr>
             </thead>
             <tbody class="text-center">
-                <tr v-for="(vo, index) in members" :key="vo.id">
+                <tr v-for="(vo, index) in members" :key="vo.userId">
                     <td>{{index+1}}</td>
-                    <td>{{vo.id}}</td>
-                    <td>{{vo.nickname}}</td>
-                    <td>{{vo.name}}</td>
+                    <td>{{vo.userId}}</td>
+                    <td>{{vo.nickName}}</td>
+                    <td>{{vo.userName}}</td>
                     <td>{{vo.email}}</td>
                     <td>{{vo.sex}}</td>
                     <td>{{vo.phone}}</td>
                     <td>{{vo.grade}}</td>
-                    <td>{{vo.dbregdate}}</td>
+                    <td>{{vo.regday}}</td>
                     <td>
                      <input type="button" class="btn btn-xs btn-danger" id="blackListBtn" value="블랙리스트" @click="blackListInsert(vo.id)">
                     </td>

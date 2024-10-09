@@ -19,12 +19,12 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
 }
-th, td {
+.taste-item , .ti {
     border: 1px solid #ccc;
     padding: 10px 5px 10px 5px;
     text-align: center;
 } 
-th {
+.taste-item {
     color: black;
 }
 .listBtn {
@@ -76,8 +76,8 @@ th {
             <table>
                 <tbody>
                     <tr>
-                        <th>맛</th>
-                        <td v-if="vo" class="text-left">
+                        <th class="taste-item">맛</th>
+                        <td v-if="vo" class="text-left ti">
                          <div class="text-left" id="flavor">
                             <div>당도&nbsp;<span class="fa fa-circle" v-for="n in 5" :class="{'filled':n<=vo.sugar, 'empty':n>vo.sugar}"></span></div>
                             <div>산도&nbsp;<span class="fa fa-circle" v-for="n in 5" :class="{'filled':n<=vo.acid, 'empty':n>vo.acid}"></span></div>
@@ -87,16 +87,16 @@ th {
                         </td>
                     </tr>
                     <tr v-show="vo.aroma!==null">
-                        <th>아로마</th>
-                        <td class="left-align">{{vo.aroma}}</td>
+                        <th class="taste-item">아로마</th>
+                        <td class="left-align ti">{{vo.aroma}}</td>
                     </tr>
                     <tr v-if="vo.nation!==null">
-                        <th>주재배지역</th>
-                        <td class="left-align">{{vo.nation}}</td>
+                        <th class="taste-item">주재배지역</th>
+                        <td class="left-align ti">{{vo.nation}}</td>
                     </tr>
                     <tr v-show="vo.food!==null">
-                        <th>추천음식</th>
-                        <td class="left-align">{{vo.food}}</td>
+                        <th class="taste-item">추천음식</th>
+                        <td class="left-align ti">{{vo.food}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -109,18 +109,50 @@ th {
          </div>
       </div>
 	</div>
+	<div class="container py" style="text-align: right;">
+		    <h3>관련 와인</h3>
+		    <table>
+		            <tr v-for="vo in gWines" :key="vo.wno">
+		                <th>{{vo.poster}}</th>
+		                 <td>
+			                <div>{{vo.grape}}</div>
+			                <div>{{vo.namekor}}</div>
+			                <div>{{vo.nameeng}}</div>
+			                <div>{{vo.maker}}</div>
+			                <div>{{vo.nation}}</div>
+			                <div>{{vo.type}}</div>
+		                 </td> 
+		            </tr>
+		    </table>
+        </div>
     <script>
         let grapeDetailApp = Vue.createApp({
         	 data() {
                  return {
                 	 vo: {},
-                	 no:${no}
+                	 no:${no},
+                	 gWines:[]
                  }
              },
              mounted() {
             	 this.dataRecv()
+            	 this.getRelatedWines()
              },
              methods: {
+            	 getRelatedWines() {
+                     axios.get('../grape/relatedWines.do', {
+                         params: {
+                             no: this.no
+                         }
+                     }).then(response => {
+                    	 this.vo=response.data
+                         this.gWines = response.data
+                         console.log(response.data)
+                         console.log(this.vo)
+                     }).catch(error => {
+                         console.error(error)
+                     })
+                 },
                  dataRecv() {
                      axios.get('../grape/detailVue.do',{
                     	 params:{
