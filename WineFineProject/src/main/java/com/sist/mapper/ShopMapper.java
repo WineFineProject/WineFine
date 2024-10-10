@@ -64,18 +64,20 @@ public interface ShopMapper {
 	public WineVO winebuy(int wno);
 
 	
-////	쿠폰 확인하기
-//	@Select("SELECT * "
-//			+ "FROM my_coupon "
-//			+ "WHERE recvid = #{id} "
-//			+ "AND state = 0 ")
-//	public MyCouponVO selectCoupon(String id);
-	
-//	쿠폰 확인하기 test
-	@Select("SELECT * "
-			+ "FROM my_coupon "
-			+ "WHERE state = 0 ")
+//	쿠폰 전체 리스트 가져오기 
+	@Select("SELECT title, discount, TO_CHAR(enddate,'YYYY-MM-DD') as endDay "
+	        + "FROM my_coupon  "
+	        + "WHERE recvid = #{id} "
+	        + "AND state = 0 "
+	        + "AND SYSDATE BETWEEN startdate AND enddate ")
 	public List<MyCouponVO> selectCoupon(String id);
+
+	
+////	쿠폰 확인하기 test
+//	@Select("SELECT title,discount "
+//			+ "FROM my_coupon "
+//			+ "WHERE state = 0 ")
+//	public List<MyCouponVO> selectCoupon(String id);
 	
 //	쿠폰 사용하기
 	@Update("UPDATE my_coupon "

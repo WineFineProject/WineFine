@@ -29,7 +29,7 @@ public class ShopController {
 	
 	@GetMapping("shop/detail.do")
 	public String shop_detail(int wno, Model model, HttpSession session,int page) {
-		String id=(String)session.getAttribute("id");
+		String id = (String)session.getAttribute("userId");
 		model.addAttribute("wno",wno);
 		model.addAttribute("session",id);
 		model.addAttribute("page", page);
@@ -37,7 +37,10 @@ public class ShopController {
 	}
 	
 	@GetMapping("shop/buy.do")
-	public String buy(int wno,Model model ) {
+	public String buy(int wno,Model model, HttpSession session ) {
+		
+		String sessionId=(String)session.getAttribute("userId");
+		model.addAttribute("sessionId",sessionId);
 		model.addAttribute("wno",wno);
 		return "shop/buy";
 	}

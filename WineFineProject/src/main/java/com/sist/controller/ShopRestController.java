@@ -1,6 +1,8 @@
 package com.sist.controller;
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +23,6 @@ public class ShopRestController {
 	public ShopRestController(ShopService sservice) {
 		this.sservice = sservice;
 	}
-	@Autowired
-	private WineDAO wdao;
-	@Autowired
-	private ShopDAO sdao;
 	
 	@GetMapping(value = "shop/list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String shop_list(int page) throws Exception{
@@ -58,9 +56,9 @@ public class ShopRestController {
 	
 	@GetMapping(value = "shop/detail_vue.do",produces = "text/plain;charset=UTF-8")
 	public String wine_detail(int wno) throws Exception{
-		WineVO vo = sdao.wineDetailData(wno);
-		List<String> gname = sdao.grapeName(wno);
-		List<String> nname = sdao.nationName(wno);
+		WineVO vo = sservice.wineDetailData(wno);
+		List<String> gname = sservice.grapeName(wno);
+		List<String> nname = sservice.nationName(wno);
 		
 		String[] gnolink = vo.getGrape().split(",");
 		String[] nnolink = vo.getNation().split(",");	
@@ -81,9 +79,9 @@ public class ShopRestController {
 		
 	}
 	@GetMapping(value = "shop/buy_vue.do", produces = "text/plain;charset=UTF-8")
-	public String wine_buy(int wno, String id) throws Exception{
-		WineVO vo = sdao.winebuy(wno);
-		List<MyCouponVO> cvo = sdao.selectCoupon(id);
+	public String wine_buy(int wno, String sessionId) throws Exception{
+		WineVO vo = sservice.winebuy(wno);
+		List<MyCouponVO> cvo = sservice.selectCoupon(sessionId);
 		
 		Map map = new HashMap();
 		map.put("vo", vo);
