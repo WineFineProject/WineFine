@@ -28,6 +28,6 @@
 	
 	<!-- 와인 검색 출력 -->
 	<select id="wineFindList" resultType="WineVO" parameterType="hashmap">
-	SELECT wno, namekor, poster, seller FROM wine WHERE namekor LIKE '%'||#{fd}||'%' AND seller=#{id}
+	SELECT wno, namekor, poster, seller FROM wine WHERE namekor LIKE '%'||#{fd}||'%'<if test="id!='' and id != null">AND seller=#{id}</if>
 	</select>
 </mapper>
