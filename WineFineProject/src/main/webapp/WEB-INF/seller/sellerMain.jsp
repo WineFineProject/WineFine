@@ -52,6 +52,7 @@
 						<li class="list-group-item"><a href="../seller/memberList.do">회원관리</a></li>
 						<li class="list-group-item"><a href="../seller/blackList.do">블랙리스트관리</a></li>
 						<li class="list-group-item"><a href="../seller/notice.do">공지사항</a></li>
+						<li class="list-group-item"><a href="../seller/replyboard.do">1:1 문의</a></li>
 					</ul>
 				</div>
 				<div class="panel panel-warning">
