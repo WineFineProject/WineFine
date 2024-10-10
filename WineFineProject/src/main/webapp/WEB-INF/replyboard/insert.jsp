@@ -75,7 +75,7 @@
             </div>
             <div class="form-group" style="margin-top: 10px;">
                 <label for="content">내용</label>
-                <textarea class="form-control" id="content" rows="5" style="resize:none;" placeholder="문의 내용을 입력하세요"></textarea>
+                <textarea v-model="content" class="form-control" id="content" rows="5" style="resize:none;" placeholder="문의 내용을 입력하세요"></textarea>
             </div>
             <div class="form-group" style="margin-top: 10px;">
 			    <input type="checkbox" id="secret" v-model="isSecret" style="margin-right: 5px;">
@@ -127,7 +127,7 @@
             selectProduct(product) {
             	this.select=product
                 this.fd = product.namekor
-                this.sellerName = product.seller
+                this.sellerName = product.mvo.nickName
                 this.foundProducts = []
                 this.isFd=true
             },

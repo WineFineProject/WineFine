@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="list" class="row"> 
-        <h3 class="text-center">회원 목록</h3>
+        <h3 class="text-center" style="width: 80%">회원 목록</h3>
         <table class="table" style="margin-top: 20px">
             <thead class="text-center">
                 <tr>

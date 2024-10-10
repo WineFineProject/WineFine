@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.WineMapper">
-	
+	<resultMap type="com.sist.vo.WineVO" id="wineMap">
+		<result property="mvo.nickName" column="nickname" />
+	</resultMap>
 	<!-- 와인 목록 출력 -->
 	<select id="wineListData" resultType="WineVO" parameterType="hashmap">
 		SELECT wno, namekor, nameeng, type, price, poster, num
@@ -27,7 +29,8 @@
 	</select>
 	
 	<!-- 와인 검색 출력 -->
-	<select id="wineFindList" resultType="WineVO" parameterType="hashmap">
-	SELECT wno, namekor, poster, seller FROM wine WHERE namekor LIKE '%'||#{fd}||'%'<if test="id!='' and id != null">AND seller=#{id}</if>
+	<select id="wineFindList" resultMap="wineMap" parameterType="hashmap">
+	SELECT wno, namekor, poster, seller, (SELECT nickname FROM wine_member WHERE wine.seller=wine_member.userid) as nickname FROM wine WHERE namekor LIKE '%'||#{fd}||'%'<if test="id!='' and id != null">AND seller=#{id}</if>
 	</select>
+	
 </mapper>
