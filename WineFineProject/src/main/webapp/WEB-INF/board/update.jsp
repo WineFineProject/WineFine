@@ -57,9 +57,9 @@
       </tr>
       <tr>
         <td colspan="2" class="text-center">
-          <input type="submit" class="btn btn-sm btn-danger" value="등록">
+           <input type="submit"  class="btn btn-danger" value="등록">
           &nbsp;
-          <input type="button" class="btn btn-sm btn-success" value="취소"
+          <input type="button"  class="btn btn-secondary" value="취소"
            onclick="javascript:history.back()">
         </td>
       </tr>

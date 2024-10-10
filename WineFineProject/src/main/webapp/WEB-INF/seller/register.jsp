@@ -11,7 +11,7 @@
 }
 .row{
    margin: 0px auto;
-   width: 1080px;
+   width: 1140px;
 }
 .sellretext{
 	resize:none;
@@ -47,7 +47,7 @@
 </head>
 <body>
 <div class="container" id="itemregister">
-    <h3 class="text-center"> &emsp; &nbsp; 상품 등록</h3>
+    <h3 class="text-center" style="width:100%;"> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;상품 등록</h3>
     <h1>&nbsp;</h1>
      <div class="row">
      <form @submit.prevent="submitForm">
@@ -77,7 +77,7 @@
          	 </select>
      		  </td>
      		  <td width="15%">
-     		  <input type=text size=13 v-model="priceInput" ref="priceInput" class="form-control" placeholder="ex) 140000"></td>
+     		  <input type=text size=13 v-model="price" ref="price" class="form-control" placeholder="ex) 140000"></td>
      		  <td width="15%">
      		  <input type=text size=8 v-model="vol" ref="vol" class="form-control" placeholder="ex) 750ml"></td>
      		  <td width="10%">
@@ -134,26 +134,32 @@
      	 </table>
      	 <table class="text-center" style="margin-top:15px;">
      	 	 <tr>
-     	 	  <th width="35%">아로마</th>
-     		  <th width="35%">음식매칭</th>
+     	 	  <th colspan="2" width="35%">아로마</th>
+     		  <th colspan="2" width="35%">음식매칭</th>
      		  <th width="30%">상품이미지</th>
      		</tr>
      		 <tr>
-     		  <td width="35%"> 
-     		  	<input type="text" v-model="aromaInput" @keyup.enter="addAroma" class="sellretext form-control" placeholder=" ex) 베리 (1개씩 입력해주세요)">
+     		  <td width="30%"> 
+     		  <input type="text" v-model="aromaInput" @keyup.enter="addAroma" class="sellretext form-control" placeholder=" ex) 베리 (1개씩 입력해주세요)">
      		  </td>
-     		  <td width="35%">
+     		  <td width="5%">
+     		  	<button @click="clearAromas" class="form-control" style="width:90%; font-size:9px;">전체 <br> 삭제</button>
+     		  </td>
+     		  <td width="30%">
      		  <input type="text" v-model="foodInput" @keyup.enter="addfood" class="sellretext form-control" placeholder=" ex) 피자 (1개씩 입력해주세요)">
+     		  </td>
+     		  <td width="5%">
+     		  <button @click="clearFoods" class="form-control" style="width:90%; font-size:9px;">전체 <br> 삭제</button>
      		  </td>
      		  <td width="30%">
      			<input type=text size=60 v-model="poster" ref="poster" class="form-control" placeholder="이미지 주소를 입력하세요">
      		    </td>
      		  </tr>
      		 <tr>
-     		  <td width="35%"> 
+     		  <td colspan="2" width="35%"> 
      		  	<span class="rname">선택한 아로마: {{ aroma }}</span>
      		  </td>
-     		  <td width="35%">
+     		  <td colspan="2" width="35%">
      		  	<span class="rname">선택한 음식: {{ food }}</span>
      		  </td>
      		  <td width="30%">
@@ -215,8 +221,15 @@
      		  <td width="50%"></td>
      		</tr>
      	</table>
-     	<table>
-     	
+     	<table class="text-center" style="width:100%; margin-top:15px;">
+     	<tr>
+        <td style="text-align: center;">
+          <input type="submit"  class="btn btn-danger" value="등록">
+          &nbsp;
+          <input type="button"  class="btn btn-secondary" value="취소"
+           onclick="javascript:history.back()">
+        </td>
+      </tr>
      	</table>
      	</form>
      </div>
@@ -266,7 +279,6 @@
  			aromaList:[],
  			foodInput:'',
  			foodList:[],
- 			priceInput:'',
  			id:'${sessionScope.userId}',
  			nickname:'${sessionScope.nickName}'	
  		}
@@ -371,7 +383,8 @@
    					console.log(error.response)
                 })
 		},
-		addAroma() {
+		addAroma(event) {
+			event.preventDefault()
 	        if (this.aromaInput.trim() !== '') {
 	            this.aromaList.push(this.aromaInput.trim()) 
 	            this.aromaInput = ''
@@ -381,7 +394,8 @@
 	    updateAroma() {
 	        this.aroma = this.formattedAroma
 	    },
-		addfood() {
+		addfood(event) {
+	    	event.preventDefault()
 	        if (this.foodInput.trim() !== '') {
 	            this.foodList.push(this.foodInput.trim()) 
 	            this.foodInput = ''
@@ -390,6 +404,14 @@
 	    },
 	    updatefood() {
 	        this.food = this.formattedfood
+	    },
+	    clearAromas() {
+	        this.aromaList = []
+	        this.updateAroma()
+	    },
+	    clearFoods() {
+	        this.foodList = []
+	        this.updatefood()
 	    },
  		submitForm(){
  			if(this.namekor==="")
@@ -458,7 +480,7 @@
  		}
  	},
  computed: {
- 	    selectedGrapes() {
+ 	   selectedGrapes() {
  	        return {
  	        	grapes:this.grape.join(', '), 
  	        	grapenames:this.grapename.join(', ')  
@@ -469,6 +491,14 @@
  	    },
  	   formattedfood() {
  	        return this.foodList.join(', ')
+ 	    },
+ 	   formattedPrice: {
+ 	        get() {
+ 	            return this.price ? this.price.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''
+ 	        },
+ 	        set(value) {
+ 	            this.price = value.replace(/ 원$/, '') + ' 원' 
+ 	        }
  	    }
  	}
  }).mount('#itemregister')
