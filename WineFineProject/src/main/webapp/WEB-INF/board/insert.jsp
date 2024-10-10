@@ -6,9 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#bInsert{
-   margin-top: 180px;
-}
 .row{
    margin: 0px auto;
    width: 1080px;
@@ -21,14 +18,14 @@
  
    <div class="row">
    <form @submit.prevent="submitForm">
-     <h6 class="text-center" hidden>{{id}}</h6>
-     <h6 class="text-center" hidden>{{nickname}}</h6>
+     <h6 class="text-center" style="display:none;">{{id}}</h6>
+     <h6 class="text-center" style="display:none;">{{nickname}}</h6>
      <table class="table">
       <tr>
        <th width="20%" class="text-center">카테고리 </th>
        <td width="80%">
          <select id="bCategory" class="form-control" v-model="cno" ref="cno">
-                    <option value="" disabled selected>카테고리 선택</option>
+                    <option value="" disabled selected>카테고리 선택 &nbsp;▼ </option>
                     <option value=1>자유</option>
                     <option value=2>정보</option>
                     <option value=3>질문</option>
@@ -72,7 +69,7 @@
     let insertApp=Vue.createApp({
     	data(){
     		return {
-    			cno:1,
+    			cno:'',
     			subject:'',
     			content:'',
     			id:'${sessionScope.userId}',

@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
-#nbDetail{
-   margin-top: 180px;
-}
 .row{
    margin: 0px auto;
    width: 1080px;
@@ -57,7 +54,7 @@
     		return {
     			vo:{},
     			bno:${bno},
-    			id:'${sessionScope.id}'
+    			id:'${sessionScope.userId}'
     		}
     	},
     	mounted(){

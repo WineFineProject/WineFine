@@ -6,9 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#nbInsert{
-   margin-top: 180px;
-}
 .row{
    margin: 0px auto;
    width: 1080px;
@@ -65,8 +62,7 @@
     			cno:1,
     			subject:'',
     			content:'',
-    			id:'${sessionScope.id}'
-    			
+    			id:'${sessionScope.userId}'
     		}
     	},
 		mounted(){

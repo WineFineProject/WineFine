@@ -7,9 +7,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
-#bDetail{
-   margin-top: 180px;
-}
+
 .row{
    margin: 0px auto;
    width: 1080px;
@@ -84,7 +82,7 @@
       </div>
       <table class="table" v-for="rvo in reply_list">
       <tr style="border-bottom-color: white;">
-      <td> <h6 class="text-center" hidden style="font-size: 5px;">{{rvo.bno}}</h6></td>
+      <td> <h6 class="text-center" style="font-size: 5px; display: none;">{{rvo.bno}}</h6></td>
       </tr>
      	<tr class="text-left" style="border-bottom-color: white; border-top-color: white;">
      		<td colspan="2" v-if="rvo.depth===1" style="color:black; font-weight: bold; ">{{rvo.nickname}}</td>

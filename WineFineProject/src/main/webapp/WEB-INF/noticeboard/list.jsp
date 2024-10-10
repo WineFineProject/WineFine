@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#nbList{
-   margin-top: 180px;
-}
 .page-item{
 	cursor: pointer;
 }
@@ -81,10 +80,16 @@
        </tbody>
        <tfoot style="border-color:white;">
        <tr>
+        <td colspan="3" class="text-left">
           <!-- 관리자만 글쓰기 버튼 보이게 -->
-         <td colspan="3" class="text-left">
-            <a href="../noticeboard/insert.do" class="btn btn-sm" style="background-color: #FFF7B3; color:gray;">공지글쓰기</a>
-         </td>
+          <c:if test="${sessionScope.userId!=null }">
+                <div class="login">
+                  <sec:authorize access="hasRole('ROLE_ADMIN')">         
+            		<a href="../noticeboard/insert.do" class="btn btn-sm" style="background-color: #FFF7B3; color:gray;">공지글쓰기</a>   
+                  </sec:authorize>
+                </div>
+             </c:if>
+           </td>
         </tr>
         <tr>
           <td colspan="7" class="text-center">

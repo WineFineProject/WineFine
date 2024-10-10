@@ -6,9 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#fbList{
-   margin-top: 180px;
-}
 .page-item{
 	cursor: pointer;
 }
@@ -41,6 +38,7 @@
     	 <!-- 검색 -->
     	 <td width="60%" style="float: right;">
     		<select id="bfilter" v-model="isSearch">
+    				<option value="" disabled selected>검색 조건 선택 ▼ </option>
                     <option value="0">제목</option>
                     <option value="1">작성자</option>
             </select>

@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
-#bUpdate{
-   margin-top: 180px;
-}
 .row{
    margin: 0px auto;
    width: 1080px;
@@ -22,15 +19,15 @@
  
    <div class="row">
    <form @submit.prevent="submitForm">
-     <h6 class="text-center" hidden>{{bno}}</h6>
-     <h6 class="text-center" hidden>{{id}}</h6>
-     <h6 class="text-center" hidden>{{nickname}}</h6>
+     <h6 class="text-center" style="display:none;">{{bno}}</h6>
+     <h6 class="text-center" style="display:none;">{{id}}</h6>
+     <h6 class="text-center" style="display:none;">{{nickname}}</h6>
      <table class="table">
       <tr>
        <th width="20%" class="text-center">카테고리 </th>
        <td width="80%">
-         <select id="bCategory" v-model="cno" ref="cno">
-                    <option value="" disabled selected>카테고리 선택</option>
+         <select id="bCategory" class="form-control" v-model="cno" ref="cno">
+                    <option value="" disabled selected>카테고리 선택 &nbsp; ▼</option>
                     <option value=1>자유</option>
                     <option value=2>정보</option>
                     <option value=3>질문</option>
@@ -40,19 +37,19 @@
       <tr>
        <th width="20%" class="text-center">제목</th>
        <td width="80%">
-        <input type=text size=50 v-model="subject" ref="subject" class="input-sm">
+        <input type=text size=50 class="form-control" v-model="subject" ref="subject" class="input-sm">
        </td>
       </tr>
       <tr>
        <th width="20%" class="text-center">내용</th>
        <td width="80%">
-        <textarea rows="10" cols="52" v-model="content" ref="content"></textarea>
+        <textarea rows="10" cols="52" class="form-control" v-model="content" ref="content" style="resize: none;"></textarea>
        </td>
       </tr>
       <tr>
         <th width="20%" class="text-center">첨부파일</th>
         <td width="80%">
-         <input type="file" ref="upfiles" class="input-sm" 
+         <input type="file" class="form-control" ref="upfiles" class="input-sm" 
            multiple="multiple"
            accept="upload/*"
          />
