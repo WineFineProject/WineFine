@@ -15,14 +15,17 @@
 	<!-- mypage 수령 가능 쿠폰 목록 -->
 	<select id="promotionCouponListData" parameterType="String" resultMap="PromotionCouponMap">
 		SELECT pcno, title, userid, discount, type, target,
-		TO_CHAR(startdate, 'YYYY-MM-DD') as startDay, TO_CHAR(enddate,
+		TO_CHAR(startdate,
+		'YYYY-MM-DD') as startDay, TO_CHAR(enddate,
 		'YYYY-MM-DD') as endDay,
 		CASE
 		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wno = target)
 		ELSE NULL
-		END as namekor ,
+		END
+		as namekor ,
 		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
-		FROM promotion_coupon WHERE (sysdate BETWEEN
+		FROM promotion_coupon WHERE (sysdate
+		BETWEEN
 		startdate AND endDate) AND
 		pcno NOT IN (SELECT pcno FROM my_coupon
 		WHERE recvid=#{id}) AND
@@ -31,35 +34,44 @@
 
 	<!-- 승인 대기 쿠폰 목록 -->
 	<select id="promotionWaitList" parameterType="String" resultMap="PromotionCouponMap">
-		SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate, 'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay,
+		SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate,
+		'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay,
 		CASE
 		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wine.wno = target)
-		ELSE NULL
+		ELSE
+		NULL
 		END as namekor,
 		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
-		FROM promotion_coupon WHERE enddate>sysdate AND state=0 AND userid LIKE '%'||#{id}||'%'
+		FROM promotion_coupon WHERE
+		enddate>sysdate AND state=0 AND userid LIKE '%'||#{id}||'%'
 	</select>
 
 	<!-- 진행 중인 쿠폰 -->
 	<select id="promotionActiveList" parameterType="String" resultMap="PromotionCouponMap">
-		SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate, 'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay,
+		SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate,
+		'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay,
 		CASE
 		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wine.wno = target)
-		ELSE NULL
+		ELSE
+		NULL
 		END as namekor,
 		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
-		FROM promotion_coupon WHERE (sysdate BETWEEN startdate AND endDate) AND state=1 AND userid LIKE '%'||#{id}||'%'
+		FROM promotion_coupon WHERE
+		(sysdate BETWEEN startdate AND endDate) AND state=1 AND userid LIKE '%'||#{id}||'%'
 	</select>
 	
 	<!-- 판매자 승인 완료 쿠폰 -->
 	<select id="sellerPromotionActiveList" parameterType="String" resultMap="PromotionCouponMap">
-		SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate, 'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay,
+		SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate,
+		'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay,
 		CASE
 		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wine.wno = target)
-		ELSE NULL
+		ELSE
+		NULL
 		END as namekor,
 		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
-		FROM promotion_coupon WHERE state=1 AND userid LIKE '%'||#{id}||'%'
+		FROM promotion_coupon WHERE
+		state=1 AND userid LIKE '%'||#{id}||'%'
 	</select>
 
 	<!-- mypage 쿠폰 수령 -->
@@ -67,22 +79,24 @@
 		INSERT INTO my_coupon
 		VALUES((SELECT NVL(MAX(MCNO)+1, 1) FROM my_coupon),
 		#{title}, #{pcno},
-		#{recvid}, #{discount}, #{pcid}, #{startDay},
+		#{recvid},
+		#{discount}, #{pcid}, #{startDay},
 		#{endDay}, 0)
 	</insert>
 	<!-- mypage 사용 가능 쿠폰 -->
 	<select id="mypageMyCouponList" resultMap="MyCouponMap" parameterType="String">
-		SELECT MCNO, title, pcno, discount, pcid,
-		TO_CHAR(startdate, 'YYYY-MM-DD')
-		as startDay, TO_CHAR(enddate,
+		SELECT MCNO, title, pcno, discount, pcid, TO_CHAR(startdate,'YYYY-MM-DD') as startDay, TO_CHAR(enddate,
 		'YYYY-MM-DD') as endDay, (SELECT target FROM promotion_coupon WHERE my_coupon.pcno=promotion_coupon.pcno) as target,
 		(SELECT type FROM promotion_coupon WHERE my_coupon.pcno=promotion_coupon.pcno) as type,
 		CASE
-		WHEN (SELECT type FROM promotion_coupon WHERE my_coupon.pcno=promotion_coupon.pcno) = 3 THEN (SELECT namekor FROM wine WHERE wno = (SELECT target FROM promotion_coupon WHERE promotion_coupon.pcno = my_coupon.pcno))
+		WHEN (SELECT type FROM promotion_coupon WHERE
+		my_coupon.pcno=promotion_coupon.pcno) = 3 THEN (SELECT namekor FROM wine WHERE wno = (SELECT target FROM promotion_coupon WHERE
+		promotion_coupon.pcno = my_coupon.pcno))
 		ELSE NULL
 		END as namekor ,
 		(SELECT nickname FROM wine_member WHERE pcid=wine_member.userid) as nickName
-		FROM my_coupon WHERE recvid=#{id} AND state=0
+		FROM
+		my_coupon WHERE recvid=#{id} AND state=0
 		ORDER BY MCNO ASC
 	</select>
 </mapper>

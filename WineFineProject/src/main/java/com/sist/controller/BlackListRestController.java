@@ -16,7 +16,7 @@ public class BlackListRestController {
    @PostMapping(value = "seller/blackListInsert.do", produces = "text/json;charset=UTF-8")
    public void blackListInsert(BlackListVO vo,HttpSession session) 
    {
-       vo.setSendid((String)session.getAttribute("id"));
+       vo.setSendid((String)session.getAttribute("userId"));
 	   bService.blackListInsert(vo);
    }
 }

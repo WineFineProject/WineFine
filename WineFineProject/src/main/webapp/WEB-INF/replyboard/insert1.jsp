@@ -50,14 +50,14 @@
             <div class="form-group" style="margin-top: 10px;">
                 <label>문의할 대상을 선택하세요</label>
                 <div style="margin-top: 5px;">
-				    <input type="radio" id="admin" name="contact" value="3" v-model="contact" style="margin-right: 10px;">
+				    <input type="radio" id="admin" name="contact" value="2" v-model="contact" style="margin-right: 10px;">
 				    <label for="admin">관리자에게 문의</label>
 				    <div style="display: inline-block; margin-left: 20px;">
-				        <input type="radio" id="seller" name="contact" value="2" v-model="contact" style="margin-right: 10px;">
+				        <input type="radio" id="seller" name="contact" value="1" v-model="contact" style="margin-right: 10px;">
 				        <label for="seller">판매자에게 문의</label>
 				    </div>
 				</div>
-				 <div v-if="contact === '2'" style="margin-top: 10px;">
+				 <div v-if="contact === '1'" style="margin-top: 10px;">
                 <label for="search">상품 검색</label>
                 <input type="text" class="form-control" v-model="fd" :disabled="isFd" placeholder="상품명을 입력하세요" @keyup.enter="searchProducts">
                 <div class="result-list" v-if="foundProducts.length > 0">
@@ -71,11 +71,11 @@
             </div>
             <div class="form-group" style="margin-top: 10px;">
                 <label for="title">제목</label>
-                <input type="text" class="form-control" id="title" v-model="title" placeholder="제목을 입력하세요">
+                <input type="text" class="form-control" id="title" v-model="title" placeholder="제목을 입력하세요" ref="title">
             </div>
             <div class="form-group" style="margin-top: 10px;">
                 <label for="content">내용</label>
-                <textarea v-model="content" class="form-control" id="content" rows="5" style="resize:none;" placeholder="문의 내용을 입력하세요"></textarea>
+                <textarea v-model="content" class="form-control" id="content" rows="5" style="resize:none;" placeholder="문의 내용을 입력하세요" ref="contnet"></textarea>
             </div>
             <div class="form-group" style="margin-top: 10px;">
 			    <input type="checkbox" id="secret" v-model="isSecret" style="margin-right: 5px;">
@@ -90,10 +90,10 @@
     </div>
   </div>  
     <script>
-    let app = Vue.createApp({
+    let insertApp=Vue.createApp({
         data() {
             return {
-                contact: 3, 
+                contact: 2, 
                 fd: '', 
                 foundProducts: [], 
                 sellerName: '',
@@ -103,7 +103,8 @@
                 isSecret: false ,
                 cno:1,
                 isFd:false,
-                select:{}
+                select:{},
+                sendid:''
             }
         },
         methods: {
@@ -128,6 +129,7 @@
             	this.select=product
                 this.fd = product.namekor
                 this.sellerName = product.mvo.nickName
+                this.sendid=product.seller
                 this.foundProducts = []
                 this.isFd=true
             },
@@ -135,38 +137,37 @@
                 window.location.href = '../replyboard/list.do'
             },
             sendBtn() {
-            	const title = document.getElementById('title').value
-                const content = document.getElementById('content').value
-                const secret = document.getElementById('secret').checked ? 0 : 1
+            	let title = this.title
+                let content = this.content
+                let secret = this.isSecret ? 1 : 0
                 
                 if (!title) {
                     alert('제목을 입력해주세요.')
-                    document.getElementById('title').focus()
+                   	this.$refs.title.focus()
                     return
                 }
 
                 if (!content) {
                     alert('내용을 입력해주세요.')
-                    document.getElementById('content').focus()
+                    this.$refs.content.focus()
                     return
                 }
 
-                const sendPost = {
-                    subject: this.title,
+                axios.post('../replyboard/insertOk.do', null, {
+                params:{
+                	subject: this.title,
                     content: this.content,
                     cno: this.cno,
                     type: this.contact,
-                    recvid: this.sellerName,
+                    recvid: this.sendid,
                     wno: this.select.wno,
                     secret: secret
-                }
-
-                axios.post('../replyboard/insertOk.do', sendPost)
-                    .then(response => {
-                        window.location.href = '../replyboard/list.do';
+                	}
+                }).then(response => {
+                        window.location.href = '../replyboard/list.do'
                     })
                     .catch(error => {
-                        console.error(error);
+                        console.error(error)
                     })
             }
         }

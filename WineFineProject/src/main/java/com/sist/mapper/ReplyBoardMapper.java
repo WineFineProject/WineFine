@@ -15,11 +15,11 @@ public interface ReplyBoardMapper {
 			+"recvid,wno,group_id,group_step,isreply,hit,secret,rownum as num "
 			+"FROM (SELECT wrno,userid,nickname,subject,regdate,cno,type,"
 			+"recvid,wno,group_id,group_step,isreply,hit,secret "
-			+"FROM wine_replyboard ORDER BY group_id DESC , group_step ASC)) "
+			+"FROM wine_replyboard WHERE type!=1 ORDER BY group_id DESC , group_step ASC)) "
 			+"WHERE num BETWEEN #{start} AND #{end}")
 	public List<ReplyBoardVO> replyListData(@Param("start") int start, @Param("end") int end, @Param("userid") String userid);
 	
-    @Select("SELECT COUNT(*) FROM wine_replyboard")
+    @Select("SELECT COUNT(*) FROM wine_replyboard WHERE type!=1")
     public int replyCount();
     
     // 작성

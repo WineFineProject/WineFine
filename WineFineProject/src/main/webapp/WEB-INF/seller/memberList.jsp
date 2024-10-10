@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody class="text-center">
-                <tr v-for="(vo, index) in members" :key="vo.userId">
+                <tr v-for="(vo, index) in members" :key="vo.userId" style="vertical-align: middle;">
                     <td>{{index+1}}</td>
                     <td>{{vo.userId}}</td>
                     <td>{{vo.nickName}}</td>
@@ -36,7 +36,7 @@
                     <td>{{vo.grade}}</td>
                     <td>{{vo.regday}}</td>
                     <td>
-                     <input type="button" class="btn btn-xs btn-danger" id="blackListBtn" value="블랙리스트" @click="blackListInsert(vo.id)">
+                     <button type="button" class="btn btn-sm btn-danger" id="blackListBtn" @click="blackListInsert(vo.userId)">블랙리스트</button>
                     </td>
                 </tr>
             </tbody>
@@ -67,6 +67,7 @@
     					this.$refs.message.focus()
     					return
     				}
+            		console.log(this.tmp)
     				axios.post('../seller/blackListInsert.do', null, {
     					params:{
     						content:this.message,
@@ -84,6 +85,7 @@
     				}).then(response=>{
     					this.message=''
     					this.tmp=''
+    					this.showModal=false
     				})
             	},
                 mList(){

@@ -40,5 +40,8 @@ public class SellerController {
 		model.addAttribute("nbno", nbno);
 		return "seller/noticeUpdate";
 	}
-	
+	@GetMapping("seller/replyboard.do")
+	public String sellerReplyBoard() {
+		return "seller/replyboard";
+	}
 }

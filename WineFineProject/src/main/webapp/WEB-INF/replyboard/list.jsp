@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>       
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,19 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container" style="margin-top:50px;">
+<div class="container" style="margin-top:50px;" id="replyList">
      <h3 class="text-center">1:1 문의게시판</h3>
      <div class="row">
-     <table class="table">
-       <c:if test="${not empty sessionScope.userId}"> 
-           <tr>
-               <td>
-                   <a href="../replyboard/insert.do" class="btn btn-sm" style="background-color: #FCD500;">글쓰기</a>
-               </td>
-           </tr>
-       </c:if>
-      </table>
-     <table class="table table-hover">
+     <div>
+       <sec:authorize access="hasRole('ROLE_USER')"> 
+                   <a href="../replyboard/insert1.do" class="btn btn-sm" style="background-color: #FCD500;">글쓰기</a>
+       </sec:authorize>
+       <sec:authorize access="hasRole('ROLE_SELLER')"> 
+                   <a href="../replyboard/insert2.do" class="btn btn-sm" style="background-color: #FCD500;">글쓰기</a>
+       </sec:authorize>
+      </div>
+     <table class="table table-hover" style="margin-top: 10px">
        <tr>
         <th width=10% class="text-center">번호</th>
         <th width=35% class="text-center">제목</th>
@@ -34,12 +33,7 @@
          <tr>
             <td width=10% class="text-center">${count}</td>
 	        <td width=35%>
-	          <c:if test="${vo.subject!=type}">
 	          <a href="../replyboard/detail.do?no=${vo.wrno}">${vo.subject}</a>
-	          </c:if>
-	          <c:if test="${vo.subject==type}">
-	           <span style="color:gray">${vo.subject}</span>
-	          </c:if>
 	        </td>
 	        <td width=15% class="text-center">${vo.nickname}</td>
 	        <td width=15% class="text-center">${vo.dbday}</td>
@@ -60,5 +54,17 @@
       </table>
      </div>
    </div>
+  <script>
+    let listApp=Vue.createApp({
+    	data(){
+    		return {
+    			
+    		}
+    	},
+    	methods:{
+    		
+    	}
+    }).mount()
+  </script> 
 </body>
 </html>
