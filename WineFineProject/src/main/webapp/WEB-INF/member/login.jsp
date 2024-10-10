@@ -89,7 +89,7 @@ $('#sign-up').click(function() {
 
 						<div class="login__box">
 							<i class='bx bx-lock login__icon'></i>
-							<input type="text" placeholder="Password" class="login__input" ref="userPwd" name="userPwd" v-model="userPwd" @keyup="pwdValidate()">
+							<input type="password" placeholder="Password" class="login__input" ref="userPwd" name="userPwd" v-model="userPwd" @keyup="pwdValidate()">
 							<p style="margin: 0 auto; color: red;" v-show="!isPwdValid">
 								<font size="1px">&nbsp;{{pwdMsg}}</font>
 							</p>
@@ -97,7 +97,7 @@ $('#sign-up').click(function() {
 
 						<div class="login__box">
 							<i class='bx bx-lock login__icon'></i>
-							<input type="text" placeholder="Confirm Password" class="login__input" id="pwdCheck" v-model="checkPwd" @keyup="pwdValidate2()">
+							<input type="password" placeholder="Confirm Password" class="login__input" id="pwdCheck" v-model="checkPwd" @keyup="pwdValidate2()">
 							<p style="margin: 0 auto; color: red;" :class="{font_green:isPwdCheck}">
 								<font size="1px" id="pwdState">&nbsp;{{checkPwdMsg}}</font>
 							</p>
@@ -112,6 +112,8 @@ $('#sign-up').click(function() {
 									<option value="02">02</option>
 									<option value="010">010</option>
 									<option value="011">011</option>
+									<option value="070">070</option>
+									<option value="031">031</option>
 								</select>
 								<input type="text" placeholder="Phone" class="phone-input" style="margin-right: 6px;" name="phone2" maxlength="4" :readonly="isPhoneCheck"
 									v-show="isPhoneNone" v-model="phone2">
