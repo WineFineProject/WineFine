@@ -32,4 +32,5 @@
 	<select id="wineFindList" resultMap="wineMap" parameterType="hashmap">
 	SELECT wno, namekor, poster, seller, (SELECT nickname FROM wine_member WHERE wine.seller=wine_member.userid) as nickname FROM wine WHERE namekor LIKE '%'||#{fd}||'%'<if test="id!='' and id != null">AND seller=#{id}</if>
 	</select>
+	
 </mapper>
