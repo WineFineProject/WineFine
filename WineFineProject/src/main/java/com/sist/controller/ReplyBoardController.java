@@ -52,13 +52,24 @@ public class ReplyBoardController {
 		model.addAttribute("today", new SimpleDateFormat("yyy-MM-dd").format(new Date()));
 		return "replyboard/list";
 	}
-	// 게시글 작성
-	@GetMapping("replyboard/insert.do")
-	public String replyboardInsert()
+	// 회원 게시글 작성
+	@GetMapping("replyboard/insert1.do")
+	public String replyboardInsert1()
 	{
-		return "replyboard/insert";
+		return "replyboard/insert1";
 	}
-	
+	// 판매자 게시글 작성
+	@GetMapping("replyboard/insert2.do")
+	public String replyboardInsert2()
+	{
+		return "replyboard/insert2";
+	}
+	// 문의 게시판 상세
+	@GetMapping("replyboard/detail.do")
+	public String replyboardDetail()
+	{
+		return "replyboard/detail";
+	}
 	
 
 }

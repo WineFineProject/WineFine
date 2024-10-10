@@ -17,7 +17,7 @@ public class ReplyBoardRestController {
 	private ReplyBoardService rService;
 	@Autowired
 	private ShopService sService;
-	// ���씤 寃��깋
+	// 와인 검색
 	@GetMapping(value = "replyboard/findWine.do",produces = "text/plain;charset=UTF-8")
 	public String searchWine(String fd, HttpSession session) throws Exception 
 	{
@@ -29,7 +29,7 @@ public class ReplyBoardRestController {
         String json = mapper.writeValueAsString(list);
         return json;
     }
-    // 寃뚯떆湲� �옉�꽦
+    // 게시글 등록
 	@PostMapping("replyboard/insertOk.do")
 	public String replyboardInsertOk(ReplyBoardVO vo, HttpSession session)
 	{
@@ -38,7 +38,8 @@ public class ReplyBoardRestController {
 	    
 	    vo.setGroup_step(0);
 	    vo.setIsreply(0); 
-
+        if(vo.getType()!=1)
+        	vo.setRecvid("admin");
 	    rService.replyInsert(vo);
 		return "redirect:../replyboard/list.do";
 	}
