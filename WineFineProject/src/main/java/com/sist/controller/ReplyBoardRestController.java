@@ -17,18 +17,20 @@ public class ReplyBoardRestController {
 	private ReplyBoardService rService;
 	@Autowired
 	private ShopService sService;
-	// 와인 검색
+	// ���씤 寃��깋
 	@GetMapping(value = "replyboard/findWine.do",produces = "text/plain;charset=UTF-8")
 	public String searchWine(String fd, HttpSession session) throws Exception 
 	{
         Map map=new HashMap();
+        String id=(String)session.getAttribute("userId");
         map.put("fd", fd);
+        map.put("id", id);
         List<WineVO> list = sService.wineFindList(map);
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(list);
         return json;
     }
-    // 게시글 작성
+    // 寃뚯떆湲� �옉�꽦
 	@PostMapping("replyboard/insertOk.do")
 	public String replyboardInsertOk(ReplyBoardVO vo, HttpSession session)
 	{
