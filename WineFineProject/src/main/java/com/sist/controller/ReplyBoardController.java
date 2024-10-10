@@ -66,8 +66,9 @@ public class ReplyBoardController {
 	}
 	// 문의 게시판 상세
 	@GetMapping("replyboard/detail.do")
-	public String replyboardDetail()
+	public String replyboardDetail(int wrno, Model model)
 	{
+		model.addAttribute("wrno", wrno);
 		return "replyboard/detail";
 	}
 	

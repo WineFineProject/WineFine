@@ -48,8 +48,20 @@
   let replyDetailApp=Vue.createApp({
 	  data(){
 		  return{
-			  
+			  vo:{},
+			  wrno:${wrno},
+			  id:'${sessionScope.userId}',
+			  nickname:'${sessionScope.nickName}'
 		  }
+	  },
+	  mounted(){
+		  axios.get('../replyboard/detailvue.do',{
+			  params:{
+				  wrno:this.wrno
+			  }
+		  }).then(response=>{
+			   console.log(response.data)
+		   })
 	  }
   }).mount('#replyDetail')
 </script>

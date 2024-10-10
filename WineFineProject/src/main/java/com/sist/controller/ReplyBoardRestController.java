@@ -43,4 +43,13 @@ public class ReplyBoardRestController {
 	    rService.replyInsert(vo);
 		return "redirect:../replyboard/list.do";
 	}
+	// 게시글 상세
+	@GetMapping(value = "replyboard/detailvue.do", produces = "text/plain;charset=UTF-8")
+	public String replyboardDetailVue(int wrno) throws Exception
+	{
+		ReplyBoardVO vo=rService.replyDetailData(wrno);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
 }
