@@ -22,9 +22,8 @@ public class ReplyBoardRestController {
 	public String searchWine(String fd, HttpSession session) throws Exception 
 	{
         Map map=new HashMap();
-        String id=(String)session.getAttribute("userId");
         map.put("fd", fd);
-        map.put("id", id);
+        map.put("id", "");
         List<WineVO> list = sService.wineFindList(map);
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(list);
