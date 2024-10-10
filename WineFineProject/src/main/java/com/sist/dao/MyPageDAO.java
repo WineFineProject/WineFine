@@ -14,8 +14,21 @@ public class MyPageDAO {
 	@Autowired
 	private MypageMapper mapper;
 	
-    public List<BoardVO> myBoardListData(int start,int end,String id){
+    public List<BoardVO> myBoardListData(String nickname,int start,int end){
     	
     	return mapper.myBoardListData(start, end, id);
+    	
+    }
+    public List<BoardVO> boardTypeListData(String nickname,int type,int start,int end){
+    	return mapper.boardTypeListData(nickname, type, start, end);
+  
+    public int myPageBoardTotalPage(String nickname) {
+    	return mapper.myPageBoardTotalPage(nickname);
+    }
+    	
+    	
+    public int myPageCBoardTotalPage(String nickname,int type) {
+    	return mapper.myPageCBoardTotalPage(nickname, type);
+    }
     }
 }
