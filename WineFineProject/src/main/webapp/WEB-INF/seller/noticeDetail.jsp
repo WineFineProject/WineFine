@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="row" style="width: 1200px;" id="noticeTable">
-		<h3 class="text-center">1:1 문의 게시판</h3>
+		<h3 class="text-center">공지사항</h3>
 		<table class="table">
 			<tr>
 				<th width="5%" class="text-center">닉네임</th>

@@ -35,7 +35,7 @@
 </head>
 <body>
 	<div class="row" style="width: 1200px;" id="noticeTable">
-		<h3 class="text-center">1:1 문의 게시판</h3>
+		<h3 class="text-center">공지사항 작성</h3>
 		<div class="form-group" style="margin-top: 10px;">
 			<label>공지 대상을 선택하세요</label>
 			<div style="margin-top: 5px;">

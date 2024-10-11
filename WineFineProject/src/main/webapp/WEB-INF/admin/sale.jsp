@@ -4,11 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-.promotion_table {
-	width: 1500px;
-}
-</style>
 
 </head>
 <body>
