@@ -22,7 +22,7 @@ public class CartController {
 
 	@GetMapping("cart/inMyCart.do")
 	public String inMyCart(HttpSession session, Model model) {
-		String id = (String) session.getAttribute("id");
+		String id = (String) session.getAttribute("userId");
 		if (id == null) {
 			return "redirect:/member/login.do";
 		}
