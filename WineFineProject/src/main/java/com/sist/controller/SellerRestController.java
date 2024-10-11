@@ -15,7 +15,7 @@ import com.sist.vo.*;
 
 @RestController
 public class SellerRestController {
-	String[] types= {"", "�젅�뱶", "�솕�씠�듃", "�뒪�뙆�겢留�", "濡쒖젣", "二쇱젙媛뺥솕", "湲고�"};
+	String[] types= {"", "레드", "화이트", "스파클링", "로제", "주정강화", "기타"};
 	@Autowired
 	private ShopService sService;
 	@Autowired
@@ -53,7 +53,7 @@ public class SellerRestController {
 		List<PromotionCouponVO> activeCoupon=cService.sellerPromotionActiveList(id);
 		for(PromotionCouponVO vo:activeCoupon) {
 			if(vo.getType()==1) {
-				vo.setTargetname("�쟾泥�");
+				vo.setTargetname("전체");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);
@@ -64,7 +64,7 @@ public class SellerRestController {
 		}
 		for(PromotionCouponVO vo:waitCoupon) {
 			if(vo.getType()==1) {
-				vo.setTargetname("占쏙옙체");
+				vo.setTargetname("전체");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);
@@ -104,7 +104,7 @@ public class SellerRestController {
 		List<PromotionSaleVO> activeSale=ssService.sellerSaleActiveList(id);
 		for(PromotionSaleVO vo:activeSale) {
 			if(vo.getType()==1) {
-				vo.setTargetname("�쟾泥�");
+				vo.setTargetname("전체");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);
@@ -115,7 +115,7 @@ public class SellerRestController {
 		}
 		for(PromotionSaleVO vo:waitSale) {
 			if(vo.getType()==1) {
-				vo.setTargetname("�쟾泥�");
+				vo.setTargetname("전체");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);

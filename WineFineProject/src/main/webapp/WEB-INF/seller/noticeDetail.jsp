@@ -8,31 +8,38 @@
 <body>
 	<div class="row" style="width: 1200px;" id="noticeTable">
 		<h3 class="text-center">1:1 문의 게시판</h3>
-		<div class="form-group" style="margin-top: 10px;">
-			<div class="form-group" style="margin-top: 10px;">
-				<label for="content">제목</label>
-				<span class="form-control">{{detail.subject}}</span>
-			</div>
-			<div class="form-group" style="margin-top: 10px;">
-				<label for="content">작성일</label>
-				<span class="form-control">{{detail.dbday}}</span>
-			</div>
-			<div class="form-group" style="margin-top: 10px;">
-				<label for="subject">대상</label> 
-				<span class="form-control" v-if="detail.type===1">전체</span>
-				<span class="form-control" v-if="detail.type===2">{{types[detail.target]}}</span>
-				<span class="form-control" v-if="detail.type===3">{{detail.wvo.namekor}}</span>
-			</div>
-			<div class="form-group" style="margin-top: 10px;">
-				<label for="content">내용</label>
-				<textarea class="form-control" rows="5" style="resize: none;" disabled>{{detail.content}}</textarea>
-			</div>
-			<div style="margin-top: 10px;"></div>
-			<div class="text-center">
-				<a :href="'../seller/noticeUpdate.do?nbno='+detail.nbno" class="btn btn-primary">수정</a>
-				<a href="../seller/notice.do" class="btn btn-primary">목록</a>
-			</div>
-		</div>
+		<table class="table">
+			<tr>
+				<th width="5%" class="text-center">닉네임</th>
+				<td width="15%">
+					<span class="form-control">{{detail.nickname}}</span>
+				</td>
+				<th width="5%" class="text-center">작성일</th>
+				<td width="15%">
+					<span class="form-control">{{detail.dbday}}</span>
+				</td>
+				<th width="5%" class="text-center">조회수</th>
+				<td width="15%">
+					<span class="form-control">{{detail.hit}}</span>
+				</td>
+			</tr>
+			<tr>
+				<th width="10%" class="text-center">제목</th>
+				<td colspan="5">
+					<span class="form-control">{{detail.subject}}</span>
+				</td>
+			</tr>
+			<tr>
+				<th width="10%" class="text-center">내용</th>
+				<td colspan="5">
+					<span style="height: 300px;" class="form-control">{{detail.content}}</span>
+				</td>
+			</tr>
+		</table>
+				<div style="text-align: right;">
+					<a :href="'../seller/noticeUpdate.do?nbno='+detail.nbno" class="btn btn-primary">수정</a>
+					<a href="../seller/notice.do" class="btn btn-primary">목록</a>
+				</div>
 	</div>
 	<script>
 	let noticeDetailApp=Vue.createApp({

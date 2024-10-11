@@ -68,7 +68,7 @@
 				</div>
 			</div>
 
-			<div class="col-lg-10">
+			<div class="col-lg-8">
 				<tiles:insertAttribute name="sellerHome" />
 			</div>
 		</div>

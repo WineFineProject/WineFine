@@ -4,14 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-.promotion_table {
-	width: 1500px;
-}
-</style>
 </head>
 <body>
-	<div id="promotionTable">
+	<div id="promotionTable" class="container">
 		<div class="promotion_table">
 			<table class="table">
 				<tr>
