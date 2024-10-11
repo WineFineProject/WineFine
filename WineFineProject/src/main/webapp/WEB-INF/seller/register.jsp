@@ -9,10 +9,6 @@
 #itemregister{
   margin: 20px auto;
 }
-.row{
-   margin: 0px auto;
-   width: 1140px;
-}
 .sellretext{
 	resize:none;
 	width:90%;
@@ -50,7 +46,7 @@
     <h3 class="text-center" style="width:100%;"> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;상품 등록</h3>
     <h1>&nbsp;</h1>
      <div class="row">
-     <form @submit.prevent="submitForm">
+     <form @submit.prevent="submitForm" @keydown.enter.prevent>
      	<table class="text-center">
      		<tr>
      		  <th width="15%">이름 (한글/영어)</th>
@@ -77,7 +73,7 @@
          	 </select>
      		  </td>
      		  <td width="15%">
-     		  <input type=text size=13 v-model="price" ref="price" class="form-control" placeholder="ex) 140000"></td>
+     		  <input type=text size=13 v-model="price" ref="price" class="form-control" placeholder="숫자만 입력하세요"></td>
      		  <td width="15%">
      		  <input type=text size=8 v-model="vol" ref="vol" class="form-control" placeholder="ex) 750ml"></td>
      		  <td width="10%">
@@ -143,13 +139,15 @@
      		  <input type="text" v-model="aromaInput" @keyup.enter="addAroma" class="sellretext form-control" placeholder=" ex) 베리 (1개씩 입력해주세요)">
      		  </td>
      		  <td width="5%">
-     		  	<button @click="clearAromas" class="form-control" style="width:90%; font-size:9px;">전체 <br> 삭제</button>
+     		  <div>
+     		  	<button type="button" @click="clearAromas" class="form-control" style="width:90%; font-size:9px;">전체 <br> 삭제</button>
+     		  </div>
      		  </td>
      		  <td width="30%">
      		  <input type="text" v-model="foodInput" @keyup.enter="addfood" class="sellretext form-control" placeholder=" ex) 피자 (1개씩 입력해주세요)">
      		  </td>
      		  <td width="5%">
-     		  <button @click="clearFoods" class="form-control" style="width:90%; font-size:9px;">전체 <br> 삭제</button>
+     		  <button type="button" @click="clearFoods" class="form-control" style="width:90%; font-size:9px;">전체 <br> 삭제</button>
      		  </td>
      		  <td width="30%">
      			<input type=text size=60 v-model="poster" ref="poster" class="form-control" placeholder="이미지 주소를 입력하세요">
@@ -216,7 +214,7 @@
      	 	  <td width="25%">
      	 	  <span class="rname">생산자: {{ makername }}</span></td>
      		  <td width="25%">
-     		  <span class="rname">선택한 품종: {{ selectedGrapes.grapenames }}</span>
+     		  <span class="rname">선택한 품종: {{ grapename }}</span>
      		  </td>
      		  <td width="50%"></td>
      		</tr>
@@ -252,11 +250,9 @@
  			food:'',
  			alcohol:'',
  			find:'',
- 			nation:[],
- 			grape:[],
- 			grapes:'',
- 			grapenames:'',
- 			grapename:[],
+ 			nation:'',
+ 			grape:'',
+ 			grapename:'',
  			gList:[],
  			fgrape:'',
  			maker:'',
@@ -323,8 +319,8 @@
 			this.mList = []
 		},
 		selectgrape(gvo) {
-		    this.grape.push(gvo.no)
-		    this.grapename.push(gvo.namekor)
+			this.grape += (this.grape ? ',' : '') + gvo.no
+			this.grapename += (this.grapename ? ', ' : '') + gvo.namekor
 		    this.fgrape = ''
 		    this.gList = []
 		},
@@ -413,62 +409,64 @@
 	        this.foodList = []
 	        this.updatefood()
 	    },
+	    setNations() {
+	    	 this.nation = [this.nation1,this.nation2,this.nation3,this.nation4].filter(Boolean).join(',')
+	    },
  		submitForm(){
- 			if(this.namekor==="")
- 			{
- 				this.$refs.namekor.focus()
- 				return
- 			}
- 			if(this.nameeng==="")
- 			{
- 				this.$refs.nameeng.focus()
- 				return
- 			}
- 			if(this.price==="")
- 			{
- 				this.$refs.price.focus()
- 				return
- 			}
- 			if(this.vol==="")
- 			{
- 				this.$refs.vol.focus()
- 				return
- 			}
- 			if(this.aroma==="")
- 			{
- 				this.$refs.aroma.focus()
- 				return
- 			}
- 			if(this.food==="")
- 			{
- 				this.$refs.food.focus()
- 				return
- 			}
- 	
+	    	if (!this.poster) {
+	            this.poster = 'https://wine21.speedgabia.com/no_image2.jpg'
+	        }
+	    	const fields = [
+	            { value: this.namekor, ref: this.$refs.namekor, name: '이름 (한글)' },
+	            { value: this.nameeng, ref: this.$refs.nameeng, name: '이름 (영어)' },
+	            { value: this.price, ref: this.$refs.price, name: '가격' },
+	            { value: this.vol, ref: this.$refs.vol, name: '용량' },
+	            { value: this.aroma, ref: this.$refs.aroma, name: '아로마' },
+	            { value: this.food, ref: this.$refs.food, name: '음식' },
+	            { value: this.stack, ref: this.$refs.stack, name: '재고' },
+	            { value: this.alcohol, ref: this.$refs.alcohol, name: '도수' },
+	            { value: this.sugar, ref: this.$refs.sugar, name: '당도' },
+	            { value: this.acid, ref: this.$refs.acid, name: '산도' },
+	            { value: this.body, ref: this.$refs.body, name: '바디' },
+	            { value: this.tannin, ref: this.$refs.tannin, name: '타닌' },
+	            { value: this.grape, ref: null, name: '품종' }, 
+	            { value: this.maker, ref: null, name: '생산자' }, 
+	            { value: this.nation, ref: null, name: '나라' }
+	        ]
+	    	
+	    	for (const field of fields) {
+	            if (!field.value) {
+	            	field.ref.focus()
+	            	alert(`모든 항목을 빠짐없이 입력해 주세요.`)
+	                return
+	            }
+	        }
  			let formData=new FormData()
  			formData.append("namekor",this.namekor)
  			formData.append("nameeng",this.nameeng)
- 			formData.append("type",this.$refs.type.value) 			
+ 			formData.append("type",this.type) 			
  			formData.append("price",this.price)    			
  			formData.append("vol",this.vol)
  			formData.append("aroma",this.aroma)
  			formData.append("food",this.food)
  			formData.append("alcohol",this.alcohol)
- 			formData.append("stack",this.stack)
+ 			formData.append("stack",this.stack !== 0 ? Number(this.stack) : 0)
  			formData.append("poster",this.poster)
- 			formData.append("sugar",this.$refs.sugar.value)
- 			formData.append("acid",this.$refs.acid.value)
- 			formData.append("body",this.$refs.body.value)
- 			formData.append("tannin",this.$refs.tannin.value)
- 			formData.append("grape",this.grapes)
- 			formData.append("maker",this.maker)
- 			
+ 			formData.append("sugar",this.sugar !== 0 ? Number(this.sugar) : 0)
+ 			formData.append("acid",this.acid !== 0 ? Number(this.acid) : 0)
+ 			formData.append("body",this.body !== 0 ? Number(this.body) : 0)
+ 			formData.append("tannin",this.tannin !== 0 ? Number(this.tannin) : 0)
+ 			formData.append("grape",this.grape)
+ 			formData.append("maker",String(this.maker))
+ 			formData.append("nation",this.nation)
+ 			formData.append("seller",this.nickname)
  			
  			axios.post('../seller/register_vue.do',formData,{
  			}).then(response=>{
  				if(response.data==='yes')
  				{
- 				    console.log(response)	
+ 				    alert("상품 등록이 완료되었습니다")
+ 				    this.resetForm()
  				}
  				else
  				{
@@ -477,29 +475,71 @@
  			}).catch(error=>{
  				console.log(error.response)
  			})
- 		}
+ 		},
+ 		 resetForm() {
+ 	        this.namekor = ''
+ 	        this.nameeng = ''
+ 	        this.type = ''
+ 	        this.price = ''
+ 	        this.vol = ''
+ 	        this.sugar = 0
+ 	        this.acid = 0
+ 	        this.body = 0
+ 	        this.tannin = 0
+ 	        this.stack = ''
+ 	        this.aromaList = []
+ 	        this.foodList = []
+ 	        this.alcohol = ''
+ 	        this.poster = ''
+ 	        this.grape = ''
+ 	        this.maker = ''
+ 	        this.makername = ''
+ 	        this.grapename = ''
+ 	        this.nation1 = ''
+ 	        this.nation2 = ''
+ 	        this.nation3 = ''
+ 	        this.nation4 = ''
+ 	        this.fmaker = ''
+ 	        this.fgrape = ''
+ 	        this.aromaInput = ''
+ 	        this.aroma = ''
+ 	        this.foodInput = ''
+ 	        this.food = ''
+ 	        this.gList = []
+ 	        this.mList = []
+ 	        this.n1List = []
+ 	        this.n2List = []
+ 	        this.n3List = []
+ 	        this.n4List = []
+ 	        this.nickname = '${sessionScope.nickName}'
+ 	    }
  	},
  computed: {
- 	   selectedGrapes() {
- 	        return {
- 	        	grapes:this.grape.join(', '), 
- 	        	grapenames:this.grapename.join(', ')  
- 	        }
- 	    },
  	   formattedAroma() {
- 	        return this.aromaList.join(', ')
+ 	        return this.aromaList.join(',')
  	    },
  	   formattedfood() {
- 	        return this.foodList.join(', ')
+ 	        return this.foodList.join(',')
  	    },
  	   formattedPrice: {
- 	        get() {
- 	            return this.price ? this.price.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''
+ 		  get() {
+ 	            return this.price;
  	        },
  	        set(value) {
- 	            this.price = value.replace(/ 원$/, '') + ' 원' 
+ 	            const numericValue = value.replace(/[^0-9]/g, '')
+ 	            const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (numericValue ? '원' : '')
+ 	            this.price = formattedValue
  	        }
  	    }
+ 	},
+  watch: {
+	  price(newVal) {
+	        this.formattedPrice = this.formattedPrice
+	    },
+ 	    nation1() { this.setNations() },
+ 	    nation2() { this.setNations() },
+ 	    nation3() { this.setNations() },
+ 	    nation4() { this.setNations() },
  	}
  }).mount('#itemregister')
  </script>

@@ -13,10 +13,6 @@
 	background-color: #FFF7B3;
 	display:inline-block !important;
 }
-.row{
-   margin: 0px auto;
-   width: 1080px;
-}
 
 </style>
 </head>
@@ -30,14 +26,14 @@
       <table class="cTable">
         <tr>
         <td width="40%">
-         <input type="button" value="전체" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(0)">
-     	 <input type="button" value="자유" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(1)">
-     	 <input type="button" value="정보" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(2)">
-    	 <input type="button" value="질문" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(3)">
+         <input type="button" value="전체" class="ctbtn form-control" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(0)">
+     	 <input type="button" value="자유" class="ctbtn form-control" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(1)">
+     	 <input type="button" value="정보" class="ctbtn form-control" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(2)">
+    	 <input type="button" value="질문" class="ctbtn form-control" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(3)">
     	 </td>
     	 <!-- 검색 -->
     	 <td width="60%" style="float: right;">
-    		<select id="bfilter" v-model="isSearch">
+    		<select id="bfilter" v-model="isSearch" class="form-control">
     				<option value="" disabled selected>검색 조건 선택 ▼ </option>
                     <option value="0">제목</option>
                     <option value="1">작성자</option>

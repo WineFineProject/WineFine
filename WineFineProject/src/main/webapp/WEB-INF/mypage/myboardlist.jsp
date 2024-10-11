@@ -127,6 +127,7 @@
 	    			startPage:0,
 	    			endPage:0,
 	    			id:'${sessionScope.userId}',
+	    			nickname:'${sessionScope.nickName}',
 	    			type:0,
 	    			isSearch:0,
 	    			find:''
@@ -139,7 +140,11 @@
 				axios.get("../mypage/myboardlist_vue.do",{
 					params:{
 						type:this.type,
-						page:this.curpage											
+						page:this.curpage,
+						nickname: this.nickname		
+						start:this.start
+						end:this.end
+						
 					}
 				}).then(response=>{
     				this.list=response.data.list

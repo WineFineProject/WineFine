@@ -114,7 +114,7 @@
             <h5> </h5>
             </td>
             <td width="60%" v-if="id===rvo.id">
-            <button class="brbtn form-control" style="float: right;  " @click="replyDelete(rvo.brno)">삭제</button>
+            <button class="brbtn form-control" style="float: right;  " @click="replyDelete(rvo.brno, rvo.depth)">삭제</button>
             <button class="brbtn form-control" style="float: right; margin-right: 5px;" class="brupbtn ups" :id="'up'+rvo.brno" @click="replyUpdateForm(rvo.brno)">수정</button>
             </td>
             <td width="20%"> </td>
@@ -328,11 +328,12 @@
 				  console.log(error.response)
 			  })
 		  },
-		  replyDelete:function(brno){
+		  replyDelete:function(brno, depth){
 			  axios.get('../board/reply_delete_vue.do',{
 				  params:{
 					  bno:this.bno,
-					  brno:brno
+					  brno:brno,
+					  depth:depth
 				  }
 			  }).then(response=>{
 				  console.log(response.data)

@@ -15,11 +15,24 @@
 	background-color: #FFF7B3;
 	display:inline-block !important;
 }
-.row{
-   margin: 0px auto;
-   width: 1080px;
+.ctbtn{
+width: 15%; 
+display: inline-block; 
+margin-left:5px;
+background-color: #C91C40 !important; 
+border-color: white;
+color: white;
 }
-
+.table-fixed {
+    width: 100%; 
+    table-layout: fixed; 
+}
+.blistsub{
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:400px !important;
+}
 </style>
 </head>
 <body>
@@ -29,17 +42,17 @@
       <table class="cTable">
         <tr>
         <td width="40%">
-         <input type="button" value="전체" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(0)">
-     	 <input type="button" value="일반" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(4)">
-     	 <input type="button" value="이벤트" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(5)">
-    	 <input type="button" value="상품" class="ctbtn btn-sm" style="margin-left: 5px; background-color: white; border-color: darkred;" @click="typeChange(6)">
+         <input type="button" value="전체" class="ctbtn form-control"  @click="typeChange(0)">
+     	 <input type="button" value="일반" class="ctbtn form-control"  @click="typeChange(4)">
+     	 <input type="button" value="이벤트" class="ctbtn form-control" @click="typeChange(5)">
+    	 <input type="button" value="상품" class="ctbtn form-control"  @click="typeChange(6)">
     	 </td>
     	 <td width="60%" class="text-right">
     	 &nbsp;
     	 </td>
         </tr>
       </table>
-      <table class="table">
+      <table class="table table-fixed">
        <thead>
         <tr>
          <th width="5%" class="text-center">번호</th>
@@ -58,21 +71,21 @@
          	<span v-if="vo.cno==5">[이벤트]</span>
          	<span v-if="vo.cno==6">[상품]</span>
          </td>
-         <td width="40%"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}</a></td>
+         <td width="40%" class="blistsub"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}</a></td>
          <td width="15%" class="text-center">관리자</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
          <td width="15%" class="text-center">{{vo.hit}}</td>
         </tr>
        </tbody>
        <tbody v-else>
-       <tr v-for="vo in cList">
-         <td width="5%" class="text-center">{{vo.bno}}</td>
+       <tr v-for="(vo, index) in cList">
+         <td width="5%" class="text-center">{{cList.length - index}}</td>
          <td width="10%" class="text-center">
          	<span v-if="vo.cno==4">[일반]</span>
          	<span v-if="vo.cno==5">[이벤트]</span>
          	<span v-if="vo.cno==6">[상품]</span>
          </td>
-         <td width="40%"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}</a></td>
+         <td width="40%" class="blistsub"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}</a></td>
          <td width="15%" class="text-center">관리자</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
          <td width="15%" class="text-center">{{vo.hit}}</td>

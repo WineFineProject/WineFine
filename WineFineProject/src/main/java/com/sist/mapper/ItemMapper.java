@@ -42,9 +42,16 @@ public interface ItemMapper {
 	 @Select("SELECT no, namekor, part, area FROM itemnation WHERE area=#{areanum} AND part=4")
 	 public List<ItemNationVO> nation4FindListData(@Param("areanum") int areanum);
 	 
-	// 상품 수정
+     // 상품 조회
+	 // 판매자 별 와인 리스트 
+	 // 판매자 별 와인 총 개수 
+	 // 
+	 // 판매자 공지 리스트 (번호, 제목)
+	 
+	 
+	 // 상품 수정
 	
-	// 상품 조회
+
 	
 	// 상품 승인 대기
 	
