@@ -30,5 +30,17 @@ public class ReplyDAO {
 		mapper.hitIncrement(wrno);
 		return mapper.replyDetailData(wrno);
 	}
+	public ReplyBoardVO replyDetail(int wrno)
+	{
+		return mapper.replyDetailData(wrno);
+	}
+	public void replyDelete(int group_id)
+	{
+		mapper.replyDelete(group_id);
+	}
+	public void replyUpdateData(ReplyBoardVO vo)
+	{
+		mapper.replyUpdateData(vo);
+	}
 
 }

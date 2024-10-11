@@ -34,4 +34,21 @@ public class ReplyBoardServiceImpl implements ReplyBoardService{
 		// TODO Auto-generated method stub
 		return dao.replyDetailData(wrno);
 	}
+
+	@Override
+	public void replyDelete(int group_id) {
+		// TODO Auto-generated method stub
+		dao.replyDelete(group_id);
+	}
+
+	@Override
+	public void replyUpdateData(ReplyBoardVO vo) {
+		// TODO Auto-generated method stub
+		dao.replyUpdateData(vo);
+	}
+	
+	@Override
+	public ReplyBoardVO replyDetail(int wrno) {
+		return dao.replyDetail(wrno);
+	}
 }

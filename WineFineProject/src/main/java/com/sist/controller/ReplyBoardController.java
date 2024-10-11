@@ -27,29 +27,8 @@ public class ReplyBoardController {
 	}
 	// 게시판 목록
 	@GetMapping("replyboard/list.do")
-	public String replyboardList(String page,Model model, @SessionAttribute(value = "userid", required = false) String userid) 
+	public String replyboardList() 
 	{
-	    if (userid == null) {
-	        userid = "";
-	    }
-
-		if(page==null)
-			   page="1";
-		int curpage=Integer.parseInt(page);
-		Map map=new HashMap();
-		int rowSize=10;
-		int start=(rowSize*curpage)-(rowSize-1);
-		int end=rowSize*curpage;
-		List<ReplyBoardVO> list=rService.replyListData(start, end, userid);   
-		int count=rService.replyCount();
-		int totalpage=(int)(Math.ceil(count/(double)rowSize));
-		count=count-((curpage*rowSize)-rowSize);
-		
-		model.addAttribute("list", list);
-		model.addAttribute("curpage", curpage);
-		model.addAttribute("totalpage", totalpage);
-		model.addAttribute("count", count);
-		model.addAttribute("today", new SimpleDateFormat("yyy-MM-dd").format(new Date()));
 		return "replyboard/list";
 	}
 	// 회원 게시글 작성
@@ -71,6 +50,12 @@ public class ReplyBoardController {
 		model.addAttribute("wrno", wrno);
 		return "replyboard/detail";
 	}
-	
+	// 게시글 수정
+	@GetMapping("replyboard/update.do")
+	public String replyboardUpdate(int wrno, Model model)
+	{
+		model.addAttribute("wrno", wrno);
+		return "replyboard/update";
+	}
 
 }

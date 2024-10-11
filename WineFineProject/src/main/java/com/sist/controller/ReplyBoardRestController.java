@@ -1,9 +1,11 @@
 package com.sist.controller;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +31,38 @@ public class ReplyBoardRestController {
         String json = mapper.writeValueAsString(list);
         return json;
     }
+	// 게시판 목록
+	@GetMapping(value = "replyboard/listvue.do", produces = "text/plain;charset=UTF-8")
+	public String replyboardList(String page,HttpSession session) throws Exception
+	{
+		String userid=(String)session.getAttribute("userId");
+	    if (userid == null) {
+	        userid = "";
+	    }
+
+		if(page==null)
+			   page="1";
+		int curpage=Integer.parseInt(page);
+		Map map=new HashMap();
+		int rowSize=10;
+		int start=(rowSize*curpage)-(rowSize-1);
+		int end=rowSize*curpage;
+		List<ReplyBoardVO> list=rService.replyListData(start, end, userid);   
+		int count=rService.replyCount();
+		int totalpage=(int)(Math.ceil(count/(double)rowSize));
+		count=count-((curpage*rowSize)-rowSize);
+		
+		map.put("list", list);
+		map.put("curpage", curpage);
+		map.put("totalpage", totalpage);
+		map.put("count", count);
+		map.put("today", new SimpleDateFormat("yyy-MM-dd").format(new Date()));
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(map);
+		
+		return json;
+	}
     // 게시글 등록
 	@PostMapping("replyboard/insertOk.do")
 	public String replyboardInsertOk(ReplyBoardVO vo, HttpSession session)
@@ -51,5 +85,45 @@ public class ReplyBoardRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;
+	}
+	// 게시글 수정
+	@GetMapping(value = "replyboard/updatevue.do", produces = "text/plain;charset=UTF-8")
+	public String replyboardUpdate(int wrno) throws Exception
+	{
+		ReplyBoardVO vo=rService.replyDetail(wrno);
+		System.out.println(vo);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	@PostMapping(value="replyboard/updateOkvue.do",produces = "text/plain;charset=UTF-8")
+	  public String replyboardUpdateOk(ReplyBoardVO vo)
+	  {
+		System.out.println(vo);
+		   String result="";
+		   try
+		   {
+			   rService.replyUpdateData(vo);
+			   result="yes";
+		   }catch(Exception ex)
+		   {
+			   result=ex.getMessage();   
+		   }
+		   return result;
+	  }
+	// 게시글 삭제
+	@GetMapping(value = "replyboard/deletevue.do", produces = "text/plain;charset=UTF-8")
+	public String replyboardDelete(int wrno) throws Exception
+	{
+		  String result="";
+		  try
+		  {
+			  rService.replyDelete(wrno);
+			  result="yes";
+		  }catch(Exception ex)
+		  {
+			  result=ex.getMessage();
+		  }
+		  return result;
 	}
 }

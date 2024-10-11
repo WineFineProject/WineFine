@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.ReplyBoardMapper">
+	<resultMap type="com.sist.vo.ReplyBoardVO" id="replyBoardMap">
+		<result property="wvo.namekor" column="namekor" />
+		<result property="wvo.mvo.nickName" column="seller" />
+	</resultMap>
+	<select id="replyDetailData" resultMap="replyBoardMap" parameterType="int">
+	SELECT wrno,userid,nickname,subject,content,
+	TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cno,type,
+	recvid,wno,group_id,group_step,isreply,hit,secret, (SELECT namekor FROM wine WHERE wine.wno=wine_replyboard.wno) as namekor,
+	(SELECT nickname FROM wine_member WHERE userid=(SELECT seller FROM wine WHERE wine.wno=wine_replyboard.wno)) as seller
+  	FROM wine_replyboard 
+  	WHERE wrno=#{wrno}
+	</select>
+</mapper>

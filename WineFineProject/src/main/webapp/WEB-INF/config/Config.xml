@@ -11,6 +11,7 @@
 	<typeAlias type="com.sist.vo.PromotionBannerVO" alias="PromotionBannerVO"/>
 	<typeAlias type="com.sist.vo.PromotionSaleVO" alias="PromotionSaleVO"/>
 	<typeAlias type="com.sist.vo.NoticeBoardVO" alias="NoticeBoardVO"/>
+	<typeAlias type="com.sist.vo.ReplyBoardVO" alias="ReplyBoardVO"/>
 	</typeAliases>
 	<mappers>
 	<mapper resource="com/sist/mapper/wine_mapper.xml"/>
@@ -18,5 +19,6 @@
 	<mapper resource="com/sist/mapper/banner_mapper.xml"/>
 	<mapper resource="com/sist/mapper/sale_mapper.xml"/>
 	<mapper resource="com/sist/mapper/noticeboard_mapper.xml"/>
+	<mapper resource="com/sist/mapper/replyboard_mapper.xml"/>
 	</mappers>
 </configuration>

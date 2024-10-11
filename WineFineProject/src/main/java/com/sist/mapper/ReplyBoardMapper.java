@@ -2,6 +2,7 @@ package com.sist.mapper;
 import com.sist.vo.*;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -37,16 +38,15 @@ public interface ReplyBoardMapper {
     public void hitIncrement(int wrno);
     
     // 상세보기 
-    @Select("SELECT wrno,userid,nickname,subject,content,"
-			+"TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cno,type,"
-			+"recvid,wno,group_id,group_step,isreply,hit,secret "
-  		    +"FROM wine_replyboard "
-  		    +"WHERE wrno=#{wrno}")
     public ReplyBoardVO replyDetailData(int wrno);
     
     // 삭제
+    @Delete("DELETE FROM wine_replyboard WHERE group_id=#{group_id}")
+    public void replyDelete(int group_id);
     
     // 수정
-    
+    @Update("UPDATE wine_replyboard SET subject=#{subject}, content=#{content}, cno=#{cno}, secret=#{secret} "
+    		+"WHERE wrno=#{wrno}")
+    public void replyUpdateData(ReplyBoardVO vo);
 
 }

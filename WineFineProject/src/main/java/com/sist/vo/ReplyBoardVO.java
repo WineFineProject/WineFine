@@ -7,4 +7,5 @@ public class ReplyBoardVO {
    private int wrno,cno,type,wno,group_id,group_step,isreply,hit,secret;
    private String userid,nickname,subject,content,recvid,dbday;
    private Date regdate;
+   private WineVO wvo=new WineVO();
 }
