@@ -165,6 +165,12 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
+	public void boardRepliesDelete(int brno) {
+		// TODO Auto-generated method stub
+		dao.boardRepliesDelete(brno);
+	}
+	
+	@Override
 	public void boardReplyAllDelete(int bno) {
 		// TODO Auto-generated method stub
 		dao.boardReplyAllDelete(bno);

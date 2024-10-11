@@ -396,10 +396,16 @@ public class BoardRestController {
 		return (rereplycount == 0) ? "OK" : "NO";
 	}
 	@GetMapping(value="board/reply_delete_vue.do",produces = "text/plain;charset=UTF-8")
-	public String reply_delete(int bno, int brno)
+	public String reply_delete(int bno, int brno, int depth)
 	{
-		bService.boardReplyDelete(brno);
-		return boardReply_list(bno);
+		 if (depth == 1) 
+		 {
+		        bService.boardRepliesDelete(brno);
+		 } else if (depth == 2) {
+		        
+		        bService.boardReplyDelete(brno);
+		 }
+		    return boardReply_list(bno);
 	}
 
 	@PostMapping(value="board/reply_update_vue.do",produces = "text/plain;charset=UTF-8")

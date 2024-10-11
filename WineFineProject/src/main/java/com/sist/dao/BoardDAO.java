@@ -126,6 +126,10 @@ public class BoardDAO {
 	 {
 		 mapper.boardReplyDelete(brno);
 	 }
+	 public void boardRepliesDelete(int brno)
+	 {
+		 mapper.boardRepliesDelete(brno);
+	 }
 	 public void boardReplyAllDelete(int bno)
 	 {
 		 mapper.boardReplyAllDelete(bno);

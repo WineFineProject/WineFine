@@ -165,7 +165,12 @@ public interface BoardMapper {
 	 @Delete("DELETE FROM boardreply "
 			 +"WHERE brno=#{brno}")
 	 public void boardReplyDelete(int brno);
-	
+	 
+	 // 댓글과 대댓글 전부 삭제
+	 @Delete("DELETE FROM boardreply "
+	 		+ "WHERE root = (SELECT root FROM boardreply WHERE brno = #{brno})")
+	 public void boardRepliesDelete(int brno);
+	 
 	 //게시물의 댓글 전체 삭제
 	 @Delete("DELETE FROM boardreply "
 			 +"WHERE bno=#{bno}")

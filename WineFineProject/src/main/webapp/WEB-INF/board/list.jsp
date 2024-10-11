@@ -13,10 +13,7 @@
 	background-color: #FFCC52;
 	display:inline-block !important;
 }
-.row{
-   margin: 0px auto;
-   width: 1080px;
-}
+
 .ctbtn{
 width: 15%; 
 display: inline-block; 
@@ -31,7 +28,16 @@ color: white;
 	width: 18%; 
 	text-align: center;
 }
-
+.blistsub{
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:400px !important;
+}
+.table-fixed {
+    width: 100%; 
+    table-layout: fixed; 
+}
 </style>
 </head>
 <body>
@@ -58,13 +64,12 @@ color: white;
     	 </td>
         </tr>
       </table>
-      <table class="table">
+      <table class="table table-fixed">
        <thead>
         <tr>
          <th width="5%" class="text-center">번호</th>
          <th width="10%" class="text-center">분류</th>
-         <th width="30%" class="text-center">제목</th>
-         <th width="10%" class="text-center">첨부파일</th>
+         <th width="40%" class="text-center">제목</th>
          <th width="15%" class="text-center">작성자</th>
          <th width="15%" class="text-center">작성일</th>
          <th width="15%" class="text-center">조회수</th>
@@ -78,9 +83,8 @@ color: white;
          	<span v-if="vo.cno==2">[정보]</span>
          	<span v-if="vo.cno==3">[질문]</span>
          </td>
-         <td width="30%"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.replycount}})</a></td>
-         <td width="10%"  v-if="vo.filecount>0" class="text-center">📎</td>
-         <td width="10%"  v-else class="text-center"></td>
+         <td width="40%" v-if="vo.filecount>0" class="blistsub"><a :href="'detail.do?bno='+vo.bno">&#127748; {{vo.subject}}&nbsp;({{vo.replycount}})</a></td>
+         <td width="40%" v-else class="blistsub"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.replycount}})</a></td>
          <td width="15%" class="text-center">{{vo.nickname}}</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
          <td width="15%" class="text-center">{{vo.hit}}</td>
@@ -94,9 +98,8 @@ color: white;
          	<span v-if="vo.cno==2">[정보]</span>
          	<span v-if="vo.cno==3">[질문]</span>
          </td>
-         <td width="30%"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.creplycount}})</a></td>
-         <td width="10%"  v-if="vo.filecount>0" class="text-center">📎</td>
-         <td width="10%"  v-else class="text-center"></td>
+         <td width="40%" v-if="vo.filecount>0" class="blistsub"><a :href="'detail.do?bno='+vo.bno">&#127748; {{vo.subject}}&nbsp;({{vo.creplycount}})</a></td>
+         <td width="40%" v-else class="blistsub"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.creplycount}})</a></td>
          <td width="15%" class="text-center">{{vo.nickname}}</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
          <td width="15%" class="text-center">{{vo.hit}}</td>

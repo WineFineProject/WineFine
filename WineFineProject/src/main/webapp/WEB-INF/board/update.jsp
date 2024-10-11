@@ -7,10 +7,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
-.row{
-   margin: 0px auto;
-   width: 1080px;
-}
+
 </style>
 </head>
 <body>
@@ -56,7 +53,7 @@
         </td>
       </tr>
       <tr>
-        <td colspan="2" class="text-center">
+        <td colspan="2" class="text-center" style="border: none;">
            <input type="submit"  class="btn btn-danger" value="등록">
           &nbsp;
           <input type="button"  class="btn btn-secondary" value="취소"

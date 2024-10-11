@@ -32,6 +32,7 @@ public interface BoardService {
 	public void boardReReplyInsert(BoardReplyVO vo);
 	public void boardReplyUpdate(BoardReplyVO vo);
 	public void boardReplyDelete(int brno);
+	public void boardRepliesDelete(int brno);
 	public void boardReplyAllDelete(int bno);
 	
 	public List<BoardVO> noticeboardListData(int start, int end);

@@ -6,10 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.row{
-   margin: 0px auto;
-   width: 1080px;
-}
+
 </style>
 </head>
 <body>
@@ -35,7 +32,7 @@
       <tr>
        <th width="20%" class="text-center">제목</th>
        <td width="80%">
-        <input type=text size=50 class="form-control" v-model="subject" ref="subject" class="input-sm">
+        <input type=text size=50 class="form-control" v-model="subject" ref="subject">
        </td>
       </tr>
       <tr>
@@ -47,14 +44,14 @@
       <tr>
         <th width="20%" class="text-center">첨부파일</th>
         <td width="80%">
-         <input type="file" class="form-control" ref="upfiles" class="input-sm" 
+         <input type="file" class="form-control" ref="upfiles"  
            multiple="multiple"
            accept="upload/*"
          />
         </td>
       </tr>
       <tr>
-        <td colspan="2" class="text-center">
+        <td colspan="2" class="text-center" style="border: none;">
           <input type="submit"  class="btn btn-danger" value="등록">
           &nbsp;
           <input type="button"  class="btn btn-secondary" value="취소"

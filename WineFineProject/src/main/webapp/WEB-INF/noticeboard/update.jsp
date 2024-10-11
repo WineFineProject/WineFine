@@ -7,10 +7,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
-.row{
-   margin: 0px auto;
-   width: 1080px;
-}
+
 </style>
 </head>
 <body>
@@ -25,7 +22,7 @@
       <tr>
        <th width="20%" class="text-center">카테고리 </th>
        <td width="80%">
-         <select id="bCategory" v-model="cno" ref="cno">
+         <select id="bCategory" class="form-control" v-model="cno" ref="cno">
                     <option value="" disabled selected>카테고리 선택</option>
                     <option value=4>일반</option>
                     <option value=5>이벤트</option>
@@ -36,20 +33,20 @@
       <tr>
        <th width="20%" class="text-center">제목</th>
        <td width="80%">
-        <input type=text size=50 v-model="subject" ref="subject" class="input-sm">
+        <input type=text size=50 v-model="subject" ref="subject" class="form-control">
        </td>
       </tr>
       <tr>
        <th width="20%" class="text-center">내용</th>
        <td width="80%">
-        <textarea rows="10" cols="52" v-model="content" ref="content"></textarea>
+        <textarea rows="10" cols="52" class="form-control" v-model="content" ref="content" style="resize: none;"></textarea>
        </td>
       </tr>
       <tr>
-        <td colspan="2" class="text-center">
-          <input type="submit" class="btn btn-sm btn-danger" value="등록">
+        <td colspan="2" class="text-center" style="border: none;">
+          <input type="submit" class="btn btn-danger" value="등록">
           &nbsp;
-          <input type="button" class="btn btn-sm btn-success" value="취소"
+          <input type="button" class="btn btn-secondary" value="취소"
            onclick="javascript:history.back()">
         </td>
       </tr>
