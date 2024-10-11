@@ -73,7 +73,7 @@ public class MyPageRestController {
 	
 	
 	// 작성 게시글 리스트 
-	@PostMapping(value = "mypage/myBoardList_vue.do", produces = "text/plain;charset=UTF-8")
+	@PostMapping(value = "mypage/myboardlist_vue.do", produces = "text/plain;charset=UTF-8")
 	public String myBoardList(int page, Integer type, HttpSession session) throws Exception {
 	    // 세션에서 사용자 정보 가져오기
 		

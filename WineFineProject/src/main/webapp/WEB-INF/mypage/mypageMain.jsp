@@ -50,10 +50,10 @@
 					<!-- 사이드바 메뉴목록2 -->
 					<ul class="list-group">
 						<li class="list-group-item"><a href="../mypage/coupon.do">쿠폰함</a></li>
-						<li class="list-group-item"><a href="../mypage/myPayment.do">구매내역</a></li>
+						<li class="list-group-item"><a href="../mypage/mypayment.do">구매내역</a></li>
 						<li class="list-group-item"><a href="../mypage/my_reserve.do">예약내역</a></li>
-						<li class="list-group-item"><a href="../mypage/myBoardList.do">작성한글</a></li>
-						<li class="list-group-item"><a href="../mypage/myReview.do">작성리뷰</a></li>
+						<li class="list-group-item"><a href="../mypage/myboardlist.do">작성한글</a></li>
+						<li class="list-group-item"><a href="../mypage/myreview.do">작성리뷰</a></li>
 						<li class="list-group-item"><a href="../mypage/my_like.do">내좋아요</a></li>
 					</ul>
 				</div>

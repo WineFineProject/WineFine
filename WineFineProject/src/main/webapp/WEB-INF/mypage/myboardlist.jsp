@@ -137,7 +137,7 @@ b list
 			this.dataRecv()},
 		methods:{
 			dataRecv(){				
-				axios.post('../mypage/myBoardList_vue.do',{
+				axios.post('../mypage/myboardlist_vue.do',{
 					params:{
 						type:this.type,
 						page:this.curpage
@@ -152,7 +152,35 @@ b list
     			}).catch(error=>{
     				console.log(error.response)
     			})
-			}
+			},
+			typeChange(type){
+    			this.curpage=1
+    			this.type=type
+    			this.dataRecv()
+    		},
+    	   prev(){
+ 			   this.curpage=this.curpage>1?this.curpage-1:this.curpage
+ 			   this.dataRecv()
+ 		   },
+ 		   next(){
+ 			   this.curpage=this.curpage<this.endPage?this.curpage+1:this.curpage
+ 			   this.dataRecv()
+ 		   },
+ 		  	pageChange(page){
+ 			   	 this.curpage=page
+ 	 			 this.dataRecv()
+ 	 		},
+ 	 		 range(start,end){
+ 	 			 let arr=[]
+ 	 			 let len=end-start
+ 	 			 for(let i=0;i<=len;i++)
+ 	 			 {
+ 	 				 arr[i]=start
+ 	 				 start++;
+ 	 			 }
+ 	 			 return arr
+ 	 		 }
+			
 		}
 	}).mount('#mbList')
   </script>

@@ -16,7 +16,7 @@ public interface MypageMapper {
 	        	  +"FROM (SELECT bno,cno,subject,nickname,regdate,hit,filecount "
 	        	  		+"FROM board WHERE cno<=3 AND nickname = #{nickname} ORDER BY bno DESC)) "
 	        +"WHERE num BETWEEN #{start} AND #{end}")
-    public List<BoardVO> myBoardListData(@Param("nickname") String nickname,@Param("start") int start, @Param("end") int end);
+    public List<BoardVO> myBoardListData(@Param("nickName") String nickname,@Param("start") int start, @Param("end") int end);
     
 	// 카테고리 별 목록 
 	 @Select("SELECT bno, cno,subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,filecount,num "
@@ -25,14 +25,14 @@ public interface MypageMapper {
 			 +"FROM board "
 			 + "FROM board WHERE cno=#{cno} AND nickname = #{nickname} ORDER BY bno DESC))) "
 			 +"WHERE num BETWEEN #{start} AND #{end}")
-	 public List<BoardVO> boardTypeListData(@Param("nickname") String nickname, @Param("cno") int type, @Param("start") int start, @Param("end") int end);
+	 public List<BoardVO> boardTypeListData(@Param("nickName") String nickname, @Param("cno") int type, @Param("start") int start, @Param("end") int end);
 	 
 	// 전체 총페이지
 	 @Select("SELECT CEIL(COUNT(*)/10.0) FROM board WHERE cno<=3 AND nickname = #{nickname}")
-	 public int myPageBoardTotalPage(@Param("nickname") String nickname);
+	 public int myPageBoardTotalPage(@Param("nickName") String nickname);
 	
 	 // 카테고리별 총페이지
 	 @Select("SELECT CEIL(COUNT(*)/10.0) FROM board WHERE cno=#{cno} AND id=#{id}")
-	 public int myPageCBoardTotalPage(@Param("nickname") String nickname, @Param("cno") int type);
+	 public int myPageCBoardTotalPage(@Param("nickName") String nickname, @Param("cno") int type);
 }
 
