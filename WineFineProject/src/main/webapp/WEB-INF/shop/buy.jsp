@@ -24,7 +24,6 @@
 </head>
 <body>
 	<div class="shopcontainer">
-		<h2>test buy page</h2>
 		<!-- Modal Search Start -->
 		<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-fullscreen">
@@ -54,7 +53,7 @@
 		<!-- Cart Page Start -->
 		<div class="container-fluid py-5">
 			<div class="container py-5">
-
+			<div>판매자 &gt; <a href="#">{{vo.seller}}</a></div>
 				<div class="table-responsive">
 					<table class="table">
 						<thead>
@@ -224,8 +223,7 @@
 		mounted() {
 		    axios.get('../shop/buy_vue.do', {
 		        params: {
-		            wno: this.wno,
-		            sessionId:this.sessionId
+		            wno: this.wno
 		        }
 		    }).then(response => {
 		        console.log(response.data)

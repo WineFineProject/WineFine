@@ -18,6 +18,8 @@ import com.sist.vo.*;
 
 @RestController
 public class ShopRestController {
+	String[] wtypes= {"","레드","화이트","스파클링","주정강화","기타"};
+	
 	private ShopService sservice;
 	@Autowired
 	public ShopRestController(ShopService sservice) {
@@ -79,14 +81,34 @@ public class ShopRestController {
 		
 	}
 	@GetMapping(value = "shop/buy_vue.do", produces = "text/plain;charset=UTF-8")
-	public String wine_buy(int wno, String sessionId) throws Exception{
+	public String wine_buy(int wno,HttpSession session) throws Exception{
 		WineVO vo = sservice.winebuy(wno);
-		List<MyCouponVO> cvo = sservice.selectCoupon(sessionId);
+		String id = (String)session.getAttribute("userId");
+		List<MyCouponVO> cvo = sservice.selectCoupon(id);
 		
 		Map map = new HashMap();
 		map.put("vo", vo);
 		map.put("cvo", cvo);
+			
+		String psseller = vo.getSeller();
+		map.put("seller", psseller);
+		int pswno = vo.getWno();
+		map.put("wno", pswno);
 		
+//		타입 찾는 for 문
+		String s = vo.getType();
+		int typeIndex = 0;
+		
+		for(int i = 1 ; i<wtypes.length ;i++) {
+			if(wtypes[i].equals(s)) {
+				typeIndex = i;
+				break;
+			}
+		}		
+		map.put("type", typeIndex);	
+		PromotionSaleVO psvo = sservice.promotionGetSale(map);
+//		보유한쿠폰 list 다 나오게 하기 
+//		주소지 추가하는창 넣어두기   state 1 이 기본 배송지 0이 이외 저장 배송지
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);
 		return json;

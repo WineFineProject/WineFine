@@ -46,6 +46,10 @@ public class ShopDAO {
 	public MyCouponVO useCoupon(String id) {
 		return mapper.useCoupon(id);
 	}
+//	할인율이 가장 높은 프로모션 확인하기
+	public PromotionSaleVO promotionGetSale(Map map) {
+		return mapper.promotionGetSale(map);
+	}
 
 
 
