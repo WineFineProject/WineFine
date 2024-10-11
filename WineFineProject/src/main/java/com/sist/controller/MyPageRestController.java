@@ -73,7 +73,7 @@ public class MyPageRestController {
 	
 	
 	// 작성 게시글 리스트 
-	@PostMapping(value = "mypage/myboardlist_vue.do", produces = "text/plain;charset=UTF-8")
+	@GetMapping(value = "mypage/myboardlist_vue.do", produces = "text/plain;charset=UTF-8")
 	public String myBoardList(int page, Integer type, HttpSession session) throws Exception {
 	    // 세션에서 사용자 정보 가져오기
 		
@@ -88,7 +88,7 @@ public class MyPageRestController {
 	    int end = rowSize * page;
 
 	    // 사용자의 게시글 목록 가져오기
-	    List<BoardVO> list = mService.myBoardListData(nickname, start, end);
+	    List<BoardVO> list = mService.myBoardListData(nickname,start,end);
 	    int totalpage = mService.myPageBoardTotalPage(nickname);
 	    int ctotalpage = mService.myPageCBoardTotalPage(nickname,type);
 
@@ -118,7 +118,7 @@ public class MyPageRestController {
 	        board.setCreplycount(replyCount);
 	    }
 
-	    Map<String, Object> map = new HashMap<>();
+	    Map map = new HashMap();
 	    map.put("list", list);
 	    map.put("cList", cList);
 	    map.put("curpage", page);

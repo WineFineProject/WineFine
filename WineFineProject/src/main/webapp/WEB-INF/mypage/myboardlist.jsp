@@ -1,4 +1,3 @@
-b list
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -137,10 +136,10 @@ b list
 			this.dataRecv()},
 		methods:{
 			dataRecv(){				
-				axios.post('../mypage/myboardlist_vue.do',{
+				axios.get("../mypage/myboardlist_vue.do",{
 					params:{
 						type:this.type,
-						page:this.curpage
+						page:this.curpage											
 					}
 				}).then(response=>{
     				this.list=response.data.list
