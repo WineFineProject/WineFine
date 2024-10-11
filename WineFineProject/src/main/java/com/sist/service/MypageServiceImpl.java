@@ -1,6 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,28 +15,52 @@ public class MypageServiceImpl implements MypageService {
 	private MyPageDAO dao;
 
 	@Override
-	public List<BoardVO> myBoardListData(String nickname, int start, int end) {
+	public List<BoardVO> getBoardsByUserId(String userId) {
 		// TODO Auto-generated method stub
-		return dao.boardTypeListData(nickname, end, start, end);
+		return dao.getBoardsByUserId(userId);
 	}
 
 	@Override
-	public List<BoardVO> boardTypeListData(String nickname, int type, int start, int end) {
+	public int getboardCountByUserId(String userId) {
 		// TODO Auto-generated method stub
-		return dao.boardTypeListData(nickname, type, start, end);
+		return dao.getboardCountByUserId(userId);
 	}
 
 	@Override
-	public int myPageBoardTotalPage(String nickname) {
+	public List<BoardVO> getBoardsByUserIdWithPaging(String userId, int limit, int offset) {
 		// TODO Auto-generated method stub
-		return dao.myPageBoardTotalPage(nickname);
+		return dao.getBoardsByUserIdWithPaging(userId, limit, offset);
 	}
 
 	@Override
-	public int myPageCBoardTotalPage(String nickname, int type) {
+	public List<Map<String, Object>> getBoardCountByCategoryForUser(String userId) {
 		// TODO Auto-generated method stub
-		return dao.myPageCBoardTotalPage(nickname, type);
+		return dao.getBoardCountByCategoryForUser(userId);
 	}
+
+//	@Override
+//	public List<BoardVO> myBoardListData(String nickname, int start, int end) {
+//		// TODO Auto-generated method stub
+//		return dao.myBoardListData(nickname, start, end);
+//	}
+//
+//	@Override
+//	public List<BoardVO> boardTypeListData(String nickname, int type, int start, int end) {
+//		// TODO Auto-generated method stub
+//		return dao.boardTypeListData(nickname, type, start, end);
+//	}
+//
+//	@Override
+//	public int myPageBoardTotalPage(String nickname) {
+//		// TODO Auto-generated method stub
+//		return dao.myPageBoardTotalPage(nickname);
+//	}
+//
+//	@Override
+//	public int myPageCBoardTotalPage(String nickname, int type) {
+//		// TODO Auto-generated method stub
+//		return dao.myPageCBoardTotalPage(nickname, type);
+//	}
 	
 	
 }
