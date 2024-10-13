@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -40,13 +41,22 @@ public interface MemberMapper {
     public List<MemberVO> memberList();
     
     // 관리자 회원 목록
-    @Select("SELECT wm.userId, wm.nickName, wm.userName, birthday, wm.sex, wm.phone, wm.post, wm.addr1, wm.addr2, wm.grade, wm.photo, "
-    		+"a.authority, TO_CHAR(wm.regdate, 'YYYY-MM-DD') as regday, wm.email "
-    		+"FROM wine_member wm "
-    		+"JOIN authority a ON wm.userid = a.userid "
-    		+"WHERE a.authority IN ('ROLE_USER', 'ROLE_SELLER') "
-    		+"ORDER BY wm.regdate DESC")
-    public List<MemberVO> adminmemberList();
+    @Select("SELECT userId, nickName, userName, birthday, sex, phone, post, addr1, addr2, grade, photo,"
+    		+ "authority, regday, email "
+    		+ "FROM (SELECT wm.userId, wm.nickName, wm.userName, birthday, wm.sex, wm.phone, wm.post,"
+    		+ "wm.addr1, wm.addr2, wm.grade, wm.photo,"
+    		+ "a.authority, TO_CHAR(wm.regdate, 'YYYY-MM-DD') as regday, wm.email,"
+    		+ "rownum as num "
+    		+ "FROM wine_member wm "
+    		+ "JOIN authority a ON wm.userid = a.userid "
+    		+ "WHERE a.authority IN ('ROLE_USER', 'ROLE_SELLER') "
+    		+ "ORDER BY wm.regdate DESC) "
+    		+ "WHERE num BETWEEN #{start} AND #{end}")
+    public List<MemberVO> adminmemberList(@Param("start") int start, @Param("end") int end);
+    
+    // 관리자 회원 목록 페이징
+    @Select("SELECT CEIL(COUNT(*) / 10.0) FROM wine_member")
+    public int adminmemberCount();
 
     // 회원 삭제
     @Delete("DELETE FROM wine_member WHERE userId=#{userId}")

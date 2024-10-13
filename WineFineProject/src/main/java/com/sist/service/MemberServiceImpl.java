@@ -36,11 +36,18 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		dao.deleteMember(null);
 	}
+
 	@Override
-	public List<MemberVO> adminmemberList() {
+	public List<MemberVO> adminmemberList(int start, int end) {
 		// TODO Auto-generated method stub
-		return dao.adminmemberList();
+		return dao.adminmemberList(start, end);
 	}
+	@Override
+	public int adminmemberCount() {
+		// TODO Auto-generated method stub
+		return dao.adminmemberCount();
+	}
+	
 	@Override
 	public int memberEmailCheck(String email) {
 		return dao.memberEmailCheck(email);
@@ -69,4 +76,5 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO memberSessionData(String userId) {
 		return dao.memberSessionData(userId);
 	}
+	
 }

@@ -2,12 +2,15 @@ package com.sist.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sist.vo.MemberVO;
 
 public interface MemberService {
 	public String memberLogin(String id, String pwd);
 	public List<MemberVO> memberList();
-	public List<MemberVO> adminmemberList();
+	public List<MemberVO> adminmemberList(int start, int end);
+	public int adminmemberCount();
 	public void deleteMember(String id);
 	public MemberVO memberDetail(String id);
 	public void updateMember(MemberVO member);

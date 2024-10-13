@@ -2,6 +2,7 @@ package com.sist.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,8 +36,12 @@ public class MemberDAO {
 	}
 
 	// 愿�由ъ옄 �쉶�썝 紐⑸줉 議고쉶
-	public List<MemberVO> adminmemberList() {
-		return mapper.adminmemberList();
+	public List<MemberVO> adminmemberList(int start, int end) {
+		return mapper.adminmemberList(start, end);
+	}
+	
+	public int adminmemberCount() {
+		return mapper.adminmemberCount();
 	}
 
 	// �쉶�썝 �궘�젣

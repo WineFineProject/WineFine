@@ -45,8 +45,7 @@ public class MemberController {
 	// 愿�由ъ옄 �쉶�썝 紐⑸줉 �럹�씠吏�
 	@GetMapping("admin/memberList.do")
 	public String adminmemberList(Model model) {
-		List<MemberVO> members = mService.adminmemberList();
-		model.addAttribute("members", members);
+
 		return "admin/memberList";
 	}
 

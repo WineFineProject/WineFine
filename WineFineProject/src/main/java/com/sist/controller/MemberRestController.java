@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.*;
 import com.sist.vo.*;
+
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpSession;
@@ -31,13 +33,32 @@ public class MemberRestController {
 	
 	// 愿�由ъ옄 �쉶�썝 紐⑸줉 �럹�씠吏�
 	@GetMapping(value = "admin/memberListVue.do", produces = "text/plain;charset=UTF-8")
-	public String adminmemberList() throws Exception {
-		List<MemberVO> members=mService.adminmemberList();
-		Map map = new HashMap();
-		map.put("members", members);
-
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(map);
+	public String adminmemberList(int page) throws Exception {
+		  int rowSize=10;
+		  int start=(rowSize*page)-(rowSize-1);
+		  int end=rowSize*page;
+		  
+		  List<MemberVO> members=mService.adminmemberList(start, end);
+		  int totalpage=mService.adminmemberCount();
+		  
+		  final int BLOCK=10;
+		  int startPage=((page-1)/BLOCK*BLOCK)+1;
+		  int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		  
+		  if(endPage>totalpage)
+			  endPage=totalpage;
+		  
+		  Map map=new HashMap(); 
+		  map.put("members", members);
+		  map.put("curpage", page);
+		  map.put("totalpage", totalpage);
+		  map.put("startPage", startPage);
+		  map.put("endPage", endPage);
+		  
+		  ObjectMapper mapper=new ObjectMapper();
+		  String json=mapper.writeValueAsString(map);
+		  
+		  return json;
 	}
 
 	// �쉶�썝 �긽�꽭 議고쉶
