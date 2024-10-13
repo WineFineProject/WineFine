@@ -44,5 +44,12 @@ public class ItemDAO {
 	{
 		return mapper.nation4FindListData(areanum);
 	}
-	
+	 public List<WineVO> sellerItemListData(String seller, int start, int end)
+	 {
+		 return mapper.sellerItemListData(seller, start, end);
+	 }
+	 public int sellerItemCount(String seller)
+	 {
+		 return mapper.sellerItemCount(seller);
+	 }
 }

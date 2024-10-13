@@ -43,15 +43,27 @@ public interface ItemMapper {
 	 public List<ItemNationVO> nation4FindListData(@Param("areanum") int areanum);
 	 
      // 상품 조회
-	 // 판매자 별 와인 리스트 
+	 // 판매자 별 와인상품 리스트 
+	 @Select("SELECT wno, namekor, price, stack, seller, hit, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, state, poster, num "
+			 +"FROM (SELECT wno, namekor, price, stack, seller, hit, regdate, state, poster, rownum as num "
+			 +"FROM (SELECT wno, namekor, price, stack, seller, hit, regdate, state, poster "
+	 		 +"FROM wine WHERE seller LIKE '%'||#{seller}||'%' ORDER BY wno DESC)) "
+	 		 + "WHERE num BETWEEN #{start} AND #{end} ")
+	 public List<WineVO> sellerItemListData(@Param("seller") String seller, @Param("start") int start, @Param("end") int end);
+	 
 	 // 판매자 별 와인 총 개수 
-	 // 
+	 @Select("SELECT COUNT(*) FROM wine WHERE seller LIKE '%'||#{seller}||'%' ")
+	 public int sellerItemCount(@Param("seller") String seller);
+	 
+	 // 체크된 상품 삭제
+	 
+	 
+	 // 상품 일괄 수정 
+	 
 	 // 판매자 공지 리스트 (번호, 제목)
 	 
 	 
-	 // 상품 수정
-	
-
+	// 상품 수정 
 	
 	// 상품 승인 대기
 	

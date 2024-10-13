@@ -196,7 +196,7 @@ color: white;
  	 				 start++;
  	 			 }
  	 			 return arr
- 	 		 },
+ 	 		 }
     	}
     }).mount('#bList')
   </script>

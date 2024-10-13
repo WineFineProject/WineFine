@@ -99,5 +99,31 @@ public class ItemRestController {
 		
 		return json;
 	}
+	@GetMapping(value="seller/itemlist_vue.do", produces = "text/plain;charset=UTF-8")
+	public String item_list(String seller, int page) throws Exception {
+		
+		List<WineVO> iList;
+		int rowSize=10;
+		int start=(rowSize*page)-(rowSize-1);
+		int end=rowSize*page;
+		iList = iService.sellerItemListData(seller, start, end);
+		int iCount = iService.sellerItemCount(seller);
+		int totalpage = (int) Math.ceil((double) iCount / rowSize);
+		final int BLOCK=10;
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage = Math.min(((page-1)/BLOCK*BLOCK)+BLOCK, totalpage);
 	
+		Map map=new HashMap();
+		map.put("iList", iList);
+		map.put("iCount", iCount);
+		map.put("curpage",page);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(map);
+		
+		return json;
+	}
 }

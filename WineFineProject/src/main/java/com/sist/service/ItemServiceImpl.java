@@ -59,4 +59,16 @@ public class ItemServiceImpl implements ItemService{
 		return dao.nation4FindListData(areanum);
 	}
 
+	@Override
+	public List<WineVO> sellerItemListData(String seller, int start, int end) {
+		// TODO Auto-generated method stub
+		return dao.sellerItemListData(seller, start, end);
+	}
+
+	@Override
+	public int sellerItemCount(String seller) {
+		// TODO Auto-generated method stub
+		return dao.sellerItemCount(seller);
+	}
+
 }

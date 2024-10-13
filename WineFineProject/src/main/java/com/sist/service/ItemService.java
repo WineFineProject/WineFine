@@ -15,5 +15,7 @@ public interface ItemService {
 	public List<ItemNationVO> nation2FindListData(int areanum);
 	public List<ItemNationVO> nation3FindListData(int areanum);
 	public List<ItemNationVO> nation4FindListData(int areanum);
+	public List<WineVO> sellerItemListData(String seller, int start, int end);
+	public int sellerItemCount(String seller);
 	
 }

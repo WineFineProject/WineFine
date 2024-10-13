@@ -11,4 +11,9 @@ public class ItemController {
 	   {
 		   return "seller/register";
 	   }
+	@GetMapping("seller/itemlist.do")
+	   public String seller_itemlist()
+	   {
+		   return "seller/itemlist";
+	   }
 }

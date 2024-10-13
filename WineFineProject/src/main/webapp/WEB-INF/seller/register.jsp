@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 #itemregister{
-  margin: 20px auto;
+  margin: 10px auto;
 }
 .sellretext{
 	resize:none;
@@ -43,7 +43,7 @@
 </head>
 <body>
 <div class="container" id="itemregister">
-    <h3 class="text-center" style="width:100%;"> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;상품 등록</h3>
+    <h3 class="text-center" style="width:100%;"> &emsp;&emsp;&emsp;&emsp;상품 등록</h3>
     <h1>&nbsp;</h1>
      <div class="row">
      <form @submit.prevent="submitForm" @keydown.enter.prevent>
@@ -325,6 +325,11 @@
 		    this.gList = []
 		},
 		nation1list(){
+			if(this.nation !== "")
+			{	    this.nation2 = ''
+		 	        this.nation3 = ''
+		 	        this.nation4 = ''
+			}
             axios.get('../seller/register_nation1_list_vue.do', { 
                     
                 }).then(response => {
@@ -459,7 +464,7 @@
  			formData.append("grape",this.grape)
  			formData.append("maker",String(this.maker))
  			formData.append("nation",this.nation)
- 			formData.append("seller",this.nickname)
+ 			formData.append("seller",this.id)
  			
  			axios.post('../seller/register_vue.do',formData,{
  			}).then(response=>{
@@ -511,7 +516,6 @@
  	        this.n2List = []
  	        this.n3List = []
  	        this.n4List = []
- 	        this.nickname = '${sessionScope.nickName}'
  	    }
  	},
  computed: {
