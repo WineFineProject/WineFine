@@ -9,4 +9,10 @@ public interface ReplyBoardService {
 	public void replyDelete(int group_id);
 	public void replyUpdateData(ReplyBoardVO vo);
 	public ReplyBoardVO replyDetail(int wrno);
+	public int sellerReplyCount(String userid);
+	public List<ReplyBoardVO> sellrReplyListData(Map map);
+	public void sellerReplyInsert(ReplyBoardVO vo);
+	public ReplyBoardVO replyAnswerDetailData(int group_id);
+	public void replyAnswerDelete(int wrno);
+	public void sellerReplyUpdate(ReplyBoardVO vo);
 }

@@ -13,4 +13,13 @@
   	FROM wine_replyboard 
   	WHERE wrno=#{wrno}
 	</select>
+
+	<select id="replyAnswerDetailData" resultMap="replyBoardMap" parameterType="int">
+	SELECT wrno,userid,nickname,subject,content,
+	TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cno,type,
+	recvid,wno,group_id,group_step,isreply,hit,secret, (SELECT namekor FROM wine WHERE wine.wno=wine_replyboard.wno) as namekor,
+	(SELECT nickname FROM wine_member WHERE userid=(SELECT seller FROM wine WHERE wine.wno=wine_replyboard.wno)) as seller
+  	FROM wine_replyboard 
+  	WHERE group_id=#{group_id} AND group_step=1
+	</select>
 </mapper>

@@ -51,4 +51,34 @@ public class ReplyBoardServiceImpl implements ReplyBoardService{
 	public ReplyBoardVO replyDetail(int wrno) {
 		return dao.replyDetail(wrno);
 	}
+	
+	@Override
+	public int sellerReplyCount(String userid) {
+		return dao.sellerReplyCount(userid);
+	}
+	
+	@Override
+	public List<ReplyBoardVO> sellrReplyListData(Map map) {
+		return dao.sellrReplyListData(map);
+	}
+	
+	@Override
+	public void sellerReplyInsert(ReplyBoardVO vo) {
+		dao.sellerReplyInsert(vo);
+	}
+	
+	@Override
+	public ReplyBoardVO replyAnswerDetailData(int group_id) {
+		return dao.replyAnswerDetailData(group_id);
+	}
+	
+	@Override
+	public void replyAnswerDelete(int wrno) {
+		dao.replyAnswerDelete(wrno);
+	}
+	
+	@Override
+	public void sellerReplyUpdate(ReplyBoardVO vo) {
+		dao.sellerReplyUpdate(vo);
+	}
 }

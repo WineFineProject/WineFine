@@ -34,7 +34,7 @@
 </style>
 </head>
 <body>
-	<div class="row" style="width: 1200px;" id="noticeTable">
+	<div class="row"  id="noticeTable">
 		<h3 class="text-center">1:1 문의 게시판</h3>
 		<div class="form-group" style="margin-top: 10px;">
 			<div class="form-group" style="margin-top: 10px;">

@@ -28,9 +28,10 @@
 
 </head>
 <body>
-	<tiles:insertAttribute name="header"/>
+	<tiles:insertAttribute name="header" />
 	<div class=" container2">
-		<div class="row" style="margin-left: 200px;">
+		<div class="row">
+			<div class="col-lg-1 text-center"></div>
 			<div class="col-lg-2 text-center">
 				<div class="panel panel-info">
 					<div class="panel-heading">
@@ -71,6 +72,7 @@
 			<div class="col-lg-8">
 				<tiles:insertAttribute name="sellerHome" />
 			</div>
+			<div class="col-lg-1"></div>
 		</div>
 	</div>
 	<tiles:insertAttribute name="footer" />

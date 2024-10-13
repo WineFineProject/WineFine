@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="row" style="width: 1200px;" id="noticeList">
+	<div class="row" id="noticeList">
 		<h3 class="text-center">공지사항</h3>
 		<table class="table">
 			<tr>

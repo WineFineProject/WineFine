@@ -6,88 +6,86 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="promotionTable" class="container">
-		<div class="promotion_table">
-			<table class="table">
+	<div class="promotion_table" id="promotionTable">
+		<table class="table">
+			<tr>
+				<td colspan="6" class="text-left">
+					<button @click="changeModal(true)" type="button">프로모션 등록</button>
+				</td>
+			</tr>
+		</table>
+		<h3>진행중인 프로모션</h3>
+		<table class="table" style="height: 400px;">
+			<thead>
 				<tr>
-					<td colspan="6" class="text-left">
-						<button @click="changeModal(true)" type="button">프로모션 등록</button>
+					<th width="21%">이벤트명</th>
+					<th width="25%">대상상품</th>
+					<th width="10%">할인율</th>
+					<th width="16%">업체명</th>
+					<th width="10%">시작일</th>
+					<th width="10%">종료일</th>
+					<th width="8%"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="padding: 0px;" colspan="7">
+						<div>
+							<table style="width: 100%">
+								<tbody>
+									<tr v-for="vo in activeSale">
+										<td width="21%">{{vo.title}}</td>
+										<td width="25%">{{vo.targetname}}</td>
+										<td width="10%">{{vo.discount}}%</td>
+										<td width="16%">{{vo.mvo.nickName}}</td>
+										<td width="10%">{{vo.startDay}}</td>
+										<td width="10%">{{vo.endDay}}</td>
+										<td width="8%"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</td>
 				</tr>
-			</table>
-			<h3>진행중인 프로모션</h3>
-			<table class="table" style="height: 400px;">
-				<thead>
-					<tr>
-						<th width="21%">이벤트명</th>
-						<th width="25%">대상상품</th>
-						<th width="10%">할인율</th>
-						<th width="16%">업체명</th>
-						<th width="10%">시작일</th>
-						<th width="10%">종료일</th>
-						<th width="8%"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td style="padding: 0px;" colspan="7">
-							<div>
-								<table style="width: 100%">
-									<tbody>
-										<tr v-for="vo in activeSale">
-											<td width="21%">{{vo.title}}</td>
-											<td width="25%">{{vo.targetname}}</td>
-											<td width="10%">{{vo.discount}}%</td>
-											<td width="16%">{{vo.mvo.nickName}}</td>
-											<td width="10%">{{vo.startDay}}</td>
-											<td width="10%">{{vo.endDay}}</td>
-											<td width="8%"></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<h3>승인 대기 프로모션</h3>
-			<table class="table" style="height: 400px;">
-				<thead>
-					<tr>
-						<th width="21%">이벤트명</th>
-						<th width="25%">대상상품</th>
-						<th width="10%">할인율</th>
-						<th width="16%">업체명</th>
-						<th width="10%">시작일</th>
-						<th width="10%">종료일</th>
-						<th width="8%"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td style="padding: 0px;" colspan="7">
-							<div>
-								<table style="width: 100%">
-									<tbody>
-										<tr v-for="avo in waitSale">
-											<td width="21%">{{avo.title}}</td>
-											<td width="25%">{{avo.targetname}}</td>
-											<td width="10%">{{avo.discount}}%</td>
-											<td width="16%">{{avo.mvo.nickName}}</td>
-											<td width="10%">{{avo.startDay}}</td>
-											<td width="10%">{{avo.endDay}}</td>
-											<td>
-												<button class="btn btn-sm border-wine rounded-pill text-wine" type="button">X</button>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+			</tbody>
+		</table>
+		<h3>승인 대기 프로모션</h3>
+		<table class="table" style="height: 400px;">
+			<thead>
+				<tr>
+					<th width="21%">이벤트명</th>
+					<th width="25%">대상상품</th>
+					<th width="10%">할인율</th>
+					<th width="16%">업체명</th>
+					<th width="10%">시작일</th>
+					<th width="10%">종료일</th>
+					<th width="8%"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="padding: 0px;" colspan="7">
+						<div>
+							<table style="width: 100%">
+								<tbody>
+									<tr v-for="avo in waitSale">
+										<td width="21%">{{avo.title}}</td>
+										<td width="25%">{{avo.targetname}}</td>
+										<td width="10%">{{avo.discount}}%</td>
+										<td width="16%">{{avo.mvo.nickName}}</td>
+										<td width="10%">{{avo.startDay}}</td>
+										<td width="10%">{{avo.endDay}}</td>
+										<td>
+											<button class="btn btn-sm border-wine rounded-pill text-wine" type="button">X</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
 			<div class="modal-content">
 				<span class="close" @click="changeModal(false)">&times;</span>

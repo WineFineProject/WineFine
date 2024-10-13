@@ -6,7 +6,7 @@
 <title>1:1 문의게시판</title>
 </head>
 <body>
-	<div class="row" style="width: 1200px;" id="noticeTable">
+	<div class="row" id="noticeTable">
 		<h3 class="text-center">공지사항</h3>
 		<table class="table">
 			<tr>
