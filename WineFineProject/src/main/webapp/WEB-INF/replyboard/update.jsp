@@ -47,8 +47,8 @@
                     <option value="5">기타</option>
                 </select>
             </div>
-            <div class="form-group" style="margin-top: 10px;" >
-				 <div style="margin-top: 10px;" v-if="type!==2">
+            <div class="form-group" style="margin-top: 10px;">
+				 <div style="margin-top: 10px;" v-if="type!==2 && namekor && seller">
                 <label for="search">상품명</label>
                 <span class="form-control">{{namekor}}</span>
                 <label for="sellerName" style="margin-top: 10px;">판매자명</label>

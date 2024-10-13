@@ -1,0 +1,71 @@
+#replyDetail {
+    max-width: 800px; 
+    margin: 0 auto;
+}
+
+.detail-box {
+    background: white; 
+    padding: 30px; 
+    border: 1px solid #e1e1e1; 
+    border-radius: 10px; 
+    margin-bottom: 20px; 
+}
+
+.post-title {
+    font-size: 24px;
+    color: #6F2C3E; 
+    margin: 10px 0; 
+}
+
+.post-meta {
+    font-size: 14px; 
+    color: #555; 
+    margin-bottom: 15px; 
+    display: flex; 
+    align-items: center; 
+}
+
+.meta-separator {
+    margin: 0 10px; 
+}
+
+.content-box {
+    border: 1px solid #e1e1e1; 
+    padding: 15px; 
+    background-color: #f8f9fa; 
+    height: 300px; 
+    overflow-y: auto; 
+    margin-bottom: 20px; 
+}
+
+.button-group {
+    text-align: right; 
+}
+
+.button-group .btn {
+    padding: 10px 15px; 
+    border: none; 
+    cursor: pointer; 
+    margin-left: 5px; 
+    transition: background-color 0.3s; 
+    font-size: 14px; 
+}
+
+.button-group .btn-primary {
+    background-color: #6F2C3E; 
+    color: white; 
+}
+
+.button-group .btn-danger {
+    background-color: #c82333; 
+    color: white; 
+}
+
+.button-group .btn-secondary {
+    background-color: #6c757d; 
+    color: white; 
+}
+
+.button-group .btn:hover {
+    filter: brightness(85%); 
+}

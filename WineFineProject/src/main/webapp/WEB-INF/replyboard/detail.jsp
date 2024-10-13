@@ -5,42 +5,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/replydetail.css">
 </head>
 <body>
-	<div class="container" id="replyDetail" style="margin-top: 50px;width: 1000px;">
-		<div class="row">
-			<table class="table" style="margin:auto;">
-				<tr>
-				    <th width="5%" class="text-center">번호</th>
-					<td width="7%" class="text-center">{{vo.wrno}}</td>
-					<th width="15%" class="text-center">닉네임</th>
-					<td width="13%" class="text-center">{{vo.nickname}}</td>
-					<th width="15%" class="text-center">작성일</th>
-					<td width="15%" class="text-center">{{vo.dbday}}</td>
-					<th width="15%" class="text-center">조회수</th>
-					<td width="15%">{{vo.hit}}</td>
-				</tr>
-				<tr>
-					<th width="10%" class="text-center">제목</th>
-					<td colspan="7">{{vo.subject}}</td>
-				</tr>
-				<tr>
-					<th width="10%" class="text-center">내용</th>
-					<td colspan="7"><span style="height: 300px;"
-						class="form-control" v-model="content" ref="content">{{vo.content}}</span>
-					</td>
-				</tr>
-			</table>
-			<div style="text-align: right">
-				<a :href="'../replyboard/update.do?wrno='+vo.wrno" class="btn btn-info">수정</a>
-				&nbsp;
-				<button type="button" class="btn btn-primary" @click="cancelBtn">삭제</button>
-				&nbsp;
-				<button type="button" class="btn btn-secondary"
-					onclick="javascript:history.back()">목록</button>
-			</div>
-		</div>
-	</div>
+    <div id="replyDetail">
+        <div class="detail-box">
+            <td width="35%">
+                <span v-if="vo.type===2">{{cnos[vo.cno]}}&nbsp;</span>
+                <span v-if="vo.type===3">{{cno[vo.cno]}}&nbsp;</span>
+            </td>
+            <h2 class="post-title">{{vo.subject}}</h2>
+            <div class="post-meta">
+                <span class="author-name">{{vo.nickname}}</span>
+                <span class="meta-separator">|</span>
+                <span class="post-date">{{vo.dbday}}</span>
+                <span class="meta-separator">|</span>
+                <span class="view-count"><i class="fas fa-eye"></i>&nbsp;{{vo.hit}}</span>
+            </div>
+            <div class="content-box">{{vo.content}}</div>
+            <div class="button-group">
+                <a  v-if="vo.nickname === nickname":href="'../replyboard/update.do?wrno='+vo.wrno" class="btn btn-primary">수정</a>
+                <button  v-if="vo.nickname === nickname"type="button" class="btn btn-danger" @click="cancelBtn">삭제</button>
+                <button type="button" class="btn btn-secondary" onclick="javascript:history.back()">목록</button>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
   let replyDetailApp=Vue.createApp({
@@ -49,7 +38,9 @@
 			  vo:{},
 			  wrno:${wrno},
 			  id:'${sessionScope.userId}',
-			  nickname:'${sessionScope.nickName}'
+			  nickname:'${sessionScope.nickName}',
+			  cnos: ['', '상품 관련', '프로모션 관련', '서비스 관련', '정산 관련', '기타'],
+              cno: ['', '상품 관련', '배송 관련', '서비스 관련', '결제 관련', '기타']
 		  }
 	  },
 	  methods:{
