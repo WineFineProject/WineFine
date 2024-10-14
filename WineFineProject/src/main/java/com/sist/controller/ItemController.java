@@ -16,4 +16,9 @@ public class ItemController {
 	   {
 		   return "seller/itemlist";
 	   }
+	@GetMapping("seller/edit.do")
+	   public String seller_edit()
+	   {
+		   return "seller/edit";
+	   }
 }

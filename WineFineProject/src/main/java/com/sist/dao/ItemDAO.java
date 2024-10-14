@@ -52,4 +52,32 @@ public class ItemDAO {
 	 {
 		 return mapper.sellerItemCount(seller);
 	 }
+	 public void itemDelete(int wno)
+	 {
+		 mapper.itemDelete(wno);
+	 }
+	 public void deleteItems(List<Integer> wnos)
+	 {
+		 mapper.deleteItems(wnos);
+	 }
+	 public void updateItem(WineVO vo)
+	 {
+		 mapper.updateItem(vo);
+	 }
+	 public WineVO wineItemData(int wno)
+	 {
+		 return mapper.wineItemData(wno);
+	 }
+	 public String getMakerkor(int maker)
+	 {
+		 return mapper.getMakerkor(maker);
+	 }
+	 public List<String> getGrapeNames(String grapeNumbers)
+	 {
+		 return mapper.getGrapeNames(grapeNumbers);
+	 }
+	 public List<String> getNationNames(String nationNumbers)
+	 {
+		 return mapper.getNationNames(nationNumbers);
+	 }
 }

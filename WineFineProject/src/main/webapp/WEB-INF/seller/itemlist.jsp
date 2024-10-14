@@ -15,6 +15,14 @@
 	background-color: #FFCC52;
 	display:inline-block !important;
 }
+.allitem{
+	width: 10%; 
+	float: right;
+}
+.editable{
+	text-decoration: underline;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -22,45 +30,59 @@
     <h3 class="text-center" style="width:100%;"> &emsp;&emsp;&emsp;&emsp;상품 조회</h3>
      <div class="row">
      <div>
-     <button type="button" style="width: 10%; float: right;">선택 삭제</button>
-     <button type="button" style="width: 15%; float: right;">변경 내용 저장</button>
+     <button type="button" class="allitem" @click="deleteSelected()">선택 삭제</button>
+     <button type="button" class="allitem" @click="saveAllChanges">변경 내용 저장</button>
      <span style="width: 15%; float: left;">총 {{iCount}} 개</span>
       </div>
      <table class="table">
      	<tr>
      	<th>선택</th>
      	<th>상품번호</th>
-     	<th colspan="2">상품명</th>
+     	<th colspan="2" class="text-center">상품명</th>
      	<th>정가</th>
-     	<th>재고/가용</th>
+     	<th>재고</th>
      	<th>배송</th>
      	<th>조회수</th>
      	<th>등록일</th>
      	<th>판매상태</th>
      	<th>판매자 공지</th>
-     	<th>수정</th>
+     	<th>수정/삭제</th>
      	</tr>
-     	<tr  v-for="vo in iList">
+     	<tr v-for="vo in iList" :key="vo.wno">
      	<td>
-     	<input type="checkbox">
+     	<input type="checkbox" v-model="vo.selected">
      	</td>
      	<td>{{vo.wno}}</td>
      	<td>
-     	<img :src="vo.poster" style="width:60px;height: 80px">
+     	<img :src="vo.poster" style="width:40px;height:60px">
      	</td>
-     	<td>
-     	{{vo.namekor}}
+     	<td class="editable">
+     	    <input v-if="vo.isEditingName" v-model="vo.namekor"/>
+            <span  v-else @dblclick="vo.isEditingName = true">{{ vo.namekor }}</span>
      	</td>
-     	<td>{{vo.price}}</td>
-     	<td>{{vo.stack}}</td>
+     	<td class="editable">
+     		<input v-if="vo.isEditingPrice" v-model="vo.price"/>
+            <span  v-else @dblclick="vo.isEditingPrice = true">{{ vo.price }}</span>
+        </td>
+     	<td class="editable">
+     	<input v-if="vo.isEditingStack" v-model="vo.stack"/>
+            <span v-else @dblclick="vo.isEditingStack = true">{{ vo.stack }}</span>
+        </td>
      	<td>기본배송</td>
      	<td>{{vo.hit}}</td>
      	<td>{{vo.dbday}}</td>
-     	<td>{{getStateLabel(vo.state)}}</td>
-     	<td>공지</td>
+     	<td class="editable" @dblclick="enableEditState(vo)">
+		    <select v-if="vo.isEditingState" v-model="vo.state">
+		        <option value="1">판매중</option>
+		        <option value="2">품절</option>
+		        <option value="3">판매중단</option>
+		    </select>
+		    <span v-else @dblclick="vo.isEditingState = true">{{ getStateLabel(vo.state) }}</span>
+		</td>
+     	<td class="editable">공지 선택</td>
      	<td>
-     	<button type="button" >수정</button>
-     	<button type="button" >삭제</button>
+     	<a :href="'edit.do?wno='+vo.wno" class="dbtn">수정</a>
+     	<button type="button" v-on:click="itemDelete()">삭제</button>
      	</td>
      	</tr>
      	<tr>
@@ -127,6 +149,92 @@
     	                return '승인대기'
     	        }
     	    },
+    	    deleteSelected() {
+    	        const selectedIds = this.iList.filter(vo => vo.selected).map(vo => vo.wno)
+    	        
+    	        if (selectedIds.length === 0) {
+    	            alert("삭제할 상품을 선택해주세요.")
+    	            return
+    	        }else{alert("상품 삭제시 복구가 불가능합니다.")}
+    	        const params = new URLSearchParams()
+    	        selectedIds.forEach(id => params.append('wnos', id))
+				console.log(params.toString())
+				
+    	        axios.post('../seller/deleteitems_vue.do', params.toString(),{
+    	            headers: {
+    	                'Content-Type': 'application/x-www-form-urlencoded'
+    	            }
+    	        }).then(response => {
+    	            	if(response.data === "OK"){
+    	                this.iList = this.iList.filter(vo => !vo.selected)
+    	                this.iCount = this.iList.length
+    	                alert("선택된 상품이 삭제되었습니다.")
+    	            	}
+    	            })
+    	            .catch(error => {
+    	                console.error(error)
+    	                alert("삭제 중 오류가 발생했습니다.")
+    	            })
+    	    },
+    	    enableEditState(vo) {
+    	        vo.isEditingState = true
+    	    },
+    	    saveAllChanges() {
+    	    	const updates = this.iList.map(item => {
+    	            const updateItem = { wno: item.wno }
+
+    	            if (item.isEditingName) updateItem.namekor = item.namekor
+    	            if (item.isEditingPrice) updateItem.price = item.price
+    	            if (item.isEditingStack) {
+    	                updateItem.stack = parseInt(item.stack, 10)
+    	            } else {
+    	                updateItem.stack = parseInt(item.stack, 10)
+    	            }
+    	            if (item.isEditingState) {
+    	                updateItem.state = parseInt(item.state, 10)
+    	            } else {
+    	                updateItem.state = parseInt(item.state, 10)
+    	            }
+
+    	            return updateItem
+    	        }).filter(item => Object.keys(item).length > 1)
+
+    	        if (updates.length === 0) {
+    	            alert("변경된 내용이 없습니다.")
+    	            return;
+    	        }
+
+    	        const params = new URLSearchParams()
+    	        updates.forEach(item => {
+    	            params.append(`updates`, JSON.stringify(item)) 
+    	        });
+
+    	        axios.post('../seller/updateitems_vue.do', params.toString(), {
+    	            headers: {
+    	                'Content-Type': 'application/x-www-form-urlencoded'
+    	            }
+    	        		})
+                    .then(response => {
+                    	if(response.data === "OK"){
+                        alert("변경 내용이 저장되었습니다.")
+                        // 모든 편집 상태 초기화
+                        this.iList.forEach(item => {
+                            item.isEditingName = false
+                            item.isEditingPrice = false
+                            item.isEditingStack = false
+                            item.isEditingState = false
+                         })
+                         this.dataRecv()
+                    	}
+                        else{
+                        	alert("변경 사항 저장 중 오류가 발생했습니다.")
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error)
+                        alert("변경 사항 저장 중 오류가 발생했습니다.")
+                    })
+            },
     	    prev(){
     	    	this.curpage=this.curpage>10?this.curpage-10:1
   			    this.dataRecv()

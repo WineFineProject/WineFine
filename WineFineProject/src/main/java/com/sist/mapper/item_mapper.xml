@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.ItemMapper">
+	<delete id="deleteItems" parameterType="java.util.List">
+      DELETE FROM wine 
+      WHERE wno IN 
+       <foreach item="id" collection="list" open="(" separator="," close=")">
+        #{id}
+      </foreach>
+   </delete>
+    <update id="updateItem" parameterType="WineVO">
+        UPDATE wine
+        SET 
+        <if test="namekor != null">namekor = #{namekor},</if>
+        <if test="price != null">price = #{price},</if>
+        <if test="stack != null">stack = #{stack},</if>
+        <if test="state != null">state = #{state}</if>
+        WHERE wno = #{wno}
+    </update>
+ </mapper>

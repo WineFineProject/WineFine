@@ -17,5 +17,11 @@ public interface ItemService {
 	public List<ItemNationVO> nation4FindListData(int areanum);
 	public List<WineVO> sellerItemListData(String seller, int start, int end);
 	public int sellerItemCount(String seller);
-	
+	public void itemDelete(int wno);
+	public void deleteItems(List<Integer> wnos);
+	public void updateItem(WineVO vo);
+	public WineVO wineItemData(int wno);
+	public String getMakerkor(int maker);
+	List<String> getGrapeNames(String grapeNumbers);
+	List<String> getNationNames(String nationNumbers);
 }

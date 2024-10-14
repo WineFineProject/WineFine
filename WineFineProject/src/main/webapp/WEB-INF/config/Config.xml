@@ -20,5 +20,6 @@
 	<mapper resource="com/sist/mapper/sale_mapper.xml"/>
 	<mapper resource="com/sist/mapper/noticeboard_mapper.xml"/>
 	<mapper resource="com/sist/mapper/replyboard_mapper.xml"/>
+	<mapper resource="com/sist/mapper/item_mapper.xml"/>
 	</mappers>
 </configuration>

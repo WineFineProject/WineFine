@@ -71,4 +71,46 @@ public class ItemServiceImpl implements ItemService{
 		return dao.sellerItemCount(seller);
 	}
 
+	@Override
+	public void itemDelete(int wno) {
+		// TODO Auto-generated method stub
+		dao.itemDelete(wno);
+	}
+
+	@Override
+	public void deleteItems(List<Integer> wnos) {
+		// TODO Auto-generated method stub
+		dao.deleteItems(wnos);
+	}
+
+	@Override
+	public void updateItem(WineVO vo) {
+		// TODO Auto-generated method stub
+		dao.updateItem(vo);
+	}
+
+	@Override
+	public WineVO wineItemData(int wno) {
+		// TODO Auto-generated method stub
+		return dao.wineItemData(wno);
+	}
+
+	@Override
+	public String getMakerkor(int maker) {
+		// TODO Auto-generated method stub
+		return dao.getMakerkor(maker);
+	}
+
+	@Override
+	public List<String> getGrapeNames(String grapeNumbers) {
+		// TODO Auto-generated method stub
+		return dao.getGrapeNames(grapeNumbers);
+	}
+
+	@Override
+	public List<String> getNationNames(String nationNumbers) {
+		// TODO Auto-generated method stub
+		return dao.getNationNames(nationNumbers);
+	}
+
 }

@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.ItemService;
 import com.sist.vo.MakerVO;
 import com.sist.vo.WineVO;
+import com.sist.vo.BoardVO;
 import com.sist.vo.GrapeVO;
 import com.sist.vo.ItemNationVO;
 
@@ -126,4 +128,47 @@ public class ItemRestController {
 		
 		return json;
 	}
+	
+	@PostMapping(value = "seller/deleteitems_vue.do", produces = "text/plain;charset=UTF-8")
+	public String deleteItems(@RequestParam("wnos") List<Integer> wnos) {
+		
+		iService.deleteItems(wnos);
+	   	    
+	    return "OK";
+	}
+	@PostMapping(value = "seller/updateitems_vue.do", produces = "text/plain;charset=UTF-8")
+	public String updateItems(@RequestParam List<String> updates) {
+	    try {
+	        for (String update : updates) {
+	            WineVO wineVO = new ObjectMapper().readValue(update, WineVO.class);
+	            iService.updateItem(wineVO);
+	        }
+	        return "OK";
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "Error";
+	    }
+	}
+	
+	@GetMapping(value="seller/edit_vue.do",produces = "text/plain;charset=UTF-8")
+	public String item_edit(Integer wno) throws Exception
+	{
+		WineVO vo=iService.wineItemData(wno);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	@GetMapping(value = "seller/prevmaker_vue.do", produces = "text/plain;charset=UTF-8")
+	public String prevmaker(int maker) {
+		String mname = iService.getMakerkor(maker);
+	    return mname;
+	}
+	@GetMapping(value = "seller/prevgrapes_vue.do", produces = "text/plain;charset=UTF-8")
+	public String prevgrapes(String grapeNumbers) {
+		List<String> gnames = iService.getGrapeNames(grapeNumbers);
+		
+		String temp ="";
+		return temp;
+	}
+	
 }
