@@ -159,6 +159,12 @@ public class ReplyBoardRestController {
 		vo.setNickname((String)session.getAttribute("nickName"));
 		rService.sellerReplyInsert(vo);
 	}
+	@PostMapping(value = "replyboard/adminReplyInsert.do", produces = "text/plain;charset=UTF-8")
+	public void adminReplyInsert(ReplyBoardVO vo) {
+		vo.setUserid("admin");
+		vo.setNickname("관리자");
+		rService.sellerReplyInsert(vo);
+	}
 	
 	@GetMapping(value = "replyboard/vueAnswerDetail.do", produces = "text/plain;charset=UTF-8")
 	public String replyAnswerDetail(int group_id) throws Exception{
@@ -175,5 +181,32 @@ public class ReplyBoardRestController {
 	@GetMapping(value = "replyboard/vueSellerUpdate.do", produces = "text/plain;charset=UTF-8")
 	public void replySellerUpdate(ReplyBoardVO vo) {
 		rService.sellerReplyUpdate(vo);
+	}
+	
+	@GetMapping(value = "replyboard/vueAdminReplyList.do", produces = "text/plain;charset=UTF-8")
+	public String replyVueAdminReply(int page) throws Exception{
+
+		Map map = new HashMap();
+		int rowSize = 10;
+		int start = (page-1)*rowSize+1;
+		int end = rowSize * page;
+		map.put("start", start);
+		map.put("end", end);
+		List<ReplyBoardVO> list = rService.adminReplyListData(map);
+		int count = rService.replyCount();
+		int totalpage = (int) (Math.ceil(count / (double) rowSize));
+		count = count - (page - 1) * rowSize;
+
+		map= new HashMap();
+		map.put("list", list);
+		map.put("curPage", page);
+		map.put("totalPage", totalpage);
+		map.put("count", count);
+		map.put("today", new SimpleDateFormat("yyy-MM-dd").format(new Date()));
+
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(map);
+
+		return json;
 	}
 }

@@ -81,4 +81,8 @@ public class ReplyBoardServiceImpl implements ReplyBoardService{
 	public void sellerReplyUpdate(ReplyBoardVO vo) {
 		dao.sellerReplyUpdate(vo);
 	}
+	@Override
+	public List<ReplyBoardVO> adminReplyListData(Map map) {
+		return dao.adminReplyListData(map);
+	}
 }

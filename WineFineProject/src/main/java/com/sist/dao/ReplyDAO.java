@@ -70,4 +70,8 @@ public class ReplyDAO {
 	 public void sellerReplyUpdate(ReplyBoardVO vo) {
 		 mapper.sellerReplyUpdate(vo);
 	 }
+	 
+	 public List<ReplyBoardVO> adminReplyListData(Map map){
+		 return mapper.adminReplyListData(map);
+	 }
 }

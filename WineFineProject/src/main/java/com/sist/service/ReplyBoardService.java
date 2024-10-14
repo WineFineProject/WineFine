@@ -15,4 +15,5 @@ public interface ReplyBoardService {
 	public ReplyBoardVO replyAnswerDetailData(int group_id);
 	public void replyAnswerDelete(int wrno);
 	public void sellerReplyUpdate(ReplyBoardVO vo);
+	public List<ReplyBoardVO> adminReplyListData(Map map);
 }
