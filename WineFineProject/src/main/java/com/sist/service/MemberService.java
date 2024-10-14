@@ -21,4 +21,5 @@ public interface MemberService {
 	public void insertAuthority(String userId);
   public void insertMember(MemberVO vo);
   public MemberVO memberSessionData(String userId);
+  public void memberLastLogin(String userId);
 }
