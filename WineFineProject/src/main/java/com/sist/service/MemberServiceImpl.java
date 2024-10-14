@@ -17,9 +17,14 @@ public class MemberServiceImpl implements MemberService{
 		return dao.memberLogin(id, pwd);
 	}
 	@Override
-	public List<MemberVO> memberList() {
+	public List<MemberVO> memberList(int start, int end) {
 		// TODO Auto-generated method stub
-		return dao.memberList();
+		return dao.memberList(start, end);
+	}
+	@Override
+	public int memberCount() {
+		// TODO Auto-generated method stub
+		return dao.memberCount();
 	}
 	@Override
 	public void deleteMember(String id) {
@@ -80,4 +85,5 @@ public class MemberServiceImpl implements MemberService{
 	public void memberLastLogin(String userId) {
 		dao.memberLastLogin(userId);
 	}
+	
 }

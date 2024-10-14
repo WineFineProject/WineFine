@@ -8,7 +8,8 @@ import com.sist.vo.MemberVO;
 
 public interface MemberService {
 	public String memberLogin(String id, String pwd);
-	public List<MemberVO> memberList();
+	public List<MemberVO> memberList(int start, int end);
+	public int memberCount();
 	public List<MemberVO> adminmemberList(int start, int end);
 	public int adminmemberCount();
 	public void deleteMember(String id);

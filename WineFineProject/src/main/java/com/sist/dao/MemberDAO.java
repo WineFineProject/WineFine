@@ -31,10 +31,14 @@ public class MemberDAO {
 	}
 
 	// �쉶�썝 紐⑸줉 議고쉶
-	public List<MemberVO> memberList() {
-		return mapper.memberList();
+	public List<MemberVO> memberList(int start, int end) {
+		return mapper.memberList(start, end);
 	}
 
+	public int memberCount() {
+		return mapper.memberCount();
+	}
+	
 	// 愿�由ъ옄 �쉶�썝 紐⑸줉 議고쉶
 	public List<MemberVO> adminmemberList(int start, int end) {
 		return mapper.adminmemberList(start, end);

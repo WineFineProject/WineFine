@@ -66,9 +66,9 @@
                 return {
                     members:[],
                     curpage:1,
-	       			totalpage:0,
-	       			startPage:0,
-	       			endPage:0
+				       			totalpage:0,
+				       			startPage:0,
+				       			endPage:0
                 }
             },
             mounted() {
@@ -105,9 +105,9 @@
                     }).then(response=>{
                             this.members=response.data.members
                             this.curpage=response.data.curpage
-	           				this.totalpage=response.data.totalpage
-	           				this.startPage=response.data.startPage
-	           				this.endPage=response.data.endPage
+					           				this.totalpage=response.data.totalpage
+					           				this.startPage=response.data.startPage
+					           				this.endPage=response.data.endPage
                         }).catch(error=>{
                             alert(error.response)
                             console.log(error.response)

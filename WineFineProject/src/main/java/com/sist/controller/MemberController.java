@@ -37,8 +37,7 @@ public class MemberController {
 	// �쉶�썝 紐⑸줉 �럹�씠吏�
 	@GetMapping("seller/memberList.do")
 	public String memberList(Model model) {
-		List<MemberVO> members = mService.memberList();
-		model.addAttribute("members", members);
+
 		return "seller/memberList";
 	}
 
