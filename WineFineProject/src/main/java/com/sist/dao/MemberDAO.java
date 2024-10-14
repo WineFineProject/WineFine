@@ -84,4 +84,7 @@ public class MemberDAO {
   public MemberVO memberSessionData(String userId) {
   	return mapper.memberSessionData(userId);
   }
+  public void memberLastLogin(String userId) {
+  	mapper.memberLastLogin(userId);
+  }
 }

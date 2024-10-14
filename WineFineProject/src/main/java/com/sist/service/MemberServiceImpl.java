@@ -76,5 +76,8 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO memberSessionData(String userId) {
 		return dao.memberSessionData(userId);
 	}
-	
+	@Override
+	public void memberLastLogin(String userId) {
+		dao.memberLastLogin(userId);
+	}
 }
