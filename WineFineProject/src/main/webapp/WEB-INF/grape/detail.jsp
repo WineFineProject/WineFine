@@ -65,10 +65,10 @@ table {
 </style>
 </head>
 <body>
-<div class="container">
+<div class="container" id="grapeDetail">
 <div class="row">
-<div class="col-sm-5">
-		<div class="row" id="grapeDetail">
+<div class="col-sm-6">
+		<div class="row" style="width: 650px">
 			<div v-if="vo">
             <div>
                 <span class="namekor">{{vo.namekor}}</span>
@@ -111,18 +111,20 @@ table {
          </div>
       </div>
 	</div>
-	<div class="col-sm-5" >
-		    <h3>관련 와인</h3>
+	<div class="col-sm-6">
+		    <div>
+		      <h4 style="magin-bottom: 15px">관련 와인</h4>
+              <div class="header-line"></div>
+            </div>
 		    <table>
-		            <tr v-for="vo in gWines" :key="vo.wno">
-		                <th>{{vo.poster}}</th>
+		            <tr v-for="wvo in gWines" style="margin-left: 5px">
+		                <th><img :src="wvo.poster" style="width: 150px; height: 200px"></th>
 		                 <td>
-			                <div>{{vo.grape}}</div>
-			                <div>{{vo.namekor}}</div>
-			                <div>{{vo.nameeng}}</div>
-			                <div>{{vo.maker}}</div>
-			                <div>{{vo.nation}}</div>
-			                <div>{{vo.type}}</div>
+			                <div>{{wvo.maker}}</div>
+			                <div>{{wvo.namekor}}</div>
+			                <div>{{wvo.nameeng}}</div>
+			                <div>{{wvo.nation}}</div>
+			                <span class="btn-sm btn" :class="{'btn-red':wvo.type==='레드', 'btn-white':wvo.type==='화이트', 'btn-spark':wvo.type==='스파클링',  'btn-rose':wvo.type==='로제'}, 'btn-alcohol':wvo.type==='주정강화', 'btn-etc':wvo.type==='기타'">{{wvo.type}}</span>
 		                 </td> 
 		            </tr>
 		    </table>
@@ -144,12 +146,12 @@ table {
              },
              methods: {
             	 getRelatedWines() {
-            		 console.log(this.no)
                      axios.get('../grape/relatedWines.do', {
                          params: {
                              no: this.no
                          }
                      }).then(response => {
+                    	 console.log(response.data.gWines)
                          this.gWines = response.data.gWines
                      }).catch(error => {
                          console.error(error)

@@ -27,15 +27,13 @@ public interface InformationMapper {
     public GrapeVO grapeDetailData(int no);
     
     // 포도 품종 관련 와인
-    @Select("SELECT wno, namekor, nameeng, type, (SELECT namekor FROM maker WHERE no = wine.maker) AS maker, poster,"
-    		+ "(SELECT LISTAGG(namekor, ', ') WITHIN GROUP (ORDER BY namekor DESC) "
-    		+ "FROM grape "
-    		+ "WHERE (SELECT grape FROM wine w WHERE w.wno = wine.wno) LIKE '%'||#{no}||'%') AS grape,"
-    		+ "(SELECT LISTAGG(namekor, ', ') WITHIN GROUP (ORDER BY no ASC) "
-    		+ "FROM nation "
-    		+ "WHERE (SELECT nation FROM wine w WHERE w.wno = wine.wno) LIKE '%'||#{no}||'%') AS nation "
-    		+ "FROM wine "
-    		+ "WHERE grape LIKE '%'||#{no}||'%'")
+    @Select("SELECT w.wno, w.namekor, w.nameeng, w.type, w.poster, "
+    		+ "    (SELECT m.namekor FROM maker m WHERE m.no = w.maker) AS maker,  "
+    		+ "    (SELECT LISTAGG(g.namekor, ', ') WITHIN GROUP (ORDER BY g.namekor DESC)  "
+    		+ "     FROM (SELECT REGEXP_SUBSTR(w.grape, '[^,]+', 1, LEVEL) AS grape_no FROM dual CONNECT BY REGEXP_SUBSTR(w.grape, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN grape g ON t.grape_no = g.no) AS grape, "
+    		+ "    (SELECT LISTAGG(n.namekor, ', ') WITHIN GROUP (ORDER BY n.namekor DESC)  "
+    		+ "     FROM (SELECT REGEXP_SUBSTR(w.nation, '[^,]+', 1, LEVEL) AS nation_no FROM dual CONNECT BY REGEXP_SUBSTR(w.nation, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN nation n ON t.nation_no = n.no) AS nation FROM wine w  "
+    		+ "WHERE EXISTS (SELECT 1 FROM (SELECT REGEXP_SUBSTR(w.grape, '[^,]+', 1, LEVEL) AS grape_no FROM dual CONNECT BY REGEXP_SUBSTR(w.grape, '[^,]+', 1, LEVEL) IS NOT NULL) t WHERE t.grape_no LIKE '%' || #{no} || '%')")
     public List<WineVO> grapeRelatedWines(Map map);
     
     // 생산지역 목록, 검색 
