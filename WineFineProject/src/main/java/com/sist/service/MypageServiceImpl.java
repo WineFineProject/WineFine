@@ -15,52 +15,19 @@ public class MypageServiceImpl implements MypageService {
 	private MyPageDAO dao;
 
 	@Override
-	public List<BoardVO> getBoardsByUserId(String userId) {
+	public List<BoardVO> myboardListData(String nickname, int start, int end) {
 		// TODO Auto-generated method stub
-		return dao.getBoardsByUserId(userId);
+		return dao.myBoardListData(nickname, start, end);
 	}
-
-	@Override
-	public int getboardCountByUserId(String userId) {
-		// TODO Auto-generated method stub
-		return dao.getboardCountByUserId(userId);
-	}
-
-	@Override
-	public List<BoardVO> getBoardsByUserIdWithPaging(String userId, int limit, int offset) {
-		// TODO Auto-generated method stub
-		return dao.getBoardsByUserIdWithPaging(userId, limit, offset);
-	}
-
-	@Override
-	public List<Map<String, Object>> getBoardCountByCategoryForUser(String userId) {
-		// TODO Auto-generated method stub
-		return dao.getBoardCountByCategoryForUser(userId);
-	}
-
-//	@Override
-//	public List<BoardVO> myBoardListData(String nickname, int start, int end) {
-//		// TODO Auto-generated method stub
-//		return dao.myBoardListData(nickname, start, end);
-//	}
-//
-//	@Override
-//	public List<BoardVO> boardTypeListData(String nickname, int type, int start, int end) {
-//		// TODO Auto-generated method stub
-//		return dao.boardTypeListData(nickname, type, start, end);
-//	}
-//
-//	@Override
-//	public int myPageBoardTotalPage(String nickname) {
-//		// TODO Auto-generated method stub
-//		return dao.myPageBoardTotalPage(nickname);
-//	}
-//
-//	@Override
-//	public int myPageCBoardTotalPage(String nickname, int type) {
-//		// TODO Auto-generated method stub
-//		return dao.myPageCBoardTotalPage(nickname, type);
-//	}
 	
+
+	@Override
+	public int myPageBoardTotalPage(String nickname) {
+		// TODO Auto-generated method stub
+		return dao.myPageBoardTotalPage(nickname);
+	}
+
+	
+
 	
 }
