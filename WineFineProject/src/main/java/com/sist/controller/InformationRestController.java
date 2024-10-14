@@ -60,8 +60,8 @@ public class InformationRestController {
     public String grapeRelatedWines(int no) throws Exception 
     {
         Map map = new HashMap();
-        List<WineVO> gWines = iService.grapeRelatedWines(map);
         map.put("no", no); 
+        List<WineVO> gWines = iService.grapeRelatedWines(map);
         map.put("gWines", gWines); 
 
         ObjectMapper mapper = new ObjectMapper();

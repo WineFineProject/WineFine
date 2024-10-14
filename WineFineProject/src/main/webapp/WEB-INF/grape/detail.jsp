@@ -65,7 +65,9 @@ table {
 </style>
 </head>
 <body>
-<div class="container py-5" style="width: 35%; margin-left: 280px;">
+<div class="container">
+<div class="row">
+<div class="col-sm-5">
 		<div class="row" id="grapeDetail">
 			<div v-if="vo">
             <div>
@@ -109,7 +111,7 @@ table {
          </div>
       </div>
 	</div>
-	<div class="container py" style="text-align: right;">
+	<div class="col-sm-5" >
 		    <h3>관련 와인</h3>
 		    <table>
 		            <tr v-for="vo in gWines" :key="vo.wno">
@@ -124,6 +126,8 @@ table {
 		                 </td> 
 		            </tr>
 		    </table>
+        </div>
+        </div>
         </div>
     <script>
         let grapeDetailApp = Vue.createApp({
@@ -140,15 +144,13 @@ table {
              },
              methods: {
             	 getRelatedWines() {
+            		 console.log(this.no)
                      axios.get('../grape/relatedWines.do', {
                          params: {
                              no: this.no
                          }
                      }).then(response => {
-                    	 this.vo=response.data
-                         this.gWines = response.data
-                         console.log(response.data)
-                         console.log(this.vo)
+                         this.gWines = response.data.gWines
                      }).catch(error => {
                          console.error(error)
                      })

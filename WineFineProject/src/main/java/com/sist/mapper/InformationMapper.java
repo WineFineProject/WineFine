@@ -35,7 +35,7 @@ public interface InformationMapper {
     		+ "FROM nation "
     		+ "WHERE (SELECT nation FROM wine w WHERE w.wno = wine.wno) LIKE '%'||#{no}||'%') AS nation "
     		+ "FROM wine "
-    		+ "WHERE grape LIKE '%'||#{wno}||'%'")
+    		+ "WHERE grape LIKE '%'||#{no}||'%'")
     public List<WineVO> grapeRelatedWines(Map map);
     
     // 생산지역 목록, 검색 

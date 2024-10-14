@@ -41,9 +41,9 @@
          </tr>
      </table>
           <div class="text-center" style="margin-top: 50px">
-           <a href="#" class="btn btn-sm btn-warning">이전</a>
+           <a href="#" class="btn btn-sm btn-primary">이전</a>
              {{curpage}} page / {{totalpage}} pages
-           <a href="#" class="btn btn-sm btn-warning">다음</a>
+           <a href="#" class="btn btn-sm btn-primary">다음</a>
           </div>
      </div>
    </div>

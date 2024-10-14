@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../tem/css/replydetail.css">
 </head>
 <body>
-    <div id="replyDetail">
+    <div id="replyDetail" style="margin-top: 50px">
         <div class="detail-box">
             <td width="35%">
                 <span v-if="vo.type===2">{{cnos[vo.cno]}}&nbsp;</span>

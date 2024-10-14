@@ -35,7 +35,7 @@ public interface MemberMapper {
 
 	// 회원 목록
 	@Select("SELECT wm.userId, wm.nickName, wm.userName, birthday, wm.sex, wm.phone, wm.post, wm.addr1, wm.addr2, wm.grade, wm.photo, "
-			+ "a.authority, TO_CHAR(wm.regdate, 'YYYY-MM-DD') as regday, wm.email " + "FROM wine_member wm "
+			+ "a.authority, TO_CHAR(wm.regdate, 'YYYY-MM-DD') as regday, wm.email, TO_CHAR(wm.lastlogin, 'YYYY-MM-DD HH24:MI:SS') as lastloginday " + "FROM wine_member wm "
 			+ "JOIN authority a ON wm.userid = a.userid " + "WHERE a.authority = 'ROLE_USER' " + "ORDER BY wm.regdate DESC")
 	public List<MemberVO> memberList();
 
