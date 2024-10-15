@@ -9,12 +9,23 @@ public class MyPageController {
  public String mypageHome() {
 	 return "mypage/mypageHome";
  }
+
+ // 정보 보기 , 수정
+ @GetMapping("mypage/my_edit_member.do")
+ public String myEdit() {
+	 return "mypage/my_edit_member";
+ }
+ @GetMapping("mypage/my_edit2_member.do")
+ public String myEdit2() {
+	 return "mypage/my_edit2_member";
+ }
  
  @GetMapping("mypage/coupon.do")
  public String mypageCoupon() {
 	 return "mypage/coupon";
  }
  //구매내역
+ 
  //예약내역
  
  //작성한글
