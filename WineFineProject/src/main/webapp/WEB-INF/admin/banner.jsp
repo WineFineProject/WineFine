@@ -64,7 +64,7 @@
 										<td width="10%">{{avo.stack}}회</td>
 										<td width="16%">{{avo.mvo.nickName}}</td>
 										<td width="8%">
-											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponApproval(avo.pbno)">승인</button>
+											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponApproval(index)">승인</button>
 											<button class="btn btn-sm border-wine text-wine" type="button" @click="couponRejection(index)">거절</button>
 										</td>
 									</tr>
@@ -102,6 +102,7 @@
 			},
 			couponApproval(index){
 				this.select=this.waitBanner[index]
+				console.log(this.select)
 				axios.get('../admin/vueBannerApproval.do', {
 					params:{
 						pbno:this.select.pbno

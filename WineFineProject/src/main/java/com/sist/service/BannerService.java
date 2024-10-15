@@ -10,4 +10,5 @@ public interface BannerService {
 	public List<PromotionBannerVO> promotionActiveBanner(String id);
 	public void promotionApproval(int pbno);
 	public void promotionRejection(int pbno);
+	public List<PromotionBannerVO> promotionBannerList();
 }

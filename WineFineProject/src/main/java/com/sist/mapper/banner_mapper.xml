@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.BannerMapper">
-	<resultMap type="com.sist.vo.PromotionBannerVO" id="BannerMap">
+	<resultMap type="com.sist.vo.PromotionBannerVO" id="bannerMap">
 		<result property="wvo.namekor" column="namekor" />
+		<result property="wvo.poster" column="poster" />
+		<result property="wvo.price" column="price" />
+		<result property="wvo.type" column="wtype" />
 		<result property="mvo.nickName" column="nickName" />
 	</resultMap>
 	
 	<!-- 등록 대기 배너 -->
-	<select id="promotionWaitBanner" parameterType="String" resultMap="BannerMap">
+	<select id="promotionWaitBanner" parameterType="String" resultMap="bannerMap">
 		SELECT pbno, title, userid, stack, wno, type, state, (SELECT namekor FROM wine WHERE promotion_banner.wno=wine.wno) as namekor,
 		(SELECT nickname FROM wine_member WHERE promotion_banner.userid=wine_member.userid) as nickName
 		FROM promotion_banner
@@ -16,12 +19,18 @@
 	</select>
 	
 	<!-- 진행중 배너 -->
-	<select id="promotionActiveBanner" parameterType="String" resultMap="BannerMap">
+	<select id="promotionActiveBanner" parameterType="String" resultMap="bannerMap">
 		SELECT pbno, title, userid, stack, wno, type, TO_CHAR(startdate, 'YY-MM-DD') as startDay, state, (SELECT namekor FROM wine WHERE
 		promotion_banner.wno=wine.wno) as namekor,
 		(SELECT nickname FROM wine_member WHERE promotion_banner.userid=wine_member.userid) as nickName
 		FROM promotion_banner
 		WHERE userid LIKE '%'||#{id}||'%' AND state=1
 		ORDER BY pbno ASC
+	</select>
+	<select id="promotionBannerList" resultMap="bannerMap">
+	SELECT pbno, pb.userid, pb.stack, pb.wno, pb.type, w.namekor, w.poster, wm.nickName , w.price, w.type as wtype
+	FROM promotion_banner pb JOIN wine w ON pb.wno=w.wno
+	JOIN wine_member wm ON pb.userid=wm.userId
+	WHERE pb.type=1 AND pb.state=1
 	</select>
 </mapper>

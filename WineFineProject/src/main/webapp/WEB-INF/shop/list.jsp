@@ -250,7 +250,7 @@
 									<div class="col-md-6 col-lg-6 col-xl-4" v-for="vo in list"
 										style="height: 550px; margin-bottom: 30px;">
 										<a
-											:href="'../shop/detail.do?wno=' + vo.wno + '&page=' + curpage">
+											:href="'../shop/detail.do?wno=' + vo.wno">
 											<div class="rounded position-relative fruite-item"
 												style="width: 270px; height: 537px;">
 												<div class="fruite-img" style="width: 270px;">

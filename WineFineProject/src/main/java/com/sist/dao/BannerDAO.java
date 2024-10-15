@@ -33,4 +33,8 @@ public class BannerDAO {
 	public void promotionRejection(int pbno) {
 		mapper.promotionRejection(pbno);
 	}
+	
+	public List<PromotionBannerVO> promotionBannerList(){
+		return mapper.promotionBannerList();
+	}
 }

@@ -22,6 +22,8 @@
 <link href="../tem/css/modal.css" rel="stylesheet">
 <!-- Template Stylesheet -->
 <link href="../tem/css/style.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/vue@3"></script>
 <script type="text/javascript" src="http://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- Template Javascript -->
@@ -31,8 +33,6 @@
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="home" />
 	<tiles:insertAttribute name="footer" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../tem/lib/easing/easing.min.js"></script>
 	<script src="../tem/lib/waypoints/waypoints.min.js"></script>
 	<script src="../tem/lib/lightbox/js/lightbox.min.js"></script>

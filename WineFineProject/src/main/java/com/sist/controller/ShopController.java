@@ -28,11 +28,10 @@ public class ShopController {
 	}
 	
 	@GetMapping("shop/detail.do")
-	public String shop_detail(int wno, Model model, HttpSession session,int page) {
+	public String shop_detail(int wno, Model model, HttpSession session) {
 		String id = (String)session.getAttribute("userId");
 		model.addAttribute("wno",wno);
 		model.addAttribute("session",id);
-		model.addAttribute("page", page);
 		return "shop/detail";
 	}
 	

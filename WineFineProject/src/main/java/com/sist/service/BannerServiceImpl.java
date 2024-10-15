@@ -32,4 +32,9 @@ public class BannerServiceImpl implements BannerService{
 	public void promotionRejection(int pbno) {
 		dao.promotionRejection(pbno);
 	}
+	@Override
+	public List<PromotionBannerVO> promotionBannerList() {
+		return dao.promotionBannerList();
+	}
+	
 }
