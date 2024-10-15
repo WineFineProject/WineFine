@@ -19,5 +19,6 @@ public interface ShopService {
 	public List<WineVO> otherWine_seller(int wno);
 	public String getPoint(String id);
 	public List<DeliveryVO> getDeli(String id);
+	public MemberVO usePoint (int point, String id);
 
 }

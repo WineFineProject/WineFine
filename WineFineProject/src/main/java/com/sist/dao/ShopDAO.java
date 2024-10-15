@@ -66,6 +66,10 @@ public class ShopDAO {
 	public List<DeliveryVO> getDeli(String id) {
 		return mapper.getDeli(id);
 	}
+//	사용 적립금 차감
+	public MemberVO usePoint (int point, String id) {
+		return mapper.usePoint(point, id);
+	}
 
 
 

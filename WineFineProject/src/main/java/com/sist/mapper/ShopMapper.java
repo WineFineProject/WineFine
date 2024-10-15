@@ -119,19 +119,18 @@ public interface ShopMapper {
 			+ "FROM wine_delivery "
 			+ "WHERE userid = #{id} "
 			+ "ORDER BY state DESC ")
-	public List<DeliveryVO> getDeli(String id);
-	
-////	추가 배송지
-//	@Select("SELECT * "
-//			+ "FROM wine_delivery "
-//			+ "WHERE state = 0 AND userid = #{id} ")
-//	public List<DeliveryVO> otherDeli(String id);
+	public List<DeliveryVO> getDeli(String id);	
 	
 //	배송지 추가하기
 //	INSERT INTO wine_delivery VALUES ('5','풍성빌딩', 'ping', '01016','서울 강북구 4.19로21길 4', '1212', '1212', 0);
 	@Insert("INSERT INTO wine_delivery (name, userid, post, addr1, addr2, msg, status) VALUES (#{name}, #{userid}, #{post}, #{addr1}, #{addr2}, #{msg}, 0) ")
 	public void addDeli(DeliveryVO vo);
 	
+//	사용 적립금 차감하기
+	@Update("UPDATE wine_member SET "
+			+ "point = point - #{point} "
+			+ "WHERE userid = #{id} ")
+	public MemberVO usePoint (int point, String id);
 }
 
 

@@ -85,7 +85,7 @@ public class ShopRestController {
 		
 	}
 	@GetMapping(value = "shop/buy_vue.do", produces = "text/plain;charset=UTF-8")
-	public String wine_buy(int wno,HttpSession session) throws Exception{
+	public String wine_buy(int wno, HttpSession session) throws Exception{
 		WineVO vo = sservice.winebuy(wno);
 		String id = (String)session.getAttribute("userId");
 		List<MyCouponVO> cvo = sservice.selectCoupon(id);
@@ -117,8 +117,10 @@ public class ShopRestController {
 		map.put("type", typeIndex);	
 		List<PromotionSaleVO> psvo = sservice.promotionGetSale(map);
 		map.put("psvo", psvo);
-//		蹂댁쑀�븳荑좏룿 list �떎 �굹�삤寃� �븯湲� 
-//		二쇱냼吏� 異붽��븯�뒗李� �꽔�뼱�몢湲�   state 1 �씠 湲곕낯 諛곗넚吏� 0�씠 �씠�쇅 ���옣 諛곗넚吏�
+//		사용 포인트 차감
+//		MemberVO usepoint = sservice.usePoint(point, id);		
+//		map.put("point", usepoint);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);
 		return json;

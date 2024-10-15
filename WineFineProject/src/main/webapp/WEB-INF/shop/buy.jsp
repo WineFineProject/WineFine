@@ -31,6 +31,15 @@
 	border-bottom: none !important; /* 아래쪽 테두리 제거 */
 	color: black !important;
 }
+
+.selectAd.selected {
+	background-color: #e0e0e0; /* 선택된 배경색 */
+	border: 1px solid #881824; /* 선택된 경계선 색상 */
+}
+
+.selectAd:hover {
+	background-color: #e0e0e0; /* hover 시 배경색 */
+}
 </style>
 </head>
 <body>
@@ -88,12 +97,12 @@
 								</td>
 								<td class="align-middle">
 									<div class="input-group quantity" style="width: 100px;">
-										<!--                         <button class="btn btn-sm  rounded-circle bg-light border" @click="decreaseQuantity">
+										<!--          -버튼               <button class="btn btn-sm  rounded-circle bg-light border" @click="decreaseQuantity">
                             <i class="fa fa-minus"></i>
                         </button> -->
 										<input type="number" class="form-control form-control-sm text-center border-0" v-model.number="quantity" min="1" />
 
-										<!--                         <button class="btn btn-sm  rounded-circle bg-light border" @click="increaseQuantity">
+										<!--          +버튼               <button class="btn btn-sm  rounded-circle bg-light border" @click="increaseQuantity">
                             <i class="fa fa-plus"></i>
                         </button> -->
 									</div>
@@ -112,11 +121,11 @@
 				</div>
 
 				<div class="row g-4 justify-content-center">
-					
-					<div class="col-3 " style="height: 385px; overflow: scroll; overflow-x: hidden;">
+
+					<div class="col-3 " style="height: 385px; overflow: auto; overflow-x: hidden;">
 						<h3>배송지선택</h3>
 						<br>
-						<table v-for="(userDeli,index) in userDeli" class="coupondiv" style="width: 290px; height: 150px; margin-bottom: 10px;">
+						<table v-for="(userDeli, index) in userDeli" :class="['coupondiv', 'selectAd', {'selected': selectAddr === index}]" style="width: 290px; height: 150px; margin-bottom: 10px; border-radius: 0px">
 							<thead>
 								<tr>
 									<th style="border-bottom: none;"></th>
@@ -125,21 +134,17 @@
 							<tbody>
 								<tr>
 									<td>
-										<div style="padding: 10px 10px 0px 10px;" class="form-check">
-											<input class="form-check-input" type="radio" name="flexRadioDefault" id="'flexRadioDefault'+index" style="margin: 0px auto;" v-model="selectAddr" :value="index"> 
-											<label class="form-check-label" for="flexRadioDefault"></label> 
-											<b>{{userDeli.name}}</b>
-											<p>{{userDeli.addr1}}</p>
-											<p>{{userDeli.addr2}}</p>
+										<div class="form-check" style="padding: 10px 10px 0px 10px; cursor: pointer;">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" :id="'flexRadioDefault'+index" style="display: none;" v-model="selectAddr" :value="index"> <label class="form-check-label" :for="'flexRadioDefault'+index" @click="selectAddress(index)"> <b>{{userDeli.name}}</b>
+												<p>{{userDeli.addr1}}</p>
+												<p>{{userDeli.addr2}}</p>
+											</label>
 										</div>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-
-
-
 
 					<div class="col-4">
 						<h3>할인쿠폰 / 적립금</h3>
@@ -245,9 +250,6 @@
 							<span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
 						</div>
 						<div class="col-md-6 my-auto text-center text-md-end text-white">
-							<!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-							<!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-							<!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
 							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
 						</div>
 					</div>
@@ -260,21 +262,22 @@
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 	<script>
+	
 let buyApp = Vue.createApp({
     data() {
         return {
             vo: {},
             wno: ${wno},
-            cvo: [], // 쿠폰 목록
+            cvo: [],
             list: [],
             selectedCoupon: null,
             quantity: 1,
-            psvo: [], // 프로모션 목록
+            psvo: [],
             isVisible: false, 
-            userPoint:0,
-            point:0,
-            userDeli:[],	//배송지
-            selectAddr:{} // 선택한 주소 값 가져오기
+            userPoint: 0,
+            point: 0,
+            userDeli: [],	// 배송지
+            selectAddr: {} // 선택한 주소에 wdno 가져오기
         };
     },
     computed: {
@@ -286,13 +289,10 @@ let buyApp = Vue.createApp({
             const psvoDiscount = this.psvo.length > 0 ? this.psvo[0].discount : 0
 
             if (selectedCouponDiscount > psvoDiscount) {
-                // 쿠폰이 선택되었고 쿠폰 할인이 더 클 경우
                 return (this.vo.price * this.quantity * (1 - selectedCouponDiscount / 100) - this.point).toLocaleString()
             } else if (psvoDiscount > 0) {
-                // 프로모션 할인만 있을 경우
                 return (this.vo.price * this.quantity * (1 - psvoDiscount / 100) - this.point).toLocaleString()
             } else {
-                // 아무것도 선택되지 않았을 때
                 return this.totalPrice - this.point  // 기본 가격 반환
             }
         }
@@ -308,38 +308,26 @@ let buyApp = Vue.createApp({
             this.cvo = response.data.cvo
             this.list = response.data.list
             this.psvo = response.data.psvo
-            this.calculateTotalPrice()
             this.quantity = response.data.quantity || 1
             console.log("수량 : " + this.quantity)
             this.userPoint = response.data.userPoint
             this.userDeli = response.data.userDeli
             this.selectAddr = response.data.selectAddr
+/*             this.point = response.data.point
+            console.log("사용 포인트 : " + this.point) */
             console.log(this.selectAddr)
         }).catch(error => {
             console.log(error.response)
         });
     },
     methods: {
-        getSelectedDelivery() {
-            console.log(this.selectAddr) // 선택된 배송지의 인덱스를 출력
-            if (this.selectAddr !== null) {
-                const selectedDeli = this.userDeli[this.selectAddr]
-                console.log(selectedDeli) // 선택된 배송지의 정보 출력
-            }
-        },
         increaseQuantity() {
             this.quantity++;
-            this.calculateTotalPrice()
         },
         decreaseQuantity() {
             if (this.quantity > 1) {
                 this.quantity--;
-                this.calculateTotalPrice()
             }
-        },
-        calculateTotalPrice() {
-            this.totalPrice = this.vo.price * this.quantity // 총 금액 계산
-            console.log("총 금액: ", this.totalPrice)
         },
         payment() {
             alert('결제 처리중')
@@ -351,32 +339,34 @@ let buyApp = Vue.createApp({
             this.selectedCoupon = coupon // 선택한 쿠폰을 저장
             this.isVisible = false // 리스트 숨기기
             
-            // 선택된 쿠폰에 대한 추가 로직을 여기에 추가할 수 있습니다.
-            if (this.psvo.length > 0 && this.cvo.length > 0) { // 배열이 비어 있지 않은지 확인
-                const psvoDiscount = this.psvo[0].discount // 첫 번째 프로모션 할인
-                const cvoDiscount = this.selectedCoupon.discount // 선택한 쿠폰 할인
+            if (this.psvo.length > 0 && this.cvo.length > 0) {
+                const psvoDiscount = this.psvo[0].discount
+                const cvoDiscount = this.selectedCoupon.discount
 
                 if (psvoDiscount >= cvoDiscount) {
                     alert('프로모션 할인 가격이 더 높습니다')
-                    this.selectedCoupon = null // 선택한 쿠폰을 저장
-                    this.isVisible = false // 리스트 숨기기
+                    this.selectedCoupon = null
+                    this.isVisible = false
                     return
                 }
-                
             }
-			
         },
-        checkPoint(){
-        	if(this.point >= this.userPoint ){
-        		this.point = this.userPoint
-        	}
+        checkPoint() {
+            if (this.point >= this.userPoint) {
+                this.point = this.userPoint
+            }
         },
-        allPoint(){
-       		this.point = this.userPoint
+        allPoint() {
+            this.point = this.userPoint
+        },
+        selectAddress(index) {
+            this.selectAddr = this.userDeli[index] // 선택한 배송지 정보를 selectAddr에 저장
+            console.log('선택한 주소 wdno:', this.selectAddr.wdno) // wdno 출력
         }
     }
 }).mount('.shopcontainer')
 </script>
+
 
 
 </body>
