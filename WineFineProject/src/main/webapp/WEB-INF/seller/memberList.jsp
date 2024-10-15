@@ -99,9 +99,9 @@
                     message:'',
                     isShow:Array(10).fill(false),
                     curpage:1,
-				       			totalpage:0,
-				       			startPage:0,
-				       			endPage:0
+				    totalpage:0,
+				    startPage:0,
+				    endPage:0
                 }
             },
             mounted() {

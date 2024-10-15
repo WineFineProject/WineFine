@@ -113,16 +113,19 @@ public class InformationRestController {
         
         return json;
     }
+
 	// 생산지역 관련 와인
     @GetMapping(value = "nation/relatedWines.do", produces = "text/plain;charset=UTF-8")
     public String nationRelatedWines(int no) throws Exception 
     {
         Map map = new HashMap();
         map.put("no", no); 
+        
         List<WineVO> nWines = iService.nationRelatedWines(map);
-
+        map.put("nWines", nWines);
+        
         ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(nWines);
+        String json = mapper.writeValueAsString(map);
         
         return json;
     }
@@ -178,9 +181,10 @@ public class InformationRestController {
         Map map = new HashMap();
         map.put("no", no); 
         List<WineVO> mWines = iService.makerRelatedWines(map);
+        map.put("mWines", mWines);
 
         ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(mWines);
+        String json = mapper.writeValueAsString(map);
         
         return json;
     }

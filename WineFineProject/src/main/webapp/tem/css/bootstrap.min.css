@@ -2981,41 +2981,7 @@ textarea.form-control-lg {
 	border-color: #b02a37
 }
 
-.btn-red {
-	color: #fff;
-	background-color: #bb2d3b;
-	border-color: #dc3545
-}
 
-.btn-white {
-	color: #000000;
-	background-color: #ffffff;
-	border-color: #000000
-}
-
-.btn-spark {
-	color: #000000;
-	background-color: #b4c5fe;
-	border-color: #b4c5fe
-}
-
-.btn-rose {
-	color: #000000;
-	background-color: #ffc1e0;
-	border-color: #ffc1e0
-}
-
-.btn-etc {
-	color: #000000;
-	background-color: #8dc7c7;
-	border-color: #8dc7c7
-}
-
-.btn-alcohol {
-	color: #000000;
-	background-color: #ffa346;
-	border-color: #ffa346
-}
 .btn-check:focus+.btn-danger, .btn-danger:focus {
 	color: #fff;
 	background-color: #bb2d3b;
