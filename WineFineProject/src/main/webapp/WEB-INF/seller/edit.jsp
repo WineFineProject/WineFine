@@ -6,9 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#itemregister{
-  margin: 10px auto;
-}
 .sellretext{
 	resize:none;
 	width:90%;
@@ -167,7 +164,7 @@
      		 <table class="text-center" style="margin-top:15px;">
      		 <tr class="">
      		  <th width="25%">생산자</th>
-     		  <th width="25%">품종</th>
+     		  <th colspan="2" width="25%">품종</th>
      		  <th width="50%">지역</th>
      		 </tr>
      		 <tr>
@@ -181,7 +178,7 @@
                      </ul>
                 </div>
      	 	  </td>
-     		  <td width="25%">
+     		  <td width="20%">
      		  <input type="text" class="form-control" v-model="fgrape" placeholder="품종명(한글) 검색" @keyup.enter="searchgrape">
                 <div class="gList" v-if="gList.length > 0">
                 	<ul>
@@ -191,21 +188,26 @@
                      </ul>
                 </div>
      		  </td>
+     		  <td width="5%">
+     		  <div>
+     		  	<button type="button" @click="cleargrapes" class="form-control" style="width:90%; font-size:9px;">전체 <br> 삭제</button>
+     		  </div>
+     		  </td>
      		  <td width="50%">
      		  <select id="n1" v-model="nation1" ref="nation1" class="rnation form-control" @click="nation1list()">
-                    <option value="" disabled selected>나라 선택 ▼</option>
+                    <option value="" disabled>나라 선택 ▼</option>
                     <option  v-for="n1 in n1List" :key="n1.no" :value="n1.no">{{n1.namekor}}</option>
          	 </select>
      		  <select id="n2" v-model="nation2" ref="nation2" class="rnation form-control" @click="nation2list(n1no)">
-                    <option value="" disabled selected>지역1 선택 ▼</option>
+                    <option value="" disabled>지역1 선택 ▼</option>
                     <option  v-for="n2 in n2List" :key="n2.no" :value="n2.no">{{n2.namekor}}</option>
          	 </select>
          	 <select id="n3" v-model="nation3" ref="nation3" class="rnation form-control" @click="nation3list(n2no)">
-                    <option value="" disabled selected>지역2 선택 ▼</option>
+                    <option value="" disabled>지역2 선택 ▼</option>
                     <option  v-for="n3 in n3List" :key="n3.no" :value="n3.no">{{n3.namekor}}</option>
          	 </select>
          	 <select id="n4" v-model="nation4" ref="nation4" class="rnation form-control" @click="nation4list(n3no)">
-                    <option value="" disabled selected>지역3 선택 ▼</option>
+                    <option value="" disabled>지역3 선택 ▼</option>
                     <option  v-for="n4 in n4List" :key="n4.no" :value="n4.no">{{n4.namekor}}</option>
          	 </select>
      		  </td>
@@ -213,7 +215,7 @@
      		 <tr>
      	 	  <td width="25%">
      	 	  <span class="rname">생산자: {{ makername }}</span></td>
-     		  <td width="25%">
+     		  <td colspan="2" width="25%">
      		  <span class="rname">선택한 품종: {{ grapename }}</span>
      		  </td>
      		  <td width="50%"></td>
@@ -222,7 +224,7 @@
      	<table class="text-center" style="width:100%; margin-top:15px;">
      	<tr>
         <td style="text-align: center;">
-          <input type="submit"  class="btn btn-danger" value="등록">
+          <input type="submit"  class="btn btn-danger" value="수정">
           &nbsp;
           <input type="button"  class="btn btn-secondary" value="취소"
            onclick="javascript:history.back()">
@@ -264,12 +266,20 @@
  			poster:'',
  			n1List:[],
  			nation1:'',
+ 			nation11:'',
  			n2List:[],
  			nation2:'',
+ 			nation22:'',
  			n3List:[],
  			nation3:'',
+ 			nation33:'',
  			n4List:[],
  			nation4:'',
+ 			nation44:'',
+ 			nation1name:'',
+ 			nation2name:'',
+ 			nation3name:'',
+ 			nation4name:'',
  			n1no:0,
  			n2no:0,
  			n3no:0,
@@ -308,6 +318,8 @@
 		      this.sugar = data.sugar
 		      this.tannin = data.tannin
 		      this.loadmakername()
+		      this.loadGrapeNames()
+		      this.loadNations()
 			console.log(response.data)
 		}).catch(error=>{
 			console.log(error.response)
@@ -324,27 +336,32 @@
  				this.makername = response.data
  			}).catch(error => {
  			    console.error(error)
- 			});
+ 			})
  		},
  		loadGrapeNames(grapeNumbers) {
  		      axios.get('prevgrapes_vue.do', {
  		        params: { grapeNumbers: this.grape }
  		      }).then(response => {
- 		        this.grapeNames = response.data.join(', ')
+ 		        this.grapename = response.data
  		      }).catch(error => {
  		        console.error(error)
- 		      });
+ 		      })
  		    },
- 		    loadNationNames(nationNumbers) {
- 		      axios.get('get_nation_names.do', {
- 		        params: { nationNumbers: nationNumbers }
- 		      }).then(response => {
- 		        this.nationNames = response.data.join(', ')
- 		      }).catch(error => {
- 		        console.error(error)
- 		      });
+ 		 loadNations(){
+ 		       const nations = this.nation.split(',')
+ 		       if (nations.length > 0) this.nation11 = nations[0]
+ 		       if (nations.length > 1) this.nation22 = nations[1]
+ 		       if (nations.length > 2) this.nation33 = nations[2]
+ 		       if (nations.length > 3) this.nation44 = nations[3]
+ 		       this.nation1 = this.nation11
+ 		       this.nation2 = this.nation22
+ 		       this.nation3 = this.nation33
+ 		       this.nation4 = this.nation44
+ 		       this.nation1list()
+ 		       if (this.nation2) this.nation2list()
+ 		       if (this.nation3) this.nation3list()
+ 		       if (this.nation4 !== '') this.nation4list()   
  		    },
- 		    
  		searchmaker(){
  			 if (this.fmaker.length === 0) {
                  return
@@ -386,12 +403,12 @@
 		    this.fgrape = ''
 		    this.gList = []
 		},
+		cleargrapes(event){
+			this.grape = ''
+			this.grapename = ''
+		},
 		nation1list(){
-			if(this.nation !== "")
-			{	    this.nation2 = ''
-		 	        this.nation3 = ''
-		 	        this.nation4 = ''
-			}
+			
             axios.get('../seller/register_nation1_list_vue.do', { 
                     
                 }).then(response => {
@@ -509,6 +526,7 @@
 	            }
 	        }
  			let formData=new FormData()
+ 			formData.append("wno", this.wno)
  			formData.append("namekor",this.namekor)
  			formData.append("nameeng",this.nameeng)
  			formData.append("type",this.type) 			
@@ -528,12 +546,12 @@
  			formData.append("nation",this.nation)
  			formData.append("seller",this.id)
  			
- 			axios.post('../seller/register_vue.do',formData,{
+ 			axios.post('../seller/update_vue.do',formData,{
  			}).then(response=>{
  				if(response.data==='yes')
  				{
- 				    alert("상품 등록이 완료되었습니다")
- 				    this.resetForm()
+ 				    alert("상품 수정이 완료되었습니다")
+ 				    
  				}
  				else
  				{
@@ -542,43 +560,7 @@
  			}).catch(error=>{
  				console.log(error.response)
  			})
- 		},
- 		 resetForm() {
- 	        this.namekor = ''
- 	        this.nameeng = ''
- 	        this.type = ''
- 	        this.price = ''
- 	        this.vol = ''
- 	        this.sugar = 0
- 	        this.acid = 0
- 	        this.body = 0
- 	        this.tannin = 0
- 	        this.stack = ''
- 	        this.aromaList = []
- 	        this.foodList = []
- 	        this.alcohol = ''
- 	        this.poster = ''
- 	        this.grape = ''
- 	        this.maker = ''
- 	        this.makername = ''
- 	        this.grapename = ''
- 	        this.nation1 = ''
- 	        this.nation2 = ''
- 	        this.nation3 = ''
- 	        this.nation4 = ''
- 	        this.fmaker = ''
- 	        this.fgrape = ''
- 	        this.aromaInput = ''
- 	        this.aroma = ''
- 	        this.foodInput = ''
- 	        this.food = ''
- 	        this.gList = []
- 	        this.mList = []
- 	        this.n1List = []
- 	        this.n2List = []
- 	        this.n3List = []
- 	        this.n4List = []
- 	    }
+ 		} 		 
  	},
  computed: {
  	   formattedAroma() {
@@ -602,10 +584,27 @@
 	  price(newVal) {
 	        this.formattedPrice = this.formattedPrice
 	    },
- 	    nation1() { this.setNations() },
- 	    nation2() { this.setNations() },
- 	    nation3() { this.setNations() },
- 	    nation4() { this.setNations() },
+	    nation1(newValue) {
+	    if (newValue !== this.nation11){
+		        this.nation2 = ''
+		        this.nation3 = ''
+		        this.nation4 = ''
+		        this.setNations()
+		    	}
+	    },
+	    nation2(newValue) {
+	    if (newValue !== this.nation22){
+	        this.nation3 = ''
+	        this.nation4 = ''
+	        this.setNations()
+	       }
+	    },
+	    nation3(newValue) {
+	    if (newValue !== this.nation33){
+	        this.nation4 = ''
+	        this.setNations()
+	       }
+	    },
  	}
  }).mount('#itemEdit')
  </script>

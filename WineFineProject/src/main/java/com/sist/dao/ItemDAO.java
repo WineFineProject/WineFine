@@ -9,6 +9,8 @@ import com.sist.mapper.ItemMapper;
 import com.sist.vo.GrapeVO;
 import com.sist.vo.ItemNationVO;
 import com.sist.vo.MakerVO;
+import com.sist.vo.MemberVO;
+import com.sist.vo.NoticeBoardVO;
 import com.sist.vo.WineVO;
 
 @Repository
@@ -44,9 +46,9 @@ public class ItemDAO {
 	{
 		return mapper.nation4FindListData(areanum);
 	}
-	 public List<WineVO> sellerItemListData(String seller, int start, int end)
+	 public List<WineVO> sellerItemListData(String seller, int start, int end, String sortOrder)
 	 {
-		 return mapper.sellerItemListData(seller, start, end);
+		 return mapper.sellerItemListData(seller, start, end, sortOrder);
 	 }
 	 public int sellerItemCount(String seller)
 	 {
@@ -72,12 +74,24 @@ public class ItemDAO {
 	 {
 		 return mapper.getMakerkor(maker);
 	 }
-	 public List<String> getGrapeNames(String grapeNumbers)
+	 public List<String> getGrapeNames(List<String> grapeNumbers)
 	 {
 		 return mapper.getGrapeNames(grapeNumbers);
 	 }
-	 public List<String> getNationNames(String nationNumbers)
+	 public void wineItemUpdate(WineVO vo)
 	 {
-		 return mapper.getNationNames(nationNumbers);
+		 mapper.wineItemUpdate(vo);
+	 }
+	 public MemberVO sellerInfoData(String id)
+	 {
+		 return mapper.sellerInfoData(id);
+	 }
+	 public List<NoticeBoardVO> sellerNoticeList(String id)
+	 {
+		 return mapper.sellerNoticeList(id);
+	 }
+	 public List<WineVO> sellerWineList(String id)
+	 {
+		 return mapper.sellerWineList(id);
 	 }
 }

@@ -1,5 +1,7 @@
 package com.sist.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.ItemService;
 import com.sist.vo.MakerVO;
+import com.sist.vo.MemberVO;
+import com.sist.vo.NoticeBoardVO;
 import com.sist.vo.WineVO;
 import com.sist.vo.BoardVO;
 import com.sist.vo.GrapeVO;
@@ -102,13 +107,13 @@ public class ItemRestController {
 		return json;
 	}
 	@GetMapping(value="seller/itemlist_vue.do", produces = "text/plain;charset=UTF-8")
-	public String item_list(String seller, int page) throws Exception {
+	public String item_list(String seller, int page, String sortOrder) throws Exception {
 		
 		List<WineVO> iList;
 		int rowSize=10;
 		int start=(rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
-		iList = iService.sellerItemListData(seller, start, end);
+		iList = iService.sellerItemListData(seller, start, end, sortOrder);
 		int iCount = iService.sellerItemCount(seller);
 		int totalpage = (int) Math.ceil((double) iCount / rowSize);
 		final int BLOCK=10;
@@ -135,6 +140,13 @@ public class ItemRestController {
 		iService.deleteItems(wnos);
 	   	    
 	    return "OK";
+	}
+	@PostMapping(value = "seller/itemdelete_vue.do", produces = "text/plain;charset=UTF-8")
+	public String itemDelete(int wno) {
+		
+		iService.itemDelete(wno);
+		
+		return "OK";
 	}
 	@PostMapping(value = "seller/updateitems_vue.do", produces = "text/plain;charset=UTF-8")
 	public String updateItems(@RequestParam List<String> updates) {
@@ -165,10 +177,40 @@ public class ItemRestController {
 	}
 	@GetMapping(value = "seller/prevgrapes_vue.do", produces = "text/plain;charset=UTF-8")
 	public String prevgrapes(String grapeNumbers) {
-		List<String> gnames = iService.getGrapeNames(grapeNumbers);
-		
-		String temp ="";
-		return temp;
+	    List<String> grapeList = Arrays.asList(grapeNumbers.split(","));
+	    List<String> gnames = iService.getGrapeNames(grapeList);
+	    String result = String.join(",", gnames);
+	    return result;
 	}
 	
+	@PostMapping(value="seller/update_vue.do",produces = "text/plain;charset=UTF-8")
+	public String seller_update(@ModelAttribute WineVO vo)
+	{
+		String result="";
+		iService.wineItemUpdate(vo);
+		result="yes";
+		return result;
+	}
+	@GetMapping(value = "seller/info_vue.do", produces = "text/plain;charset=UTF-8")
+	public String sellerinfo(String id) throws Exception {
+		MemberVO vo = iService.sellerInfoData(id);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	@GetMapping(value = "seller/snotice_vue.do", produces = "text/plain;charset=UTF-8")
+	public String sellernotice(String id) throws Exception {
+		List<NoticeBoardVO> nList= iService.sellerNoticeList(id);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(nList);
+		return json;
+	}
+	
+	@GetMapping(value = "seller/swineList_vue.do", produces = "text/plain;charset=UTF-8")
+	public String sellerWineList(String id) throws Exception {
+		List<WineVO> wList= iService.sellerWineList(id);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(wList);
+		return json;
+	}
 }

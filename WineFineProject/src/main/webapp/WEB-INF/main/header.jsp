@@ -125,7 +125,7 @@
 						<div class="nav-item dropdown">
 							<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">커뮤니티</a>
 							<div class="dropdown-menu m-0 bg-light rounded-0">
-								<a href="../board/list.do" class="dropdown-item">자유게시판</a> <a href="../noticeboard/list.do" class="dropdown-item">공지사항</a> <a href="../replyboard/list.do" class="dropdown-item">1:1 문의</a>
+								<a href="../board/list.do" class="dropdown-item">자유게시판</a> <a href="../noticeboard/list.do" class="dropdown-item">공지사항</a> <a href="../replyboard/list.do" class="dropdown-item">1:1 문의</a><a href="../shop/sellerShop.do?id=han" class="dropdown-item">판매자 상점</a>
 							</div>
 						</div>
 					</div>

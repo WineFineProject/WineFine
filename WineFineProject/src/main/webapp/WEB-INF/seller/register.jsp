@@ -430,10 +430,6 @@
 	            { value: this.food, ref: this.$refs.food, name: '음식' },
 	            { value: this.stack, ref: this.$refs.stack, name: '재고' },
 	            { value: this.alcohol, ref: this.$refs.alcohol, name: '도수' },
-	            { value: this.sugar, ref: this.$refs.sugar, name: '당도' },
-	            { value: this.acid, ref: this.$refs.acid, name: '산도' },
-	            { value: this.body, ref: this.$refs.body, name: '바디' },
-	            { value: this.tannin, ref: this.$refs.tannin, name: '타닌' },
 	            { value: this.grape, ref: null, name: '품종' }, 
 	            { value: this.maker, ref: null, name: '생산자' }, 
 	            { value: this.nation, ref: null, name: '나라' }

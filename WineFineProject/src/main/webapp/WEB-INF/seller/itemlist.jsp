@@ -30,6 +30,10 @@
     <h3 class="text-center" style="width:100%;"> &emsp;&emsp;&emsp;&emsp;상품 조회</h3>
      <div class="row">
      <div>
+     <select v-model="sortOrder">
+     	<option value="recent">최근등록순</option>
+		<option value="popular">인기순</option>
+     </select>
      <button type="button" class="allitem" @click="deleteSelected()">선택 삭제</button>
      <button type="button" class="allitem" @click="saveAllChanges">변경 내용 저장</button>
      <span style="width: 15%; float: left;">총 {{iCount}} 개</span>
@@ -82,7 +86,7 @@
      	<td class="editable">공지 선택</td>
      	<td>
      	<a :href="'edit.do?wno='+vo.wno" class="dbtn">수정</a>
-     	<button type="button" v-on:click="itemDelete()">삭제</button>
+     	<button type="button" v-on:click="itemDelete(vo)">삭제</button>
      	</td>
      	</tr>
      	<tr>
@@ -108,6 +112,7 @@
     			iList:[],
     			iCount:0,
     			seller:'',
+    			sortOrder:'recent',
     			curpage:1,
     			startPage:0,
     			endPage:0,
@@ -122,6 +127,7 @@
     			axios.get('../seller/itemlist_vue.do',{
     				params:{
     					seller:this.id,
+    					sortOrder:this.sortOrder,
     					page:this.curpage
     				}
     			}).then(response=>{
@@ -130,7 +136,7 @@
     				this.curpage=response.data.curpage
     				this.startPage=response.data.startPage
     				this.endPage=response.data.endPage
-    				console.log(response.data)
+    				this.dataRecv()
     			}).catch(error=>{
     				console.log(error.response)
     			})
@@ -143,10 +149,6 @@
     	                return '품절'
     	            case 3:
     	                return '판매중단'
-    	            case 8:
-    	                return '승인반려'
-    	            case 9:
-    	                return '승인대기'
     	        }
     	    },
     	    deleteSelected() {
@@ -155,7 +157,10 @@
     	        if (selectedIds.length === 0) {
     	            alert("삭제할 상품을 선택해주세요.")
     	            return
-    	        }else{alert("상품 삭제시 복구가 불가능합니다.")}
+    	        }
+    	        else{
+    	        confirm("상품 삭제시 복구가 불가능합니다.")
+    	        }
     	        const params = new URLSearchParams()
     	        selectedIds.forEach(id => params.append('wnos', id))
 				console.log(params.toString())
@@ -235,6 +240,25 @@
                         alert("변경 사항 저장 중 오류가 발생했습니다.")
                     })
             },
+            itemDelete(vo) {
+            	if (confirm("정말로 이 상품을 삭제하시겠습니까?")) {
+                    axios.post('../seller/itemdelete_vue.do', null, {
+                        params: { wno: vo.wno } 
+                    }).then(response => {
+                            if (response.data === "OK") {
+                                this.iList = this.iList.filter(item => item.wno !== vo.wno)
+                                this.iCount = this.iList.length
+                                alert("상품이 삭제되었습니다.")
+                            } else {
+                                alert("삭제 중 오류가 발생했습니다.")
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            alert("삭제 중 오류가 발생했습니다.")
+                        })
+                	}
+                },
     	    prev(){
     	    	this.curpage=this.curpage>10?this.curpage-10:1
   			    this.dataRecv()

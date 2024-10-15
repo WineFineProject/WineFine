@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.sist.vo.GrapeVO;
 import com.sist.vo.ItemNationVO;
 import com.sist.vo.MakerVO;
+import com.sist.vo.MemberVO;
+import com.sist.vo.NoticeBoardVO;
 import com.sist.vo.WineVO;
 import com.sist.dao.*;
 
@@ -60,9 +62,9 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public List<WineVO> sellerItemListData(String seller, int start, int end) {
+	public List<WineVO> sellerItemListData(String seller, int start, int end, String sortOrder) {
 		// TODO Auto-generated method stub
-		return dao.sellerItemListData(seller, start, end);
+		return dao.sellerItemListData(seller, start, end, sortOrder);
 	}
 
 	@Override
@@ -102,15 +104,33 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public List<String> getGrapeNames(String grapeNumbers) {
+	public List<String> getGrapeNames(List<String> grapeNumbers) {
 		// TODO Auto-generated method stub
 		return dao.getGrapeNames(grapeNumbers);
 	}
 
 	@Override
-	public List<String> getNationNames(String nationNumbers) {
+	public void wineItemUpdate(WineVO vo) {
 		// TODO Auto-generated method stub
-		return dao.getNationNames(nationNumbers);
+		dao.wineItemUpdate(vo);
+	}
+
+	@Override
+	public MemberVO sellerInfoData(String id) {
+		// TODO Auto-generated method stub
+		return dao.sellerInfoData(id);
+	}
+
+	@Override
+	public List<NoticeBoardVO> sellerNoticeList(String id) {
+		// TODO Auto-generated method stub
+		return dao.sellerNoticeList(id);
+	}
+
+	@Override
+	public List<WineVO> sellerWineList(String id) {
+		// TODO Auto-generated method stub
+		return dao.sellerWineList(id);
 	}
 
 }

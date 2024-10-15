@@ -17,4 +17,12 @@
         <if test="state != null">state = #{state}</if>
         WHERE wno = #{wno}
     </update>
+    <select id="getGrapeNames" resultType="string">
+        SELECT namekor 
+        FROM grape 
+        WHERE no IN 
+        <foreach item="number" collection="grapeNumbers" open="(" separator="," close=")">
+            #{number}
+        </foreach>
+    </select>
  </mapper>

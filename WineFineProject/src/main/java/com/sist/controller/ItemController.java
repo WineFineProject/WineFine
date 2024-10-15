@@ -21,4 +21,9 @@ public class ItemController {
 	   {
 		   return "seller/edit";
 	   }
+	@GetMapping("shop/sellerShop.do")
+	public String seller_shop()
+	{
+		return "shop/sellerShop";
+	}
 }

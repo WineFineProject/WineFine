@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 
@@ -48,12 +49,14 @@ public interface ItemMapper {
 	 @Select("SELECT wno, namekor, price, stack, seller, hit, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, state, poster, num "
 			 +"FROM (SELECT wno, namekor, price, stack, seller, hit, regdate, state, poster, rownum as num "
 			 +"FROM (SELECT wno, namekor, price, stack, seller, hit, regdate, state, poster "
-	 		 +"FROM wine WHERE seller LIKE '%'||#{seller}||'%' ORDER BY wno DESC)) "
+	 		 +"FROM wine WHERE seller LIKE '%'||#{seller}||'%' AND state <=3 "
+	 		 + "ORDER BY CASE WHEN #{sortOrder} = 'recent' THEN regdate END DESC,"
+	 		 + "CASE WHEN #{sortOrder} = 'popular' THEN hit END DESC)) "
 	 		 + "WHERE num BETWEEN #{start} AND #{end} ")
-	 public List<WineVO> sellerItemListData(@Param("seller") String seller, @Param("start") int start, @Param("end") int end);
+	 public List<WineVO> sellerItemListData(@Param("seller") String seller, @Param("start") int start, @Param("end") int end, @Param("sortOrder") String sortOrder);
 	 
 	 // 판매자 별 와인 총 개수 
-	 @Select("SELECT COUNT(*) FROM wine WHERE seller LIKE '%'||#{seller}||'%' ")
+	 @Select("SELECT COUNT(*) FROM wine WHERE seller LIKE '%'||#{seller}||'%' AND state <=3 ")
 	 public int sellerItemCount(@Param("seller") String seller);
 	 
 	 // 개별 상품 삭제
@@ -79,15 +82,31 @@ public interface ItemMapper {
 	public String getMakerkor(@Param("makernum") int maker);
 	
 	// 품종 검색
-	@Select("SELECT namekor FROM grape WHERE no IN (#{grapeNumbers})")
-	public List<String> getGrapeNames(@Param("grapeNumbers") String grapeNumbers);
-	
-	// 나라 검색
-	@Select("SELECT namekor FROM nation WHERE no IN (#{nationNumbers})")
-	public List<String> getNationNames(@Param("nationNumbers") String nationNumbers);
-	
+	public List<String> getGrapeNames(@Param("grapeNumbers") List<String> grapeNumbers);
+
 	// 상품 내용 업데이트
+	@Update("UPDATE wine SET namekor=#{namekor}, nameeng=#{nameeng}, type=#{type}, price=#{price}, "
+	        + "vol=#{vol}, sugar=#{sugar}, acid=#{acid}, body=#{body}, tannin=#{tannin}, "
+	        + "aroma=#{aroma}, food=#{food}, maker=#{maker}, nation=#{nation}, grape=#{grape}, "
+	        + "alcohol=#{alcohol}, seller=#{seller}, stack=#{stack}, poster=#{poster} "
+	        + "WHERE wno=#{wno}")
+	public void wineItemUpdate(WineVO vo);
 	
 	// 상품 승인 대기
+	
+	// 판매자 샵
+	// 판매자 정보 (로고, 이름)
+	@Select("SELECT userName, photo FROM wine_member WHERE userId = #{id} ")
+	public MemberVO sellerInfoData(String id);
+	
+	//판매자 공지 목록
+	@Select("SELECT nbno, subject, type, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, isnotice, nickname, content, target "
+			+"FROM noticeboard WHERE userId = #{id} ")
+	public List<NoticeBoardVO> sellerNoticeList(String id);
+	
+	//판매자 상품 목록
+	@Select("SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, state "
+	        + "FROM wine WHERE seller = #{id} AND state = 1 ORDER BY wno DESC ")
+	public List<WineVO> sellerWineList(String id);
 	
 }
