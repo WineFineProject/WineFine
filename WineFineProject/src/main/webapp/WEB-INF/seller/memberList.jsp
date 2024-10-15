@@ -12,16 +12,16 @@
 		<h3 class="text-center">회원 관리</h3>
 		<table class="table" style="margin-top: 20px">
 			<thead class="text-center">
-				<tr>
-					<th>번호</th>
-					<th>아이디</th>
-					<th>닉네임</th>
-					<th>이름</th>
-					<th>이메일</th>
-					<th>성별</th>
-					<th>등급</th>
-					<th>가입일</th>
-					<th>관리</th>
+				<tr style="width:850px">
+					<th width="5%">번호</th>
+					<th width="15%">아이디</th>
+					<th width="15%">닉네임</th>
+					<th width="10%">이름</th>
+					<th width="20%">이메일</th>
+					<th width="5%">성별</th>
+					<th width="5%">등급</th>
+					<th width="15%">가입일</th>
+					<th width="10%">관리</th>
 				</tr>
 			</thead>
 			<tbody class="text-center">
