@@ -12,43 +12,59 @@ public class ShopDAO {
 	@Autowired
 	private ShopMapper mapper;
 	
-//	占쏙옙占쎌뵥 �뵳�딅뮞占쎈뱜 �빊�뮆�젾
+//	�뜝�룞�삕�뜝�럩逾� 占쎈뎨占쎈봾裕욃뜝�럥諭� 占쎈퉲占쎈츊占쎌졑
 	public List<WineVO> wineListData(int start,int end){
 		return mapper.wineListData(start, end);
 	}
-//	占쏙옙占쎌뵥 �룯占� 占쎈읂占쎌뵠筌욑옙
+//	�뜝�룞�삕�뜝�럩逾� 占쎈／�뜝占� �뜝�럥�쓡�뜝�럩逾좂춯�쉻�삕
 	public int shopTotalPage() {
 		return mapper.shopTotalPage();
 	}
-//	�긽�꽭蹂닿린
+//	占쎄맒占쎄쉭癰귣떯由�
 	public WineVO wineDetailData(int wno) {
 	    mapper.hitIncrement(wno);
 	    return mapper.wineDetailData(wno);
 	}
-// 	�룷�룄紐� 媛��졇�삤湲�
+// 	占쎈７占쎈즲筌륅옙 揶쏉옙占쎌죬占쎌궎疫뀐옙
 	public List<String> grapeName(int wno) {
 		return mapper.grapeName(wno);
 	}
-//	�굹�씪紐� 媛��졇�삤湲�
+//	占쎄돌占쎌뵬筌륅옙 揶쏉옙占쎌죬占쎌궎疫뀐옙
 	public List<String> nationName(int wno){
 		return mapper.nationName(wno);
 	}
 
-//	와인구매
+//	���씤援щℓ
 	public WineVO winebuy(int wno) {
 		return mapper.winebuy(wno);
 	}
-//	사용 가능한 쿠폰 리스트
+//	�궗�슜 媛��뒫�븳 荑좏룿 由ъ뒪�듃
 	public List<MyCouponVO> selectCoupon(String id) {
 		return mapper.selectCoupon(id);
 	}
-//	쿠폰 사용하기
+//	荑좏룿 �궗�슜�븯湲�
 	public MyCouponVO useCoupon(String id) {
 		return mapper.useCoupon(id);
 	}
-//	할인율이 가장 높은 프로모션 확인하기
-	public PromotionSaleVO promotionGetSale(Map map) {
+//	�븷�씤�쑉�씠 媛��옣 �넂�� �봽濡쒕え�뀡 �솗�씤�븯湲�
+	public List<PromotionSaleVO> promotionGetSale(Map map) {
 		return mapper.promotionGetSale(map);
+	}
+//	생산자의 다른 와인
+	public List<WineVO> otherWine_maker(int wno){
+		return mapper.otherWine_maker(wno);
+	}	
+//	판매자의 다른 와인
+	public List<WineVO> otherWine_seller(int wno){
+		return mapper.otherWine_seller(wno);
+	}
+//	포인트 가져오기
+	public String getPoint(String id) {
+		return mapper.getPoint(id);
+	}
+//	배송지 가져오기
+	public List<DeliveryVO> getDeli(String id) {
+		return mapper.getDeli(id);
 	}
 
 
@@ -57,7 +73,6 @@ public class ShopDAO {
 
 	
 }
-
 
 
 

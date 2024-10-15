@@ -18,7 +18,7 @@ import com.sist.vo.*;
 
 @RestController
 public class ShopRestController {
-	String[] wtypes= {"","레드","화이트","스파클링","주정강화","기타"};
+	String[] wtypes= {"","�젅�뱶","�솕�씠�듃","�뒪�뙆�겢留�","二쇱젙媛뺥솕","湲고�"};
 	
 	private ShopService sservice;
 	@Autowired
@@ -42,7 +42,7 @@ public class ShopRestController {
 		
 		if(endpage>totalpage)
 			endpage=totalpage;
-//		占쎈쑓占쎌뵠占쎄숲�몴占� 筌뤴뫁釉섓옙苑� => JSON => VueJS嚥∽옙 占쎌읈占쎈꽊
+//		�뜝�럥�몥�뜝�럩逾졾뜝�럡�댉占쎈ご�뜝占� 嶺뚮ㅄ維곲뇡�꼻�삕�땻占� => JSON => VueJS�슖�댙�삕 �뜝�럩�쓧�뜝�럥苑�
 		Map map=new HashMap();
 		map.put("list",list);
 		map.put("totalpage", totalpage);
@@ -61,6 +61,8 @@ public class ShopRestController {
 		WineVO vo = sservice.wineDetailData(wno);
 		List<String> gname = sservice.grapeName(wno);
 		List<String> nname = sservice.nationName(wno);
+		List<WineVO> otherSeller = sservice.otherWine_seller(wno);
+		List<WineVO> otherMaker = sservice.otherWine_maker(wno);		
 		
 		String[] gnolink = vo.getGrape().split(",");
 		String[] nnolink = vo.getNation().split(",");	
@@ -73,6 +75,8 @@ public class ShopRestController {
 		map.put("gnolink", gnolink);
 		map.put("nnolink", nnolink);
 		map.put("mnolink", mnolink);
+		map.put("otherSeller", otherSeller);
+		map.put("otherMaker", otherMaker);
 		
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -85,17 +89,22 @@ public class ShopRestController {
 		WineVO vo = sservice.winebuy(wno);
 		String id = (String)session.getAttribute("userId");
 		List<MyCouponVO> cvo = sservice.selectCoupon(id);
+		String userPoint = sservice.getPoint(id);
+		List<DeliveryVO> userDeli = sservice.getDeli(id);
 		
 		Map map = new HashMap();
 		map.put("vo", vo);
 		map.put("cvo", cvo);
-			
+		map.put("userPoint", userPoint);
+		map.put("userDeli", userDeli);
+		
 		String psseller = vo.getSeller();
 		map.put("seller", psseller);
+		
 		int pswno = vo.getWno();
 		map.put("wno", pswno);
 		
-//		타입 찾는 for 문
+//		���엯 李얜뒗 for 臾�
 		String s = vo.getType();
 		int typeIndex = 0;
 		
@@ -106,9 +115,10 @@ public class ShopRestController {
 			}
 		}		
 		map.put("type", typeIndex);	
-		PromotionSaleVO psvo = sservice.promotionGetSale(map);
-//		보유한쿠폰 list 다 나오게 하기 
-//		주소지 추가하는창 넣어두기   state 1 이 기본 배송지 0이 이외 저장 배송지
+		List<PromotionSaleVO> psvo = sservice.promotionGetSale(map);
+		map.put("psvo", psvo);
+//		蹂댁쑀�븳荑좏룿 list �떎 �굹�삤寃� �븯湲� 
+//		二쇱냼吏� 異붽��븯�뒗李� �꽔�뼱�몢湲�   state 1 �씠 湲곕낯 諛곗넚吏� 0�씠 �씠�쇅 ���옣 諛곗넚吏�
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);
 		return json;
@@ -118,7 +128,6 @@ public class ShopRestController {
 	
 	
 }
-
 
 
 

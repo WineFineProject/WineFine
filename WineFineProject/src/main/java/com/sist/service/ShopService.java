@@ -14,6 +14,10 @@ public interface ShopService {
 	public WineVO winebuy(int wno);
 	public List<MyCouponVO> selectCoupon(String id);
 	public MyCouponVO useCoupon(String id);
-	public PromotionSaleVO promotionGetSale(Map map);
+	public List<PromotionSaleVO> promotionGetSale(Map map);
+	public List<WineVO> otherWine_maker(int wno);
+	public List<WineVO> otherWine_seller(int wno);
+	public String getPoint(String id);
+	public List<DeliveryVO> getDeli(String id);
 
 }

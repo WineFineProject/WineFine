@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sist.dao.ShopDAO;
 import com.sist.dao.WineDAO;
+import com.sist.vo.DeliveryVO;
 import com.sist.vo.MyCouponVO;
 import com.sist.vo.PromotionSaleVO;
 import com.sist.vo.WineVO;
@@ -69,9 +70,38 @@ public class ShopServiceImpl implements ShopService{
 		return sdao.useCoupon(id);
 	}
 	@Override
-	public PromotionSaleVO promotionGetSale(Map map) {
+	public List<PromotionSaleVO> promotionGetSale(Map map) {
 		// TODO Auto-generated method stub
 		return sdao.promotionGetSale(map);
 	}
+	@Override
+	public List<WineVO> otherWine_seller(int wno) {
+		// TODO Auto-generated method stub
+		return sdao.otherWine_seller(wno);
+	}
+	@Override
+	public List<WineVO> otherWine_maker(int wno) {
+		// TODO Auto-generated method stub
+		return sdao.otherWine_maker(wno);
+	}
+	@Override
+	public String getPoint(String id) {
+		// TODO Auto-generated method stub
+		return sdao.getPoint(id);
+	}
+	@Override
+	public List<DeliveryVO> getDeli(String id) {
+		// TODO Auto-generated method stub
+		return sdao.getDeli(id);
+	}
 
+	
 }
+
+
+
+
+
+
+
+
