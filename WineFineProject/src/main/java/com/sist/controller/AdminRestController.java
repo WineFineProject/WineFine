@@ -14,7 +14,7 @@ import com.sist.vo.*;
 
 @RestController
 public class AdminRestController {
-	String[] types= {"", "·¹µå", "È­ÀÌÆ®", "½ºÆÄÅ¬¸µ", "·ÎÁ¦", "ÁÖÁ¤°­È­", "±âÅ¸"};
+	String[] types= { "", "ë ˆë“œ", "í™”ì´íŠ¸", "ìŠ¤íŒŒí´ë§", "ë¡œì œ", "ì£¼ì •ê°•í™”", "ê¸°íƒ€" };
 	@Autowired
 	private CouponService cService;
 	@Autowired
@@ -29,7 +29,7 @@ public class AdminRestController {
 		List<PromotionCouponVO> activeCoupon=cService.promotionActiveList("");
 		for(PromotionCouponVO vo:activeCoupon) {
 			if(vo.getType()==1) {
-				vo.setTargetname("ÀüÃ¼");
+				vo.setTargetname("ì „ì²´");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);
@@ -40,7 +40,7 @@ public class AdminRestController {
 		}
 		for(PromotionCouponVO vo:waitCoupon) {
 			if(vo.getType()==1) {
-				vo.setTargetname("ÀüÃ¼");
+				vo.setTargetname("ì „ì²´");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);
@@ -90,7 +90,7 @@ public class AdminRestController {
 		List<PromotionSaleVO> activeSale=sService.saleActiveList("");
 		for(PromotionSaleVO vo:activeSale) {
 			if(vo.getType()==1) {
-				vo.setTargetname("ÀüÃ¼");
+				vo.setTargetname("ï¿½ï¿½Ã¼");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);
@@ -101,7 +101,7 @@ public class AdminRestController {
 		}
 		for(PromotionSaleVO vo:waitSale) {
 			if(vo.getType()==1) {
-				vo.setTargetname("ÀüÃ¼");
+				vo.setTargetname("ï¿½ï¿½Ã¼");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);

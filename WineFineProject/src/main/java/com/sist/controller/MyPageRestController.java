@@ -23,7 +23,7 @@ import oracle.jdbc.proxy.annotation.Post;
 
 @RestController
 public class MyPageRestController {
-	String[] types= {"", "    ", "ȭ  Ʈ", "    Ŭ  ", "    ", "      ȭ", "  Ÿ"};
+	String[] types= { "", "레드", "화이트", "스파클링", "로제", "주정강화", "기타" };
 	@Autowired
 	private CouponService cService;
 	
@@ -42,7 +42,7 @@ public class MyPageRestController {
 		List<MyCouponVO> myCoupon=cService.mypageMyCouponList(id);
 		for(MyCouponVO vo:myCoupon) {
 			if(vo.getPvo().getType()==1) {
-				vo.setSellname("  ü");
+				vo.setSellname("전체");
 			}
 			else if(vo.getPvo().getType()==2) {
 				vo.setSellname(types[vo.getPvo().getType()]);
@@ -53,7 +53,7 @@ public class MyPageRestController {
 		}
 		for(PromotionCouponVO vo:activeCoupon) {
 			if(vo.getType()==1) {
-				vo.setTargetname("  ü");
+				vo.setTargetname("전체");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);

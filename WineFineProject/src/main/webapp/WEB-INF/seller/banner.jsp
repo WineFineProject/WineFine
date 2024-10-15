@@ -93,8 +93,8 @@
 					<tr>
 						<th width="30%">배너위치</th>
 						<td width="70%"><select v-model="option" style="width: 100%;">
-								<option :value="1" selected="selected">옵션 1 : 상단배너 (클릭횟수당 700원)</option>
-								<option :value="2">옵션 2 : 하단배너 (클릭횟수당 500원)</option>
+								<option :value="1" selected="selected">옵션 1 : 메인페이지 추천 와인 노출 (클릭횟수당 700원)</option>
+								<option :value="2">옵션 2 : 상품페이지 배너 (클릭횟수당 500원)</option>
 						</select></td>
 					</tr>
 					<tr>

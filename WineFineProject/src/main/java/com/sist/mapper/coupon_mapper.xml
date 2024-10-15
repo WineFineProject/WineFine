@@ -71,7 +71,7 @@
 		END as namekor,
 		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
 		FROM promotion_coupon WHERE
-		state=1 AND userid LIKE '%'||#{id}||'%'
+		state=1 AND userid LIKE '%'||#{id}||'%' AND sysdate BETWEEN startDate AND endDate
 	</select>
 
 	<!-- mypage 쿠폰 수령 -->

@@ -124,7 +124,7 @@ table {
 			                <div>{{wvo.namekor}}</div>
 			                <div>{{wvo.nameeng}}</div>
 			                <div>{{wvo.nation}}</div>
-			                <span class="btn-sm btn" :class="{'btn-red':wvo.type==='레드', 'btn-white':wvo.type==='화이트', 'btn-spark':wvo.type==='스파클링',  'btn-rose':wvo.type==='로제'}, 'btn-alcohol':wvo.type==='주정강화', 'btn-etc':wvo.type==='기타'">{{wvo.type}}</span>
+			                <span class="btn-sm btn" :class="{'btn-red':wvo.type==='레드', 'btn-white':wvo.type==='화이트', 'btn-spark':wvo.type==='스파클링',  'btn-rose':wvo.type==='로제', 'btn-alcohol':wvo.type==='주정강화', 'btn-etc':wvo.type==='기타'}">{{wvo.type}}</span>
 		                 </td> 
 		            </tr>
 		    </table>
