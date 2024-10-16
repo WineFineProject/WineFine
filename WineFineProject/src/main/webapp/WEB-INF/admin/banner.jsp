@@ -123,6 +123,7 @@
 					}
 				}).then(response=>{
 					this.showModal=true
+					this.subject=this.select.userid+'님 '+this.select.title+' 배너등록 신청이 반려되었습니다'
 				})
 			},
 			sendMessage(){
@@ -132,9 +133,9 @@
 				}
 				axios.post('../notice/vueAdminNoticeSend.do', null, {
 					params:{
-						content:this.message,
+						content:encodeURIComponent(this.message),
 						recvid:this.select.userid,
-						subject:this.select.userid+'님 배너등록 신청이 반려되었습니다',
+						subject:encodeURIComponent(this.subject),
 					}
 				}).then(response=>{
 					this.showModal=false

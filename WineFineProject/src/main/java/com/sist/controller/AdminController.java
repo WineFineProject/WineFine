@@ -1,5 +1,8 @@
 package com.sist.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +33,7 @@ public class AdminController {
 	@GetMapping("admin/replyInsert.do")
 	public String adminReplyBoardInsert(int wrno, Model model) {
 		model.addAttribute("wrno", wrno);
+		model.addAttribute("today", new SimpleDateFormat("YY-MM-dd HH:mm").format(new Date()));
 		return "admin/replyboardInsert";
 	}
 	@GetMapping("admin/noticeboard.do")

@@ -75,6 +75,7 @@
 				content:'',
 				cnos1:['','상품 관련', '배송 관련','서비스 관련','결제 관련','기타'],
 				cnos2:['', '상품 관련', '프로모션 관련', '서비스 관련', '정산 관련', '기타']
+				today:'${today}'
 			}
 		},
 		methods:{
@@ -100,7 +101,17 @@
 						cno:this.detail.cno
 					}
 				}).then(response=>{
+					this.sendMeaasge()
 					location.href='../admin/replyboard.do'
+				})
+			},
+			sendMessage(){
+				axios.post('../notice/vueAdminNoticeSend.do', null, {
+					params:{
+						content:encodeURIComponent(this.today+'에 답변이 작성되었습니다'),
+						recvid:this.detail.userid,
+						subject:encodeURIComponent(this.detail.userid+'님 ['+this.detail.subject+'] 글에 대한 답변이 작성되었습니다')
+					}
 				})
 			}
 		},

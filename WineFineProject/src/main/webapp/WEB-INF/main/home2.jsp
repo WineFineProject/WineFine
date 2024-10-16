@@ -30,7 +30,7 @@ background-color: darkred !important;
 						<div class="col-xl-3">
 							<div class="input-group w-100 mx-auto d-flex">
 								<input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1"> <span id="search-icon-1"
-									class="input-group-text p-3"><i class="fa fa-search"></i></span>
+									class="input-group-text p-3"><button><i class="fa fa-search"></i></button></span>
 							</div>
 						</div>
 						<div class="col-6"></div>

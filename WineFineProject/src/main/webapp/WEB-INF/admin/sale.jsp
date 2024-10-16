@@ -127,6 +127,7 @@
 						psno:this.select.psno
 					}
 				}).then(response=>{
+					this.subject=this.select.userid+'님 '+this.select.title+' 할인 신청이 반려되었습니다'
 					this.showModal=true
 				})
 			},
@@ -137,9 +138,9 @@
 				}
 				axios.post('../notice/vueAdminNoticeSend.do', null, {
 					params:{
-						content:this.message,
+						content:encodeURIComponent(this.message),
 						recvid:this.select.userid,
-						subject:this.select.userid+'님 할인 신청이 반려되었습니다',
+						subject:encodeURIComponent(this.subject)
 					}
 				}).then(response=>{
 					this.showModal=false

@@ -1,5 +1,7 @@
 package com.sist.controller;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,12 +26,20 @@ public class NoticeRestController {
 	@PostMapping(value = "notice/vueAdminNoticeSend.do", produces = "text/plain;charset=UTF-8")
 	public void noticeVueAdminNoticeSend(NoticeVO vo) {
 		vo.setSendid("admin");
+		String deSub=URLDecoder.decode(vo.getSubject(), StandardCharsets.UTF_8);
+		String deCont=URLDecoder.decode(vo.getContent(), StandardCharsets.UTF_8);
+		vo.setSubject(deSub);
+		vo.setContent(deCont);
 		nService.noticeInsert(vo);
 	}
 	
 	@PostMapping(value = "notice/vueSellerNoticeSend.do", produces = "text/plain;charset=UTF-8")
 	public void noticeVueSellerNoticeSend(NoticeVO vo,HttpSession session) {
 		vo.setSendid((String)session.getAttribute("userId"));
+		String deSub=URLDecoder.decode(vo.getSubject(), StandardCharsets.UTF_8);
+		String deCont=URLDecoder.decode(vo.getContent(), StandardCharsets.UTF_8);
+		vo.setSubject(deSub);
+		vo.setContent(deCont);
 		nService.noticeInsert(vo);
 	}
 	

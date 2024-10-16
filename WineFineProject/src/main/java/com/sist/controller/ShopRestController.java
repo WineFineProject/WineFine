@@ -63,8 +63,10 @@ public class ShopRestController {
 		List<String> nname = sservice.nationName(wno);
 		List<WineVO> otherSeller = sservice.otherWine_seller(wno);
 		List<WineVO> otherMaker = sservice.otherWine_maker(wno);		
-		
-		String[] gnolink = vo.getGrape().split(",");
+		String[] gnolink= {};
+		if(vo.getGrape()!=null) {
+			gnolink = vo.getGrape().split(",");
+		}
 		String[] nnolink = vo.getNation().split(",");	
 		String mnolink = vo.getMaker();
 		

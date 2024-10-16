@@ -73,7 +73,8 @@
 				detail:{},
 				subject:'',
 				content:'',
-				cnos:['','상품 관련', '배송 관련','서비스 관련','결제 관련','기타']
+				cnos:['','상품 관련', '배송 관련','서비스 관련','결제 관련','기타'],
+				today:'${today}'
 			}
 		},
 		methods:{
@@ -99,7 +100,21 @@
 						cno:this.detail.cno
 					}
 				}).then(response=>{
+					this.sendMessage()
 					location.href='../seller/replyboard.do'
+				})
+			},
+			sendMessage(){
+				let content=this.today+'에 답변이 작성되었습니다'
+				let subject=this.detail.userid+'님 ['+this.detail.subject+'] 글에 대한 답변이 작성되었습니다'
+				axios.post('../notice/vueSellerNoticeSend.do', null, {
+					params:{
+						content:encodeURIComponent(content),
+						recvid:this.detail.userid,
+						subject:encodeURIComponent(subject)
+					}
+				}).then(response=>{
+					
 				})
 			}
 		},

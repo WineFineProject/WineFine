@@ -139,9 +139,9 @@
 				}
 				axios.post('../notice/vueAdminNoticeSend.do', null, {
 					params:{
-						content:this.message,
+						content:encodeURIComponent(this.message),
 						recvid:this.select.userid,
-						subject:this.subject
+						subject:encodeURIComponent(this.subject)
 					}
 				}).then(response=>{
 					this.showModal=false

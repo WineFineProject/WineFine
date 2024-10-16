@@ -156,7 +156,7 @@
     					params:{
     						content:this.message,
     						recvid:this.tmp,
-    						subject:'블랙리스트 등록 안내 공지'
+    						subject:encodeURIComponent('블랙리스트 등록 안내 공지')
     					}
     				}).then(response=>{
     					this.message=''
