@@ -7,11 +7,13 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
-
+#anbUpdate {
+max-width: 800px;
+}
 </style>
 </head>
 <body>
-<div class="container" id="nbUpdate">
+<div class="container" id="anbUpdate">
    <h3 class="text-center">공지사항</h3>
  
    <div class="row">
@@ -106,7 +108,7 @@
     			}).then(response=>{
     				if(response.data==='yes')
     				{
-    					location.href='detail.do?bno='+this.bno
+    					location.href='noticedetail.do?bno='+this.bno
     				}
     				else
     				{
@@ -117,7 +119,7 @@
     			})
     		}
     	}
-    }).mount('#nbUpdate')
+    }).mount('#anbUpdate')
   </script>
 </body>
 </html>

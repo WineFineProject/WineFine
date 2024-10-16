@@ -5,25 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
 
 </style>
 </head>
 <body>
-<div class="container" id="nbUpdate">
+ <div class="container" id="anbInsert">
    <h3 class="text-center">공지사항</h3>
  
    <div class="row">
    <form @submit.prevent="submitForm">
-     <h6 class="text-center" hidden>{{bno}}</h6>
      <h6 class="text-center" hidden>{{id}}</h6>
      <table class="table">
       <tr>
        <th width="20%" class="text-center">카테고리 </th>
        <td width="80%">
          <select id="bCategory" class="form-control" v-model="cno" ref="cno">
-                    <option value="" disabled selected>카테고리 선택</option>
+                    <option value="" disabled selected>카테고리 선택 &nbsp;▼</option>
                     <option value=4>일반</option>
                     <option value=5>이벤트</option>
                     <option value=6>상품</option>
@@ -55,28 +53,17 @@
    </div>
   </div>
   <script>
-    let updateApp=Vue.createApp({
+    let insertApp=Vue.createApp({
     	data(){
     		return {
-    			bno:${bno},
-    			cno:'',
+    			cno:4,
     			subject:'',
     			content:'',
-    			id:'${sessionScope.id}'
+    			id:'${sessionScope.userId}'
     		}
     	},
 		mounted(){
-    		axios.get('../noticeboard/update_vue.do',{
-    			params:{
-    				bno:this.bno
-    			}
-    		}).then(response=>{
-    			this.cno=response.data.cno
-    			this.subject=response.data.subject
-    			this.content=response.data.content
-    		}).catch(error=>{
-    			console.log(error.response)
-    		})
+    		
     	},
     	methods:{
     		submitForm(){
@@ -97,16 +84,16 @@
     			}
     			
     			let formData=new FormData()
-    			formData.append("cno",this.$refs.cno.value)  			
+    			formData.append("cno",this.$refs.cno.value)
+    			formData.append("id",this.id)    			
     			formData.append("subject",this.$refs.subject.value)
     			formData.append("content",this.$refs.content.value)
-    			formData.append("bno",this.bno)
     			
-    			axios.post('../noticeboard/update_ok_vue.do',formData,{
+    			axios.post('../noticeboard/insert_vue.do',formData,{
     			}).then(response=>{
     				if(response.data==='yes')
     				{
-    					location.href='detail.do?bno='+this.bno
+    				    location.href='noticeboard.do'	
     				}
     				else
     				{
@@ -117,7 +104,7 @@
     			})
     		}
     	}
-    }).mount('#nbUpdate')
+    }).mount('#anbInsert')
   </script>
 </body>
 </html>

@@ -49,6 +49,9 @@
 						<li class="list-group-item">
 							<a href="../admin/replyboard.do">1:1 문의</a>
 						</li>
+						<li class="list-group-item">
+							<a href="../admin/noticeboard.do">공지사항 관리</a>
+						</li>
 					</ul>
 				</div>
 				<div class="panel panel-warning">

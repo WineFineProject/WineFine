@@ -11,7 +11,7 @@
 .detail-box, .post-title, .content-box{
 	text-align: left !important;
 }
-#nbDetail{
+#anbDetail{
 max-width: 800px;
 margin: 0 auto;
 }
@@ -21,9 +21,9 @@ margin: 0 auto;
 </style>
 </head>
 <body>
- <div class="container" id="nbDetail">
-     <h3 class="text-center" style="margin-bottom:10px;">공지사항</h3>
-      <div class="detail-box">
+ <div class="container" id="anbDetail">
+     <h4 class="text-center" style="margin-bottom:10px;">공지사항 관리</h4>
+     <div class="detail-box">
           <span v-if="vo.cno==4">&nbsp;[일반]&nbsp;</span>
           <span v-if="vo.cno==5">&nbsp;[이벤트]&nbsp;</span>
           <span v-if="vo.cno==6">&nbsp;[상품]&nbsp;</span>
@@ -35,7 +35,7 @@ margin: 0 auto;
            <span class="view-count"><i class="fas fa-eye"></i>&nbsp;{{vo.hit}}</span>
         <div class="content-box">{{vo.content}}</div>
          <div class="button-group">
-            <a :href="'update.do?bno='+vo.bno" v-if="id === vo.id" class="btn btn-primary">수정</a>
+            <a :href="'noticeupdate.do?bno='+vo.bno" v-if="id === vo.id" class="btn btn-primary">수정</a>
             <input type=button value="삭제" v-if="id === vo.id" class="btn btn-danger"
             ref="deleteBtn" @click="boardDelete()">
              <button type="button" class="btn btn-secondary" onclick="javascript:history.back()">목록</button>
@@ -43,7 +43,7 @@ margin: 0 auto;
      </div>
    </div>
    <script>
-    let detailApp=Vue.createApp({
+    let noticedetailApp=Vue.createApp({
     	data(){
     		return {
     			vo:{},
@@ -70,13 +70,13 @@ margin: 0 auto;
     				}
     			}).then(response=>{
     				   alert("공지 삭제가 완료되었습니다")
-    					location.href="list.do"
+    					location.href="noticeboard.do"
     			}).catch(error=>{
     				console.log(error.response)
     			})
     		}
     	}
-    }).mount('#nbDetail')
+    }).mount('#anbDetail')
    </script>
 </body>
 </html>

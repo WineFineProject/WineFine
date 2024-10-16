@@ -32,4 +32,24 @@ public class AdminController {
 		model.addAttribute("wrno", wrno);
 		return "admin/replyboardInsert";
 	}
+	@GetMapping("admin/noticeboard.do")
+	public String adminNoticeBoard() {
+		return "admin/noticeboard";
+	}
+	@GetMapping("admin/noticedetail.do")
+	public String adminNoticedetail(int bno, Model model)
+	{
+		model.addAttribute("bno", bno);
+		return "admin/noticedetail";
+	}
+	@GetMapping("admin/noticeinsert.do")
+	public String adminNoticeinsert() {
+		return "admin/noticeinsert";
+	}
+	@GetMapping("admin/noticeupdate.do")
+	public String adminNoticeupdate(int bno, Model model)
+	{
+		model.addAttribute("bno", bno);
+		return "admin/noticeupdate";
+	}
 }

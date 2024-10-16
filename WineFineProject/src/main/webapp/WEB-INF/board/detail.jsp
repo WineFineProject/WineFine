@@ -5,12 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/replydetail.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
-
-.row{
+#bDetail{
    margin: 0px auto;
    width: 1080px;
+}
+.content-box, .detail-box{
+ margin-top: 10px;
 }
 .brbtn{
 	font-weight:bold; 
@@ -20,57 +23,38 @@
 	width: 70px;
 	height: 40px;
 }
+.rmbtn{
+	text-align: center;
+	margin-right:10px;
+}
 </style>
 </head>
 <body>
  <div class="container" id="bDetail">
      <h3 class="text-center">자유게시판</h3>
-     <span>  </span>
-     <div class="row">
-      <table class="table">
-        <tr style="background-color:lightgray; color:black; font-size: 18px; font-weight: bold;">
-          <td colspan="3" class="text-left">
-          <span v-if="vo.cno==1">&nbsp;[자유]&nbsp;{{vo.subject}}</span>
-          <span v-if="vo.cno==2">&nbsp;[정보]&nbsp;{{vo.subject}}</span>
-          <span v-if="vo.cno==3">&nbsp;[질문]&nbsp;{{vo.subject}}</span>
-          </td>
-        </tr>
-        <tr>
-          <td width="15%" class="text-center" style="color:black; font-size: 16px; font-weight: bold;">{{vo.nickname}}</td>
-          <td width="45%" class="text-left" style="font-size: 16px;" >{{vo.dbday}}</td>
-          <td width="40%" style="text-align:right; color:black; font-size: 16px;" >조회수 &nbsp; {{vo.hit}} &nbsp;&nbsp;</td>
-        </tr>
-        <tr v-show="vo.filecount!==0">
-          <td width="15%" class="text-center">첨부파일</td>
-          <td colspan="2" class="text-left">
-          {{vo.filename}}
-          <!-- 첨부파일 다운로드 기능
-          <ul>
-              <li v-for="(fn,index) in filename">
-               <a :href="'download.do?fn='+fn">{{fn}}</a>({{filesize[index]}}Bytes)
-              </li>
-            </ul>
-             -->
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" class="text-left" valign="top" height="200">
-        	<div style="margin-left:5px; white-space: pre-wrap; color:black; font-size:16px; font-family: 'OpenSans', sans-serif; background-color: white; border:none;">
-            <div v-html="vo.content"></div>
-        	</div>
-   		  </td>
-        </tr>
-        <tr style="border-bottom-color: white;">
-          <td colspan="3" style="text-align: right; margin-right:5px; margin-left:5px; font-weight:bold; size:16px; color:#57102F;">
-            <a :href="'update.do?bno='+vo.bno" v-if="id === vo.id" class="dbtn">수정</a>
-            <input type=button value="삭제" v-if="id === vo.id" class="dbtn" style="box-shadow:none; font-weight:bold; border: none; font-size:16px; color:rgb(139, 0, 0) !important; background-color: white;"
-            ref="deleteBtn" v-on:click="boardDelete()">
-            <a href="list.do" class="dbtn">목록</a>
-          </td>
-        </tr>
-      </table>
+     <div class="detail-box">
+          <span v-if="vo.cno==4">&nbsp;[일반]&nbsp;</span>
+          <span v-if="vo.cno==5">&nbsp;[이벤트]&nbsp;</span>
+          <span v-if="vo.cno==6">&nbsp;[상품]&nbsp;</span>
+        <h2 class="post-title">{{vo.subject}}</h2>
+           <span class="author-name">{{vo.nickname}}</span>
+           <span class="meta-separator">|</span>
+           <span class="post-date">{{vo.dbday}}</span>
+           <span class="meta-separator">|</span>
+           <span class="view-count"><i class="fas fa-eye"></i>&nbsp;{{vo.hit}}</span>
+        <div v-show="vo.filecount!==0">
+          <span class="author-name"> 첨부파일 : </span>
+          <span class="author-name"> {{vo.filename}} </span>
+       	</div>
+          <div class="content-box">{{vo.content}}</div>
+       <div class="button-group">
+            <a :href="'update.do?bno='+vo.bno" v-if="id === vo.id" class="btn btn-primary">수정</a>
+            <input type=button value="삭제" v-if="id === vo.id" class="btn btn-danger"
+            ref="deleteBtn" @click="boardDelete()">
+        <button type="button" class="btn btn-secondary" onclick="javascript:history.back()">목록</button>
+      </div>
+     </div>
       <!-- 댓글 출력 -->
-      <p style="background-color: lightgray;">&nbsp;</p>
       <p v-if="reply_list.count === 0 || rcount===0" style="color:black;">댓글이 없습니다.</p>
       <p v-else class="text-left" style="color:black; font-weight: bold;">댓글 수: &nbsp;{{rcount}}&nbsp;</p>
       <div v-if="id!==''">
@@ -87,15 +71,11 @@
      	<tr class="text-left" style="border-bottom-color: white; border-top-color: white;">
      		<td colspan="2" v-if="rvo.depth===1" style="color:black; font-weight: bold; ">{{rvo.nickname}}</td>
      		<td v-if="rvo.depth===1 && id!==''">
-     		<!--  
-     		<button @click="changeModal(true)" v-model="sbrno" type="button" style="background-color: white;border: none; font-family: 'OpenSans', sans-serif;">신고</button>
-     		-->
+     		<button @click="changeModal(true, rvo)" type="button" style="background-color: white;border: none; font-family: 'OpenSans', sans-serif;">신고</button>
      	</td>
      		<td colspan="2" v-if="rvo.depth===2" style="color:black; font-weight: bold; margin-left: 15px;">⤷&nbsp;{{rvo.nickname}}</td>
      		<td v-if="rvo.depth===2 && id!==''">
-     		<!-- 
-     		<button @click="changeModal(true)" v-model="sbrno[rvo.brno]" type="button" style="background-color: white;border: none; font-family: 'OpenSans', sans-serif;">신고</button>
-     		-->
+     		<button @click="changeModal(true, rvo)" type="button" style="background-color: white;border: none; font-family: 'OpenSans', sans-serif;">신고</button>
      		</td>
      	</tr>
      	<tr class="text-left" style="border-color: white;">
@@ -132,45 +112,39 @@
 	        </td>
 	       </tr>
       </table>
-      <div>
-      <h1>   </h1>
-      </div>
-     <!-- 
       <div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
 			<div class="modal-content">
 				<span class="close" @click="changeModal(false)">&times;</span>
 				<table class="table" style="margin-top: 50px;">
 					<tr>
-						<td hidden>{{sbrno}}</td>
+						<td hidden>{{selectedreply.brno}}</td>
 						<td hidden>{{vo.dbday}}</td>
 					<tr>
 					<tr>
 						<th width="30%">신고 댓글 내용:</th>
-						<td width="70%">{{smsg}}</td>
+						<td width="70%">{{selectedreply.msg}}</td>
 					</tr>
 					<tr>
 						<th width="30%">신고자 ID : </th>
-						<td width="70%">${sessionScope.id}</td>
+						<td width="70%">{{id}}</td>
 					</tr>
 					<tr>
 						<th width="30%">신고대상 ID : </th>
-						<td width="70%">{{vo.id}}</td>
+						<td width="70%">{{selectedreply.id}}</td>
 					</tr>
 					<tr>
 						<th width="30%">신고 사유:</th>
-						<td width="70%"><textarea rows="2" cols="30"  v-model="brrcontent" style="width: 100%"></textarea>
+						<td width="70%"><textarea rows="2" cols="30"  v-model="brrcontent" style="width: 100%; resize: none;"></textarea>
 					</tr>
-					<tr v-show="isBtn">
-						<td colspan="2">
-							<button type="button" class="btn btn-sm btn-wine" @click="">접수</button>
-							<button type="button" class="btn btn-sm btn-wine" @click="changeModal(false)">취소</button>
+					<tr>
+						<td colspan="2" class="rmbtn">
+							<button type="button" class="rmbtn btn-sm btn-danger" @click="">접수</button>
+							<button type="button" class="rmbtn btn-sm btn-secondary" @click="changeModal(false)">취소</button>
 						</td>
 					</tr>
 				</table>
 			</div>
 		</div>
-		-->
-     </div>
    </div>
    <script>
     let detailApp=Vue.createApp({
@@ -190,6 +164,9 @@
     			isEditing:false,
     			filename:[],
     			filesize:[],
+    			showModal:false,
+    			selectedreply:{},
+    			brrcontent:'',
      			id:'${sessionScope.userId}'
     			
     		}
@@ -215,18 +192,12 @@
     		this.replyRead()
     	},
     	methods:{
-            	/* changeModal(check){
-    				if(check===false){
-    					
-    					this.sbrno=0
-    					this.sid=''
-    					this.smsg=''
-    					this.isBtn=false
-    					this.brrcontent=''
-    				}
-    				changeModal(this, check)
+            	changeModal(check, report=null){
+    				this.showModal=check
+    				if (report) {
+    			        this.selectedreply = report
+    			    }
     			},
-    		
     			insertrreport(){
     				if(this.brrcontent==="")
     				  {
@@ -245,7 +216,6 @@
     					this.changeModal(false)
     				})
     			},
-    			*/
           	toggleReplyInput(rvo) {
     				const reply = this.reply_list.find(reply => reply.root === rvo.root)
             	    if (reply) {

@@ -60,7 +60,7 @@
 				  <td width="10%">{{vo.price}}</td>
 				  <td width="10%">{{vo.dbday}}</td>
 				  <td width="10%">
-				  	<button type="button" click="itemDelete(vo)">삭제</button>
+				  	<button type="button" @click="itemDelete(vo)">삭제</button>
 				  </td>
 				</tr>
 			</table>
