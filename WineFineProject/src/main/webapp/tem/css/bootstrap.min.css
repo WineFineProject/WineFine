@@ -2781,6 +2781,12 @@ textarea.form-control-lg {
 	border-color: darkred
 }
 
+.btn-wine2{
+	color:darkred;
+	background-color: white;
+	border-color: darkred	
+}
+
 .btn-primary:hover {
 	color: #000;
 	background-color: #94cd2d;

@@ -83,9 +83,7 @@ background-color: darkred !important;
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
 													<label>
-														<input @change="winelist(1)" name="type" type="checkbox" class="btn" v-model="types" style="display: none" value="주정강화"><span
-															:class="{'border-3px-dark':!types.includes('주정강화'),'border-3px-wine':types.includes('주정강화') }"
-															class="btn border rounded-pill px-3 text-white border-3px">주정강화</span>
+														<input @change="winelist(1)" name="type" type="checkbox" class="btn" v-model="types" style="display: none" value="주정강화"><span :class="{'border-3px-dark':!types.includes('주정강화'),'border-3px-wine':types.includes('주정강화') }" class="btn border rounded-pill px-3 text-white border-3px">주정강화</span>
 													</label>
 													<label>
 														<input @change="winelist(1)" name="type" type="checkbox" class="btn" v-model="types" style="display: none" value="기타"><span

@@ -36,5 +36,8 @@ public class BannerServiceImpl implements BannerService{
 	public List<PromotionBannerVO> promotionBannerList() {
 		return dao.promotionBannerList();
 	}
-	
+	@Override
+	public void promotionclick(int pbno) {
+		dao.promotionclick(pbno);
+	}
 }

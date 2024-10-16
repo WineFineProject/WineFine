@@ -79,4 +79,8 @@ public class MainRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(list);
 	}
+	@GetMapping(value = "main/vuePromotion.do", produces = "text/plain;charset=UTF-8")
+	public void mainVuePromotion(int pbno) {
+		bService.promotionclick(pbno);
+	}
 }

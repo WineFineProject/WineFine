@@ -1,6 +1,8 @@
 package com.sist.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
@@ -18,6 +20,16 @@ public interface BannerMapper {
 	// ���� ��� ��� ����
 	@Update("Update promotion_banner SET state=2 WHERE pbno=#{pbno}")
 	public void promotionRejection(int pbno);
+	
+	//
+	@Update("UPDATE promotion_banner SET stack=stack-1 WHERE pbno=#{pbno}")
+	public void promotionStackDecrement(int pbno);
+	
+	@Select("SELECT stack FROM promotion_banner WHERE pbno=#{pbno}")
+	public int promtionStack(int pbno);
+	
+	@Update("UPDATE promotion_banner SET state=9, enddate=sysdate WHERE pbno=#{pbno}")
+	public void promotionBannerEnd(int pbno);
 	
 	public List<PromotionBannerVO> promotionWaitBanner(String id);
 	public List<PromotionBannerVO> promotionActiveBanner(String id);
