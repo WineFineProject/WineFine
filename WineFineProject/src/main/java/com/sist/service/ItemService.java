@@ -28,5 +28,8 @@ public interface ItemService {
 	public void wineItemUpdate(WineVO vo);
 	public MemberVO sellerInfoData(String id);
 	public List<NoticeBoardVO> sellerNoticeList(String id);
-	public List<WineVO> sellerWineList(String id);
+	public List<WineVO> sellerWineList(String id, int end);
+	public String noticeWineName(int target);
+	public List<WineVO> approvalCheckList(String id, int state);
+	public int approvalCheckCount(String id, int state);
 }

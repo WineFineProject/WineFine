@@ -207,10 +207,29 @@ public class ItemRestController {
 	}
 	
 	@GetMapping(value = "seller/swineList_vue.do", produces = "text/plain;charset=UTF-8")
-	public String sellerWineList(String id) throws Exception {
-		List<WineVO> wList= iService.sellerWineList(id);
+	public String sellerWineList(String id , int end) throws Exception {
+		List<WineVO> wList= iService.sellerWineList(id, end);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(wList);
+		return json;
+	}
+	@GetMapping(value = "seller/swinename_vue.do", produces = "text/plain;charset=UTF-8")
+	public String noticeWineName(Integer target) throws Exception {
+		String result = iService.noticeWineName(target);
+		return result;
+	}
+	@GetMapping(value = "seller/approvalCheck_vue.do", produces = "text/plain;charset=UTF-8")
+	public String approvalCheck(String id, int state) throws Exception {
+		List<WineVO> list = iService.approvalCheckList(id, state);
+		int count = iService.approvalCheckCount(id, state);
+		
+		Map map=new HashMap();
+		map.put("list", list);
+		map.put("count", count);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(map);
+		
 		return json;
 	}
 }

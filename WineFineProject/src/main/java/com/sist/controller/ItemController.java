@@ -26,4 +26,9 @@ public class ItemController {
 	{
 		return "shop/sellerShop";
 	}
+	@GetMapping("seller/approval.do")
+	public String seller_approvalCheck()
+	{
+		return "seller/approval";
+	}
 }

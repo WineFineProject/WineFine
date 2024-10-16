@@ -128,9 +128,27 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public List<WineVO> sellerWineList(String id) {
+	public List<WineVO> sellerWineList(String id, int end) {
 		// TODO Auto-generated method stub
-		return dao.sellerWineList(id);
+		return dao.sellerWineList(id, end);
+	}
+
+	@Override
+	public String noticeWineName(int target) {
+		// TODO Auto-generated method stub
+		return dao.noticeWineName(target);
+	}
+
+	@Override
+	public List<WineVO> approvalCheckList(String id, int state) {
+		// TODO Auto-generated method stub
+		return dao.approvalCheckList(id, state);
+	}
+
+	@Override
+	public int approvalCheckCount(String id, int state) {
+		// TODO Auto-generated method stub
+		return dao.approvalCheckCount(id, state);
 	}
 
 }

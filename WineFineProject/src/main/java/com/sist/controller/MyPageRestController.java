@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -32,6 +33,53 @@ public class MyPageRestController {
 	
 	@Autowired
 	private MypageService mService;
+	
+	// 회원정보 수정
+	@GetMapping(value = "my_edit2_member_vue.do", produces = "text/plain;charset=UTF-8")
+	public String myInfo(@SessionAttribute("userId") String userId) throws Exception
+	{	
+		
+		MemberVO vo=mService.getMyId(userId);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	
+	/*
+	 * @PostMapping(value = "mypage/edit2_ok_vue_do",produces =
+	 * "text/plain;charset=UTF-8") public String myInfo_ok(@RequestBody MemberVO vo,
+	 * 
+	 * @SessionAttribute("userId") String userId) throws Exception {
+	 * vo.setUserId(userId);
+	 * 
+	 * MemberVO updateMember = mService.updateMyInfo(vo);
+	 * 
+	 * ObjectMapper mapper = new ObjectMapper(); String json =
+	 * mapper.writeValueAsString(updateMember); return json; }
+	 */
+	@PostMapping(value = "mypage/edit2_ok_vue_do", produces = "application/json")
+	public ResponseEntity<?> myInfo_ok(@RequestBody MemberVO vo, 
+	                                   @SessionAttribute("userId") String userId,
+	                                   HttpSession session) throws Exception
+	{
+	    System.out.println("Received data: " + vo); // 수신한 데이터 로그 출력
+	    vo.setUserId(userId);
+	    MemberVO updateMember = mService.updateMyInfo(vo);
+	    System.out.println("Updated member: " + updateMember); // 업데이트된 데이터 로그 출력
+	    if (updateMember != null) {
+	        // 세션 정보 업데이트
+	        session.setAttribute("nickName", updateMember.getNickName());
+	        session.setAttribute("post", updateMember.getPost());
+	        session.setAttribute("address", updateMember.getAddr1());
+	        session.setAttribute("addr2", updateMember.getAddr2());
+	        session.setAttribute("phone", updateMember.getPhone());
+	        session.setAttribute("email", updateMember.getEmail());
+	        
+	        return ResponseEntity.ok(updateMember);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("업데이트 실패");
+	    }
+	}
 	
 	
 	@GetMapping(value = "mypage/vueCouponList.do", produces = "text/plain;charset=UTF-8")
@@ -78,16 +126,38 @@ public class MyPageRestController {
 	
 	
 	// 작성 게시글 리스트 mypage/myboardlist.do
-	@GetMapping(value="mypage/myboardlist_vue.do",produces = "text/plain;charset=UTF-8")
-	  public String mypage_reserve(HttpSession session) throws Exception
-	  {
+	
+	  @GetMapping(value="mypage/myboardlist_vue.do",produces ="text/plain;charset=UTF-8") 
+	  public String mypage_boardList(HttpSession session, int page) throws Exception 
+	  { 
 		  String nickname=(String)session.getAttribute("nickName");
-		  List<BoardVO> list=mService.myboardListData(nickname, start, end);
 		  
-		  ObjectMapper mapper=new ObjectMapper();
-		  String json=mapper.writeValueAsString(list);
-		  return json;
+		  int rowSize = 10;
+		  int start = (rowSize*page)-(rowSize-1);
+		  int end = rowSize*page;
+		  
+		  
+		  
+		  List<BoardVO> list=mService.myboardListData(nickname);
+		  int count = mService.myPageBoardTotalPage(nickname);
+		  int totalpage=(int)(Math.ceil(count/(double)rowSize));
+		  count = count-((page*rowSize)-rowSize);
+		  
+		  Map map = new HashMap();
+		  map.put("start", start);
+		  map.put("end", end);
+		  
+		  map.put("list", list);
+		  map.put("count", count);
+		  map.put("curpage", page);
+		  map.put("totalpage", totalpage);
+		  
+		  
+		  
+		  ObjectMapper mapper=new ObjectMapper(); String
+		  json=mapper.writeValueAsString(list); return json; 
 	  }
+	 
 	
 
 }

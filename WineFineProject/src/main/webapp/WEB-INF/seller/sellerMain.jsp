@@ -41,7 +41,7 @@
 					<ul class="list-group">
 						<li class="list-group-item"><a href="../seller/register.do">상품등록</a></li>
 						<li class="list-group-item"><a href="../seller/itemlist.do">상품목록</a></li>
-						<li class="list-group-item"><a href="../seller/edit.do">상품수정</a></li>
+						<li class="list-group-item"><a href="../seller/approval.do">상품승인확인</a></li>
 					</ul>
 				</div>
 				<div class="panel panel-warning">
