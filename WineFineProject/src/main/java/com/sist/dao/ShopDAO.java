@@ -3,7 +3,9 @@ import java.util.*;
 import com.sist.mapper.*;
 import com.sist.vo.*;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -42,10 +44,6 @@ public class ShopDAO {
 	public List<MyCouponVO> selectCoupon(String id) {
 		return mapper.selectCoupon(id);
 	}
-//	荑좏룿 �궗�슜�븯湲�
-	public MyCouponVO useCoupon(String id) {
-		return mapper.useCoupon(id);
-	}
 //	�븷�씤�쑉�씠 媛��옣 �넂�� �봽濡쒕え�뀡 �솗�씤�븯湲�
 	public List<PromotionSaleVO> promotionGetSale(Map map) {
 		return mapper.promotionGetSale(map);
@@ -66,11 +64,56 @@ public class ShopDAO {
 	public List<DeliveryVO> getDeli(String id) {
 		return mapper.getDeli(id);
 	}
-//	사용 적립금 차감
-	public MemberVO usePoint (int point, String id) {
-		return mapper.usePoint(point, id);
+	
+	
+//	사용 적립금 차감하기
+
+	public void usePoint (MemberVO vo) {
+		mapper.usePoint(vo);
+	}
+	
+//	결제 적립금 추가하기
+
+	public int plusPoint (int plpoint, String id) {
+		return mapper.plusPoint(plpoint, id);
+	}
+	
+//	쿠폰 사용
+
+	public void useCoupon(MyCouponVO vo) {
+		mapper.useCoupon(vo);
+	}	
+	
+//	장바구니 추가
+	public void insertCart(Wine_CartVO vo) {
+		mapper.insertCart(vo);
+	}
+//	장바구니 수량 추가
+	public void wineCartAccountUpdate(Wine_CartVO vo) {
+		mapper.wineCartAccountUpdate(vo);
+	}
+	public int wineCartwnoCount(int wno) {
+		return mapper.wineCartwnoCount(wno);
+	}
+	
+//	구매 추가
+	public void insertPayment(Wine_PaymentVO vo) {
+		mapper.insertPayment(vo);
+	}
+	public void wineBuyAccountUpdate(Wine_PaymentVO vo) {
+		mapper.wineBuyAccountUpdate(vo);
+	}
+	public int wineBuywpnoCount(int wpno) {
+		return mapper.wineBuywpnoCount(wpno);
 	}
 
+
+
+
+	
+
+	
+	
 
 
 

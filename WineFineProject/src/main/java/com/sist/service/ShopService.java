@@ -13,12 +13,26 @@ public interface ShopService {
 	public List<String> nationName(int wno);
 	public WineVO winebuy(int wno);
 	public List<MyCouponVO> selectCoupon(String id);
-	public MyCouponVO useCoupon(String id);
 	public List<PromotionSaleVO> promotionGetSale(Map map);
 	public List<WineVO> otherWine_maker(int wno);
 	public List<WineVO> otherWine_seller(int wno);
 	public String getPoint(String id);
 	public List<DeliveryVO> getDeli(String id);
-	public MemberVO usePoint (int point, String id);
+//	사용 적립금 차감하기
+	public void usePoint (MemberVO vo);
+//	결제 적립금 추가하기
+	public int plusPoint (int plpoint, String id);	
+//	쿠폰 사용
+	public void useCoupon(MyCouponVO vo);
+
+//	장바구니 추가
+	public void insertCart(Wine_CartVO vo);
+//	장바구니 수량 추가
+	public void wineCartAccountUpdate(Wine_CartVO vo);
+	public int wineCartwnoCount(int wno);
+//	구매
+	public void insertPayment(Wine_PaymentVO vo);
+	public void wineBuyAccountUpdate(Wine_PaymentVO vo);
+	public int wineBuywpnoCount(int wpno);
 
 }

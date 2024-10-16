@@ -60,18 +60,12 @@ public interface ShopMapper {
 
 	
 //	사용 가능 쿠폰 가져오기
-	@Select("SELECT title, discount, TO_CHAR(enddate,'YYYY-MM-DD') as endDay "
+	@Select("SELECT mcno, title, discount, TO_CHAR(enddate,'YYYY-MM-DD') as endDay "
 	        + "FROM my_coupon  "
 	        + "WHERE recvid = #{id} "
 	        + "AND state = 1 "
 	        + "AND SYSDATE BETWEEN startdate AND enddate ")
 	public List<MyCouponVO> selectCoupon(String id);
-	
-//	쿠폰 사용
-	@Update("UPDATE my_coupon "
-			+ "SET state = 0 "
-			+ "WHERE recvid = #{id} ")
-	public MyCouponVO useCoupon(String id);
 	
 //	프로모션 세일
 	@Select("WITH filtered_promotion_sale AS ( "
@@ -129,9 +123,61 @@ public interface ShopMapper {
 //	사용 적립금 차감하기
 	@Update("UPDATE wine_member SET "
 			+ "point = point - #{point} "
-			+ "WHERE userid = #{id} ")
-	public MemberVO usePoint (int point, String id);
+			+ "WHERE userid = #{userId} ")
+	public void usePoint (MemberVO vo);
+	
+//	결제 적립금 추가하기
+	@Update("UPDATE wine_member "
+	        + "SET point = point + #{point} "
+	        + "WHERE userid = #{userId} ")
+	public int plusPoint(@Param("point") int plpoint, @Param("id") String id);
+	
+//	쿠폰 사용
+	@Update("UPDATE my_coupon "
+			+ "SET state = 0 "
+			+ "WHERE mcno = #{mcno} ")
+	public void useCoupon(MyCouponVO vo);
+	
+//	장바구니 저장
+	@Insert("INSERT INTO wine_cart (cno, wno, userid, account, regdate) "
+	        + "VALUES (wc_cno_seq.nextval, #{wno}, #{userid}, #{account}, SYSDATE)")
+	public void insertCart(Wine_CartVO vo);
+
+	@Update("UPDATE wine_cart SET "
+			+"account = account + #{account} "
+	  	    +"WHERE wno=#{wno}")
+	public void wineCartAccountUpdate(Wine_CartVO vo);
+	
+	@Select("SELECT COUNT(*) FROM wine_cart "
+			+"WHERE wno=#{wno}")
+	public int wineCartwnoCount(int wno);
+	
+//	구매 저장
+	@Insert("INSERT INTO wine_payment (wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, regdate) "
+	        + "VALUES (wp_wpno_seq.nextval, #{wno}, #{account}, #{payment}, #{mipoint}, #{wdno}, "
+	        + "#{mcno}, #{psno}, 0, #{userid}, SYSDATE) ")
+	public void insertPayment(Wine_PaymentVO vo);
+//	구매 추가
+	@Update("UPDATE wine_payment SET "
+			+ "account = account + #{account} "
+			+ "WHERE wno = #{wno} ")
+	public void wineBuyAccountUpdate(Wine_PaymentVO vo);
+//	
+	@Select("SELECT COUNT(*) FROM wine_payment "
+			+ "WHERE wpno = #{wpno}")
+	public int wineBuywpnoCount(int wpno);
+
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

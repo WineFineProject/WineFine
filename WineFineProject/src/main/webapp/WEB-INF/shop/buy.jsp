@@ -125,7 +125,8 @@
 					<div class="col-3 " style="height: 385px; overflow: auto; overflow-x: hidden;">
 						<h3>배송지선택</h3>
 						<br>
-						<table v-for="(userDeli, index) in userDeli" :class="['coupondiv', 'selectAd', {'selected': selectAddr === index}]" style="width: 290px; height: 150px; margin-bottom: 10px; border-radius: 0px">
+						<table v-for="(userDeli, index) in userDeli" :class="['coupondiv', 'selectAd', {'selected': selectAddr.wdno === index}]" 
+						style="width: 290px; height: 150px; margin-bottom: 10px; border-radius: 0px">
 							<thead>
 								<tr>
 									<th style="border-bottom: none;"></th>
@@ -134,8 +135,10 @@
 							<tbody>
 								<tr>
 									<td>
-										<div class="form-check" style="padding: 10px 10px 0px 10px; cursor: pointer;">
-											<input class="form-check-input" type="radio" name="flexRadioDefault" :id="'flexRadioDefault'+index" style="display: none;" v-model="selectAddr" :value="index"> <label class="form-check-label" :for="'flexRadioDefault'+index" @click="selectAddress(index)"> <b>{{userDeli.name}}</b>
+										<div class="form-check " style="padding: 10px 10px 0px 10px; cursor: pointer;">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" :id="'flexRadioDefault'+index" style="display: none;"> 
+											<label class="form-check-label" :for="'flexRadioDefault'+index" @click="selectAddress(index)" style="cursor: pointer"> 
+												<b>{{userDeli.name}}</b>
 												<p>{{userDeli.addr1}}</p>
 												<p>{{userDeli.addr2}}</p>
 											</label>
@@ -160,7 +163,8 @@
 									<tr>
 										<td>
 											<div style="margin-top: 10px; width: 290px;">
-												<label for="search"> 쿠폰 검색</label> <input type="text" class="form-control cou" :disabled="isFd" :placeholder="selectedCoupon ? selectedCoupon.title + ' ('+selectedCoupon.discount+'%'+')' : '쿠폰을 선택하세요'" @click="selectCou()" readonly>
+												<label for="search"> 쿠폰 검색</label> 
+												<input type="text" class="form-control cou" value='쿠폰을 선택하세요' @click="selectCou()" readonly>
 												<div class="result-list cou" id="listCou" v-if="isVisible" v-for="sale in psvo">
 													<li @click="selectProduct(none)">쿠폰 선택 안 함</li>
 													<li v-for="coupon in cvo" class="result-item" @click="selectProduct(coupon)"><a>{{coupon.title }} ({{ coupon.discount }}%)</a></li>
@@ -171,7 +175,8 @@
 									</tr>
 
 									<tr>
-										<td style="border-bottom: none; display: flex;"><input type="number" style="width: 290px;" class="text-center form-control" @keyup="checkPoint()" v-model="point" min="0" :max="userPoint">
+										<td style="border-bottom: none; display: flex;">
+										<input type="number" style="width: 290px;" class="text-center form-control" @keyup="checkPoint()" v-model="point" min="0" :max="userPoint">
 
 											<button class="btn btn-md  bg-light  " style="margin-left: 5px;" @click="allPoint()">전액사용</button></td>
 									</tr>
@@ -211,7 +216,7 @@
 								<div class="d-flex justify-content-between">
 									<h5 class="mb-0 me-4">사용 쿠폰</h5>
 									<div class="">
-										<p class="mb-0">{{ selectedCoupon ? selectedCoupon.title +' ('+selectedCoupon.discount+'%'+')' : '적용안함' }}</p>
+										<p class="mb-0">{{ selectedCoupon != null ? selectedCoupon.title +' ('+selectedCoupon.discount+'%'+')' : '적용안함' }}</p>
 									</div>
 								</div>
 
@@ -261,23 +266,23 @@
 
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
-	<script>
-	
+	<script>	
 let buyApp = Vue.createApp({
     data() {
         return {
             vo: {},
             wno: ${wno},
             cvo: [],
-            list: [],
-            selectedCoupon: null,
+            selectedCoupon: {},
             quantity: 1,
             psvo: [],
             isVisible: false, 
             userPoint: 0,
             point: 0,
+            plpoint: 0,
             userDeli: [],	// 배송지
-            selectAddr: {} // 선택한 주소에 wdno 가져오기
+            selectAddr: {}, // 선택한 주소에 wdno 가져오기
+            totalpayment: 0
         };
     },
     computed: {
@@ -298,7 +303,7 @@ let buyApp = Vue.createApp({
         }
     },
     mounted() {
-        axios.get('../shop/buy_vue.do', {
+        axios.get('../shop/buypage_vue.do', {
             params: {
                 wno: this.wno
             }
@@ -306,16 +311,10 @@ let buyApp = Vue.createApp({
             console.log(response.data)
             this.vo = response.data.vo
             this.cvo = response.data.cvo
-            this.list = response.data.list
-            this.psvo = response.data.psvo
-            this.quantity = response.data.quantity || 1
-            console.log("수량 : " + this.quantity)
+            this.psvo = response.data.psvo           
             this.userPoint = response.data.userPoint
-            this.userDeli = response.data.userDeli
-            this.selectAddr = response.data.selectAddr
-/*             this.point = response.data.point
-            console.log("사용 포인트 : " + this.point) */
-            console.log(this.selectAddr)
+            this.userDeli = response.data.userDeli             
+            
         }).catch(error => {
             console.log(error.response)
         });
@@ -326,29 +325,33 @@ let buyApp = Vue.createApp({
         },
         decreaseQuantity() {
             if (this.quantity > 1) {
-                this.quantity--;
+                this.quantity--
             }
         },
-        payment() {
-            alert('결제 처리중')
-        },
         selectCou() {
-            this.isVisible = !this.isVisible;
+            this.isVisible = !this.isVisible
         },
-        selectProduct(coupon) {
+/*         selectProduct(none){
+        	this.selectedCoupon = coupon
+        	this.isVisible = false
+        	const cvoDiscount = this.selectedCoupon.discount
+        	
+        }, */
+        selectProduct(coupon) {       	
+            
             this.selectedCoupon = coupon // 선택한 쿠폰을 저장
             this.isVisible = false // 리스트 숨기기
             
             if (this.psvo.length > 0 && this.cvo.length > 0) {
-                const psvoDiscount = this.psvo[0].discount
-                const cvoDiscount = this.selectedCoupon.discount
+                const psvoDiscount = this.psvo[0].discount                
+                const cvoDiscount  = this.selectedCoupon.discount
 
                 if (psvoDiscount >= cvoDiscount) {
                     alert('프로모션 할인 가격이 더 높습니다')
                     this.selectedCoupon = null
                     this.isVisible = false
                     return
-                }
+                }                
             }
         },
         checkPoint() {
@@ -362,6 +365,39 @@ let buyApp = Vue.createApp({
         selectAddress(index) {
             this.selectAddr = this.userDeli[index] // 선택한 배송지 정보를 selectAddr에 저장
             console.log('선택한 주소 wdno:', this.selectAddr.wdno) // wdno 출력
+        },
+        payment() {
+            alert('결제 처리중')
+            // axios 요청 전에 현재 상태의 값을 로그로 출력
+            console.log("wno:", this.wno)
+            console.log("mipoint:", this.point)
+            console.log("wdno:", this.selectAddr.wdno)
+            console.log("mcno:", this.selectedCoupon ? this.selectedCoupon.mcno : 0 )
+            console.log("psno:", this.psvo[0].psno)
+            console.log("account:", this.quantity)
+            console.log("totalpayment:", this.totalpayment)
+
+            axios.post('../shop/payment_vue.do', null, {
+                params: { // 실제 전달하는 데이터
+                    wno: this.wno,
+                    wdno: this.selectAddr.wdno,
+                    psno: this.psvo[0].psno,
+                    account: this.quantity,
+                    mcno: this.selectedCoupon ? this.selectedCoupon.mcno : 0 ,
+	                mipoint: this.point,
+	                payment: this.totalpayment
+                }
+            }).then(response => {
+                console.log(response.data)  
+                if (response.data === "yes") {
+                	alert("구매 성공!")
+                } else {
+                    alert("구매 실패\n" + response.data)
+                    return
+                }
+            }).catch(error => {
+                console.log(error.response)  
+            })
         }
     }
 }).mount('.shopcontainer')

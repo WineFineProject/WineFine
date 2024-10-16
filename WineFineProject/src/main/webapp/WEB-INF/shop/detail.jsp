@@ -596,7 +596,8 @@
 	            mnolink: '',
 	            otherMaker: null, // 초기화
 	            otherSeller: null,
-	            carousel: null 
+	            carousel: null, 
+	            account: 1
 	        }
 	    },
 	    mounted() {
@@ -634,22 +635,35 @@
 	    methods: {
 	        // 링크 복사 메서드
 	        copyLink() {
-	            const urlToCopy = window.location.href;
+	            const urlToCopy = window.location.href
 	            navigator.clipboard.writeText(urlToCopy)
 	                .then(() => {
-	                    alert('링크가 복사되었습니다');
+	                    alert('링크가 복사되었습니다')
 	                })
 	                .catch(err => {
-	                    console.error('링크 복사 실패:', err);
+	                    console.error('링크 복사 실패:', err)
 	                });
 	        },
 	        handleAddToCart() {
 	            if (this.sessionId) {	                
-	                this.addToCart();
+	                this.addToCart()
 	            } else {
-	                alert('로그인 후 사용이 가능합니다.');
-	                window.location.href = '../member/login.do';
+	                alert('로그인 후 사용이 가능합니다.')
+	                window.location.href = '../member/login.do'
 	            }
+	        },
+	        addToCart(){
+	        	axios.post('../shop/cart_insert.do',null,{
+	        		params:{
+	        			wno: this.wno,
+	        			account: this.account
+	        		}        		
+	        	}).then(response=>{
+	        		console.log(response.data)
+	        		alert("장바구니에 추가되었습니다.")
+	        	}).catch(error=>{
+	        		console.log(error.response)
+	        	})
 	        },
 	        handleBuyNow() {
 	            if (this.sessionId) {

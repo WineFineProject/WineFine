@@ -6,13 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sist.dao.ShopDAO;
-import com.sist.dao.WineDAO;
-import com.sist.vo.DeliveryVO;
-import com.sist.vo.MemberVO;
-import com.sist.vo.MyCouponVO;
-import com.sist.vo.PromotionSaleVO;
-import com.sist.vo.WineVO;
+import com.sist.dao.*;
+import com.sist.vo.*;
 
 @Service
 public class ShopServiceImpl implements ShopService{
@@ -66,11 +61,6 @@ public class ShopServiceImpl implements ShopService{
 		return sdao.selectCoupon(id);
 	}
 	@Override
-	public MyCouponVO useCoupon(String id) {
-		// TODO Auto-generated method stub
-		return sdao.useCoupon(id);
-	}
-	@Override
 	public List<PromotionSaleVO> promotionGetSale(Map map) {
 		// TODO Auto-generated method stub
 		return sdao.promotionGetSale(map);
@@ -95,11 +85,58 @@ public class ShopServiceImpl implements ShopService{
 		// TODO Auto-generated method stub
 		return sdao.getDeli(id);
 	}
+	
 	@Override
-	public MemberVO usePoint(int point, String id) {
+	public void usePoint(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return sdao.usePoint(point, id);
+		sdao.usePoint(vo);
 	}
+
+	@Override
+	public int plusPoint(int plpoint, String id) {
+		// TODO Auto-generated method stub
+		return sdao.plusPoint(plpoint, id);
+	}
+
+	@Override
+	public void useCoupon(MyCouponVO vo) {
+		// TODO Auto-generated method stub
+		sdao.useCoupon(vo);
+	}
+	@Override
+	public void insertCart(Wine_CartVO vo) {
+		// TODO Auto-generated method stub
+		sdao.insertCart(vo);
+	}
+	@Override
+	public void wineCartAccountUpdate(Wine_CartVO vo) {
+		// TODO Auto-generated method stub
+		sdao.wineCartAccountUpdate(vo);
+	}
+	@Override
+	public int wineCartwnoCount(int wno) {
+		// TODO Auto-generated method stub
+		return sdao.wineCartwnoCount(wno);
+	}
+
+	@Override
+	public void insertPayment(Wine_PaymentVO vo) {
+		// TODO Auto-generated method stub
+		sdao.insertPayment(vo);
+	}
+
+	@Override
+	public void wineBuyAccountUpdate(Wine_PaymentVO vo) {
+		// TODO Auto-generated method stub
+		sdao.wineBuyAccountUpdate(vo);
+	}
+
+	@Override
+	public int wineBuywpnoCount(int wpno) {
+		// TODO Auto-generated method stub
+		return sdao.wineBuywpnoCount(wpno);
+	}
+
 	
 }
 

@@ -84,7 +84,30 @@ public class ShopRestController {
 		return json;
 		
 	}
-	@GetMapping(value = "shop/buy_vue.do", produces = "text/plain;charset=UTF-8")
+	@PostMapping(value = "shop/cart_insert.do", produces = "text/plain;charset=UTF-8")
+	public String wine_cart(int wno, int account, HttpSession session) throws Exception{
+		String result = "";
+		try {
+			String id = (String)session.getAttribute("userId");
+			Wine_CartVO vo = new Wine_CartVO();
+			vo.setWno(wno);
+			vo.setUserid(id);
+			vo.setAccount(account);
+			
+			int count = sservice.wineCartwnoCount(wno);
+			if(count == 0) {
+				sservice.insertCart(vo);
+			} else{
+				sservice.wineCartAccountUpdate(vo);
+			}
+			result = "yes";
+		}catch (Exception ex) {
+			result = ex.getMessage();
+		}		
+		return result = "";				
+	}
+	
+	@GetMapping(value = "shop/buypage_vue.do", produces = "text/plain;charset=UTF-8")
 	public String wine_buy(int wno, HttpSession session) throws Exception{
 		WineVO vo = sservice.winebuy(wno);
 		String id = (String)session.getAttribute("userId");
@@ -117,13 +140,30 @@ public class ShopRestController {
 		map.put("type", typeIndex);	
 		List<PromotionSaleVO> psvo = sservice.promotionGetSale(map);
 		map.put("psvo", psvo);
-//		사용 포인트 차감
-//		MemberVO usepoint = sservice.usePoint(point, id);		
-//		map.put("point", usepoint);
-		
+				
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);
 		return json;
+	}
+	@PostMapping(value = "shop/payment_vue.do",produces = "text/plain;charset=UTF-8")
+	public String wine_payment(Wine_PaymentVO vo,MyCouponVO mvo, MemberVO memvo, HttpSession session) {
+		String result = "";
+		try {
+			String id = (String)session.getAttribute("userId");
+			memvo.setUserId(id);
+			vo.setUserid(id);
+			
+			sservice.insertPayment(vo);
+			
+			sservice.useCoupon(mvo);
+			sservice.usePoint(memvo);
+//			sservice.plusPoint(point, id);
+			result = "yes";
+		}catch(Exception ex) {
+			result = ex.getMessage();
+		}
+		
+		return result;
 	}
 	
 	
