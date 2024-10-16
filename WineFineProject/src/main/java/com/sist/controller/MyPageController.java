@@ -32,7 +32,8 @@ public class MyPageController {
  @GetMapping("mypage/myboardlist.do")
  public String mypageBoardList(String id){
 	 return "mypage/myboardlist"; 
- } //작성리뷰
+ } 
+ //작성리뷰
  
  //좋아요
  

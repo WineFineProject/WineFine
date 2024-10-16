@@ -10,15 +10,34 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sist.vo.BoardVO;
+import com.sist.vo.MemberVO;
 import com.sist.mapper.MypageMapper;
+
 @Repository
 public class MyPageDAO {
 	@Autowired
 	private MypageMapper mapper;
-	  public List<BoardVO> myBoardListData(String nickname,int start,int end){
-		  return mapper.myBoardListData(nickname, start, end);
-	  }
-	  public int myPageBoardTotalPage(String nickname) {
-		  return mapper.myPageBoardTotalPage(nickname);
-	  }
+	
+	// 개인 정보 수정
+	public MemberVO getMyId(String userId) {
+		return mapper.getMyId(userId);
+	}
+
+	public MemberVO updateMyInfo(MemberVO vo) {
+		int result = mapper.updateMyInfo(vo);
+		if (result>0) {
+			return mapper.getMyId(vo.getUserId());
+		}
+		return null;
+	}
+
+	// 작성 글 목록
+	public List<BoardVO> myBoardListData(String nickName) {
+		return mapper.myBoardListData(nickName, 0, 0);      
+	}
+
+	public int myPageBoardTotalPage(String nickName) {
+		return mapper.myPageBoardTotalPage(nickName);
+	}
+
 }
