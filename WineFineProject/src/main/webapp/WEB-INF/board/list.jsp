@@ -15,12 +15,12 @@
 }
 
 .ctbtn{
-width: 15%; 
-display: inline-block; 
-margin-left:5px;
-background-color: #C91C40 !important; 
-border-color: white;
-color: white;
+	width: 15%; 
+	display: inline-block; 
+	margin-left:5px;
+	background-color: #C91C40 !important; 
+	border-color: white;
+	color: white;
 }
 .bsbtn{
 	background-color: #FFCC52 !important;

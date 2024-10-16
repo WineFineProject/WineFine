@@ -90,8 +90,20 @@ public class ItemDAO {
 	 {
 		 return mapper.sellerNoticeList(id);
 	 }
-	 public List<WineVO> sellerWineList(String id)
+	 public List<WineVO> sellerWineList(String id, int end)
 	 {
-		 return mapper.sellerWineList(id);
+		 return mapper.sellerWineList(id, end);
+	 }
+	 public String noticeWineName(int target)
+	 {
+		 return mapper.noticeWineName(target);
+	 }
+	 public List<WineVO> approvalCheckList(String id, int state)
+	 {
+		 return mapper.approvalCheckList(id, state);
+	 }
+	 public int approvalCheckCount(String id, int state)
+	 {
+		 return mapper.approvalCheckCount(id, state);				 
 	 }
 }

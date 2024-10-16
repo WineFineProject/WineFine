@@ -93,6 +93,13 @@ public interface ItemMapper {
 	public void wineItemUpdate(WineVO vo);
 	
 	// 상품 승인 대기
+	// 상품 승인 대기 / 반려 목록
+	@Select("SELECT wno, namekor, type, maker, seller, price, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, state "
+			+ "FROM wine WHERE seller = #{id} AND state = #{state} ORDER BY wno DESC")
+	public List<WineVO> approvalCheckList(@Param("id") String id, @Param("state") int state);
+	// 상품 승인 대기 / 반려 개수
+	@Select("SELECT COUNT(*) FROM wine WHERE seller = #{id} AND state = #{state}")
+	public int approvalCheckCount(@Param("id") String id, @Param("state") int state);
 	
 	// 판매자 샵
 	// 판매자 정보 (로고, 이름)
@@ -104,9 +111,16 @@ public interface ItemMapper {
 			+"FROM noticeboard WHERE userId = #{id} ")
 	public List<NoticeBoardVO> sellerNoticeList(String id);
 	
+	// 특정 와인 공지 와인 이름 
+	@Select("SELECT namekor FROM wine WHERE wno = #{target} ")
+	public String noticeWineName(@Param("target") int target);
+	
 	//판매자 상품 목록
-	@Select("SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, state "
-	        + "FROM wine WHERE seller = #{id} AND state = 1 ORDER BY wno DESC ")
-	public List<WineVO> sellerWineList(String id);
+	@Select("SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, state, num "
+			+ "FROM (SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, state, rownum as num "
+			+ "FROM (SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, state "
+	        + "FROM wine WHERE seller = #{id} AND state = 1 ORDER BY wno DESC)) "
+	        + "WHERE num <= #{end} ")
+	public List<WineVO> sellerWineList(@Param("id") String id, @Param("end") int end);
 	
 }
