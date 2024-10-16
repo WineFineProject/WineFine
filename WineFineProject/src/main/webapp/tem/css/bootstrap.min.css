@@ -2768,29 +2768,35 @@ textarea.form-control-lg {
 .btn-primary {
 	color: #000;
 	background-color: #81c408;
-	border-color: #81c408
+	border-color: #81c408;
 }
 .btn-default {
 	color: #000;
 	background-color: #fff;
-	border-color: #fff
+	border-color: #fff;
 }
 .btn-wine {
 	color: #fff;
 	background-color: darkred;
-	border-color: darkred
+	border-color: darkred;
+}
+
+.btn-reserve {
+	color: black;
+	background-color: #99D9EA;
+	border-color: #99D9EA;
 }
 
 .btn-wine2{
 	color:darkred;
 	background-color: white;
-	border-color: darkred	
+	border-color: darkred;	
 }
 
 .btn-primary:hover {
 	color: #000;
 	background-color: #94cd2d;
-	border-color: #8eca21
+	border-color: #8eca21;
 }
 
 .btn-check:focus+.btn-primary, .btn-primary:focus {

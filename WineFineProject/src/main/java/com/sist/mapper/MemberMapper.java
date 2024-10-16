@@ -33,7 +33,7 @@ public interface MemberMapper {
 	@Select("SELECT COUNT(*) FROM wine_member WHERE phone=#{phone}")
 	public int memberPhoneCheck(String phone);
 
-  //회원 목록
+    //회원 목록
 	@Select("SELECT userId, nickName, userName, birthday, sex, phone, post, addr1, addr2, grade, photo, "
 			+ "authority, regday, TO_CHAR(lastlogin, 'YYYY-MM-DD HH24:MI:SS') as lastloginday, email, num "
 			+ "FROM (SELECT wm.userId, wm.nickName, wm.userName, wm.birthday, wm.sex, wm.phone, wm.post, wm.addr1, wm.addr2, wm.grade, wm.photo, "
@@ -45,16 +45,17 @@ public interface MemberMapper {
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<MemberVO> memberList(@Param("start") int start, @Param("end") int end);
 	
-  // 회원 목록 페이징
+    // 회원 목록 페이징
 	@Select("SELECT CEIL(COUNT(*) / 10.0) FROM wine_member JOIN authority ON wine_member.userId=authority.userId WHERE authority='ROLE_USER'")
 	public int memberCount();
 
 	// 관리자 회원 목록
 	@Select("SELECT userId, nickName, userName, birthday, sex, phone, post, addr1, addr2, grade, photo,"
-			+ "authority, regday, email "
+			+ "authority, regday,  TO_CHAR(lastlogin, 'YYYY-MM-DD HH24:MI:SS') as lastloginday, email, num "
 			+ "FROM (SELECT wm.userId, wm.nickName, wm.userName, birthday, wm.sex, wm.phone, wm.post,"
 			+ "wm.addr1, wm.addr2, wm.grade, wm.photo,"
-			+ "a.authority, TO_CHAR(wm.regdate, 'YYYY-MM-DD') as regday, wm.email," + "rownum as num "
+			+ "a.authority, TO_CHAR(wm.regdate, 'YYYY-MM-DD') as regday, wm.lastlogin, wm.email," 
+			+ "rownum as num "
 			+ "FROM wine_member wm " + "JOIN authority a ON wm.userid = a.userid "
 			+ "WHERE a.authority IN ('ROLE_USER', 'ROLE_SELLER') " + "ORDER BY wm.regdate DESC) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
@@ -63,6 +64,17 @@ public interface MemberMapper {
 	// 관리자 회원 목록 페이징
 	@Select("SELECT CEIL(COUNT(*) / 10.0) FROM wine_member JOIN authority ON wine_member.userId=authority.userId WHERE authority IN ('ROLE_USER', 'ROLE_SELLER')")
 	public int adminmemberCount();
+	
+	// 관리자 회원 등급 조정
+	@Update("UPDATE wine_member SET "
+			 +"grade=grdade+1 "
+			 +"WHERE userId=#{userId}")
+	public void gradeIncrement(int grade);
+	
+	@Update("UPDATE wine_member SET "
+			 +"grade=grdade-1 "
+			 +"WHERE userId=#{userId}")
+	public void gradeDecrement(int grade);
 
 	// 회원 삭제
 	@Delete("DELETE FROM wine_member WHERE userId=#{userId}")

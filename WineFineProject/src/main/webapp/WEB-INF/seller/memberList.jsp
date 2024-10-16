@@ -12,7 +12,7 @@
 		<h3 class="text-center">회원 관리</h3>
 		<table class="table" style="margin-top: 20px">
 			<thead class="text-center">
-				<tr style="width:850px">
+				<tr>
 					<th width="5%">번호</th>
 					<th width="15%">아이디</th>
 					<th width="15%">닉네임</th>
@@ -20,7 +20,7 @@
 					<th width="20%">이메일</th>
 					<th width="5%">성별</th>
 					<th width="5%">등급</th>
-					<th width="15%">가입일</th>
+					<th width="15%">마지막 접속일</th>
 					<th width="10%">관리</th>
 				</tr>
 			</thead>
@@ -34,7 +34,7 @@
 						<td>{{vo.email}}</td>
 						<td>{{vo.sex}}</td>
 						<td>{{vo.grade}}</td>
-						<td>{{vo.regday}}</td>
+						<td>{{vo.lastloginday}}</td>
 						<td>
 							<button type="button" class="btn btn-sm btn-danger"
 								id="blackListBtn" @click="blackListInsert(vo.userId)">블랙리스트</button>
@@ -48,15 +48,15 @@
 									<th>전화번호</th>
 									<th>주소</th>
 									<th>포인트</th>
-									<th>마지막 접속일</th>
+									<th>가입일</th>
 
 								</tr>
 								<tr>
 									<td>{{vo.birthday}}</td>
 									<td>{{vo.phone}}</td>
-									<td>{{vo.addr1}}</td>
+									<td>({{vo.post}})&nbsp;{{vo.addr1}}{{vo.addr2}}</td>
 									<td>{{vo.point}}</td>
-									<td>{{vo.lastloginday}}</td>
+									<td>{{vo.regday}}</td>
 								</tr>
 							</table>
 						</td>
@@ -172,11 +172,10 @@
                     }).then(response=>{
                             this.members=response.data.members
                             this.curpage=response.data.curpage
-					           				this.totalpage=response.data.totalpage
-					           				this.startPage=response.data.startPage
-					           				this.endPage=response.data.endPage
-                        })
-                        .catch(error=>{
+					        this.totalpage=response.data.totalpage
+					        this.startPage=response.data.startPage
+					        this.endPage=response.data.endPage
+                        }).catch(error=>{
                             alert(error.response)
                             console.log(error.response)
                         })

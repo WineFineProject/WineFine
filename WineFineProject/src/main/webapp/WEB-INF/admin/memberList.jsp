@@ -5,11 +5,6 @@
 <meta charset="UTF-8">
 <title>회원 목록</title>
 <link rel="stylesheet" href="../tem/css/memberlist.css">
-<style type="text/css">
-.pagination{
-	cursor: pointer;
-}
-</style>
 </head>
 <body>
     <div id="list" class="row"> 
@@ -17,29 +12,50 @@
         <table class="table" style="margin-top: 20px">
             <thead class="text-center">
                 <tr>
-                    <th>번호</th>
-                    <th>아이디</th>
-                    <th>닉네임</th>
-                    <th>이름</th>
-                    <th>이메일</th>
-                    <th>성별</th>
-                    <th>휴대폰번호</th>
-                    <th>등급</th>
-                    <th>가입일</th>
+                    <th width="5%">번호</th>
+                    <th width="10%">아이디</th>
+                    <th width="17%">닉네임</th>
+                    <th width="17%">이름</th>
+                    <th width="29%">이메일</th>
+                    <th width="5%">성별</th>
+                    <th width="17%">마지막 접속일</th>
                 </tr>
             </thead>
             <tbody class="text-center">
-                <tr v-for="(vo, index) in members" :key="vo.userId">
+              <template v-for="(vo, index) in members">
+                <tr style="vertical-align: middle;"@click="detailMember(index)">
                     <td>{{index+1+(curpage-1)*10}}</td>
                     <td>{{vo.userId}}</td>
                     <td>{{vo.nickName}}</td>
                     <td>{{vo.userName}}</td>
                     <td>{{vo.email}}</td>
                     <td>{{vo.sex}}</td>
-                    <td>{{vo.phone}}</td>
-                    <td>{{vo.grade}}</td>
-                    <td>{{vo.regday}}</td>
+                    <td>{{vo.lastloginday}}</td>
                 </tr>
+                <tr v-if="isShow[index]">
+						<td colspan="9" style="padding: 0px;">
+							<table class="table" style="border: none;">
+								<tr>
+									<th width="15%">생일</th>
+									<th>전화번호</th>
+									<th>주소</th>
+									<th>등급</th>
+									<th>포인트</th>
+									<th>가입일</th>
+
+								</tr>
+								<tr>
+									<td>{{vo.birthday}}</td>
+									<td>{{vo.phone}}</td>
+									<td>({{vo.post}})&nbsp;{{vo.addr1}}{{vo.addr2}}</td>
+									<td>{{vo.grade}}</td>
+									<td>{{vo.point}}</td>
+									<td>{{vo.regday}}</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</template>
             </tbody>
         </table>
         <div class="col-12 text-center" >
@@ -65,10 +81,11 @@
             data() {
                 return {
                     members:[],
+                    isShow:Array(10).fill(false),
                     curpage:1,
-				       			totalpage:0,
-				       			startPage:0,
-				       			endPage:0
+				    totalpage:0,
+				    startPage:0,
+				    endPage:0
                 }
             },
             mounted() {
@@ -97,6 +114,14 @@
           			 }
           			 return arr
           		 },
+          		detailMember(index){
+             		if(this.isShow[index]===true){
+             			this.isShow[index]=false
+             		}
+             		else{
+             		this.isShow[index]=true
+             		}
+             	},
                 mList(){
                     axios.get('../admin/memberListVue.do',{
                     	params:{
@@ -105,9 +130,9 @@
                     }).then(response=>{
                             this.members=response.data.members
                             this.curpage=response.data.curpage
-					           				this.totalpage=response.data.totalpage
-					           				this.startPage=response.data.startPage
-					           				this.endPage=response.data.endPage
+					        this.totalpage=response.data.totalpage
+					        this.startPage=response.data.startPage
+					        this.endPage=response.data.endPage
                         }).catch(error=>{
                             alert(error.response)
                             console.log(error.response)

@@ -114,6 +114,12 @@
 								<a href="../shop/list.do" class="dropdown-item">일반판매</a> <a href="../replyboard/list.do" class="dropdown-item">예약판매</a>
 							</div>
 						</div>
+						<div class="nav-item dropdown">
+							<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">이벤트</a>
+							<div class="dropdown-menu m-0 bg-light rounded-0">
+								<a href="../event/list.do" class="dropdown-item">시음회</a> 
+							</div>
+						</div>
 						<a href="../mypage/mypageHome.do" class="nav-item nav-link">mypage</a> <a href="../admin/adminHome.do" class="nav-item nav-link">admin</a> <a href="../seller/sellerHome.do"
 							class="nav-item nav-link">seller</a>
 						<div class="nav-item dropdown">

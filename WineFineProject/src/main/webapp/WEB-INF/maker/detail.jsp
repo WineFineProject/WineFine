@@ -173,6 +173,7 @@ table {
 								</tr>
 							</table>
 						</a>
+					  <hr>	
 					</div>
 					<div v-if="mWines.length > itemsToShow" class="button-container">
 			            <button @click="showMoreItems" class="listBtn">더보기</button>
