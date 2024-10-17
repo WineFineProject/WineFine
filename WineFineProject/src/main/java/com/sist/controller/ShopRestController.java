@@ -115,6 +115,7 @@ public class ShopRestController {
 		String id = (String)session.getAttribute("userId");
 		List<MyCouponVO> cvo = sservice.selectCoupon(id);
 		String userPoint = sservice.getPoint(id);
+		String userGrade = sservice.getgrade(id);
 		List<DeliveryVO> userDeli = sservice.getDeli(id);
 		
 		Map map = new HashMap();
@@ -122,6 +123,7 @@ public class ShopRestController {
 		map.put("cvo", cvo);
 		map.put("userPoint", userPoint);
 		map.put("userDeli", userDeli);
+		map.put("userGrade", userGrade);
 		
 		String psseller = vo.getSeller();
 		map.put("seller", psseller);
@@ -148,18 +150,20 @@ public class ShopRestController {
 		return json;
 	}
 	@PostMapping(value = "shop/payment_vue.do",produces = "text/plain;charset=UTF-8")
-	public String wine_payment(Wine_PaymentVO vo,MyCouponVO mvo, MemberVO memvo, HttpSession session) {
+	public String wine_payment(Wine_PaymentVO vo,MyCouponVO mvo, MemberVO memvo, 
+			int mipoint, HttpSession session) {
 		String result = "";
 		try {
 			String id = (String)session.getAttribute("userId");
 			memvo.setUserId(id);
 			vo.setUserid(id);
 			
-			sservice.insertPayment(vo);
-			
+			sservice.insertPayment(vo);			
 			sservice.useCoupon(mvo);
-			sservice.usePoint(memvo);
-//			sservice.plusPoint(point, id);
+			
+			sservice.usePoint(memvo);// mipoint 받아야함
+			sservice.plusPoint(memvo);// plpoint 받아야함
+			
 			result = "yes";
 		}catch(Exception ex) {
 			result = ex.getMessage();

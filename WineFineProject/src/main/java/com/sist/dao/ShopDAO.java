@@ -60,6 +60,12 @@ public class ShopDAO {
 	public String getPoint(String id) {
 		return mapper.getPoint(id);
 	}
+
+//	회원 등급 가져오기
+	public String getgrade(String id) {
+		return mapper.getgrade(id);
+	}
+
 //	배송지 가져오기
 	public List<DeliveryVO> getDeli(String id) {
 		return mapper.getDeli(id);
@@ -74,8 +80,8 @@ public class ShopDAO {
 	
 //	결제 적립금 추가하기
 
-	public int plusPoint (int plpoint, String id) {
-		return mapper.plusPoint(plpoint, id);
+	public void plusPoint (MemberVO vo) {
+		mapper.plusPoint(vo);
 	}
 	
 //	쿠폰 사용

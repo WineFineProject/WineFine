@@ -93,9 +93,9 @@ public class ShopServiceImpl implements ShopService{
 	}
 
 	@Override
-	public int plusPoint(int plpoint, String id) {
+	public void plusPoint(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return sdao.plusPoint(plpoint, id);
+		sdao.plusPoint(vo);
 	}
 
 	@Override
@@ -135,6 +135,11 @@ public class ShopServiceImpl implements ShopService{
 	public int wineBuywpnoCount(int wpno) {
 		// TODO Auto-generated method stub
 		return sdao.wineBuywpnoCount(wpno);
+	}
+	@Override
+	public String getgrade(String id) {
+		// TODO Auto-generated method stub
+		return sdao.getgrade(id);
 	}
 
 	

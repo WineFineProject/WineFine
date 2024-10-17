@@ -108,6 +108,12 @@ public interface ShopMapper {
 			+ "WHERE userid = #{id}")
 	public String getPoint(String id);
 	
+//	회원등급 가져오기
+	@Select("SELECT grade "
+			+ "FROM wine_member "
+			+ "WHERE userid = #{id}")
+	public String getgrade(String id);
+	
 //	배송지 
 	@Select("SELECT * "
 			+ "FROM wine_delivery "
@@ -122,15 +128,15 @@ public interface ShopMapper {
 	
 //	사용 적립금 차감하기
 	@Update("UPDATE wine_member SET "
-			+ "point = point - #{point} "
+			+ "point = point - #{mipoint} "
 			+ "WHERE userid = #{userId} ")
 	public void usePoint (MemberVO vo);
 	
 //	결제 적립금 추가하기
 	@Update("UPDATE wine_member "
-	        + "SET point = point + #{point} "
+	        + "SET point = point + #{plpoint} "
 	        + "WHERE userid = #{userId} ")
-	public int plusPoint(@Param("point") int plpoint, @Param("id") String id);
+	public void plusPoint(MemberVO vo);
 	
 //	쿠폰 사용
 	@Update("UPDATE my_coupon "

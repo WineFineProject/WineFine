@@ -65,7 +65,7 @@
 
 		<!-- Single Page Header start -->
 		<div class="container-fluid page-header py-5">
-			<h1 class="text-center text-white display-6">구매 확인</h1>
+			<h1 class="text-center text-white display-6">구매</h1>
 		</div>
 		<!-- Single Page Header End -->
 
@@ -229,10 +229,19 @@
 									</div>
 								</div>
 
+								<br>
+
+							    <div class="d-flex justify-content-between">
+									<h5 class="mb-0 me-4">적립 예정 포인트</h5>
+									<div class="">
+										<p class="mb-0">{{plpoint()}} 원</p>
+									</div>
+								</div> 
+
 							</div>
 
 							<div class="py-4 border-top  justify-content-between use" @click="payment" style="border: solid 1px; border-radius: 0px 0px 15px 15px; border-top: none !important;">
-								<h5 class="mb-0 ps-4  text-center">[ {{totalPayment}} 원 ] 결제하기</h5>
+								<h5 class="mb-0 ps-4  text-center">[ {{totalPayment.toLocaleString()}} 원 ] 결제하기</h5>
 							</div>
 
 						</div>
@@ -278,12 +287,13 @@ let buyApp = Vue.createApp({
             psvo: [],
             isVisible: false, 
             userPoint: 0,
+            userGrade: 0,
             point: 0,
-            plpoint: 0,
             userDeli: [],	// 배송지
             selectAddr: {}, // 선택한 주소에 wdno 가져오기
             isCoupon:false,
-            pay:0
+            pay:0,
+            plus: 0
         };
     },
     computed: {
@@ -295,13 +305,14 @@ let buyApp = Vue.createApp({
             const psvoDiscount = this.psvo.length > 0 ? this.psvo[0].discount : 0
 
             if (selectedCouponDiscount > psvoDiscount) {
-                return (this.vo.price * this.quantity * (1 - selectedCouponDiscount / 100) - this.point).toLocaleString()
+                return (this.vo.price * this.quantity * (1 - selectedCouponDiscount / 100) - this.point)
             } else if (psvoDiscount > 0) {
-                return (this.vo.price * this.quantity * (1 - psvoDiscount / 100) - this.point).toLocaleString()
+                return (this.vo.price * this.quantity * (1 - psvoDiscount / 100) - this.point)
             } else {
                 return this.totalPrice - this.point  // 기본 가격 반환
             }
-        }
+        },
+        
     },
     mounted() {
         axios.get('../shop/buypage_vue.do', {
@@ -315,12 +326,27 @@ let buyApp = Vue.createApp({
             this.psvo = response.data.psvo           
             this.userPoint = response.data.userPoint
             this.userDeli = response.data.userDeli             
-            this.selectAddr=response.data.userDeli[0]
+            this.selectAddr = response.data.userDeli[0]
+            this.userGrade = response.data.userGrade
+            console.log('회원 등급:' + this.userGrade) 
+            console.log('총 결제 금액:' + this.totalPayment)
+            console.log(typeof this.totalPayment) 
         }).catch(error => {
             console.log(error.response)
         });
     },
     methods: {
+	    plpoint() {	    		    	
+		   	if(this.userGrade === '1'){
+		   		return 100
+		   	}
+		   	if (this.userGrade === '2'){
+		   		return Math.round(this.totalPayment * 0.005) 
+		   	}
+		   	if (this.userGrade === '3'){ 
+				return Math.round(this.totalPayment * 0.015)
+		   	}
+   		},
         increaseQuantity() {
             this.quantity++;
         },
@@ -332,12 +358,6 @@ let buyApp = Vue.createApp({
         selectCou() {
             this.isVisible = !this.isVisible
         },
-/*         selectProduct(none){
-        	this.selectedCoupon = coupon
-        	this.isVisible = false
-        	const cvoDiscount = this.selectedCoupon.discount
-        	
-        }, */
         selectProduct(index) {       	
             if(index!==99999){
             	if(this.selectedCoupon.discount>=this.cvo[index].discount){
@@ -360,8 +380,8 @@ let buyApp = Vue.createApp({
 	            }
             }
             else{
-            	this.selectedCoupon={}
-            	this.isCoupon=false
+            	this.selectedCoupon = {}
+            	this.isCoupon = false
             	this.isVisible = false
             }
         },				
@@ -380,10 +400,12 @@ let buyApp = Vue.createApp({
         payment() {
             alert('결제 처리중')
             // axios 요청 전에 현재 상태의 값을 로그로 출력
-						let selCoupon=!this.isCoupon?0:this.selectedCoupon.mcno
+						let selCoupon = !this.isCoupon ? 0 : this.selectedCoupon.mcno
 						pay=this.totalPayment
+						plus = this.plpoint
             console.log("wno:", this.wno)
             console.log("mipoint:", this.point)
+            console.log("적립금:",this.plpoint())
             console.log("wdno:", this.selectAddr.wdno)
             console.log("mcno:", selCoupon)
             console.log("psno:", this.psvo[0].psno)
@@ -397,12 +419,14 @@ let buyApp = Vue.createApp({
                     account: this.quantity,
                     mcno: selCoupon,
 	                mipoint: this.point,
-	                payment: this.totalPayment.replace(/,/g, '')
+	                plpoint: this.plpoint(), 	                
+	                payment: this.totalPayment
                 }
             }).then(response => {
                 console.log(response.data)  
                 if (response.data === "yes") {
                 	alert("구매 성공!")
+	                /* window.location.href = '../shop/detail.do' */
                 } else {
                     alert("구매 실패\n" + response.data)
                     return
