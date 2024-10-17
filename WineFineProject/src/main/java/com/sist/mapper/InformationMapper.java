@@ -102,4 +102,22 @@ public interface InformationMapper {
             + "JOIN maker m ON w.maker = m.no "
             + "WHERE m.no = #{no}")
     public List<WineVO> makerRelatedWines(Map map);
+    
+    @Select("SELECT * FROM grape WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
+    public List<GrapeVO> grapeFindData(String fd);
+    
+    @Select("SELECT COUNT(*) FROM grape WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
+    public int grapeFindCount(String fd);
+    
+    @Select("SELECT * FROM nation WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
+    public List<NationVO> nationFindData(String fd);
+ 
+    @Select("SELECT COUNT(*) FROM nation WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
+    public int nationFindCount(String fd);
+    
+    @Select("SELECT * FROM maker WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
+    public List<MakerVO> makerFindData(String fd);
+    
+    @Select("SELECT COUNT(*) FROM maker WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
+    public int makerFindCount(String fd);
 }

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.*;
+import com.sist.manager.NaverNewsManager;
 import com.sist.service.BannerService;
+import com.sist.service.ShopService;
 import com.sist.vo.*;
 
 @RestController
@@ -18,7 +20,12 @@ public class MainRestController {
 	@Autowired
 	WineDAO dao;
 	@Autowired
+	private NaverNewsManager nnm;
+	@Autowired
 	private BannerService bService;
+	@Autowired
+	private ShopService sService;
+	private String[] keyword= {"와인", "레드와인", "화이트와인"};
 	@GetMapping(value = "main/list.do", produces = "text/plain;charset=UTF-8")
 	public String mainList(int page, @RequestParam Map params) {
 		String json = "";
@@ -76,11 +83,26 @@ public class MainRestController {
 	@GetMapping(value = "main/vueMain.do", produces = "text/plain;charset=UTF-8")
 	public String mainVue() throws Exception{
 		List<PromotionBannerVO> list=bService.promotionBannerList();
+		List<NewsVO> nList=nnm.newsFind(keyword[(int) (Math.random() * 3)]);
+		
 		ObjectMapper mapper=new ObjectMapper();
-		return mapper.writeValueAsString(list);
+		Map map=new HashMap();
+		map.put("bList", list);
+		map.put("nList", nList);
+		
+		return mapper.writeValueAsString(map);
 	}
 	@GetMapping(value = "main/vuePromotion.do", produces = "text/plain;charset=UTF-8")
 	public void mainVuePromotion(int pbno) {
 		bService.promotionclick(pbno);
+	}
+	
+	@GetMapping(value = "main/vueFind.do", produces = "text/plain;charset=UTF-8")
+	public String mainVueFind(String fd) throws Exception{
+		List<WineVO> wList=sService.wineFindData(fd);
+		Map map=new HashMap();
+		map.put("wList", wList);
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(map);
 	}
 }

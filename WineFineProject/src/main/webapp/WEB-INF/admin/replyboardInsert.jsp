@@ -101,7 +101,7 @@
 						cno:this.detail.cno
 					}
 				}).then(response=>{
-					this.sendMeaasge()
+					this.sendMessage()
 					location.href='../admin/replyboard.do'
 				})
 			},

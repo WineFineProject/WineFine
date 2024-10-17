@@ -30,7 +30,22 @@
 	
 	<!-- 와인 검색 출력 -->
 	<select id="wineFindList" resultMap="wineMap" parameterType="hashmap">
-	SELECT wno, namekor, poster, seller, (SELECT nickname FROM wine_member WHERE wine.seller=wine_member.userid) as nickname FROM wine WHERE namekor LIKE '%'||#{fd}||'%'<if test="id!='' and id != null">AND seller=#{id}</if>
+		SELECT wno, namekor, poster, seller, (SELECT nickname FROM wine_member WHERE wine.seller=wine_member.userid) as nickname FROM wine WHERE namekor LIKE '%'||#{fd}||'%'
+		<if test="id!='' and id != null">AND seller=#{id}</if>
 	</select>
-	
+
+	<select id="wineFindData" resultMap="wineMap" parameterType="String">
+		SELECT wno, namekor, nameeng, type, poster, maker, grape, nation, nickname
+		FROM(
+		SELECT w.wno, w.namekor, w.nameeng, w.type, w.poster, (SELECT m.namekor FROM maker m WHERE m.no = w.maker) AS maker,
+		(SELECT LISTAGG(g.namekor, ', ') WITHIN GROUP (ORDER BY g.namekor DESC)
+		FROM (SELECT REGEXP_SUBSTR(w.grape, '[^,]+', 1, LEVEL) AS grape_no
+		FROM dual CONNECT BY REGEXP_SUBSTR(w.grape, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN grape g ON t.grape_no = g.no) AS grape,
+		(SELECT LISTAGG(n.namekor, ' | ') WITHIN GROUP (ORDER BY n.namekor DESC)
+		FROM (SELECT REGEXP_SUBSTR(w.nation, '[^,]+', 1, LEVEL) AS nation_no
+		FROM dual CONNECT BY REGEXP_SUBSTR(w.nation, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN nation n ON t.nation_no = n.no) AS nation,
+		wm.nickname
+		FROM wine w JOIN wine_member wm ON w.seller=wm.userid ORDER BY wno DESC)
+		WHERE (type LIKE '%'||#{fd}||'%' OR grape LIKE '%'||#{fd}||'%' OR nation LIKE '%'||#{fd}||'%' OR namekor LIKE '%'||#{fd}||'%' OR maker LIKE '%'||#{fd}||'%' OR nickname LIKE '%'||#{fd}||'%') AND rownum&lt;=6
+	</select>
 </mapper>

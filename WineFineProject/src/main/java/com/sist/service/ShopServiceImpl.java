@@ -142,7 +142,10 @@ public class ShopServiceImpl implements ShopService{
 		return sdao.getgrade(id);
 	}
 
-	
+	@Override
+	public List<WineVO> wineFindData(String fd) {
+		return wDao.wineFindData(fd);
+	}
 }
 
 
