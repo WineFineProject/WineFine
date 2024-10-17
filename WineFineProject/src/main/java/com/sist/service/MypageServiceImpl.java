@@ -22,9 +22,9 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public MemberVO updateMyInfo(MemberVO vo) {
+	public void updateMyInfo(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return dao.updateMyInfo(vo);
+		dao.updateMyInfo(vo);
 	}
 
 	@Override

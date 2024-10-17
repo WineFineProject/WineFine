@@ -31,15 +31,15 @@
 							</thead>
 							
 							<tbody>
-						        <tr v-for="vo in list" :key="vo.bno" >
+						        <tr v-for="vo in list" :key="vo.bno" @click="goToDetail(vo.bno)" style="cursor: pointer;" >
 						         <td width="5%" class="text-center">{{vo.bno}}</td>
 						         <!-- <td width="10%" class="text-center">
 						         	<span v-if="vo.cno==1">[자유]</span>
 						         	<span v-if="vo.cno==2">[정보]</span>
 						         	<span v-if="vo.cno==3">[질문]</span>
 						         </td> -->
-						         <td width="40%"><a :href="'../board/detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;</a></td>
-						         <!-- <td width="10%"  v-if="vo.filecount>0" class="text-center">📎</td> -->
+						         <!-- <td width="40%"><a :href="'../board/detail.do?bno='+vo.bno">{{vo.subject}}</a></td> -->
+						         <td width="40%"><a :href="'../board/detail.do?bno='+vo.bno">{{vo.subject}}</a></td>
 						         <td width="15%" class="text-center">{{vo.nickname}}</td>
 						         <td width="15%" class="text-center">{{vo.dbday}}</td>
 						         <td width="15%" class="text-center">{{vo.hit}}</td>
@@ -133,7 +133,9 @@
     				console.log(error.response)
     				this.loading=false
     			})
-			},
+			},/*  goToDetail(bno) {
+			    window.location.href = `../board/detail.do?bno=this.bno`;
+			  }, */
     	  /*  prev(){
  			   this.curpage=this.curpage>1?this.curpage-1:this.curpage
  			   this.dataRecv()

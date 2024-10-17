@@ -18,9 +18,9 @@ public interface MypageMapper {
 	public MemberVO	getMyId(@Param("userId") String userId);
 	
 	// 개인 정보 수정
-	@Update("UPDATE wine_member SET nickname=#{nickname},post=#{post},addr1=#{addr1},addr2=#{addr2},phone=#{phone},email=#{email}"
+	@Update("UPDATE wine_member SET nickname=#{nickname},post=#{post},addr1=#{addr1},addr2=#{addr2},phone=#{phone},email=#{email} "
 			+ "WHERE userId=#{userId}")
-	public int updateMyInfo(MemberVO vo);
+	public void updateMyInfo(MemberVO vo);
 	
 	
 	// 작성 글 목록

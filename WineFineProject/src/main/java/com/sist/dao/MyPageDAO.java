@@ -22,12 +22,8 @@ public class MyPageDAO {
 		return mapper.getMyId(userId);
 	}
 
-	public MemberVO updateMyInfo(MemberVO vo) {
-		int result = mapper.updateMyInfo(vo);
-		if (result>0) {
-			return mapper.getMyId(vo.getUserId());
-		}
-		return null;
+	public void updateMyInfo(MemberVO vo) {
+		mapper.updateMyInfo(vo);
 	}
 
 	// 작성 글 목록
@@ -38,5 +34,7 @@ public class MyPageDAO {
 	public int myPageBoardTotalPage(Map map) {
 		return mapper.myPageBoardTotalPage(map);
 	}
+	
+	
 
 }

@@ -58,14 +58,14 @@ input[readonly] {
 								<label class="col-sm-2 col-form-label">닉네임*</label>
 								<div class="col-sm-5">
 									<input type="text" class="form-control"
-										v-model="nickname" ref="nickname" value="${sessionScope.nickName}">
+										v-model="nickname" ref="nickname">
 								</div>
 							</div>
 							<div class="row align mb-3">
 								<label class="col-sm-2 col-form-label">우편번호</label> 
 								<div class="col-sm-5"> 
 									<input type="text" readonly class="form-control"
-										id="post" v-model="post" ref="post" value="${sessionScope.post}">&nbsp;								
+										id="post" v-model="post" ref="post" >&nbsp;								
 								</div>
 								<div class="col-sm-3">
 									<button type="button" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" id="postBtn">검색</button>
@@ -75,7 +75,7 @@ input[readonly] {
 								<label class="col-sm-2 col-form-label">주소*</label>
 								<div class="col-sm-10">
 									<input type="text" readonly class="form-control"
-										id="addr1" v-model="addr1" ref="addr1" value="${sessionScope.address}"><br>
+										id="addr1" v-model="addr1" ref="addr1"><br>
 									<input type="text" class="form-control"
 										v-model="addr2" ref="addr2" value="${sessionScope.addr2}">
 								</div>
@@ -84,14 +84,14 @@ input[readonly] {
 								<label class="col-sm-2 col-form-label">전화*</label>
 								<div class="col-sm-5">
 									<input type="text" class="form-control"
-										v-model="phone" ref="phone" value="${sessionScope.phone}">
+										v-model="phone" ref="phone">
 								</div>
 							</div>
 							<div class="row mb-3">
 								<label class="col-sm-2 col-form-label">이메일*</label>
 								<div class="col-sm-5">
 									<input type="text" class="form-control"
-										v-model="email" ref="email" value="${sessionScope.email}">
+										v-model="email" ref="email">
 								</div>
 							</div>
 						
@@ -115,7 +115,9 @@ input[readonly] {
 			let edit2App=Vue.createApp({
 				data(){
 					return{
-						id:'${sessionScope.userId}'
+						id:'${sessionScope.userId}',
+						userName: '${sessionScope.userName}',
+		                sex: '${sessionScope.sex}',
 						nickname:'',
 						post:'',
 						addr1:'',

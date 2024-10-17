@@ -1,5 +1,7 @@
 package com.sist.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.*;
 
 import javax.servlet.http.HttpSession;
@@ -58,27 +60,40 @@ public class MyPageRestController {
 	 * mapper.writeValueAsString(updateMember); return json; }
 	 */
 	@PostMapping(value = "mypage/edit2_ok_vue_do", produces = "application/json")
-	public ResponseEntity<?> myInfo_ok(@RequestBody MemberVO vo, 
-	                                   @SessionAttribute("userId") String userId,
-	                                   HttpSession session) throws Exception
+	public String myInfo_ok(HttpSession session,@RequestBody MemberVO updatedInfo) throws Exception
 	{
-	    System.out.println("Received data: " + vo); // 수신한 데이터 로그 출력
-	    vo.setUserId(userId);
-	    MemberVO updateMember = mService.updateMyInfo(vo);
-	    System.out.println("Updated member: " + updateMember); // 업데이트된 데이터 로그 출력
-	    if (updateMember != null) {
-	        // 세션 정보 업데이트
-	        session.setAttribute("nickName", updateMember.getNickName());
-	        session.setAttribute("post", updateMember.getPost());
-	        session.setAttribute("address", updateMember.getAddr1());
-	        session.setAttribute("addr2", updateMember.getAddr2());
-	        session.setAttribute("phone", updateMember.getPhone());
-	        session.setAttribute("email", updateMember.getEmail());
-	        
-	        return ResponseEntity.ok(updateMember);
-	    } else {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("업데이트 실패");
-	    }
+		String id = (String)session.getAttribute("userId");
+		
+		session.setAttribute("userId", id);
+	
+		MemberVO currentInfo = mService.getMyId(id);
+	    
+	    // 업데이트할 정보 설정
+	    currentInfo.setNickName(updatedInfo.getNickName());
+	    currentInfo.setPost(updatedInfo.getPost());
+	    currentInfo.setAddr1(updatedInfo.getAddr1());
+	    currentInfo.setAddr2(updatedInfo.getAddr2());
+	    currentInfo.setPhone(updatedInfo.getPhone());
+	    currentInfo.setEmail(updatedInfo.getEmail());
+	    
+	    mService.updateMyInfo(currentInfo);
+	    
+	    // 업데이트된 정보 다시 조회
+	    MemberVO updatedMember = mService.getMyId(id);
+	    
+	    // 세션 업데이트
+	    session.setAttribute("nickName", updatedMember.getNickName());
+	    session.setAttribute("post", updatedMember.getPost());
+	    session.setAttribute("addr1", updatedMember.getAddr1());
+	    session.setAttribute("addr2", updatedMember.getAddr2());
+	    session.setAttribute("phone", updatedMember.getPhone());
+	    session.setAttribute("email", updatedMember.getEmail());
+	    	    
+	    ObjectMapper mapper = new ObjectMapper(); 
+	    Map map = new HashMap();
+	    map.put("updatedInfo", updatedMember);
+	    return mapper.writeValueAsString(map); 
+	    
 	}
 	
 	

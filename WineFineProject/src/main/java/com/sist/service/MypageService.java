@@ -15,5 +15,5 @@ public interface MypageService {
 //	 public int myPageBoardTotalPage(String nickname);
 //	 public int myPageCBoardTotalPage(String nickname,int type);
 	public MemberVO	getMyId(String userId);
-	public MemberVO updateMyInfo(MemberVO vo);
+	public void updateMyInfo(MemberVO vo);
 }
