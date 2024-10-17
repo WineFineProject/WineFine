@@ -153,7 +153,7 @@ table {
 							</tr>
 							<tr>
 							 <th class="item" style="width: 20%">예약 인원</th>
-							  <td><input type="number" size=20 v-model="person" min="1" max="30">&nbsp;명</td>
+							  <td class="left-align ti"><input type="number" size=20 v-model="person" min="1" max="30">&nbsp;명</td>
 							</tr>
 						</table>
 						<div>
