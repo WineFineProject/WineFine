@@ -34,6 +34,7 @@
      	<option value="recent">최근등록순</option>
 		<option value="popular">인기순</option>
      </select>
+     <button type="button" @click="dataRecv()">조회</button>
      <button type="button" class="allitem" @click="deleteSelected()">선택 삭제</button>
      <button type="button" class="allitem" @click="saveAllChanges">변경 내용 저장</button>
      <span style="width: 15%; float: left;">총 {{iCount}} 개</span>
@@ -49,7 +50,7 @@
      	<th>조회수</th>
      	<th>등록일</th>
      	<th>판매상태</th>
-     	<th>판매자 공지</th>
+     	<th>판매자 공지 (번호)</th>
      	<th>수정/삭제</th>
      	</tr>
      	<tr v-for="vo in iList" :key="vo.wno">
@@ -83,7 +84,12 @@
 		    </select>
 		    <span v-else @dblclick="vo.isEditingState = true">{{ getStateLabel(vo.state) }}</span>
 		</td>
-     	<td class="editable">공지 선택</td>
+     	<td class="editable" @dblclick="enableEditState2(vo)">
+     		<select v-if="vo.isEditingState" v-model="vo.nbno">
+		        <option :value="nvo.nbno" v-for="nvo in nList">{{nvo.subject}}</option>
+		    </select>
+		    <span v-else @dblclick="vo.isEditingState = true">{{ vo.nbno }}</span>
+     	</td>
      	<td>
      	<a :href="'edit.do?wno='+vo.wno" class="dbtn">수정</a>
      	<button type="button" v-on:click="itemDelete(vo)">삭제</button>
@@ -110,17 +116,18 @@
     	data(){
     		return {
     			iList:[],
+    			nList:[],
     			iCount:0,
     			seller:'',
     			sortOrder:'recent',
     			curpage:1,
     			startPage:0,
     			endPage:0,
+    			snbno:0,
     			id:'${sessionScope.userId}'
     		}
     	},  
     	mounted(){
-    		this.dataRecv()
     	},
     	methods:{
     		dataRecv(){
@@ -136,9 +143,19 @@
     				this.curpage=response.data.curpage
     				this.startPage=response.data.startPage
     				this.endPage=response.data.endPage
-    				this.dataRecv()
+    				console.log(response.data.endPage)
     			}).catch(error=>{
     				console.log(error.response)
+    			})
+    		},
+    		sellerNotice()
+    		{	
+    			axios.get('../seller/snotice_vue.do', {
+    				params:{ id:this.id}
+    			}).then(response=>{
+    				this.nList=response.data
+    			}).catch(error => {
+    			    console.log(error.response)
     			})
     		},
     		getStateLabel(state) {
@@ -183,6 +200,10 @@
     	    },
     	    enableEditState(vo) {
     	        vo.isEditingState = true
+    	    },
+    	    enableEditState2(vo) {
+    	        vo.isEditingState = true
+    	        this.sellerNotice()
     	    },
     	    saveAllChanges() {
     	    	const updates = this.iList.map(item => {
@@ -259,14 +280,25 @@
                         })
                 	}
                 },
-    	    prev(){
-    	    	this.curpage=this.curpage>10?this.curpage-10:1
-  			    this.dataRecv()
-  		   },
-  		   next(){
-  			   this.curpage=this.curpage+10 <= this.endPage?this.curpage+10:this.endPage
-  			   this.dataRecv()
-  		   },
+                prev(){
+    				if(this.curpage === 1){
+    					alert('첫 페이지 입니다')
+    					return
+    				}
+    			        this.curpage = this.curpage - 10;
+    			        this.dataRecv();   			    
+    			},
+    			next() {
+    			    if (this.curpage >= this.totalpage) {
+    			        alert('마지막 페이지 입니다');
+    			        return;
+    			    }
+    			    
+    			    // 현재 페이지에서 총 페이지를 넘지 않도록 다음 페이지 계산
+    			    let nextPage = this.curpage + 10;
+    			    this.curpage = nextPage <= this.totalpage ? nextPage : this.totalpage;
+    			    this.dataRecv();
+    			},
   		  	pageChange(page){
   			   	 this.curpage=page
   	 			 this.dataRecv()

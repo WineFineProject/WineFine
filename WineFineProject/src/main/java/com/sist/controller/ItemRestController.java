@@ -118,7 +118,9 @@ public class ItemRestController {
 		int totalpage = (int) Math.ceil((double) iCount / rowSize);
 		final int BLOCK=10;
 		int startPage=((page-1)/BLOCK*BLOCK)+1;
-		int endPage = Math.min(((page-1)/BLOCK*BLOCK)+BLOCK, totalpage);
+		int endPage = ((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(totalpage<endPage)
+			endPage=totalpage;
 	
 		Map map=new HashMap();
 		map.put("iList", iList);
@@ -126,7 +128,7 @@ public class ItemRestController {
 		map.put("curpage",page);
 		map.put("startPage", startPage);
 		map.put("endPage", endPage);
-
+		System.out.println(endPage);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);

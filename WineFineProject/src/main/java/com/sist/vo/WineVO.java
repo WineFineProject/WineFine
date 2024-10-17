@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class WineVO {
-    private int wno, sugar, acid, body, tannin, stack, score, hit, likecount, state;
+    private int wno, sugar, acid, body, tannin, stack, score, hit, likecount, state, nbno;
     private String namekor, nameeng, type, price, vol, aroma, food, maker, makerkor, makereng,
     			   alcohol, seller, poster, grape, nation, dbday;
     private Date regdate;

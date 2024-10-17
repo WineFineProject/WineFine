@@ -46,9 +46,9 @@ public interface ItemMapper {
 	 
      // 상품 조회
 	 // 판매자 별 와인상품 리스트 
-	 @Select("SELECT wno, namekor, price, stack, seller, hit, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, state, poster, num "
-			 +"FROM (SELECT wno, namekor, price, stack, seller, hit, regdate, state, poster, rownum as num "
-			 +"FROM (SELECT wno, namekor, price, stack, seller, hit, regdate, state, poster "
+	 @Select("SELECT wno, namekor, price, stack, seller, hit, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, state, poster, nbno, num "
+			 +"FROM (SELECT wno, namekor, price, stack, seller, hit, regdate, state, poster, nbno, rownum as num "
+			 +"FROM (SELECT wno, namekor, price, stack, seller, hit, regdate, state, poster, nbno "
 	 		 +"FROM wine WHERE seller LIKE '%'||#{seller}||'%' AND state <=3 "
 	 		 + "ORDER BY CASE WHEN #{sortOrder} = 'recent' THEN regdate END DESC,"
 	 		 + "CASE WHEN #{sortOrder} = 'popular' THEN hit END DESC)) "
@@ -69,8 +69,11 @@ public interface ItemMapper {
 	 // 상품 일괄 수정 
 	 public void updateItem(WineVO vo);
 	 
-	 // 판매자 공지 리스트 (번호, 제목)
-	  
+	//판매자 공지 목록
+		@Select("SELECT nbno, subject, type, target "
+				+"FROM noticeboard WHERE userId = #{id}")
+		public List<NoticeBoardVO> sellersNotice(String id);
+	 	
 	// 상품 수정 
 	// 변경 전 상품 데이터
 	@Select("SELECT wno,namekor,nameeng,type,price,vol,sugar,acid,body, "
@@ -107,7 +110,7 @@ public interface ItemMapper {
 	public MemberVO sellerInfoData(String id);
 	
 	//판매자 공지 목록
-	@Select("SELECT nbno, subject, type, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, isnotice, nickname, content, target "
+	@Select("SELECT nbno, subject, type, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, nickname, content, target "
 			+"FROM noticeboard WHERE userId = #{id} ")
 	public List<NoticeBoardVO> sellerNoticeList(String id);
 	

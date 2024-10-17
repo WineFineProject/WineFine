@@ -29,7 +29,7 @@
 					<th width="15%">생산자</th>
 					<th width="10%">가격</th>
 					<th width="10%">등록일</th>
-					<th width="10%">&nbsp;</th>
+					<th width="10%">상태</th>
 				</tr>
 				<tr v-for="vo in wList" :key="vo.wno">
 				  <td width="15%">{{vo.wno}}</td>
@@ -38,7 +38,7 @@
 				  <td width="15%">{{ getMakerName(vo.maker) }}</td>
 				  <td width="10%">{{vo.price}}</td>
 				  <td width="10%">{{vo.dbday}}</td>
-				  <td width="10%">&nbsp;</td>
+				  <td width="10%">승인 대기중</td>
 				</tr>
 			</table>
 		    <h4> 승인 반려 목록 </h4>
