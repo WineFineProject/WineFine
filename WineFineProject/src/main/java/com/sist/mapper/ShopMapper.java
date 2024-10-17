@@ -172,7 +172,13 @@ public interface ShopMapper {
 	@Select("SELECT COUNT(*) FROM wine_payment "
 			+ "WHERE wpno = #{wpno}")
 	public int wineBuywpnoCount(int wpno);
-
+	
+//	신고하기
+	@Insert("INSERT INTO wine_report (WRENO, USERID, TYPE, TNO, STATE, RID, REGDATE, CONTENT, CATEGORY) "
+			+ "VALUES (wre_wreno_seq.nextval, #{userid}, #{type}, "
+			+ " #{tno}, #{state}, #{rid}, SYSDATE, #{content}, #{category}) ")
+	public void insertReport (Wine_ReportVO vo);
+	
 }
 
 

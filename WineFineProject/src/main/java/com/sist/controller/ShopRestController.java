@@ -16,6 +16,8 @@ import com.sist.dao.WineDAO;
 import com.sist.service.ShopService;
 import com.sist.vo.*;
 
+import oracle.jdbc.proxy.annotation.Post;
+
 @RestController
 public class ShopRestController {
 	String[] wtypes= {"","�젅�뱶","�솕�씠�듃","�뒪�뙆�겢留�","二쇱젙媛뺥솕","湲고�"};
@@ -171,7 +173,21 @@ public class ShopRestController {
 		
 		return result;
 	}
-	
+	@PostMapping(value = "shop/seller_report.do",produces = "text/plain;charset=UTF-8")
+	public String wine_sellerReport(Wine_ReportVO revo, HttpSession session) {
+		String result = "";
+		try {
+			String id = (String)session.getAttribute("userId");
+			revo.setUserid(id);
+			
+			sservice.insertReport(revo);
+			
+			result = "yes";
+		}catch(Exception ex) {
+			result = ex.getMessage();
+		}
+		return result;
+	}
 	
 	
 	

@@ -112,8 +112,10 @@ public class ShopDAO {
 	public int wineBuywpnoCount(int wpno) {
 		return mapper.wineBuywpnoCount(wpno);
 	}
-
-
+// 	신고하기
+	public void insertReport (Wine_ReportVO vo) {
+		mapper.insertReport(vo);
+	}
 
 
 	

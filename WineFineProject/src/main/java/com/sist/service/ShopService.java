@@ -40,4 +40,7 @@ public interface ShopService {
 	public int wineBuywpnoCount(int wpno);
 	public List<WineVO> wineFindData(String fd);
 	public int wineFindCount(String fd);
+//	신고
+	public void insertReport (Wine_ReportVO vo);
+
 }

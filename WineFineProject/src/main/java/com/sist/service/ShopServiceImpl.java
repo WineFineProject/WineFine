@@ -151,6 +151,12 @@ public class ShopServiceImpl implements ShopService{
 	public int wineFindCount(String fd) {
 		return wDao.wineFindCount(fd);
 	}
+	
+	@Override
+	public void insertReport(Wine_ReportVO vo) {		
+		sdao.insertReport(vo);
+	}
+	
 }
 
 
