@@ -5,42 +5,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.type-red {
-	color: #fff;
-	background-color: #bb2d3b;
-	border: 1px solid #dc3545;
-}
-
-.type-white {
-	color: #000000;
-	background-color: #ffffff;
-	border: 1px solid #000000;
-}
-
-.type-spark {
-	color: #000000;
-	background-color: #b4c5fe;
-	border: 1px solid #b4c5fe;
-}
-
-.type-rose {
-	color: #000000;
-	background-color: #ffc1e0;
-	border: 1px solid #ffc1e0;
-}
-
-.type-alcohol {
-	color: #000000;
-	background-color: #8dc7c7;
-	border: 1px solid #8dc7c7;
-}
-
-.type-etc {
-	color: #000000;
-	background-color: #8dc7c7;
-	border: 1px solid #8dc7c7;
-}
-
 .wine-info p {
 	margin: 0px;
 }
