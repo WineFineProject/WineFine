@@ -5,17 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script src="http://unpkg.com/vue@3"></script>
+<script src="http://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
 </style>
 </head>
 <body>
-	<div class="container-fluid py-5" id="mbList">
-		<div class="container py-5">
+	<div class="container-fluid py-5" >
+		<div class="container py-5" >
 			<div class="row">
 				<div class="col-lg-12">
 				
-					<div class="table-responsive" id="boardListTable">
+					<div class="table-responsive" id="boardListTable" >
 						<table class="table">
 							<thead>
 								<tr>
@@ -30,7 +31,7 @@
 							</thead>
 							
 							<tbody>
-						        <tr v-for="vo in list">
+						        <tr v-for="vo in list" :key="vo.bno" >
 						         <td width="5%" class="text-center">{{vo.bno}}</td>
 						         <!-- <td width="10%" class="text-center">
 						         	<span v-if="vo.cno==1">[자유]</span>
@@ -43,10 +44,13 @@
 						         <td width="15%" class="text-center">{{vo.dbday}}</td>
 						         <td width="15%" class="text-center">{{vo.hit}}</td>
 						        </tr>
-						       </tbody>
+						       <!--  <tr v-else>
+						        	<td colspan="5">데이터 없음</td>
+						        </tr>
+						       </tbody> -->
 
 						     
-						       <tfoot>
+						       <%-- <tfoot>
 						       	<tr>
 						          <td colspan="7" class="text-center">
 						            <input type=button value="<" class="btn-sm btn-danger" @click="prev()">
@@ -58,7 +62,7 @@
 						            <input type=button value=">" class="btn-sm btn-danger" @click="next()">
 						          </td>
 						          </tr>
-						       </tfoot>
+						       </tfoot> --%>
 						       
 							<!-- <tbody>
 								<tr v-for="vo in cList" :key="wine.wno">
@@ -99,34 +103,38 @@
 			data(){
 				return{
 					list:[],
-	    			curpage:1,
+					loading: true,
+	    			/* curpage:1,
 	    			startpage:0,
-	    			endpage:0,
-	    			id:'${sessionScope.userId}',
-	    			nickname:'${sessionScope.nickName}'
-				}
+	    			endpage:0, 
+	    			id:'${sessionScope.userId}',*/
+	    			nickname:'${sessionScope.nickName}',
+	    		}
 			},
 		mounted(){
-			this.dataRecv()},
+			this.dataRecv()
+			},
 		methods:{
 			dataRecv(){				
 				axios.get("../mypage/myboardlist_vue.do",{
 					params:{
-						page:this.curpage,
+						/* page:this.curpage, */
 						nickname: this.nickname							
 					}
 				}).then(response=>{
 					 console.log("mbl서버 응답:", response.data)
     				this.list=response.data.list
-    				this.curpage=response.data.page
-    				this.startpage=response.data.startpage
-    				this.endpage=response.data.endpage
+    				this.loading=false
+    				/* this.curpage=response.data.page
+    				this.startpage=response.data.start
+    				this.endpage=response.data.end */
     				
     			}).catch(error=>{
     				console.log(error.response)
+    				this.loading=false
     			})
 			},
-    	   prev(){
+    	  /*  prev(){
  			   this.curpage=this.curpage>1?this.curpage-1:this.curpage
  			   this.dataRecv()
  		   },
@@ -147,12 +155,11 @@
  	 				 start++;
  	 			 }
  	 			 return arr
- 	 		 }
+ 	 		 } */
 			
 		}
-	}).mount('#mbList')
+	}).mount('#boardListTable')
   </script>
 </body>
 </html>
 
-mydao수정 필요 

@@ -128,34 +128,40 @@ public class MyPageRestController {
 	// 작성 게시글 리스트 mypage/myboardlist.do
 	
 	  @GetMapping(value="mypage/myboardlist_vue.do",produces ="text/plain;charset=UTF-8") 
-	  public String mypage_boardList(HttpSession session, int page) throws Exception 
+	  public String mypage_boardList(HttpSession session) throws Exception 
 	  { 
 		  String nickname=(String)session.getAttribute("nickName");
 		  
-		  int rowSize = 10;
-		  int start = (rowSize*page)-(rowSize-1);
-		  int end = rowSize*page;
-		  
-		  
-		  
-		  List<BoardVO> list=mService.myboardListData(nickname);
-		  int count = mService.myPageBoardTotalPage(nickname);
-		  int totalpage=(int)(Math.ceil(count/(double)rowSize));
-		  count = count-((page*rowSize)-rowSize);
+//		  int rowSize = 10;
+//		  int start = (rowSize*page)-(rowSize-1);
+//		  int end = rowSize*page;
 		  
 		  Map map = new HashMap();
-		  map.put("start", start);
-		  map.put("end", end);
+//		  map.put("start", start);
+//		  map.put("end", end);
 		  
+		  List<BoardVO> list=mService.myBoardListData(nickname);
+		  
+//		  int totalpage = mService.myPageBoardTotalPage(map);
+		  
+//		  final int BLOCK = 10;
+//		  int startpage=((page-1)/BLOCK*BLOCK)+1;
+//		  int endpage=((page-1)/BLOCK*BLOCK)+BLOCK;
+//		  int count = mService.myPageBoardTotalPage(map);
+//		  count = count-((page*rowSize)-rowSize);
+		  //int totalpage=(int)(Math.ceil(count/(double)rowSize));		  
+		  //map=new HashMap();		  
 		  map.put("list", list);
-		  map.put("count", count);
-		  map.put("curpage", page);
-		  map.put("totalpage", totalpage);
+		  map.put("nickname", nickname);
+//		  map.put("count", count);
+//		  map.put("curpage", page);
+//		  map.put("startpage", startpage);
+//		  map.put("endpage", endpage);
+//		  map.put("totalpage", totalpage);		  
 		  
-		  
-		  
-		  ObjectMapper mapper=new ObjectMapper(); String
-		  json=mapper.writeValueAsString(list); return json; 
+		  ObjectMapper mapper=new ObjectMapper(); 
+		  String json=mapper.writeValueAsString(map);
+		  return json; 
 	  }
 	 
 	

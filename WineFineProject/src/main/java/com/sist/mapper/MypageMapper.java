@@ -22,17 +22,17 @@ public interface MypageMapper {
 			+ "WHERE userId=#{userId}")
 	public int updateMyInfo(MemberVO vo);
 	
+	
 	// 작성 글 목록
-	@Select("SELECT bno,subject,nickname,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,num "
-	        +"FROM (SELECT bno,subject,nickname,regdate,hit,rownum as num "
-	        	  +"FROM (SELECT bno,subject,nickname,regdate,hit "
-	        	  		+"FROM board WHERE nickname = #{nickname} ORDER BY bno DESC)) "
-	        +"WHERE num BETWEEN #{start} AND #{end}")
-    public List<BoardVO> myBoardListData(@Param("nickName") String nickName, @Param("start") int start, @Param("end") int end);
+	@Select("SELECT bno,subject,nickname,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit "
+	        +"FROM board "
+	        + "WHERE nickname=#{nickname} ORDER BY bno DESC ")
+    public List<BoardVO> myBoardListData(String nickName);
+	/*+"WHERE num BETWEEN #{start} AND #{end}"*/
 
 	// 전체 총페이지
-	 @Select("SELECT CEIL(COUNT(*)/10.0) FROM board WHERE nickname = #{nickname}")
-	 public int myPageBoardTotalPage(@Param("nickName") String nickName);
+	 @Select("SELECT CEIL(COUNT(*)/10.0) FROM board WHERE nickname=#{nickname}")
+	 public int myPageBoardTotalPage(Map map);
 	
 	 
 }
