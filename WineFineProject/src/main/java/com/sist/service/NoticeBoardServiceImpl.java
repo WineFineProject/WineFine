@@ -43,4 +43,14 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	public NoticeBoardVO noticeDetailData(int nbno) {
 		return dao.noticeDetailData(nbno);
 	}
+	
+	@Override
+	public void noticeBoardPopupUpdate(Map map) {
+		dao.noticeBoardPopupUpdate(map);
+	}
+	
+	@Override
+	public int noticeGetNum() {
+		return dao.noticeGetNum();
+	}
 }

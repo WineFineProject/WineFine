@@ -29,4 +29,8 @@ public class WineDAO {
 	public List<WineVO> wineFindData(String fd){
 		return mapper.wineFindData(fd);
 	}
+	
+	public int wineFindCount(String fd) {
+		return mapper.wineFindCount(fd);
+	}
 }

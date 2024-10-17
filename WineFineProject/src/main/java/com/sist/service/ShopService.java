@@ -39,4 +39,5 @@ public interface ShopService {
 	public void wineBuyAccountUpdate(Wine_PaymentVO vo);
 	public int wineBuywpnoCount(int wpno);
 	public List<WineVO> wineFindData(String fd);
+	public int wineFindCount(String fd);
 }

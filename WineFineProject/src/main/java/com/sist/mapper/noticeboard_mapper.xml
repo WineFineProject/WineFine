@@ -5,14 +5,20 @@
 		<result property="wvo.namekor" column="namekor" />
 	</resultMap>
 	<select id="sellerNoticeList" parameterType="hashmap" resultMap="noticeBoardMap">
-		SELECT nbno, subject, content, nickname, type, target, to_char(regdate, 'YYYY-MM-DD') as dbday, hit, isNotice, num
-		FROM (SELECT nbno, subject, content, nickname, type, target, regdate, hit, isNotice, rownum as num
-		FROM (SELECT nbno, subject, content, nickname, type, target, regdate, hit, isNotice
+		SELECT nbno, subject, content, nickname, type, target, to_char(regdate, 'YYYY-MM-DD') as dbday, hit, num
+		FROM (SELECT nbno, subject, content, nickname, type, target, regdate, hit, rownum as num
+		FROM (SELECT nbno, subject, content, nickname, type, target, regdate, hit
 		FROM noticeboard WHERE userid=#{id} ORDER BY nbno DESC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
 	<select id="noticeDetailData" parameterType="int" resultMap="noticeBoardMap">
-		SELECT nbno, subject, content, userid, nickname, type, target, to_char(regdate, 'YYYY-MM-DD') as dbday, hit, isNotice, (SELECT namekor FROM wine WHERE wno=target) as namekor
+		SELECT nbno, subject, content, userid, nickname, type, target, to_char(regdate, 'YYYY-MM-DD') as dbday, hit, (SELECT namekor FROM wine WHERE wno=target) as namekor
 		FROM noticeboard WHERE nbno=#{nbno}
 	</select>
+	
+	<update id="noticeBoardPopupUpdate" parameterType="hashmap">
+	UPDATE wine SET nbno=#{nbno} WHERE seller=#{seller} 
+	<if test="type==2">AND type=#{target}</if>
+	<if test="type==3">AND wno=#{target}</if>
+	</update>
 </mapper>

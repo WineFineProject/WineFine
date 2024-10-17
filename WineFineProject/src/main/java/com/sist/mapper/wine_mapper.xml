@@ -48,4 +48,9 @@
 		FROM wine w JOIN wine_member wm ON w.seller=wm.userid ORDER BY wno DESC)
 		WHERE (type LIKE '%'||#{fd}||'%' OR grape LIKE '%'||#{fd}||'%' OR nation LIKE '%'||#{fd}||'%' OR namekor LIKE '%'||#{fd}||'%' OR maker LIKE '%'||#{fd}||'%' OR nickname LIKE '%'||#{fd}||'%') AND rownum&lt;=6
 	</select>
+	<select id="wineFindCount" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		FROM wine w JOIN wine_member wm ON w.seller=wm.userid
+		WHERE type LIKE '%'||#{fd}||'%' OR grape LIKE '%'||#{fd}||'%' OR nation LIKE '%'||#{fd}||'%' OR namekor LIKE '%'||#{fd}||'%' OR maker LIKE '%'||#{fd}||'%' OR nickname LIKE '%'||#{fd}||'%'
+	</select>
 </mapper>

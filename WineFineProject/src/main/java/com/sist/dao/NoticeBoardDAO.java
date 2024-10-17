@@ -14,10 +14,11 @@ public class NoticeBoardDAO {
 	private NoticeBoardMapper mapper;
 
 	public void noticeBoardInsert(NoticeBoardVO vo) {
-		if (vo.getIsNotice() == 1) {
-			mapper.noticeBoardPopupUpdate(vo);
-		}
 		mapper.noticeBoardInsert(vo);
+	}
+	
+	public void noticeBoardPopupUpdate(Map map) {
+		mapper.noticeBoardPopupUpdate(map);
 	}
 
 	public List<NoticeBoardVO> sellerNoticeList(Map map) {
@@ -37,9 +38,9 @@ public class NoticeBoardDAO {
 	}
 
 	public void noticeBoardUpdate(NoticeBoardVO vo) {
-		if (vo.getIsNotice() == 1) {
-			mapper.noticeBoardPopupUpdate(vo);
-		}
-		mapper.noticeBoardUpdate(vo);
+		mapper.noticeUpdate(vo);
+	}
+	public int noticeGetNum() {
+		return mapper.noticeGetNum();
 	}
 }

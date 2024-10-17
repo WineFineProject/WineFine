@@ -129,7 +129,7 @@
 	       			startPage:0,
 	       			endPage:0,
 	       			count:0,
-	       			fd:''
+	       			fd:'${fd}'
                 }
             },
             methods: {

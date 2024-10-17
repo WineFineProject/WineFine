@@ -18,5 +18,5 @@ public interface WineMapper {
 	public int wineTotalPage();
 
 	public List<WineVO> wineFindData(String fd);
-	
+	public int wineFindCount(String fd);
 }

@@ -303,10 +303,10 @@
 			promotionDetail(index){
 				axios.get('../main/vuePromotion.do', {
 					params:{
-						pbno:this.list[index].pbno
+						pbno:this.bList[index].pbno
 					}
 				}).then(response=>{
-					location.href="../shop/detail.do?wno="+this.list[index].wno
+					location.href="../shop/detail.do?wno="+this.bList[index].wno
 				})
 			},
 			resetSelect(){

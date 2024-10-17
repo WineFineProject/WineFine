@@ -12,4 +12,6 @@ public interface NoticeBoardService {
 	public NoticeBoardVO noticeDetail(int nbno);
 	public void noticeBoardUpdate(NoticeBoardVO vo);
 	public NoticeBoardVO noticeDetailData(int nbno);
+	public void noticeBoardPopupUpdate(Map map);
+	public int noticeGetNum();
 }

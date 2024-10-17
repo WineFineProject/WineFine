@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.*;
 import com.sist.manager.NaverNewsManager;
 import com.sist.service.BannerService;
+import com.sist.service.InformationService;
 import com.sist.service.ShopService;
 import com.sist.vo.*;
 
@@ -25,6 +26,8 @@ public class MainRestController {
 	private BannerService bService;
 	@Autowired
 	private ShopService sService;
+	@Autowired
+	private InformationService iService;
 	private String[] keyword= {"와인", "레드와인", "화이트와인"};
 	@GetMapping(value = "main/list.do", produces = "text/plain;charset=UTF-8")
 	public String mainList(int page, @RequestParam Map params) {
@@ -100,8 +103,25 @@ public class MainRestController {
 	@GetMapping(value = "main/vueFind.do", produces = "text/plain;charset=UTF-8")
 	public String mainVueFind(String fd) throws Exception{
 		List<WineVO> wList=sService.wineFindData(fd);
+		List<GrapeVO> gList=iService.grapeFindData(fd);
+		List<NationVO> nList=iService.nationFindData(fd);
+		List<MakerVO> mList=iService.makerFindData(fd);
+		
+		int wCount=sService.wineFindCount(fd);
+		int gCount=iService.grapeFindCount(fd);
+		int nCount=iService.nationFindCount(fd);
+		int mCount=iService.makerFindCount(fd);
+		
 		Map map=new HashMap();
 		map.put("wList", wList);
+		map.put("gList", gList);
+		map.put("nList", nList);
+		map.put("mList", mList);
+		
+		map.put("wCount", wCount);
+		map.put("gCount", gCount);
+		map.put("nCount", nCount);
+		map.put("mCount", mCount);
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(map);
 	}

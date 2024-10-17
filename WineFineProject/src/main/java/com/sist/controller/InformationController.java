@@ -15,8 +15,11 @@ public class InformationController {
 
   // 포도 목록 페이지
   @GetMapping("grape/list.do")
-  public String grapeListData() 
+  public String grapeListData(String fd, Model model) 
   {
+  	if(fd==null)
+  		fd="";
+  	model.addAttribute("fd", fd);
       return "grape/list"; 
   }
 
@@ -30,8 +33,11 @@ public class InformationController {
   
   // 생산지역 목록 페이지
   @GetMapping("nation/list.do")
-  public String nationListData() 
+  public String nationListData(String fd, Model model) 
   {
+  	if(fd==null)
+  		fd="";
+  	model.addAttribute("fd", fd);
       return "nation/list";
   }
 
@@ -45,8 +51,11 @@ public class InformationController {
   
   // 생산자 목록 
   @GetMapping("maker/list.do")
-  public String makerListData() 
+  public String makerListData(String fd, Model model) 
   {
+  	if(fd==null)
+  		fd="";
+  	model.addAttribute("fd", fd);
       return "maker/list"; 
   }
 

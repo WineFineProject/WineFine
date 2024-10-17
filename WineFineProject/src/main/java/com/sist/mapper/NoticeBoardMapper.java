@@ -12,12 +12,11 @@ public interface NoticeBoardMapper {
 	
 	// 판매자 공지사항 등록
 	@Insert("INSERT INTO noticeboard VALUES((SELECT NVL(MAX(nbno)+1, 1) FROM noticeboard), #{subject}, #{content}, #{userid}, "
-			+ "#{nickname}, #{type}, #{target}, sysdate, 0, #{isNotice})")
+			+ "#{nickname}, #{type}, #{target}, sysdate, 0)")
 	public void noticeBoardInsert(NoticeBoardVO vo);
 	
 	// 판매자 공지 팝업 업데이트
-	@Update("UPDATE noticeboard SET isnotice=0 WHERE type=#{type} AND target=#{target}")
-	public void noticeBoardPopupUpdate(NoticeBoardVO vo);
+	public void noticeBoardPopupUpdate(Map map);
 	
 	public List<NoticeBoardVO> sellerNoticeList(Map map);
 	
@@ -32,7 +31,9 @@ public interface NoticeBoardMapper {
 	@Update("UPDATE noticeboard SET hit=hit+1 WHERE nbno=#{nbno}")
 	public void noticeHitIncrement(int nbno);
 	
-	//판매자 공지 업데이트
-	@Update("UPDATE noticeboard SET content=#{content}, subject=#{subject}, type=#{type}, target=#{target}, isNotice=#{isNotice}")
-	public void noticeBoardUpdate(NoticeBoardVO vo);
+	@Update("UPDATE noticeboard SET subject=#{subject}, content=#{content} WHERE wbno=#{wbno}")
+	public void noticeUpdate(NoticeBoardVO vo);
+	
+	@Select("SELECT MAX(nbno) FROM noticeboard")
+	public int noticeGetNum();
 }

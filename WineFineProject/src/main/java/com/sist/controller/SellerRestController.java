@@ -135,23 +135,45 @@ public class SellerRestController {
 	}
 
 	@PostMapping(value = "seller/insertNotice.do", produces = "text/plain;charset=UTF-8")
-	public void sellerInsertNotice(NoticeBoardVO vo, HttpSession session) {
+	public void sellerInsertNotice(NoticeBoardVO vo, int isNotice, HttpSession session) {
 		String id = (String) session.getAttribute("userId");
 		String nickname = (String) session.getAttribute("nickName");
 		vo.setUserid(id);
 		vo.setNickname(nickname);
 		System.out.println(vo);
 		nService.noticeBoardInsert(vo);
+		if(isNotice==1) {
+			Map map=new HashMap();
+			if(vo.getType()==2)
+				map.put("target", types[vo.getTarget()]);
+			else {
+				map.put("target", vo.getTarget());
+			}
+			map.put("seller", id);
+			map.put("nbno", nService.noticeGetNum());
+			nService.noticeBoardPopupUpdate(map);
+		}
 	}
 
 	@PostMapping(value = "seller/vueNoticeUpdate.do", produces = "text/plain;charset=UTF-8")
-	public void sellerVueNoticeUpdate(NoticeBoardVO vo, HttpSession session) {
+	public void sellerVueNoticeUpdate(NoticeBoardVO vo, int isNotice, HttpSession session) {
 		String id = (String) session.getAttribute("userId");
 		String nickname = (String) session.getAttribute("nickName");
 		vo.setUserid(id);
 		vo.setNickname(nickname);
 		System.out.println(vo);
 		nService.noticeBoardUpdate(vo);
+		if(isNotice==1) {
+			Map map=new HashMap();
+			if(vo.getType()==2)
+				map.put("target", types[vo.getTarget()]);
+			else {
+				map.put("target", vo.getTarget());
+			}
+			map.put("seller", id);
+			map.put("nbno", vo.getNbno());
+			nService.noticeGetNum();
+		}
 	}
 
 	@GetMapping(value = "seller/noticeList.do", produces = "text/plain;charset=UTF-8")

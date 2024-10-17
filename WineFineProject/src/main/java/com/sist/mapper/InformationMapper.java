@@ -106,18 +106,18 @@ public interface InformationMapper {
     @Select("SELECT * FROM grape WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
     public List<GrapeVO> grapeFindData(String fd);
     
-    @Select("SELECT COUNT(*) FROM grape WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
+    @Select("SELECT COUNT(*) FROM grape WHERE namekor LIKE '%'||#{fd}||'%'")
     public int grapeFindCount(String fd);
     
     @Select("SELECT * FROM nation WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
     public List<NationVO> nationFindData(String fd);
  
-    @Select("SELECT COUNT(*) FROM nation WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
+    @Select("SELECT COUNT(*) FROM nation WHERE namekor LIKE '%'||#{fd}||'%'")
     public int nationFindCount(String fd);
     
     @Select("SELECT * FROM maker WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
     public List<MakerVO> makerFindData(String fd);
     
-    @Select("SELECT COUNT(*) FROM maker WHERE namekor LIKE '%'||#{fd}||'%' AND rownum<=4")
+    @Select("SELECT COUNT(*) FROM maker WHERE namekor LIKE '%'||#{fd}||'%'")
     public int makerFindCount(String fd);
 }
