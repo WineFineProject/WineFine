@@ -426,7 +426,7 @@ let buyApp = Vue.createApp({
                 console.log(response.data)  
                 if (response.data === "yes") {
                 	alert("구매 성공!")
-	                /* window.location.href = '../shop/detail.do' */
+	                window.location.href = '../shop/detail.do?wno=' + this.vo.wno
                 } else {
                     alert("구매 실패\n" + response.data)
                     return
