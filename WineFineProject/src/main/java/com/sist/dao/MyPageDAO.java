@@ -1,7 +1,6 @@
 package com.sist.dao;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -23,21 +22,19 @@ public class MyPageDAO {
 		return mapper.getMyId(userId);
 	}
 
-	public MemberVO updateMyInfo(MemberVO vo) {
-		int result = mapper.updateMyInfo(vo);
-		if (result>0) {
-			return mapper.getMyId(vo.getUserId());
-		}
-		return null;
+	public void updateMyInfo(MemberVO vo) {
+		mapper.updateMyInfo(vo);
 	}
 
 	// 작성 글 목록
 	public List<BoardVO> myBoardListData(String nickName) {
-		return mapper.myBoardListData(nickName, 0, 0);      
+		return mapper.myBoardListData(nickName);      
 	}
 
-	public int myPageBoardTotalPage(String nickName) {
-		return mapper.myPageBoardTotalPage(nickName);
+	public int myPageBoardTotalPage(Map map) {
+		return mapper.myPageBoardTotalPage(map);
 	}
+	
+	
 
 }

@@ -16,30 +16,27 @@ public class MypageServiceImpl implements MypageService {
 	private MyPageDAO dao;
 
 	@Override
-	public List<BoardVO> myboardListData(String nickName) {
-		// TODO Auto-generated method stub
-		return dao.myBoardListData(nickName);
-	}
-	
-
-	@Override
-	public int myPageBoardTotalPage(String nickName) {
-		// TODO Auto-generated method stub
-		return dao.myPageBoardTotalPage(nickName);
-	}
-
-
-	@Override
 	public MemberVO getMyId(String userId) {
 		// TODO Auto-generated method stub
 		return dao.getMyId(userId);
 	}
 
+	@Override
+	public void updateMyInfo(MemberVO vo) {
+		// TODO Auto-generated method stub
+		dao.updateMyInfo(vo);
+	}
 
 	@Override
-	public MemberVO updateMyInfo(MemberVO vo) {
+	public List<BoardVO> myBoardListData(String nickName) {
 		// TODO Auto-generated method stub
-		return dao.updateMyInfo(vo);
+		return dao.myBoardListData(nickName);
+	}
+
+	@Override
+	public int myPageBoardTotalPage(Map map) {
+		// TODO Auto-generated method stub
+		return dao.myPageBoardTotalPage(map);
 	}
 
 	

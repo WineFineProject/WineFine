@@ -1,5 +1,7 @@
 package com.sist.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.*;
 
 import javax.servlet.http.HttpSession;
@@ -58,27 +60,40 @@ public class MyPageRestController {
 	 * mapper.writeValueAsString(updateMember); return json; }
 	 */
 	@PostMapping(value = "mypage/edit2_ok_vue_do", produces = "application/json")
-	public ResponseEntity<?> myInfo_ok(@RequestBody MemberVO vo, 
-	                                   @SessionAttribute("userId") String userId,
-	                                   HttpSession session) throws Exception
+	public String myInfo_ok(HttpSession session,@RequestBody MemberVO updatedInfo) throws Exception
 	{
-	    System.out.println("Received data: " + vo); // 수신한 데이터 로그 출력
-	    vo.setUserId(userId);
-	    MemberVO updateMember = mService.updateMyInfo(vo);
-	    System.out.println("Updated member: " + updateMember); // 업데이트된 데이터 로그 출력
-	    if (updateMember != null) {
-	        // 세션 정보 업데이트
-	        session.setAttribute("nickName", updateMember.getNickName());
-	        session.setAttribute("post", updateMember.getPost());
-	        session.setAttribute("address", updateMember.getAddr1());
-	        session.setAttribute("addr2", updateMember.getAddr2());
-	        session.setAttribute("phone", updateMember.getPhone());
-	        session.setAttribute("email", updateMember.getEmail());
-	        
-	        return ResponseEntity.ok(updateMember);
-	    } else {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("업데이트 실패");
-	    }
+		String id = (String)session.getAttribute("userId");
+		
+		session.setAttribute("userId", id);
+	
+		MemberVO currentInfo = mService.getMyId(id);
+	    
+	    // 업데이트할 정보 설정
+	    currentInfo.setNickName(updatedInfo.getNickName());
+	    currentInfo.setPost(updatedInfo.getPost());
+	    currentInfo.setAddr1(updatedInfo.getAddr1());
+	    currentInfo.setAddr2(updatedInfo.getAddr2());
+	    currentInfo.setPhone(updatedInfo.getPhone());
+	    currentInfo.setEmail(updatedInfo.getEmail());
+	    
+	    mService.updateMyInfo(currentInfo);
+	    
+	    // 업데이트된 정보 다시 조회
+	    MemberVO updatedMember = mService.getMyId(id);
+	    
+	    // 세션 업데이트
+	    session.setAttribute("nickName", updatedMember.getNickName());
+	    session.setAttribute("post", updatedMember.getPost());
+	    session.setAttribute("addr1", updatedMember.getAddr1());
+	    session.setAttribute("addr2", updatedMember.getAddr2());
+	    session.setAttribute("phone", updatedMember.getPhone());
+	    session.setAttribute("email", updatedMember.getEmail());
+	    	    
+	    ObjectMapper mapper = new ObjectMapper(); 
+	    Map map = new HashMap();
+	    map.put("updatedInfo", updatedMember);
+	    return mapper.writeValueAsString(map); 
+	    
 	}
 	
 	
@@ -128,34 +143,40 @@ public class MyPageRestController {
 	// 작성 게시글 리스트 mypage/myboardlist.do
 	
 	  @GetMapping(value="mypage/myboardlist_vue.do",produces ="text/plain;charset=UTF-8") 
-	  public String mypage_boardList(HttpSession session, int page) throws Exception 
+	  public String mypage_boardList(HttpSession session) throws Exception 
 	  { 
 		  String nickname=(String)session.getAttribute("nickName");
 		  
-		  int rowSize = 10;
-		  int start = (rowSize*page)-(rowSize-1);
-		  int end = rowSize*page;
-		  
-		  
-		  
-		  List<BoardVO> list=mService.myboardListData(nickname);
-		  int count = mService.myPageBoardTotalPage(nickname);
-		  int totalpage=(int)(Math.ceil(count/(double)rowSize));
-		  count = count-((page*rowSize)-rowSize);
+//		  int rowSize = 10;
+//		  int start = (rowSize*page)-(rowSize-1);
+//		  int end = rowSize*page;
 		  
 		  Map map = new HashMap();
-		  map.put("start", start);
-		  map.put("end", end);
+//		  map.put("start", start);
+//		  map.put("end", end);
 		  
+		  List<BoardVO> list=mService.myBoardListData(nickname);
+		  
+//		  int totalpage = mService.myPageBoardTotalPage(map);
+		  
+//		  final int BLOCK = 10;
+//		  int startpage=((page-1)/BLOCK*BLOCK)+1;
+//		  int endpage=((page-1)/BLOCK*BLOCK)+BLOCK;
+//		  int count = mService.myPageBoardTotalPage(map);
+//		  count = count-((page*rowSize)-rowSize);
+		  //int totalpage=(int)(Math.ceil(count/(double)rowSize));		  
+		  //map=new HashMap();		  
 		  map.put("list", list);
-		  map.put("count", count);
-		  map.put("curpage", page);
-		  map.put("totalpage", totalpage);
+		  map.put("nickname", nickname);
+//		  map.put("count", count);
+//		  map.put("curpage", page);
+//		  map.put("startpage", startpage);
+//		  map.put("endpage", endpage);
+//		  map.put("totalpage", totalpage);		  
 		  
-		  
-		  
-		  ObjectMapper mapper=new ObjectMapper(); String
-		  json=mapper.writeValueAsString(list); return json; 
+		  ObjectMapper mapper=new ObjectMapper(); 
+		  String json=mapper.writeValueAsString(map);
+		  return json; 
 	  }
 	 
 	
