@@ -27,16 +27,16 @@
 			<tbody class="text-center">
 				<template v-for="(vo, index) in members">
 					<tr style="vertical-align: middle;"@click="detailMember(index)">
-						<td>{{index+1+(curpage-1)*10}}</td>
-						<td>{{vo.userId}}</td>
-						<td>{{vo.nickName}}</td>
-						<td >{{vo.userName}}</td>
-						<td>{{vo.email}}</td>
-						<td>{{vo.sex}}</td>
-						<td>{{vo.grade}}</td>
-						<td>{{vo.lastloginday}}</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-danger"
+						<td width="5%">{{index+1+(curpage-1)*10}}</td>
+						<td width="15%">{{vo.userId}}</td>
+						<td width="15%">{{vo.nickName}}</td>
+						<td width="10%">{{vo.userName}}</td>
+						<td width="20%">{{vo.email}}</td>
+						<td width="5%">{{vo.sex}}</td>
+						<td width="5%">{{vo.grade}}</td>
+						<td width="15%">{{vo.lastloginday}}</td>
+						<td width="10%">
+							<button type="button" class="btn btn-sm btn-danger" v-if="vo.userId!==vo.recvid"
 								id="blackListBtn" @click="blackListInsert(vo.userId)">블랙리스트</button>
 						</td>
 					</tr>
@@ -154,7 +154,7 @@
     				})
     				axios.post('../notice/vueSellerNoticeSend.do',null,{
     					params:{
-    						content:this.message,
+    						content:encodeURIComponent(this.message),
     						recvid:this.tmp,
     						subject:encodeURIComponent('블랙리스트 등록 안내 공지')
     					}

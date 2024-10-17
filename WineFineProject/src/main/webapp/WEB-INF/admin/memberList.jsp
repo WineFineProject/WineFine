@@ -24,33 +24,32 @@
             <tbody class="text-center">
               <template v-for="(vo, index) in members">
                 <tr style="vertical-align: middle;"@click="detailMember(index)">
-                    <td>{{index+1+(curpage-1)*10}}</td>
-                    <td>{{vo.userId}}</td>
-                    <td>{{vo.nickName}}</td>
-                    <td>{{vo.userName}}</td>
-                    <td>{{vo.email}}</td>
-                    <td>{{vo.sex}}</td>
-                    <td>{{vo.lastloginday}}</td>
+                    <td width="5%">{{index+1+(curpage-1)*10}}</td>
+                    <td width="10%">{{vo.userId}}</td>
+                    <td width="17%">{{vo.nickName}}</td>
+                    <td width="17%">{{vo.userName}}</td>
+                    <td width="29%">{{vo.email}}</td>
+                    <td width="5%">{{vo.sex}}</td>
+                    <td width="17%">{{vo.lastloginday}}</td>
                 </tr>
                 <tr v-if="isShow[index]">
 						<td colspan="9" style="padding: 0px;">
 							<table class="table" style="border: none;">
 								<tr>
-									<th width="15%">생일</th>
-									<th>전화번호</th>
-									<th>주소</th>
-									<th>등급</th>
-									<th>포인트</th>
-									<th>가입일</th>
-
+									<th width="12%">생일</th>
+									<th width="15%">전화번호</th>
+									<th width="40%">주소</th>
+									<th width="11%">등급</th>
+									<th width="10%">포인트</th>
+									<th width="12%">가입일</th>
 								</tr>
 								<tr>
-									<td>{{vo.birthday}}</td>
-									<td>{{vo.phone}}</td>
-									<td>({{vo.post}})&nbsp;{{vo.addr1}}{{vo.addr2}}</td>
-									<td>{{vo.grade}}</td>
-									<td>{{vo.point}}</td>
-									<td>{{vo.regday}}</td>
+									<td width="12%">{{vo.birthday}}</td>
+									<td width="15%">{{vo.phone}}</td>
+									<td width="40%">({{vo.post}})&nbsp;{{vo.addr1}}{{vo.addr2}}</td>
+									<td width="11%"><button type="button" @click="downBtn(index)" style="border:none; background-color: white; float: left;"><i class="fa-solid fa-caret-down"></i></button>{{vo.grade}}<button type="button" @click="upBtn(index)" style="border:none; background-color: white;float: right;"><i class="fa-solid fa-caret-up"></i></button></td>
+									<td width="10%">{{vo.point}}</td>
+									<td width="12%">{{vo.regday}}</td>
 								</tr>
 							</table>
 						</td>
@@ -92,6 +91,36 @@
                 this.mList()
             },
             methods: {
+            	downBtn(index){
+            		if(this.members[index].grade===1){
+            			return
+            		}
+            		axios.get('../admin/memberGradeDown.do',{
+            			params:{
+            				userId:this.members[index].userId
+            				}
+            		}).then(response=>{
+            			console.log(response.data)
+            			this.mList()
+            		}).catch(error=>{
+            			console.log(error.response)
+            		})
+            	},
+            	upBtn(index){
+            		if(this.members[index].grade===3){
+            			return
+            		}
+            		axios.get('../admin/memberGradeUp.do',{
+            			params:{
+            				userId:this.members[index].userId
+            			}
+            		}).then(response=>{
+            			console.log(response.data)
+            			this.mList()
+            		}).catch(error=>{
+            			console.log(error.response)
+            		})
+            	},
             	prev(){
           			 this.curpage=this.startPage-1
           			 this.mList()

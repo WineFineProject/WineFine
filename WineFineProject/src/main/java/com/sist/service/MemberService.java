@@ -1,9 +1,11 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.sist.vo.BlackListVO;
 import com.sist.vo.MemberVO;
 
 public interface MemberService {
@@ -20,7 +22,12 @@ public interface MemberService {
 	public int memberNickCheck(String nickName);
 	public int memberIdCheck(String userId);
 	public void insertAuthority(String userId);
-  public void insertMember(MemberVO vo);
-  public MemberVO memberSessionData(String userId);
-  public void memberLastLogin(String userId);
+    public void insertMember(MemberVO vo);
+    public MemberVO memberSessionData(String userId);
+    public void memberLastLogin(String userId);
+    public void gradeIncrement(String userId);
+    public void gradeDecrement(String userId);
+    public List<MemberVO> blackList(Map map);
+    public int blackListCount(Map map);
+    public void blackListDelete(BlackListVO vo);
 }

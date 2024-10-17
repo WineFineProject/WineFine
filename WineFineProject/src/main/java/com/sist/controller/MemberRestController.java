@@ -23,7 +23,7 @@ public class MemberRestController {
 	// �쉶�썝 紐⑸줉 �럹�씠吏�
 	@GetMapping(value = "seller/memberListVue.do", produces = "text/plain;charset=UTF-8")
 	public String memberList(int page) throws Exception {
-		int rowSize=10;
+	  int rowSize=10;
 	  int start=(rowSize*page)-(rowSize-1);
 	  int end=rowSize*page;
 	  
@@ -80,6 +80,19 @@ public class MemberRestController {
 		  return json;
 	}
 
+	@GetMapping(value = "admin/memberGradeUp.do", produces = "text/plain;charset=UTF-8")
+	public void memberGradeUp(String userId) 
+	{
+	    mService.gradeIncrement(userId);
+	}
+	
+	@GetMapping(value = "admin/memberGradeDown.do", produces = "text/plain;charset=UTF-8")
+	public void memberGradeDowm(String userId) 
+	{
+		mService.gradeDecrement(userId);
+	}
+	
+	
 	// �쉶�썝 �긽�꽭 議고쉶
 	@GetMapping(value = "seller/memberDetailVue.do", produces = "text/plain;charset=UTF-8")
 	public String memberDetail(String id) throws Exception {

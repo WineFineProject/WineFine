@@ -1,12 +1,14 @@
 package com.sist.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.MemberMapper;
+import com.sist.vo.BlackListVO;
 import com.sist.vo.MemberVO;
 
 @Repository
@@ -47,7 +49,31 @@ public class MemberDAO {
 	public int adminmemberCount() {
 		return mapper.adminmemberCount();
 	}
-
+    // 등급 조절
+	public void gradeIncrement(String userId)
+	{
+		mapper.gradeIncrement(userId);
+	}
+	
+	public void gradeDecrement(String userId)
+	{
+		mapper.gradeDecrement(userId);
+	}
+	// 블랙리스트 목록
+	public List<MemberVO> blackList(Map map)
+	{
+		return mapper.blackList(map);
+	}
+	// 블랙리스트 페이징
+	public int blackListCount(Map map)
+	{
+		return mapper.blackListCount(map);
+	}
+	// 블랙리스트 삭제
+	public void blackListDelete(BlackListVO vo)
+	{
+		mapper.blackListDelete(vo);
+	}
 	// �쉶�썝 �궘�젣
 	public void deleteMember(String id) {
 		mapper.deleteMember(id);

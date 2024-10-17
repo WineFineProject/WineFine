@@ -41,14 +41,12 @@ public class MemberController {
 		return "seller/memberList";
 	}
 
-	// 愿�由ъ옄 �쉶�썝 紐⑸줉 �럹�씠吏�
 	@GetMapping("admin/memberList.do")
 	public String adminmemberList(Model model) {
 
 		return "admin/memberList";
 	}
 
-	// �쉶�썝 �긽�꽭 議고쉶
 	@GetMapping("seller/memberDetail.do")
 	public String memberDetail(String id, Model model) {
 		MemberVO member = mService.memberDetail(id);
@@ -56,14 +54,12 @@ public class MemberController {
 		return "seller/memberDetail";
 	}
 
-	// �쉶�썝 �궘�젣
 	@PostMapping("seller/deleteMember.do")
 	public String deleteMember(String id) {
 		mService.deleteMember(id);
 		return "redirect:../seller/memberList.do";
 	}
 
-	// �쉶�썝 �젙蹂� �닔�젙
 	@GetMapping("seller/updateMember.do")
 	public String updateMember(String id, Model model) {
 		MemberVO member = mService.memberDetail(id);

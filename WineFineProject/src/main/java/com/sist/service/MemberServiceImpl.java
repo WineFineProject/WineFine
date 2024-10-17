@@ -1,11 +1,13 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sist.dao.MemberDAO;
+import com.sist.vo.BlackListVO;
 import com.sist.vo.MemberVO;
 
 @Service
@@ -84,6 +86,31 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void memberLastLogin(String userId) {
 		dao.memberLastLogin(userId);
+	}
+	@Override
+	public void gradeIncrement(String userId) {
+		// TODO Auto-generated method stub
+		dao.gradeIncrement(userId);
+	}
+	@Override
+	public void gradeDecrement(String userId) {
+		// TODO Auto-generated method stub
+		dao.gradeDecrement(userId);
+	}
+	@Override
+	public List<MemberVO> blackList(Map map) {
+		// TODO Auto-generated method stub
+		return dao.blackList(map);
+	}
+	@Override
+	public int blackListCount(Map map) {
+		// TODO Auto-generated method stub
+		return dao.blackListCount(map);
+	}
+	@Override
+	public void blackListDelete(BlackListVO vo) {
+		// TODO Auto-generated method stub
+		dao.blackListDelete(vo);
 	}
 	
 }

@@ -32,14 +32,15 @@
 	        <td width=35%>
 	          <span style="color: darkred" v-if="id!==vo.userid&&vo.secret===1&&vo.group_step===0"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;비밀글입니다</span>
 	          <span style="color: darkred" v-else-if="id!==vo.recvid&&vo.secret===1&&vo.group_step===1">ㄴ&nbsp;<i class="fa fa-lock" aria-hidden="true"></i>&nbsp;비밀글입니다</span>
-	          <a :href="'../replyboard/detail.do?wrno='+vo.wrno" v-else><span v-if="vo.type===2">[{{cnos[vo.cno]}}]&nbsp;</span><span v-if="vo.type===3">[{{cno[vo.cno]}}]&nbsp;</span>{{vo.subject}}</a>
+	          <a :href="'../replyboard/detail.do?wrno='+vo.wrno" v-else><span v-if="vo.group_step===1">ㄴ</span><span v-if="vo.type===2">[{{cnos[vo.cno]}}]&nbsp;</span>
+	          <span v-if="vo.type===3">[{{cno[vo.cno]}}]&nbsp;</span>{{vo.subject}}</a>
 	        </td>
 	        <td width=15% class="text-center">{{vo.nickname}}</td>
 	        <td width=15% class="text-center">{{vo.dbday}}</td>
 	        <td width=10% class="text-center">{{vo.hit}}</td>
 	        <td width=15% class="text-center" style="color: blue" v-if="vo.isreply===0&&vo.group_step===0">답변대기</td>
 	        <td width=15% class="text-center" style="color: green" v-if="vo.isreply===1">답변완료</td>
-	        <td width=15% class="text-center" style="color: orange" v-if="vo.isreply===0&&vo.group_step===1">답변</td>
+	        <td width=15% class="text-center" style="color: orange" v-if="vo.isreply===0&&vo.group_step===1">문의답변</td>
          </tr>
      </table>
           <div class="text-center" style="margin-top: 50px">

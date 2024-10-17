@@ -53,4 +53,9 @@ public class SellerController {
 		model.addAttribute("today", new SimpleDateFormat("YY-MM-dd HH:mm").format(new Date()));
 		return "seller/replyboardInsert";
 	}
+	@GetMapping("seller/blackList.do")
+	public String blackList(Model model) 
+	{
+		return "seller/blackList";
+	}
 }
