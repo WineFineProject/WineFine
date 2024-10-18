@@ -42,5 +42,6 @@ public interface ShopService {
 	public int wineFindCount(String fd);
 //	신고
 	public void insertReport (Wine_ReportVO vo);
+	public List<WineVO> adminWineList(Map map);;
 
 }

@@ -19,4 +19,5 @@ public interface WineMapper {
 
 	public List<WineVO> wineFindData(String fd);
 	public int wineFindCount(String fd);
+	public List<WineVO> adminWineList(Map map);
 }

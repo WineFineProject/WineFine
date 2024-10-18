@@ -56,4 +56,8 @@ public class AdminController {
 		model.addAttribute("bno", bno);
 		return "admin/noticeupdate";
 	}
+	@GetMapping("admin/wineAccept.do")
+	public String adminWineAccept() {
+		return "admin/wineAccept";
+	}
 }

@@ -1,7 +1,5 @@
 package com.sist.dao;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -32,5 +30,9 @@ public class WineDAO {
 	
 	public int wineFindCount(String fd) {
 		return mapper.wineFindCount(fd);
+	}
+	
+	public List<WineVO> adminWineList(Map map){
+		return mapper.adminWineList(map);
 	}
 }

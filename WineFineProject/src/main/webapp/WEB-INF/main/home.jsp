@@ -111,7 +111,7 @@
 					<div class="swiper-wrapper" style="height: 370px;">
 						<div class="swiper-slide" v-for="(vo, index) in bList" @click="promotionDetail(index)">
 							<div class="border border-wine rounded position-relative vesitable-item text-center">
-								<div class="vesitable-img" style="margin-top: 10px;">
+								<div class="vesitable-img" style="marging-top: 10px;">
 									<img :src="vo.wvo.poster" class="rounded-top" style="width: 50%; margin: auto;" alt="">
 								</div>
 								<div class="text-white bg-wine px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">{{vo.wvo.type}}</div>
@@ -140,7 +140,7 @@
 					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/EnO0yzn91YA?si=3y6-2TgiwlCtEdxR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 				</div>
 				<div class="col-sm-4">
-				<h3 class="text-center">와인 뉴스</h3>
+					<h3 class="text-center">와인 뉴스</h3>
 					<table class="table">
 						<tr v-for="nvo in nList">
 							<td style="overflow: hidden; white-space: nowrap;">
@@ -271,7 +271,7 @@
 				aromaList:['꽃','돌','레몬','말린과일','베리','사과','숙성','시나몬','아몬드','오크통','크로와상','파인애플',	'파프리카','허브'],
 				foodList:['소','돼지','치킨','건육','생선','가리비','샐러드',	'튀김','치즈','과일','케이크',	'피자','아시아',	'비빔밥',	'누들','샴페인'],
 				aromas:[],
-				foods:[]
+				foods:[],
 			}
 		},
 		mounted(){
@@ -300,6 +300,9 @@
 			})
 		},
 		methods:{
+			colorC(){
+				console.log(this.color)
+			},
 			promotionDetail(index){
 				axios.get('../main/vuePromotion.do', {
 					params:{

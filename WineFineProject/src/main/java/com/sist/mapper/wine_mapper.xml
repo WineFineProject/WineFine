@@ -53,4 +53,19 @@
 		FROM wine w JOIN wine_member wm ON w.seller=wm.userid
 		WHERE type LIKE '%'||#{fd}||'%' OR grape LIKE '%'||#{fd}||'%' OR nation LIKE '%'||#{fd}||'%' OR namekor LIKE '%'||#{fd}||'%' OR maker LIKE '%'||#{fd}||'%' OR nickname LIKE '%'||#{fd}||'%'
 	</select>
+	<select id="adminWineList" resultMap="wineMap" parameterType="hashmap">
+	SELECT wno, namekor, type, poster, maker, grape, nation, nickname, state, nameeng, type, price, vol, sugar, acid, body, tannin, aroma, food, alcohol, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday num
+	FROM (SELECT wno, namekor, type, poster, maker, grape, nation, nickname, state, nameeng, type, price, vol, sugar, acid, body, tannin, aroma, food, alcohol, regdate, rownum as num 
+	FROM (SELECT w.wno, w.namekor, w.nameeng, w.type, w.poster, (SELECT m.namekor FROM maker m WHERE m.no = w.maker) AS maker,
+		(SELECT LISTAGG(g.namekor, ', ') WITHIN GROUP (ORDER BY g.namekor DESC)
+		FROM (SELECT REGEXP_SUBSTR(w.grape, '[^,]+', 1, LEVEL) AS grape_no
+		FROM dual CONNECT BY REGEXP_SUBSTR(w.grape, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN grape g ON t.grape_no = g.no) AS grape,
+		(SELECT LISTAGG(n.namekor, ' | ') WITHIN GROUP (ORDER BY n.namekor DESC)
+		FROM (SELECT REGEXP_SUBSTR(w.nation, '[^,]+', 1, LEVEL) AS nation_no
+		FROM dual CONNECT BY REGEXP_SUBSTR(w.nation, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN nation n ON t.nation_no = n.no) AS nation,
+		wm.nickname, w.nameeng, w.type, w.price, w.vol, w.sugar, w.acid, w.body, w.tannin, w.aroma, w.food, w.alcohol, w.regdate
+		FROM wine w JOIN wine_member wm ON w.seller=wm.userid ORDER BY wno DESC
+		))
+		WHERE (num BETWEEN #{start} AND #{end}) AND state=9
+	</select>
 </mapper>

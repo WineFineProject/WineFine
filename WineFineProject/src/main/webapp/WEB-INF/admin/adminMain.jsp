@@ -66,7 +66,7 @@
 							<a href="../mypage/my_reserve.do">상품 목록</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/myPayment.do">상품등록/수정 대기</a>
+							<a href="../admin/wineAccept.do">상품등록/수정 대기</a>
 						</li>
 					</ul>
 				</div>

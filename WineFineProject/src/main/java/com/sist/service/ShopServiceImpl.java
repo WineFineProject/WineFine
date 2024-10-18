@@ -157,6 +157,10 @@ public class ShopServiceImpl implements ShopService{
 		sdao.insertReport(vo);
 	}
 	
+	@Override
+	public List<WineVO> adminWineList(Map map) {
+		return wDao.adminWineList(map);
+	}
 }
 
 
