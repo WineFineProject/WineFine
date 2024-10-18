@@ -293,7 +293,6 @@
 	  },
 	  mounted(){
 		  	this.cList()
-			  
 	  }
   }).mount('.MyCalendar')
 </script>
