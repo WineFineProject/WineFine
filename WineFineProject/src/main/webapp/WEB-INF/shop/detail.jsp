@@ -73,6 +73,12 @@
 	margin-right: 6px;
 }
 
+.label.no-style {
+	padding: 0;
+	color: inherit;
+	width: 16px;
+}
+
 .a-color {
 	color: gray;
 }
@@ -292,31 +298,69 @@
 								</div>
 							</div>
 						</div>
+						<div style="height: 15px;"></div>
 
+						<h4 class="mb-5 fw-bold">리뷰(갯수)</h4>
+						<div class="row g-4" style="align-items: center;">
 
-						<form action="#" style="margin-top: 40px;">
-							<h4 class="mb-5 fw-bold">리뷰(갯수)</h4>
-							<div class="row g-4">
-								<div class="d-flex align-items-center">
-									<p class="mb-0 me-3">Please rate:</p>
-									<div class="d-flex align-items-center" style="font-size: 12px;">
-										<i class="fa fa-star text-muted"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-									</div>
-								</div>
+							<div v-for="vw in reviewListData">
+								<table>
+									<tr>
+										<td style="width: 130px;" class="text-center">
+											<h5>
+												<b>{{vw.nickname}}</b>
+											</h5>
+										</td>
+										<td style="width: 130px;" class="text-center">
+											<h5>
+												<b>{{vw.srating}}</b>
+											</h5>
+										</td>
+										<td style="width: 130px;" class="text-center">
+											<h5>
+												<b>{{vw.dbday}}</b>
+											</h5>
+										</td>
+										<td>
+											<button class="btn btn-md rounded-circle bg-light border">
+												<i class="fa fa-times text-danger"></i>
+											</button>
+										</td>
 
-								<div class="col-lg-12">
-									<div class="border-bottom rounded my-4">
-										<textarea name="" id="" class="form-control border-0" cols="30" rows="8" 
-										spellcheck="false" style="resize: none; border: 1px solid #e2e2e2 !important;"></textarea>
-									</div>
-								</div>
-								<div class="col-lg-12">
-									<div class="d-flex py-3 mb-5">
-										<a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</a>
-									</div>
-								</div>
+									</tr>
+								</table>
+								<pre class="form-control" style="width: 70%; height: 110px; resize: none; margin-right: 10px;">{{vw.content}}</pre>
+
+								<div style="height: 15px;"></div>
 							</div>
-						</form>
+
+							<div v-if="sessionId == ''">
+								<h4>로그인 후 작성이 가능합니다</h4>
+							</div>
+							<template v-if="sessionId != ''">
+								<div class="d-flex align-items-center">
+									<table>
+										<tr>
+											<th style="width: 130px;" class="text-center">
+												<h5>
+													<b>{{sessionId}}</b>
+												</h5>
+											</th>
+											<td style="width: 150px;">별점 : <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="srating" style="display: none;"> <i :class="{'text-wine':srating>=ss}" style="margin-right: 2px;" class="fa fa-star"></i>
+											</label>
+											</td>
+										</tr>
+									</table>
+								</div>
+
+								<div v-if="sessionId !== ''" style="display: flex; justify-content: center; align-items: center;">
+									<textarea rows="4" cols="62" ref="review" v-model="review" class="form-control" style="width: 70%; resize: none; margin-right: 10px;"></textarea>
+									<button class="form-control" style="background-color: #57102F; color: white; width: 100px; height: 110px;" @click="reviewInsert()">리뷰쓰기</button>
+								</div>
+
+							</template>
+						</div>
+
 					</div>
 				</div>
 
@@ -390,40 +434,36 @@
 				</div>
 			</div>
 
-			<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)" >
+			<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
 				<div class="modal-content" style="width: 650px; height: 400px;">
 					<h3 class="text-center">신고하기</h3>
 					<table class="table" style="margin-top: 50px;">
-					<tr>
-						<th width="20%" class="text-center">신고대상 ID : </th>
-						<td width="20%" class="text-center">{{vo.seller}}</td>
-						<th width="20%" class="text-center">상품명 : </th>
-						<td width="40%" class="text-center">{{vo.namekor}}</td>
-					</tr>
-					<tr>
-						<th width="20%" class="text-center">카테고리 : </th>
-						<td colspan="3">
-							<select style="width: 175px;" v-model="category" @change="selectCategory($event)">
-								<option value="상품관련">상품관련</option>
-								<option value="배송관련">배송관련</option>
-								<option value="기타신고">기타신고</option>
-							</select>
-						</td>					
-					</tr>
-					<tr>
-						<th width="20%" class="text-center">신고 사유:</th>
-						<td colspan="3">
-						<textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
-						</textarea>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="4" class="rmbtn" style="text-align: center; border-bottom: none;">
-							<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport()">접수</button>&nbsp;&nbsp;
-							<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal(false)">취소</button>
-						</td>
-					</tr>
-				</table>
+						<tr>
+							<th width="20%" class="text-center">신고대상 ID :</th>
+							<td width="20%" class="text-center">{{vo.seller}}</td>
+							<th width="20%" class="text-center">상품명 :</th>
+							<td width="40%" class="text-center">{{vo.namekor}}</td>
+						</tr>
+						<tr>
+							<th width="20%" class="text-center">카테고리 :</th>
+							<td colspan="3"><select style="width: 175px;" v-model="category" @change="selectCategory($event)">
+									<option value="상품관련">상품관련</option>
+									<option value="배송관련">배송관련</option>
+									<option value="기타신고">기타신고</option>
+							</select></td>
+						</tr>
+						<tr>
+							<th width="20%" class="text-center">신고 사유:</th>
+							<td colspan="3"><textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
+						</textarea></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="rmbtn" style="text-align: center; border-bottom: none;">
+								<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport()">접수</button>&nbsp;&nbsp;
+								<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal(false)">취소</button>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 
@@ -456,14 +496,19 @@
 	            account: 1,
 	            showModal: false,
 	            category: '배송관련',
-	            content: ''
+	            content: '',
+	            review: '',
+	            srating: 0,
+	            reviewListData: [],
+	            count: 4
 	        }
 	    },
 	    mounted() {
 	        // 초기 데이터 로드
 	        axios.get('../shop/detail_vue.do', {
 	            params: {
-	                wno: this.wno
+	                wno: this.wno,
+	                count: this.count
 	            }
 	        }).then(response => {
 	            console.log(response.data)
@@ -476,6 +521,10 @@
 	            this.mnolink = response.data.mnolink
 	            this.otherMaker = response.data.otherMaker
 				this.otherSeller = response.data.otherSeller
+				this.reviewListData = response.data.reviewListData
+				console.log('reviewListData : ' + this.reviewListData)
+				this.count = response.data.count
+	            console.log('count : ' + this.count)
 	            // Owl Carousel 초기화
 	            this.$nextTick(() => {
 	                this.carousel = $('.owl-carousel').owlCarousel({
@@ -485,11 +534,11 @@
 	                    nav: false,
 	                    touchDrag: true, // 드래그 활성화
 	                    mouseDrag: true, // 마우스 드래그 활성화
-	                });
-	            });
+	                })
+	            })
 	        }).catch(error => {
 	            console.error('데이터 로드 오류:', error.response)
-	        });
+	        })
 	    },
 	    methods: {
 	    	selectCategory($event){
@@ -571,7 +620,69 @@
 	                alert('로그인 후 사용이 가능합니다.');
 	                window.location.href = '../member/login.do'; 
 	            }
-	        }
+	        },
+	        reviewInsert(){
+    			if(this.review === "")
+    			{
+    				alert('내용을 입력 해 주세요')
+    				this.$refs.review.focus()
+    				return
+    			}
+    			axios.post('../shop/review_insert.do',null,{
+    				params:{
+						wno: this.wno,
+						srating: this.srating,
+						content: this.review
+    				}
+    			}).then(response=>{
+	   				 console.log(response.data)
+	   				 console.log('내용 : ' + this.review)	 
+	   				 console.log('별점 : ' + this.srating)	 
+	   				 this.review = ''
+	   				 alert('작성되었습니다')
+	   				 
+			   }).catch(error=>{
+				     console.log(error.response)
+			   })
+    			this.dataRecv()
+	        },
+	        reviewDelete(){
+	        	this.count + 4
+	        },
+   			 dataRecv(){
+   				 axios.get('../shop/detail_vue.do',{
+   					 params:{
+						wno: this.wno,
+						count: this.count
+   					 }
+   				 }).then(response=>{
+ 	 	          	 console.log(response.data)
+		   	         this.vo = response.data.vo
+		   	         this.gname = response.data.gname
+		   	         this.nname = response.data.nname
+		   	         this.mname = response.data.mname
+		   	         this.gnolink = response.data.gnolink
+		   	         this.nnolink = response.data.nnolink
+		   	         this.mnolink = response.data.mnolink
+		   	         this.otherMaker = response.data.otherMaker
+					 this.otherSeller = response.data.otherSeller
+					 this.reviewListData = response.data.reviewListData
+					 this.count = response.data.count
+		           	 console.log('count : ' + this.count)
+			         this.$nextTick(() => {
+			             this.carousel = $('.owl-carousel').owlCarousel({
+			         	    items: 1, // 한 번에 보여줄 아이템 수
+			        	    loop: true,
+			       		    margin: 10,
+			        	    nav: false,
+			       	     	touchDrag: true, // 드래그 활성화
+			             	mouseDrag: true, // 마우스 드래그 활성화
+			             })
+			          })
+		        }).catch(error => {
+		            console.error('데이터 로드 오류:', error.response)
+		        })
+   		 	}
 	    }
 	}).mount('.shopcontainer');
 
