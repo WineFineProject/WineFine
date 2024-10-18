@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.ShopDAO;
 import com.sist.dao.WineDAO;
 import com.sist.service.ShopService;
+import com.sist.service.WineReviewService;
 import com.sist.vo.*;
 
 import oracle.jdbc.proxy.annotation.Post;
@@ -27,6 +28,7 @@ public class ShopRestController {
 	public ShopRestController(ShopService sservice) {
 		this.sservice = sservice;
 	}
+	@Autowired WineReviewService wservice;
 	
 	@GetMapping(value = "shop/list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String shop_list(int page) throws Exception{
@@ -59,12 +61,15 @@ public class ShopRestController {
 	}
 	
 	@GetMapping(value = "shop/detail_vue.do",produces = "text/plain;charset=UTF-8")
-	public String wine_detail(int wno) throws Exception{
+	public String wine_detail(int wno,int count) throws Exception{
 		WineVO vo = sservice.wineDetailData(wno);
 		List<String> gname = sservice.grapeName(wno);
 		List<String> nname = sservice.nationName(wno);
 		List<WineVO> otherSeller = sservice.otherWine_seller(wno);
 		List<WineVO> otherMaker = sservice.otherWine_maker(wno);		
+		
+		List<WineReviewVO> reviewListData = wservice.reviewList(wno, count);
+
 		String[] gnolink= {};
 		if(vo.getGrape()!=null) {
 			gnolink = vo.getGrape().split(",");
@@ -81,6 +86,9 @@ public class ShopRestController {
 		map.put("mnolink", mnolink);
 		map.put("otherSeller", otherSeller);
 		map.put("otherMaker", otherMaker);
+		map.put("reviewListData", reviewListData);
+		map.put("count", count);
+		
 		
 		
 		ObjectMapper mapper = new ObjectMapper();
