@@ -7,4 +7,5 @@ public interface EventService {
 	public EventVO eventDetailData(int weno);
 	public void reserveInsert(ReserveVO vo);
 	public int reservePerson(ReserveVO vo);
+	public List<EventVO> getReserveEvent(ReserveVO vo);
 }

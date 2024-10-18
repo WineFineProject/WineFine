@@ -42,5 +42,11 @@ public class EventServiceImpl implements EventService{
 		// TODO Auto-generated method stub
 		return eDao.reservePerson(vo);
 	}
+
+	@Override
+	public List<EventVO> getReserveEvent(ReserveVO vo) {
+		// TODO Auto-generated method stub
+		return eDao.getReserveEvent(vo);
+	}
   
 }

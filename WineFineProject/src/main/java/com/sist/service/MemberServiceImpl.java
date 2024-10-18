@@ -97,20 +97,5 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		dao.gradeDecrement(userId);
 	}
-	@Override
-	public List<MemberVO> blackList(Map map) {
-		// TODO Auto-generated method stub
-		return dao.blackList(map);
-	}
-	@Override
-	public int blackListCount(Map map) {
-		// TODO Auto-generated method stub
-		return dao.blackListCount(map);
-	}
-	@Override
-	public void blackListDelete(BlackListVO vo) {
-		// TODO Auto-generated method stub
-		dao.blackListDelete(vo);
-	}
 	
 }

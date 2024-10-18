@@ -166,7 +166,15 @@
     					this.$refs.message.focus()
     					return
     				}
-            		
+            		console.log(this.tmp)
+            		axios.get('../seller/blackListDelete.do', {
+            	        params:{
+            	        	userId: this.tmp 
+            	        }
+            	    }).then(response => {
+            	        this.bList()
+            	    }).catch(error => {
+            	    })
     				axios.post('../notice/vueSellerNoticeSend.do',null,{
     					params:{
     						content:encodeURIComponent(this.message),

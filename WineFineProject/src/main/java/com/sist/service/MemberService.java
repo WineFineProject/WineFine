@@ -27,7 +27,4 @@ public interface MemberService {
     public void memberLastLogin(String userId);
     public void gradeIncrement(String userId);
     public void gradeDecrement(String userId);
-    public List<MemberVO> blackList(Map map);
-    public int blackListCount(Map map);
-    public void blackListDelete(BlackListVO vo);
 }

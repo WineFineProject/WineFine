@@ -59,21 +59,7 @@ public class MemberDAO {
 	{
 		mapper.gradeDecrement(userId);
 	}
-	// 블랙리스트 목록
-	public List<MemberVO> blackList(Map map)
-	{
-		return mapper.blackList(map);
-	}
-	// 블랙리스트 페이징
-	public int blackListCount(Map map)
-	{
-		return mapper.blackListCount(map);
-	}
-	// 블랙리스트 삭제
-	public void blackListDelete(BlackListVO vo)
-	{
-		mapper.blackListDelete(vo);
-	}
+	
 	// �쉶�썝 �궘�젣
 	public void deleteMember(String id) {
 		mapper.deleteMember(id);

@@ -12,14 +12,24 @@ import org.springframework.stereotype.Repository;
 public class BlackListDAO {
 	@Autowired
     private BlackListMapper mapper;
-	// 블랙리스트 목록 출력
-	public List<BlackListVO> blackListData(int start, int end)
-	{
-		return mapper.blackListData(start, end);
-	}
 	//블랙리스트 추가
 	public void blackListInsert(BlackListVO vo)
 	{
 		mapper.blackListInsert(vo);
+	}
+	// 블랙리스트 목록
+	public List<MemberVO> blackList(Map map)
+	{
+		return mapper.blackList(map);
+	}
+	// 블랙리스트 페이징
+	public int blackListCount(Map map)
+	{
+		return mapper.blackListCount(map);
+	}
+	// 블랙리스트 삭제
+	public void blackListDelete(BlackListVO vo)
+	{
+		mapper.blackListDelete(vo);
 	}
 }

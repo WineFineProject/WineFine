@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class BlackListRestController {
    @Autowired
    private BlackListService bService;
-   @Autowired
-   private MemberService mService;
    @PostMapping(value = "seller/blackListInsert.do", produces = "text/plain;charset=UTF-8")
    public void blackListInsert(BlackListVO vo,HttpSession session) 
    {
@@ -49,11 +47,11 @@ public class BlackListRestController {
 	   map.put("start", start);
 	   map.put("end", end);
 	   
-	   int totalpage=mService.blackListCount(map);
+	   int totalpage=bService.blackListCount(map);
 	   if(endPage>totalpage)
 		   endPage=totalpage;
 	   
-	   List<MemberVO> black=mService.blackList(map);
+	   List<MemberVO> black=bService.blackList(map);
 	   map.put("curpage", page);
 	   map.put("totalpage", totalpage);
 	   map.put("startPage", startPage);
@@ -69,7 +67,5 @@ public class BlackListRestController {
    public void blackListDelete(HttpSession session,String recvid,String sendid) throws Exception
    {
 	   String id=(String)session.getAttribute("userId");
-	   
-	   
    }
 }

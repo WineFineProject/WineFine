@@ -12,14 +12,27 @@ public class BlackListServiceImpl implements BlackListService{
     private BlackListDAO bDao;
 
 	@Override
-	public List<BlackListVO> blackListData(int start, int end) {
-		// TODO Auto-generated method stub
-		return bDao.blackListData(start, end);
-	}
-
-	@Override
 	public void blackListInsert(BlackListVO vo) {
 		// TODO Auto-generated method stub
 		bDao.blackListInsert(vo);
 	}
+
+	@Override
+	public List<MemberVO> blackList(Map map) {
+		// TODO Auto-generated method stub
+		return bDao.blackList(map);
+	}
+
+	@Override
+	public int blackListCount(Map map) {
+		// TODO Auto-generated method stub
+		return bDao.blackListCount(map);
+	}
+
+	@Override
+	public void blackListDelete(BlackListVO vo) {
+		// TODO Auto-generated method stub
+		bDao.blackListDelete(vo);
+	}
+
 }

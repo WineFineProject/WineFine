@@ -36,4 +36,9 @@ public class EventDAO {
 	{
 		return rmapper.reservePerson(vo);
 	}
+	
+	public List<EventVO> getReserveEvent(ReserveVO vo)
+	{
+		return rmapper.getReserveEvent(vo);
+	}
 }
