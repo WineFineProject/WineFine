@@ -37,8 +37,33 @@ public class EventDAO {
 		return rmapper.reservePerson(vo);
 	}
 	
-	public List<EventVO> getReserveEvent(ReserveVO vo)
+	public List<ReserveVO> getReserveEvent(ReserveVO vo)
 	{
 		return rmapper.getReserveEvent(vo);
 	}
+	
+	public ReserveVO getReserveDetail(int rno)
+	{
+		return rmapper.getReserveDetail(rno);
+	}
+	public void memoInsert(MemoVO vo)
+	{
+		rmapper.memoInsert(vo);
+	}
+	
+	public List<MemoVO> memoListData(String userid)
+	{
+		return rmapper.memoListData(userid);
+	}
+	
+	public MemoVO memoDetailData(int meno)
+	{
+		return rmapper.memoDetailData(meno);
+	}
+
+	public void memoDelete(int meno)
+	{
+		rmapper.memoDelete(meno);
+	}
+	
 }

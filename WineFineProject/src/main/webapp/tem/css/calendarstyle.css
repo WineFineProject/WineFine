@@ -26,3 +26,11 @@
 	height:600px; 
 	margin: 0 auto;
 }
+
+.label{
+	float:left;
+}
+
+.fc-event-title, .fc-event-title-container{
+cursor: pointer;
+}

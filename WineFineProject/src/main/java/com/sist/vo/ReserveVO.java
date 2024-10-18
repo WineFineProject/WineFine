@@ -7,4 +7,5 @@ public class ReserveVO {
   private int rno, weno, person;
   private String dbday, userid;
   private Date regdate;
+  private EventVO evo=new EventVO();
 }

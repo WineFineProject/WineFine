@@ -1,5 +1,6 @@
 package com.sist.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sist.mapper.BlackListMapper;
 import com.sist.service.BlackListService;
 import com.sist.service.MemberService;
 import com.sist.vo.*;
@@ -64,8 +65,12 @@ public class BlackListRestController {
 	   return json;
    }
    @GetMapping(value = "seller/blackListDelete.do", produces = "text/plain;charset=UTF-8")
-   public void blackListDelete(HttpSession session,String recvid,String sendid) throws Exception
+   public void blackListDelete(HttpSession session,String recvid) throws Exception
    {
 	   String id=(String)session.getAttribute("userId");
+	   BlackListVO vo=new BlackListVO();
+	   vo.setRecvid(recvid);
+	   vo.setSendid(id);
+	   bService.blackListDelete(vo);
    }
 }

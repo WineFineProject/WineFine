@@ -7,5 +7,10 @@ public interface EventService {
 	public EventVO eventDetailData(int weno);
 	public void reserveInsert(ReserveVO vo);
 	public int reservePerson(ReserveVO vo);
-	public List<EventVO> getReserveEvent(ReserveVO vo);
+	public List<ReserveVO> getReserveEvent(ReserveVO vo);
+	public ReserveVO getReserveDetail(int rno);
+	public void memoInsert(MemoVO vo);
+	public List<MemoVO> memoListData(String userid);
+	public void memoDelete(int meno);
+	public MemoVO memoDetailData(int meno);
 }

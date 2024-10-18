@@ -169,7 +169,7 @@
             		console.log(this.tmp)
             		axios.get('../seller/blackListDelete.do', {
             	        params:{
-            	        	userId: this.tmp 
+            	        	recvid: this.tmp 
             	        }
             	    }).then(response => {
             	        this.bList()

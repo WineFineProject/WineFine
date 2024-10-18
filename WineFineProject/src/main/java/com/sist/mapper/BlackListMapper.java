@@ -27,6 +27,7 @@ public interface BlackListMapper {
 		// 블랙리스트 목록 삭제
 		@Delete("DELETE FROM blacklist WHERE recvid=#{recvid} AND sendid=#{sendid}")
 		public void blackListDelete(BlackListVO vo);
+		
 	    //블랙리스트 추가
 	    @Insert("INSERT INTO blacklist VALUES(" 
 			    +"(SELECT NVL(MAX(blno)+1, 1) FROM blacklist),#{recvid},#{sendid},#{content},SYSDATE)")
