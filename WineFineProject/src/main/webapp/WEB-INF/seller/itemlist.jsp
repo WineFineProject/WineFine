@@ -53,49 +53,45 @@
      	<th>판매자 공지 (번호)</th>
      	<th>수정/삭제</th>
      	</tr>
-     	<tr v-for="vo in iList" :key="vo.wno">
-     	<td>
-     	<input type="checkbox" v-model="vo.selected">
-     	</td>
-     	<td>{{vo.wno}}</td>
-     	<td>
-     	<img :src="vo.poster" style="width:40px;height:60px">
-     	</td>
-     	<td class="editable">
-     	    <input v-if="vo.isEditingName" v-model="vo.namekor"/>
-            <span  v-else @dblclick="vo.isEditingName = true">{{ vo.namekor }}</span>
-     	</td>
-     	<td class="editable">
-     		<input v-if="vo.isEditingPrice" v-model="vo.price"/>
-            <span  v-else @dblclick="vo.isEditingPrice = true">{{ vo.price }}</span>
-        </td>
-     	<td class="editable">
-     	<input v-if="vo.isEditingStack" v-model="vo.stack"/>
-            <span v-else @dblclick="vo.isEditingStack = true">{{ vo.stack }}</span>
-        </td>
-     	<td>기본배송</td>
-     	<td>{{vo.hit}}</td>
-     	<td>{{vo.dbday}}</td>
-     	<td class="editable" @dblclick="enableEditState(vo)">
-		    <select v-if="vo.isEditingState" v-model="vo.state">
-		        <option value="1">판매중</option>
-		        <option value="2">품절</option>
-		        <option value="3">판매중단</option>
-		    </select>
-		    <span v-else @dblclick="vo.isEditingState = true">{{ getStateLabel(vo.state) }}</span>
-		</td>
-     	<td class="editable" @dblclick="enableEditState2(vo)">
-     		<select v-if="vo.isEditingState" v-model="vo.nbno">
-		        <option :value="nvo.nbno" v-for="nvo in nList">{{nvo.subject}}</option>
-		    </select>
-		    <span v-else @dblclick="vo.isEditingState = true">{{ vo.nbno }}</span>
-     	</td>
-     	<td>
-     	<a :href="'edit.do?wno='+vo.wno" class="dbtn">수정</a>
-     	<button type="button" v-on:click="itemDelete(vo)">삭제</button>
-     	</td>
-     	</tr>
-     	<tr>
+				<tr v-for="vo in iList" :key="vo.wno">
+					<td><input type="checkbox" v-model="vo.selected"></td>
+					<td>{{vo.wno}}</td>
+					<td><img :src="vo.poster" style="width: 40px; height: 60px">
+					</td>
+					<td class="editable"><input v-if="vo.isEditingName"
+						v-model="vo.namekor" /> <span v-else
+						@dblclick="vo.isEditingName = true">{{ vo.namekor }}</span></td>
+					<td class="editable"><input v-if="vo.isEditingPrice"
+						v-model="vo.price" /> <span v-else
+						@dblclick="vo.isEditingPrice = true">{{ vo.price }}</span></td>
+					<td class="editable"><input v-if="vo.isEditingStack"
+						v-model="vo.stack" /> <span v-else
+						@dblclick="vo.isEditingStack = true">{{ vo.stack }}</span></td>
+					<td>기본배송</td>
+					<td>{{vo.hit}}</td>
+					<td>{{vo.dbday}}</td>
+					<td class="editable" @dblclick="enableEditState(vo)">
+					<select
+						v-if="vo.isEditingState" v-model="vo.state">
+							<option value="1">판매중</option>
+							<option value="2">품절</option>
+							<option value="3">판매중단</option>
+					</select> 
+					<span v-else @dblclick="vo.isEditingState = true">
+					{{getStateLabel(vo.state) }}</span></td>
+					<td class="editable" @dblclick="enableEditNbno(vo)">
+						<select v-if="vo.isEditingNbno && getFilteredNList().length > 0" v-model="vo.nbno"
+						 >
+						    <option v-for="nvo in getFilteredNList()" :key="nvo.nbno" :value="nvo.nbno">
+						        {{ nvo.subject }}
+						    </option>
+						</select>
+					<span v-else @dblclick="vo.isEditingNbno = true">
+					{{vo.nbno }}</span></td>
+					<td><a :href="'edit.do?wno='+vo.wno" class="dbtn">수정</a>
+						<button type="button" v-on:click="itemDelete(vo)">삭제</button></td>
+				</tr>
+				<tr>
      	 <td colspan="12" class="text-center">
      	    <div class="ipagination">
             <input type=button value="<" class="btn-sm btn-danger" @click="prev()">
@@ -117,6 +113,7 @@
     		return {
     			iList:[],
     			nList:[],
+    			filteredNList: [],
     			iCount:0,
     			seller:'',
     			sortOrder:'recent',
@@ -124,6 +121,8 @@
     			startPage:0,
     			endPage:0,
     			snbno:0,
+    			noticetype:'',
+    			noticewno:0,
     			id:'${sessionScope.userId}'
     		}
     	},  
@@ -144,12 +143,40 @@
     				this.startPage=response.data.startPage
     				this.endPage=response.data.endPage
     				console.log(response.data.endPage)
+    				
     			}).catch(error=>{
     				console.log(error.response)
     			})
     		},
+    		getFilteredNList() {
+    	        return this.nList.filter(nvo => this.shouldShowOption(nvo))
+    	    },
+    	    shouldShowOption(nvo) {
+    	        if (!nvo) return false
+
+    	        return (nvo.type === 1 || 
+    	                (nvo.type === 2 && this.isMatchingType(nvo)) || 
+    	                (nvo.type === 3 && nvo.target === this.noticewno))
+    	    },
+    	    isMatchingType(nvo) {
+    	        const typeMapping = {
+    	            '레드': 1,
+    	            '화이트': 2,
+    	            '스파클링': 3,
+    	            '로제': 4,
+    	            '주정강화': 5
+    	        }
+    	        return nvo.target === typeMapping[this.noticetype] || 
+    	               (this.noticetype !== '레드' && 
+    	                this.noticetype !== '화이트' && 
+    	                this.noticetype !== '스파클링' && 
+    	                this.noticetype !== '로제' && 
+    	                this.noticetype !== '주정강화' && 
+    	                nvo.target === 6)
+    	    },
     		sellerNotice()
-    		{	
+    		{	this.noticetype=this.noticetype
+    	        this.noticewno=this.noticewno
     			axios.get('../seller/snotice_vue.do', {
     				params:{ id:this.id}
     			}).then(response=>{
@@ -201,8 +228,10 @@
     	    enableEditState(vo) {
     	        vo.isEditingState = true
     	    },
-    	    enableEditState2(vo) {
-    	        vo.isEditingState = true
+    	    enableEditNbno(vo) {
+    	        vo.isEditingNbno = true
+    	        this.noticetype=vo.type
+    	        this.noticewno=vo.wno
     	        this.sellerNotice()
     	    },
     	    saveAllChanges() {
@@ -221,20 +250,22 @@
     	            } else {
     	                updateItem.state = parseInt(item.state, 10)
     	            }
-
+    	            if (item.isEditingNbno) {
+    	                updateItem.nbno = item.nbno
+    	            } else {
+    	                updateItem.nbno = item.nbno
+    	                }
     	            return updateItem
     	        }).filter(item => Object.keys(item).length > 1)
 
     	        if (updates.length === 0) {
     	            alert("변경된 내용이 없습니다.")
-    	            return;
+    	            return
     	        }
-
     	        const params = new URLSearchParams()
     	        updates.forEach(item => {
     	            params.append(`updates`, JSON.stringify(item)) 
-    	        });
-
+    	        })
     	        axios.post('../seller/updateitems_vue.do', params.toString(), {
     	            headers: {
     	                'Content-Type': 'application/x-www-form-urlencoded'
@@ -249,6 +280,7 @@
                             item.isEditingPrice = false
                             item.isEditingStack = false
                             item.isEditingState = false
+                            item.isEditingNbno = false
                          })
                          this.dataRecv()
                     	}
