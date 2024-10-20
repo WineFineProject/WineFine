@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/delivery.css">
 <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 </head>
@@ -11,7 +12,7 @@
 	<div id="deliveryApp">
 		<h3>배송지 관리</h3>
 		<div style="text-align: right;">
-			<button type="button" @click="changeModal(true)">등록</button>
+			<button type="button" class="btn btn-sm btn-warning" @click="changeModal(true)" style="margin-bottom: 10px">등록</button>
 		</div>
 		<table class="table" style="height: 600px;">
 			<tr v-for="vo in list">
@@ -39,9 +40,9 @@
 						</tr>
 						<tr>
 							<td colspan="2" style="text-align: right;">
-							<span class="btn btn-sm btn-success" v-show="vo.state===1">기본배송지</span>
-								<button type="button" class="btn btn-sm btn-success" @click="stateUpdate(vo.wdno)" v-show="vo.state===0">기본배송지로 설정</button>
-								<button type="button" class="btn btn-sm btn-primary" @click="myDelete(vo.wdno)" v-show="vo.state===0">삭제</button>
+							<span class="btn btn-sm btn-del" v-show="vo.state===1">기본배송지</span>
+								<button type="button" class="btn btn-sm btn-del" @click="stateUpdate(vo.wdno)" v-show="vo.state===0">기본배송지로 설정</button>
+								<button type="button" class="btn btn-sm btn-wine" @click="myDelete(vo.wdno)" v-show="vo.state===0">삭제</button>
 							</td>
 						</tr>
 					</table>
@@ -49,32 +50,34 @@
 			</tr>
 		</table>
 		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
-			<div class="modal-content" style="height: 470px;">
-				<h3 class="text-center">배송지 등록</h3>
-				<table class="table">
-					<tr>
-						<td style="text-align: left;"><input type="text" v-model="name" ref="name" placeholder="배송지명"></td>
-					</tr>
-					<tr>
-						<td style="text-align: left;"><input style="width: 30%; margin-right: 10px;" type="text" v-model="post" ref="name" size="10" placeholder="우편번호" disabled>
-							<button type="button" class="btn btn-sm btn-info" @click="postFind()">주소검색</button></td>
-					</tr>
-					<tr>
-						<td style="text-align: left;"><input style="width: 100%" type="text" v-model="addr1" placeholder="주소" disabled></td>
-					</tr>
-					<tr>
-						<td style="text-align: left;"><input style="width: 100%" type="text" v-model="addr2" placeholder="상세주소"></td>
-					</tr>
-					<tr>
-						<td style="text-align: left;"><textarea style="width: 100%; resize: none;" rows="3" placeholder="전달사항" v-model="msg"></textarea></td>
-					</tr>
-					<tr>
-						<td style="text-align: left;"><label><input type="checkbox" v-model="isBase">기본 배송지로 설정</label></td>
-					</tr>
-				</table>
+			<div class="modal-content" style="height: 600px;">
+				<h4 class="text-center">배송지 등록</h4>
+					<div class="mb-3" style="text-align: left;">
+                        <label class="label">배송지명</label>
+						<input type="text" v-model="name" ref="name" class="form-control">
+                    </div>
+                    <div class="mb-3" style="text-align: left;">    
+                        <label class="label">우편번호</label><br>
+						<input style="width: 30%; margin-right: 10px; display: inline-block;" type="text" v-model="post" ref="name" size="10" class="form-control" disabled><button type="button" class="btn btn-sm btn-warning" @click="postFind()">주소검색</button>
+                    </div>
+					<div class="mb-3" style="text-align: left;">
+                        <label class="label">주소</label>
+						<input style="width: 100%" type="text" v-model="addr1" class="form-control" disabled>
+                    </div>
+					<div class="mb-3" style="text-align: left;">
+                        <label class="label">상세주소</label>
+						<input style="width: 100%" type="text" v-model="addr2" class="form-control">
+                    </div>
+					<div class="mb-3" style="text-align: left;">
+                        <label class="label">전달사항</label>
+						<textarea style="width: 100%; resize: none;" rows="3" v-model="msg" class="form-control"></textarea>
+                    </div>
+					<div class="mb-3" style="text-align: left;">
+						<label><input type="checkbox" v-model="isBase">기본 배송지로 설정</label>
+                    </div>
 				<div style="text-align: right;">
-					<button class="btn btn-sm btn-success" @click="deliveryInsert()">등록</button>
-					<button type="button" class="btn btn-sm btn-primary" @click="changeModal(false)">취소</button>
+					<button class="btn btn-sm btn-del" @click="deliveryInsert()">등록</button>
+					<button type="button" class="btn btn-sm btn-wine" @click="changeModal(false)">취소</button>
 				</div>
 			</div>
 		</div>
