@@ -52,6 +52,33 @@ public class EventRestController {
 	   
   }
   
+  @GetMapping(value="event/vueMyReserveList.do",produces = "text/plain;charset=UTF-8")
+  public String eventVueList(int page, HttpSession session) throws Exception
+  {
+  	String id=(String)session.getAttribute("userId");
+  	Map map=new HashMap();
+  	int rowSize=10;
+  	int start=(rowSize*page)-(rowSize-1);
+  	int end=rowSize*page;
+  	map.put("start", start);
+  	map.put("end", end);
+  	map.put("userid", id);
+  	
+  	List<ReserveVO> list=eService.getMyReserveEvent(map);
+  	int totalPage=eService.myReserveTotalPage(map);
+  	
+  	map=new HashMap();
+  	map.put("list", list);
+  	map.put("curPage", page);
+  	map.put("totalPage", totalPage);
+  	
+  	ObjectMapper mapper=new ObjectMapper();
+  	String json=mapper.writeValueAsString(map);
+  	
+  	return json;
+  	
+  }
+  
   @GetMapping(value="event/detailVue.do",produces = "text/plain;charset=UTF-8")
   public String eventDetail(int weno) throws Exception
   {
@@ -137,6 +164,12 @@ public class EventRestController {
       String json=mapper.writeValueAsString(mvo);
       System.out.println(mvo);
       return json;
+  }
+  
+  @GetMapping(value = "mypage/vueDeleteReserve.do",produces = "text/plain;charset=UTF-8")
+  public void mypageVueDelete(int rno) throws Exception
+  {
+  	eService.deleteReserve(rno);
   }
   
 }

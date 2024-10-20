@@ -161,6 +161,21 @@ public class ShopServiceImpl implements ShopService{
 	public List<WineVO> adminWineList(Map map) {
 		return wDao.adminWineList(map);
 	}
+	
+	@Override
+	public int adminWinePage() {
+		return wDao.adminWinePage();
+	}
+	
+	@Override
+	public List<Wine_PaymentVO> myPaymentList(Map map) {
+		return wDao.myPaymentList(map);
+	}
+	
+	@Override
+	public int myPaymentTotalPage(Map map) {
+		return wDao.myPaymentTotalPage(map);
+	}
 }
 
 

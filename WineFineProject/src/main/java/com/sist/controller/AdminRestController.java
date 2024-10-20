@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.sist.service.*;
 import com.sist.vo.*;
@@ -21,6 +22,8 @@ public class AdminRestController {
 	private BannerService bService;
 	@Autowired
 	private SaleService sService;
+	@Autowired
+	private ShopService ssService;
 	
 	@GetMapping(value = "admin/vueCouponList.do", produces = "text/plain;charset=UTF-8")
 	public String adminVueCouponList() throws Exception{
@@ -123,5 +126,26 @@ public class AdminRestController {
 	@GetMapping(value = "admin/vueSaleRejection.do", produces = "text/plain;charset=UTF-8")
 	public void adminVueSaleRejection(int psno) {
 		sService.promotionRejection(psno);
+	}
+	
+	@GetMapping(value = "admin/vueWineList.do", produces = "text/plain;charset=UTF-8")
+	public String adminWineList(int page) throws Exception{
+		int rowSize=10;
+		int start=(page-1)*rowSize+1;
+		int end=page*rowSize;
+		Map map=new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<WineVO> list=ssService.adminWineList(map);
+		int totalPage=ssService.adminWinePage();
+		
+		map=new HashMap();
+		map.put("list", list);
+		map.put("curPage", page);
+		map.put("totalPage", totalPage);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(map);
 	}
 }

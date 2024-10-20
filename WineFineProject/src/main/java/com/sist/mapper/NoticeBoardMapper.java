@@ -31,7 +31,7 @@ public interface NoticeBoardMapper {
 	@Update("UPDATE noticeboard SET hit=hit+1 WHERE nbno=#{nbno}")
 	public void noticeHitIncrement(int nbno);
 	
-	@Update("UPDATE noticeboard SET subject=#{subject}, content=#{content} WHERE wbno=#{wbno}")
+	@Update("UPDATE noticeboard SET subject=#{subject}, content=#{content} WHERE nbno=#{nbno}")
 	public void noticeUpdate(NoticeBoardVO vo);
 	
 	@Select("SELECT MAX(nbno) FROM noticeboard")

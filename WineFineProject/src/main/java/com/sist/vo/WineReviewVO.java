@@ -16,4 +16,5 @@ public class WineReviewVO {
 	private int wrvno, wno, srating;
 	private String userid, nickname, content, dbday;
 	private Date regdate;
+	private WineVO wvo=new WineVO();
 }

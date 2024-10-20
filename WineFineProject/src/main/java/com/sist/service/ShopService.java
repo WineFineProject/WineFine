@@ -43,5 +43,7 @@ public interface ShopService {
 //	신고
 	public void insertReport (Wine_ReportVO vo);
 	public List<WineVO> adminWineList(Map map);;
-
+	public int adminWinePage();
+	public List<Wine_PaymentVO> myPaymentList(Map map);
+	public int myPaymentTotalPage(Map map);
 }

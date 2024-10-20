@@ -1,5 +1,8 @@
 package com.sist.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +34,12 @@ public class MyPageController {
  //구매내역
  
  //예약내역
- 
+ @GetMapping("mypage/myReserve.do")
+ public String mypageReserve(Model model) {
+	 String today=new SimpleDateFormat("YYYY-MM-dd").format(new Date());
+	 model.addAttribute("today", today);
+	 return "mypage/myReserve";
+ }
  //작성한글
  @GetMapping("mypage/myboardlist.do")
  public String mypageBoardList(String nickName){
@@ -39,12 +47,19 @@ public class MyPageController {
 	 return "mypage/myboardlist"; 
  } 
  //작성리뷰
- 
+ @GetMapping("mypage/myReview.do")
+	public String mypageReview() {
+		return "mypage/myReview";
+	}
  //좋아요
  
  //배송주소 등록
  @GetMapping("mypage/delivery.do")
  public String mypageDelivery() {
 	 return "mypage/delivery";
+ }
+ @GetMapping("mypage/myPayment.do")
+ public String mypagePayment() {
+	 return "mypage/myPayment";
  }
 }

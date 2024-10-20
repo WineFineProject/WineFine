@@ -1,6 +1,7 @@
 package com.sist.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -66,4 +67,15 @@ public class EventDAO {
 		rmapper.memoDelete(meno);
 	}
 	
+	public List<ReserveVO> getMyReserveEvent(Map map){
+		return rmapper.getMyReserveEvent(map);
+	}
+	
+	public int myReserveTotalPage(Map map) {
+		return rmapper.myReserveTotalPage(map);
+	}
+	
+	public void deleteReserve(int rno) {
+		rmapper.deleteReserve(rno);
+	}
 }

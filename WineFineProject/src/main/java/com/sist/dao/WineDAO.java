@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.WineMapper;
 import com.sist.vo.WineVO;
+import com.sist.vo.Wine_PaymentVO;
+
 import java.util.*;
 
 @Repository
@@ -34,5 +36,16 @@ public class WineDAO {
 	
 	public List<WineVO> adminWineList(Map map){
 		return mapper.adminWineList(map);
+	}
+	public int adminWinePage() {
+		return mapper.adminWinePage();
+	}
+	
+	public List<Wine_PaymentVO> myPaymentList(Map map){
+		return mapper.myPaymentList(map);
+	}
+	
+	public int myPaymentTotalPage(Map map){
+		return mapper.myPaymentTotalPage(map);
 	}
 }

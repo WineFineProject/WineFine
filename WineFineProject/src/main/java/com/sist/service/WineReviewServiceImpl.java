@@ -1,6 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,25 @@ public class WineReviewServiceImpl implements WineReviewService{
 	public void reviewDelete(WineReviewVO vo) {
 		// TODO Auto-generated method stub
 		wdao.reviewDelete(vo);
+	}
+	
+	@Override
+	public List<WineReviewVO> myReviewList(Map map) {
+		return wdao.myReviewList(map);
+	}
+	
+	@Override
+	public int myReviewTotalPage(Map map) {
+		return wdao.myReviewTotalPage(map);
+	}
+	
+	@Override
+	public void mypageReviewDelete(int wrvno) {
+		wdao.mypageReviewDelete(wrvno);
+	}
+	
+	@Override
+	public void wineScoreUpdate(int wno) {
+		wdao.wineScoreUpdate(wno);
 	}
 }

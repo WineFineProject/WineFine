@@ -13,4 +13,7 @@ public interface EventService {
 	public List<MemoVO> memoListData(String userid);
 	public void memoDelete(int meno);
 	public MemoVO memoDetailData(int meno);
+	public List<ReserveVO> getMyReserveEvent(Map map);
+	public int myReserveTotalPage(Map map);
+	public void deleteReserve(int rno);
 }

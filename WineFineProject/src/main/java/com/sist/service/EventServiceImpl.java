@@ -1,6 +1,6 @@
 package com.sist.service;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,5 +79,19 @@ public class EventServiceImpl implements EventService{
 		// TODO Auto-generated method stub
 		return eDao.memoDetailData(meno);
 	}
+	
+	@Override
+	public List<ReserveVO> getMyReserveEvent(Map map) {
+		return eDao.getMyReserveEvent(map);
+	}
   
+	@Override
+	public int myReserveTotalPage(Map map) {
+		return eDao.myReserveTotalPage(map);
+	}
+	
+	@Override
+	public void deleteReserve(int rno) {
+		eDao.deleteReserve(rno);
+	}
 }

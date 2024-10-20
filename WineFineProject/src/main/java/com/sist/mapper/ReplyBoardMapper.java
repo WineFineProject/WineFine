@@ -47,7 +47,7 @@ public interface ReplyBoardMapper {
 	@Select("SELECT COUNT(*) FROM wine_replyboard WHERE type=1 AND recvid=#{userid}")
 	public int sellerReplyCount(String userid);
 
-	@Select("SELECT COUNT(*) FROM wine_replyboard WHERE type!=1")
+	@Select("SELECT COUNT(*) FROM wine_replyboard WHERE type!=1 AND group_step=0")
 	public int replyCount();
 
 	// 작성

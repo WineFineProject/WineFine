@@ -1,6 +1,7 @@
 package com.sist.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.*;
 import com.sist.vo.*;
@@ -26,8 +27,16 @@ public interface WineReviewMapper {
 			+ "WHERE wno = #{wno} AND userid = #{userid} ")
 	public void reviewDelete(WineReviewVO vo);
 	
+	public List<WineReviewVO> myReviewList(Map map);	
 	
+	@Select("SELECT CEIL(COUNT(*)/10.0) FROM wine_review WHERE userid=#{userId}")
+	public int myReviewTotalPage(Map map);
 	
+	@Delete("DELETE FROM wine_review WHERE wrvno=#{wrvno}")
+	public void mypageReviewDelete(int wrvno);
+	
+	@Update("UPDATE wine SET score=(SELECT NVL(AVG(srating),0) FROM wine_review WHERE wno=#{wno}) WHERE wno=#{wno}")
+	public void wineScoreUpdate(int wno);
 }
 
 

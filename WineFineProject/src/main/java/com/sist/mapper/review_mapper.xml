@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.WineReviewMapper">
+	<resultMap type="com.sist.vo.WineReviewVO" id="reviewMap">
+	<result property="wvo.namekor" column="namekor"/>
+	<result property="wvo.poster" column="poster"/>
+	</resultMap>
+	<select id="myReviewList" parameterType="hashmap" resultMap="reviewMap">
+	SELECT wrvno, wno, userid, nickname, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, content, srating, namekor, poster, num
+	FROM (SELECT wrvno, wno, userid, nickname, regdate, content, srating, namekor, poster, rownum as num
+	FROM (SELECT r.wrvno, r.wno, r.userid, r.nickname, r.regdate, r.content, r.srating, w.namekor, w.poster 
+	FROM wine_review r JOIN wine w ON r.wno=w.wno WHERE userid=#{userId} ORDER BY wrvno DESC))
+	WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
+</mapper>

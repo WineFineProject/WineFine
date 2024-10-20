@@ -22,4 +22,9 @@ public class Wine_PaymentVO {
 	private int wpno, wno, account, payment, mipoint, wdno, mcno, psno, state;
 	private String userid, dbday;
 	private Date regdate;
+	private WineVO wvo=new WineVO();
+	private MemberVO mvo=new MemberVO();
+	private MyCouponVO mcvo=new MyCouponVO();
+	private DeliveryVO dvo=new DeliveryVO();
+	private PromotionSaleVO svo=new PromotionSaleVO();
 }

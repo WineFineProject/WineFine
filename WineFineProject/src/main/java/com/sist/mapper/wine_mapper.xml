@@ -4,6 +4,25 @@
 	<resultMap type="com.sist.vo.WineVO" id="wineMap">
 		<result property="mvo.nickName" column="nickname" />
 	</resultMap>
+	<resultMap type="com.sist.vo.Wine_PaymentVO" id="payMap">
+		<result property="wvo.namekor" column="namekor" />
+		<result property="wvo.poster" column="poster" />
+		<result property="wvo.price" column="price" />
+		<result property="wvo.type" column="type" />
+		<result property="wvo.grape" column="grape" />
+		<result property="wvo.nation" column="nation" />
+		<result property="wvo.maker" column="maker" />
+		<result property="wvo.mvo.nickName" column="nickname" />
+		<result property="dvo.name" column="name" />
+		<result property="dvo.post" column="post" />
+		<result property="dvo.addr1" column="addr1" />
+		<result property="dvo.addr2" column="addr2" />
+		<result property="dvo.msg" column="msg" />
+		<result property="mcvo.title" column="ctitle" />
+		<result property="mcvo.discount" column="cdiscount" />
+		<result property="svo.title" column="stitle" />
+		<result property="svo.discount" column="sdiscount" />
+	</resultMap>
 	<!-- 와인 목록 출력 -->
 	<select id="wineListData" resultType="WineVO" parameterType="hashmap">
 		SELECT wno, namekor, nameeng, type, price, poster, num
@@ -27,7 +46,7 @@
 		ORDER BY wno ASC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
-	
+
 	<!-- 와인 검색 출력 -->
 	<select id="wineFindList" resultMap="wineMap" parameterType="hashmap">
 		SELECT wno, namekor, poster, seller, (SELECT nickname FROM wine_member WHERE wine.seller=wine_member.userid) as nickname FROM wine WHERE namekor LIKE '%'||#{fd}||'%'
@@ -46,7 +65,8 @@
 		FROM dual CONNECT BY REGEXP_SUBSTR(w.nation, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN nation n ON t.nation_no = n.no) AS nation,
 		wm.nickname
 		FROM wine w JOIN wine_member wm ON w.seller=wm.userid ORDER BY wno DESC)
-		WHERE (type LIKE '%'||#{fd}||'%' OR grape LIKE '%'||#{fd}||'%' OR nation LIKE '%'||#{fd}||'%' OR namekor LIKE '%'||#{fd}||'%' OR maker LIKE '%'||#{fd}||'%' OR nickname LIKE '%'||#{fd}||'%') AND rownum&lt;=6
+		WHERE (type LIKE '%'||#{fd}||'%' OR grape LIKE '%'||#{fd}||'%' OR nation LIKE '%'||#{fd}||'%' OR namekor LIKE '%'||#{fd}||'%' OR
+		maker LIKE '%'||#{fd}||'%' OR nickname LIKE '%'||#{fd}||'%') AND rownum&lt;=6
 	</select>
 	<select id="wineFindCount" resultType="int" parameterType="String">
 		SELECT COUNT(*)
@@ -54,18 +74,41 @@
 		WHERE type LIKE '%'||#{fd}||'%' OR grape LIKE '%'||#{fd}||'%' OR nation LIKE '%'||#{fd}||'%' OR namekor LIKE '%'||#{fd}||'%' OR maker LIKE '%'||#{fd}||'%' OR nickname LIKE '%'||#{fd}||'%'
 	</select>
 	<select id="adminWineList" resultMap="wineMap" parameterType="hashmap">
-	SELECT wno, namekor, type, poster, maker, grape, nation, nickname, state, nameeng, type, price, vol, sugar, acid, body, tannin, aroma, food, alcohol, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday num
-	FROM (SELECT wno, namekor, type, poster, maker, grape, nation, nickname, state, nameeng, type, price, vol, sugar, acid, body, tannin, aroma, food, alcohol, regdate, rownum as num 
-	FROM (SELECT w.wno, w.namekor, w.nameeng, w.type, w.poster, (SELECT m.namekor FROM maker m WHERE m.no = w.maker) AS maker,
+		SELECT wno, namekor, type, poster, maker, grape, nation, nickname, state, nameeng, price, vol, sugar, acid, body, tannin, aroma, food, alcohol, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, num
+		FROM (SELECT wno, namekor, type, poster, maker, grape, nation, nickname, state, nameeng, price, vol, sugar, acid, body, tannin, aroma, food, alcohol, regdate, rownum as num
+		FROM (SELECT w.wno, w.namekor, w.type, w.poster, (SELECT m.namekor FROM maker m WHERE m.no = w.maker) AS maker,
 		(SELECT LISTAGG(g.namekor, ', ') WITHIN GROUP (ORDER BY g.namekor DESC)
 		FROM (SELECT REGEXP_SUBSTR(w.grape, '[^,]+', 1, LEVEL) AS grape_no
 		FROM dual CONNECT BY REGEXP_SUBSTR(w.grape, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN grape g ON t.grape_no = g.no) AS grape,
 		(SELECT LISTAGG(n.namekor, ' | ') WITHIN GROUP (ORDER BY n.namekor DESC)
 		FROM (SELECT REGEXP_SUBSTR(w.nation, '[^,]+', 1, LEVEL) AS nation_no
-		FROM dual CONNECT BY REGEXP_SUBSTR(w.nation, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN nation n ON t.nation_no = n.no) AS nation,
-		wm.nickname, w.nameeng, w.type, w.price, w.vol, w.sugar, w.acid, w.body, w.tannin, w.aroma, w.food, w.alcohol, w.regdate
-		FROM wine w JOIN wine_member wm ON w.seller=wm.userid ORDER BY wno DESC
-		))
+		FROM dual CONNECT BY REGEXP_SUBSTR(w.nation, '[^,]+', 1,
+		LEVEL) IS NOT NULL) t JOIN nation n ON t.nation_no = n.no) AS nation,
+		wm.nickname, w.nameeng, w.price, w.vol, w.sugar, w.acid, w.body, w.tannin, w.aroma, w.food, w.alcohol, w.regdate, w.state
+		FROM wine w JOIN wine_member wm ON w.seller=wm.userid ORDER BY w.wno DESC))
 		WHERE (num BETWEEN #{start} AND #{end}) AND state=9
+	</select>
+	<select id="myPaymentList" parameterType="hashmap" resultMap="payMap">
+		SELECT wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,
+		namekor, poster, price, type, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, maker, grape, nation, nickname, num
+		FROM (SELECT wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, regdate,
+		namekor, poster, price, type, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, maker, grape, nation, nickname, rownum as num
+		FROM (SELECT wp.wpno, wp.wno, wp.account, wp.payment, wp.mipoint, wp.wdno, wp.mcno, wp.psno, wp.state, wp.userid, wp.regdate,
+		wvo.namekor, wvo.poster, wvo.price, wvo.type, dvo.name, dvo.post, dvo.addr1, dvo.addr2, dvo.msg, mcvo.title as ctitle, mcvo.discount as cdiscount, svo.title as stitle, svo.discount as sdiscount,
+		(SELECT m.namekor FROM maker m WHERE m.no = wvo.maker) AS maker,
+		(SELECT LISTAGG(g.namekor, ', ') WITHIN GROUP (ORDER BY g.namekor DESC)
+		FROM (SELECT REGEXP_SUBSTR(wvo.grape, '[^,]+', 1, LEVEL) AS grape_no
+		FROM dual CONNECT BY REGEXP_SUBSTR(wvo.grape, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN grape g ON t.grape_no = g.no) AS grape,
+		(SELECT LISTAGG(n.namekor, ' | ') WITHIN GROUP (ORDER BY n.namekor DESC)
+		FROM (SELECT REGEXP_SUBSTR(wvo.nation, '[^,]+', 1, LEVEL) AS nation_no
+		FROM dual CONNECT BY REGEXP_SUBSTR(wvo.nation, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN nation n ON t.nation_no = n.no) AS nation,
+		(SELECT nickname FROM wine_member wm WHERE wm.userid=wvo.seller) as nickname
+		FROM wine_payment wp JOIN wine wvo ON wp.wno=wvo.wno
+		JOIN wine_delivery dvo ON wp.wdno=dvo.wdno
+		LEFT JOIN my_coupon mcvo ON wp.mcno=mcvo.mcno
+		LEFT JOIN promotion_sale svo ON wp.psno=svo.psno
+		WHERE wp.userid=#{userId}
+		ORDER BY wpno DESC))
+		WHERE num BETWEEN #{start} AND #{end}
 	</select>
 </mapper>
