@@ -3,43 +3,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1 문의게시판</title>
+<title></title>
+<link rel="stylesheet" href="../tem/css/replydetail.css">
 </head>
 <body>
 	<div class="row" id="noticeTable">
-		<h3 class="text-center">공지사항</h3>
-		<table class="table">
-			<tr>
-				<th width="5%" class="text-center">닉네임</th>
-				<td width="15%">
-					<span class="form-control">{{detail.nickname}}</span>
-				</td>
-				<th width="5%" class="text-center">작성일</th>
-				<td width="15%">
-					<span class="form-control">{{detail.dbday}}</span>
-				</td>
-				<th width="5%" class="text-center">조회수</th>
-				<td width="15%">
-					<span class="form-control">{{detail.hit}}</span>
-				</td>
-			</tr>
-			<tr>
-				<th width="10%" class="text-center">제목</th>
-				<td colspan="5">
-					<span class="form-control">{{detail.subject}}</span>
-				</td>
-			</tr>
-			<tr>
-				<th width="10%" class="text-center">내용</th>
-				<td colspan="5">
-					<span style="height: 300px;" class="form-control">{{detail.content}}</span>
-				</td>
-			</tr>
-		</table>
-				<div style="text-align: right;">
-					<a :href="'../seller/noticeUpdate.do?nbno='+detail.nbno" class="btn btn-primary">수정</a>
-					<a href="../seller/notice.do" class="btn btn-primary">목록</a>
-				</div>
+		<h3 class="text-center" style="margin-bottom: 30px">공지사항</h3>
+		<div>
+        <div class="detail-box">
+            <td width="35%">
+                <!-- <span v-if="vo.type===2">{{cnos[vo.cno]}}&nbsp;</span>
+                <span v-if="vo.type===3">{{cno[vo.cno]}}&nbsp;</span> -->
+            </td>
+            <h2 class="post-title">{{detail.subject}}</h2>
+            <div class="post-meta">
+                <span class="author-name">{{detail.nickname}}</span>
+                <span class="meta-separator">|</span>
+                <span class="post-date">{{detail.dbday}}</span>
+                <span class="meta-separator">|</span>
+                <span class="view-count"><i class="fas fa-eye"></i>&nbsp;{{detail.hit}}</span>
+            </div>
+            <div class="content-box">{{detail.content}}</div>
+            <div class="button-group">
+                <a :href="'../seller/noticeUpdate.do?nbno='+detail.nbno" class="btn btn-primary">수정</a>
+                <a href="../seller/notice.do" class="btn btn-secondary">목록</a>
+            </div>
+        </div>
+    </div>
 	</div>
 	<script>
 	let noticeDetailApp=Vue.createApp({

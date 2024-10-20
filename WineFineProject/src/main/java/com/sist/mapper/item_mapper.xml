@@ -14,7 +14,8 @@
         <if test="namekor != null">namekor = #{namekor},</if>
         <if test="price != null">price = #{price},</if>
         <if test="stack != null">stack = #{stack},</if>
-        <if test="state != null">state = #{state}</if>
+        <if test="state != null">state = #{state},</if>
+        <if test="nbno != null">nbno = #{nbno}</if>
         WHERE wno = #{wno}
     </update>
     <select id="getGrapeNames" resultType="string">

@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class="row" id="replyBoardList">
-		<h3 class="text-center">공지사항</h3>
+		<h3 class="text-center">1:1 문의게시판</h3>
 		<table class="table">
 			<tr>
 				<td class="text-right">

@@ -3,39 +3,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1 문의게시판</title>
-<style>
-.result-list {
-	max-height: 200px;
-	overflow-y: auto;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	margin-top: 5px;
-}
-
-.result-item {
-	display: flex;
-	align-items: center;
-	cursor: pointer;
-	border-bottom: 1px solid #e0e0e0;
-}
-
-.result-item:last-child {
-	border-bottom: none;
-}
-
-.result-item img {
-	margin-right: 10px;
-}
-
-.result-item:hover {
-	background-color: #f5f5f5;
-}
-</style>
+<title></title>
+<link rel="stylesheet" href="../tem/css/replyinsert.css">
 </head>
 <body>
 	<div class="row"  id="noticeTable">
-		<h3 class="text-center">1:1 문의 게시판</h3>
+		<h3 class="text-center">공지사항 수정</h3>
 		<div class="form-group" style="margin-top: 10px;">
 			<div class="form-group" style="margin-top: 10px;">
 				<label for="subject">제목</label>
@@ -58,7 +31,7 @@
 			<div style="margin-top: 10px;"></div>
 			<div class="text-center">
 				<button type="button" class="btn btn-primary" @click="updateNotice()">등록</button>
-				<input type="button" class="btn btn-secondary" value="취소">
+				<input type="button" class="btn btn-secondary" value="취소" onclick="javascript:history.back()">
 			</div>
 		</div>
 	</div>

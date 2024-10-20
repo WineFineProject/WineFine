@@ -5,11 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/coupon.css">
 </head>
 <body>
 	<div class="container" id="approvalList">
 		<div class="row">
-			<table class="table">
+			<table class="table" style="margin-bottom: 30px">
 			<tr>
 				<td width="20%">
 					승인 대기 : {{wCount}} 개
@@ -20,8 +21,8 @@
 				<td width="60%"></td>
 			</tr>
 			</table>
-			<h4> 승인 대기 목록 </h4>
-			<table class="table">
+			<h4 class="text-center table-title">승인 대기 목록</h4>
+			<table class="table" id="coupon-table">
 				<tr>
 					<th width="15%">상품번호</th>
 					<th width="15%">카테고리</th>
@@ -31,7 +32,7 @@
 					<th width="10%">등록일</th>
 					<th width="10%">상태</th>
 				</tr>
-				<tr v-for="vo in wList" :key="vo.wno">
+				<tr v-for="vo in wList" :key="vo.wno" id="inner-table">
 				  <td width="15%">{{vo.wno}}</td>
 				  <td width="15%">{{vo.type}}</td>
 				  <td width="25%">{{vo.namekor}}</td>
@@ -41,8 +42,8 @@
 				  <td width="10%">승인 대기중</td>
 				</tr>
 			</table>
-		    <h4> 승인 반려 목록 </h4>
-			<table class="table">
+		    <h4 class="text-center table-title">승인 반려 목록</h4>
+			<table class="table" id="coupon-table">
 				<tr>
 					<th width="15%">상품번호</th>
 					<th width="15%">카테고리</th>
@@ -52,7 +53,7 @@
 					<th width="10%">등록일</th>
 					<th width="10%">삭제</th>
 				</tr>
-				<tr v-for="vo in dList" :key="vo.wno">
+				<tr v-for="vo in dList" :key="vo.wno" id="inner-table">
 				  <td width="15%">{{vo.wno}}</td>
 				  <td width="15%">{{vo.type}}</td>
 				  <td width="25%">{{vo.namekor}}</td>
