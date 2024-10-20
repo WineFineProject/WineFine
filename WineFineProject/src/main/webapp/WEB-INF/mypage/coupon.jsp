@@ -4,17 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-.promotion_table {
-	width: 1500px;
-}
-</style>
-
+<link rel="stylesheet" href="../tem/css/coupon.css">
 </head>
 <body>
 	<div class="promotion_table">
-		<h3>수령한 쿠폰</h3>
-		<table class="table" style="height: 400px;">
+		<h3 class="table-title">수령한 쿠폰</h3>
+		<table class="table" id="coupon-table" style="height: 400px;">
 			<thead>
 				<tr>
 					<th width="21%">이벤트명</th>
@@ -28,9 +23,9 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="7">
+					<td colspan="7" id="tmp">
 						<div>
-							<table style="width: 100%">
+							<table class="table" id="inner-table" style="width: 100%">
 								<tbody>
 									<tr v-for="vo in myCoupon">
 										<td width="21%">{{vo.title}}</td>
@@ -48,8 +43,8 @@
 				</tr>
 			</tbody>
 		</table>
-		<h3>수령 가능 쿠폰</h3>
-		<table class="table" style="height: 400px;">
+		<h3 class="table-title">수령 가능 쿠폰</h3>
+		<table class="table" id="coupon-table" style="height: 400px;">
 			<thead>
 				<tr>
 					<th width="21%">이벤트명</th>
@@ -63,9 +58,9 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="7">
+					<td colspan="7" id="tmp">
 						<div>
-							<table style="width: 100%">
+							<table class="table" id="inner-table" style="width: 100%">
 								<tbody>
 									<tr v-for="(avo, index) in activeCoupon">
 										<td width="21%">{{avo.title}}</td>

@@ -9,14 +9,8 @@
 </head>
 <body>
 	<div class="row" id="replyBoardList">
-		<h3 class="text-center">공지사항</h3>
-		<table class="table">
-			<tr>
-				<td class="text-right">
-					<a href="../seller/noticeInsert.do" class="btn btn-sm" style="background-color: #FCD500;">글쓰기</a>
-				</td>
-			</tr>
-		</table>
+		<h3 class="text-center">1:1 문의게시판</h3>
+		<div class="row" style="margin-top: 50px">
 		<table class="table table-hover">
 			<tr>
 				<th width=10% class="text-center">번호</th>
@@ -24,7 +18,7 @@
 				<th width=12% class="text-center">이름</th>
 				<th width=10% class="text-center">작성일</th>
 				<th width=7% class="text-center">조회수</th>
-				<th width=10% class="text-center">상태</th>
+				<th width=10% class="text-center">답변상태</th>
 			</tr>
 			<tr v-for="(vo, index) in list">
 				<td width=10% class="text-center">{{count-index}}</td>
@@ -33,17 +27,17 @@
 				<td width=10% class="text-center">{{vo.dbday}}</td>
 				<td width=7% class="text-center">{{vo.hit}}</td>
 				<td width=10% class="text-center">
-					<a v-if="vo.isreply==0" :href="'../admin/replyInsert.do?wrno='+vo.wrno">답변대기</a>
-					<span v-if="vo.isreply==1" style="cursor: pointer;" @click="detailAnswer(vo.group_id, index)">답변완료</sapn>
+					<a v-if="vo.isreply==0" style="color: green" :href="'../admin/replyInsert.do?wrno='+vo.wrno">답변대기</a>
+					<span v-if="vo.isreply==1" style="cursor: pointer;color: orange" @click="detailAnswer(vo.group_id, index)">답변완료</sapn>
 				</td>
 			</tr>
 		</table>
 		<table class="table">
 			<tr>
 				<td class="text-center">
-					<button t class="btn btn-sm btn-danger" @click="replyList(startPage>1?curPage-1:curPage)">이전</button>
+					<button t class="btn btn-sm btn-primary" @click="replyList(startPage>1?curPage-1:curPage)">이전</button>
 					{{curPage}} page / {{totalPage}} page
-					<button type="button" class="btn btn-sm btn-danger" @click="replyList(curPage<totalPage?curPage+1:curPage)">다음</button>
+					<button type="button" class="btn btn-sm btn-primary" @click="replyList(curPage<totalPage?curPage+1:curPage)">다음</button>
 				</td>
 			</tr>
 		</table>
@@ -126,6 +120,7 @@
 				</div>
 			</div>
 		</div>
+	  </div>	
 	</div>
 	<script>
 		let sellerReplyListApp=Vue.createApp({

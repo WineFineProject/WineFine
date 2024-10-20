@@ -156,7 +156,7 @@ table {
 							  <td class="left-align ti"><input type="number" size=20 v-model="person" min="1" max="30">&nbsp;명</td>
 							</tr>
 						</table>
-						<div>
+						<div  style="display: flex; justify-content: flex-end;">
 						<button type="button" class="btn btn-lg btn-reserve" @click="reserveInsert(vo.weno)">예약</button>
 						</div>
 					</div>

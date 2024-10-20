@@ -17,7 +17,7 @@
 		<table class="table" style="height: 600px;">
 			<tr v-for="vo in list">
 				<td>
-					<table class="table">
+					<table class="table" id="tt">
 						<tr>
 						<th width="20%">배송지명</th>
 							<td width="80%" style="text-align: left;">{{vo.name}}</td>

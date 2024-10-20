@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+
+
+.promotion_table {
+    width: 1500px;
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+}
+
+.table-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#coupon-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+#tmp{
+	padding:0px;
+}
+
+#coupon-table th, #coupon-table td {
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#coupon-table th {
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+#inner-table {
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.btn-get-coupon {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-get-coupon:hover {
+    background-color: #a93226;
+}
