@@ -4,18 +4,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/coupon.css">
 </head>
 <body>
 	<div class="promotion_table" id="promotionTable">
-		<table class="table">
+		<table>
 			<tr>
-				<td colspan="6" class="text-left">
-					<button @click="changeModal(true)" type="button">프로모션 등록</button>
+				<td colspan="6">
+					<button @click="changeModal(true)" type="button" class="btn btn-wine">프로모션 등록</button>
 				</td>
 			</tr>
 		</table>
-		<h3>진행중인 프로모션</h3>
-		<table class="table" style="height: 400px;">
+		<h3 class="text-center table-title">진행중인 프로모션</h3>
+		<table class="table" id="coupon-table" style="height: 400px;">
 			<thead>
 				<tr>
 					<th width="21%">이벤트명</th>
@@ -29,12 +30,12 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td style="padding: 0px;" colspan="7">
+					<td style="padding: 0px;border:none" colspan="7">
 						<div>
-							<table style="width: 100%">
+							<table style="width: 100%" id="inner-table">
 								<tbody>
 									<tr v-for="vo in activeCoupon">
-										<td width="21%">{{vo.title}}</td>
+										<td style="padding: 8px" width="21%">{{vo.title}}</td>
 										<td width="25%">{{vo.targetname}}</td>
 										<td width="10%">{{vo.discount}}%</td>
 										<td width="16%">{{vo.mvo.nickName}}</td>
@@ -49,8 +50,8 @@
 				</tr>
 			</tbody>
 		</table>
-		<h3>승인 대기 프로모션</h3>
-		<table class="table" style="height: 400px;">
+		<h3 class="text-center table-title">승인 대기 프로모션</h3>
+		<table class="table" id="coupon-table" style="height: 400px;">
 			<thead>
 				<tr>
 					<th width="21%">이벤트명</th>
@@ -64,12 +65,12 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td style="padding: 0px;" colspan="7">
+					<td style="padding: 0px;border:none" colspan="7">
 						<div>
-							<table style="width: 100%">
+							<table style="width: 100%" id="inner-table">
 								<tbody>
 									<tr v-for="avo in waitCoupon">
-										<td width="21%">{{avo.title}}</td>
+										<td style="padding: 8px" width="21%">{{avo.title}}</td>
 										<td width="25%">{{avo.targetname}}</td>
 										<td width="10%">{{avo.discount}}%</td>
 										<td width="16%">{{avo.mvo.nickName}}</td>
@@ -89,7 +90,8 @@
 		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
 			<div class="modal-content">
 				<span class="close" @click="changeModal(false)">&times;</span>
-				<table class="table" style="margin-top: 50px;">
+				<table class="table" style="margin-top: 10px;">
+				<h4 class="text-center">프로모션 등록</h4>
 					<tr>
 						<th width="30%">프로모션 이름</th>
 						<td width="70%"><input type="text" v-model="eventName" style="width: 100%" @keyup="checkBtn()"></td>
@@ -144,13 +146,13 @@
 						<th width="30%">종료일</th>
 						<td width="70%"><input type="date" v-model="endDate" @change="checkBtn()"></td>
 					</tr>
-					<tr v-show="isBtn">
-						<td colspan="2">
-							<button type="button" class="btn btn-sm btn-wine" @click="insertPromotion()">등록</button>
-							<button type="button" class="btn btn-sm btn-wine" @click="changeModal(false)">취소</button>
-						</td>
-					</tr>
 				</table>
+					<div v-show="isBtn" style="text-align: right;">
+						<td colspan="2">
+							<button type="button" class="btn btn-sm btn-primary" @click="insertPromotion()">등록</button>
+							<button type="button" class="btn btn-sm btn-warning" @click="changeModal(false)">취소</button>
+						</td>
+					</div>
 			</div>
 		</div>
 	</div>

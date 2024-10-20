@@ -7,30 +7,7 @@
 <title>Insert title here</title>
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<style>
-.result-list {
-    max-height: 200px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 5px;
-}
-.result-item {
-    display: flex; 
-    align-items: center; 
-    cursor: pointer; 
-    border-bottom: 1px solid #e0e0e0; 
-}
-.result-item:last-child {
-    border-bottom: none; 
-}
-.result-item img {
-    margin-right: 10px; 
-}
-.result-item:hover {
-    background-color: #f5f5f5;
-}
-</style>
+<link rel="stylesheet" href="../tem/css/replyinsert.css">
 </head>
 <body>
 <div class="container" style="width: 800px;">

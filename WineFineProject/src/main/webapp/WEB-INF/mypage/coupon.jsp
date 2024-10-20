@@ -23,7 +23,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="7" id="tmp">
+					<td colspan="7" id="tmp" style="border:none">
 						<div>
 							<table class="table" id="inner-table" style="width: 100%">
 								<tbody>
@@ -58,7 +58,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="7" id="tmp">
+					<td colspan="7" id="tmp" style="border:none">
 						<div>
 							<table class="table" id="inner-table" style="width: 100%">
 								<tbody>

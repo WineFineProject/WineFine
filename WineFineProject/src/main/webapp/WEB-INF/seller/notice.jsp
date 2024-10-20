@@ -9,11 +9,9 @@
 <body>
 	<div class="row" id="noticeList">
 		<h3 class="text-center">공지사항</h3>
-		<table class="table">
-			<tr>
-				<td class="text-right"><a href="../seller/noticeInsert.do" class="btn btn-sm" style="background-color: #FCD500;">글쓰기</a></td>
-			</tr>
-		</table>
+		<div>
+		  <a href="../seller/noticeInsert.do" class="btn btn-sm" style="background-color: #FCD500;margin-bottom: 10px">글쓰기</a>
+		</div>
 		<table class="table table-hover">
 			<tr>
 				<th width=10% class="text-center">번호</th>
@@ -30,19 +28,19 @@
 				<td width=10% class="text-center">{{vo.hit}}</td>
 			</tr>
 		</table>
-		<table class="table">
-			<tr>
-				<td class="text-center"><a href="#" class="btn btn-sm btn-danger">이전</a> ${curPage } page / ${totalPage } page <a href="#" class="btn btn-sm btn-danger">다음</a></td>
-			</tr>
-		</table>
+		<div class="text-center" style="margin-top: 50px">
+           <a href="#" class="btn btn-sm btn-primary">이전</a>
+             {{curpage}} page / {{totalpage}} pages
+           <a href="#" class="btn btn-sm btn-primary">다음</a>
+          </div>
 	</div>
 	<script>
 	let noticeApp=Vue.createApp({
 		data(){
 			return{
 				list:[],
-				curPage:1,
-				totalPage:0,
+				curpage:1,
+				totalpage:0,
 				count:0
 			}
 		},
