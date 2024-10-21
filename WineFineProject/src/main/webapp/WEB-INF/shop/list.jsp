@@ -208,52 +208,24 @@
 									<div class="col-lg-12">
 										<div class="mb-3">
 											<h4>맛</h4>
-											<ul class="list-unstyled fruite-categorie">
-												<li>
-													<div class="d-flex justify-content-between fruite-name">
-														당도 : <label v-for="ss in 5" class="no-style"
-															style="cursor: pointer;"> <input type="radio"
-															name="sugarStars" :value="ss" v-model="sugar"
-															style="display: none;"> <i
-															:class="{'text-wine':srating>=ss}"
-															style="margin-right: 2px;" class="fa fa-star"></i>
-														</label>
-													</div>
-												</li>
-												<li>
-													<div class="d-flex justify-content-between fruite-name">
-														바디 : <label v-for="bs in 5" class="no-style"
-															style="cursor: pointer;"> <input type="radio"
-															name="bodyStars" :value="bs" v-model="body"
-															style="display: none;"> <i
-															:class="{'text-wine':srating>=bs}"
-															style="margin-right: 2px;" class="fa fa-star"></i>
-														</label>
-													</div>
-												</li>
-												<li>
-													<div class="d-flex justify-content-between fruite-name">
-														산도 : <label v-for="as in 5" class="no-style"
-															style="cursor: pointer;"> <input type="radio"
-															name="acidStars" :value="as" v-model="acid"
-															style="display: none;"> <i
-															:class="{'text-wine':srating>=as}"
-															style="margin-right: 2px;" class="fa fa-star"></i>
-														</label>
-													</div>
-												</li>
-												<li>
-													<div class="d-flex justify-content-between fruite-name">
-														탄닌 : <label v-for="ts in 5" class="no-style"
-															style="cursor: pointer;"> <input type="radio"
-															name="tanninStars" :value="ts" v-model="tannin"
-															style="display: none;"> <i
-															:class="{'text-wine':srating>=ts}"
-															style="margin-right: 2px;" class="fa fa-star"></i>
-														</label>
-													</div>
-												</li>
-											</ul>
+																	<ul class="filter-box">
+							<li>
+								당도 <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="sugar" style="display: none;"><i :class="{'text-wine':sugar>=ss}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								</label>
+							</li>
+							<li>
+								산도 <label v-for="as in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="acidStars" :value="as" v-model="acid" style="display: none;"><i :class="{'text-wine':acid>=as}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								</label>
+							</li>
+							<li>
+								바디 <label v-for="bs in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="bodyStars" :value="bs" v-model="body" style="display: none;"><i :class="{'text-wine':body>=bs}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								</label>
+							</li>
+							<li>
+								탄닌 <label v-for="ts in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="tanninStars" :value="ts" v-model="tannin" style="display: none;"><i :class="{'text-wine':tannin>=ts}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								</label>
+							</li>
+						</ul>
 										</div>
 									</div>
 
@@ -382,6 +354,7 @@
     			return{
     				wineTcount: 0,
     				list: [],
+    				srating: 0,
         			curpage: 1,
         			totalpage: 0,
         			startPage: 0,
@@ -390,16 +363,32 @@
     				acid: 0,
     				body: 0,
     				tannin: 0,
-    				srating: 0,
+        			getsugar: '${search.sugarStars}',
+        			getacid: '${search.acidStars}',
+        			getbody: '${search.bodyStars}',
+        			gettannin: '${search.tanninStars}',
     				wtypes: [],
+    				selectType: [],
+    				getselectType: '${search.type}',
     				foods: [],
-    				selectFoods: '${search.food}',
+    				selectFoods: [],
+    				getselectFoods: '${search.food}',
     				aroma:[],
-    				selectAroma: '${search.aroma}'
+    				selectAroma: [],
+    				getselectAroma: '${search.aroma}',
+    				selectPrice: 0,
+    				getselectPrice: '${search.price}'
     			}
     		},
     		mounted(){
-    			console.log(this.selectAroma)
+    			console.log(this.getselectAroma)
+    			console.log(this.getselectFoods)
+    			console.log(this.getselectType)
+    			console.log(' getprice ' + this.getselectPrice)
+    			console.log(' getsugar ' + this.getsugar)
+    			console.log(' getacid ' + this.getacid)
+    			console.log(' getbody ' + this.getbody)
+    			console.log(' gettannin ' + this.gettannin)
 				this.dataRecv()
         	},
     		methods:{
@@ -450,13 +439,12 @@
         				this.endPage=response.data.endPage
         				this.wineTcount = response.data.wineTcount
         				this.wtypes = response.data.wtypes
-        				console.log('wtypes : ' + this.wtypes)
+        				console.log('getselectType : ' + this.getselectType)
         				this.foods = response.data.foods
-        				console.log('foods : ' + this.foods)
-        				console.log('selectFoods : ' + this.selectFoods)
+        				console.log('getselectFoods : ' + this.getselectFoods)
         				this.aroma = response.data.aroma
-        				console.log('aroma : ' + this.aroma)
-        				console.log('selectAroma : ' + this.selectAroma)
+        				console.log('getselectAroma : ' + this.getselectAroma)
+        				this.getprice = response.data.getprice
         			}).catch(error=>{
         				console.log(error.response)
         			})
