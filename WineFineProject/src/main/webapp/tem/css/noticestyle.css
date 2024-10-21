@@ -71,7 +71,7 @@
 	background-color: #f7f7f7; 
 }
 
-.modal-content tr:hover {
+.mc tr:hover {
 	background-color: transparent;
 }
 
@@ -80,12 +80,12 @@
 	margin: 0 0 1rem; 
 }
 
-.modal-content th {
+.mc th {
 	background-color: #f2f2f2;
 	color: #616161;
 }
 
-.modal-content td, th{
+.mc td, th{
 	border: 1px solid #e1e1e1; 
 }
 .content-box {

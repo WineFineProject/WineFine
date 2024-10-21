@@ -88,6 +88,19 @@ public interface MemberMapper {
 			+ "FROM wine_member WHERE userId=#{userId}")
 	public MemberVO memberDetail(String id);
 
+	// 판매자 가입 대기
+	@Select("SELECT userId, nickName, userName, birthday, phone, post, addr1, addr2, photo, "
+			+"TO_CHAR(regdate, 'YYYY-MM-DD') as regday, email "
+			+"FROM wine_member WHERE state=1")
+	public List<MemberVO> memberWait();
+		
+	// 판매자 가입 승인
+	@Update("UPDATE wine_member SET state=0 WHERE userId=#{userId}")
+	public void accessMember(String id);
+
+	// 판매자 가입 거절
+	@Delete("DELETE FROM wine_member WHERE userId=#{userId}")
+	public void noAccessMember(String id);
 	// 회원 수정
 	@Update("UPDATE wine_member SET nickName=#{nickName}, userName=#{userName}, phone=#{phone},"
 			+ "addr1=#{addr1}, addr2=#{addr2}, email=#{email} WHERE userId=#{userId}")

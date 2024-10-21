@@ -80,6 +80,12 @@ public class MemberRestController {
 		  return json;
 	}
 
+	@PostMapping(value = "admin/deleteMember.do", produces = "text/plain;charset=UTF-8")
+	public String deleteMember(String id) {
+		mService.deleteMember(id);
+		return "redirect:../admin/memberList.do";
+	}
+
 	@GetMapping(value = "admin/memberGradeUp.do", produces = "text/plain;charset=UTF-8")
 	public void memberGradeUp(String userId) 
 	{
@@ -102,6 +108,30 @@ public class MemberRestController {
 
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(map);
+	}
+	
+	// 회원 대기 목록
+	@GetMapping(value = "admin/memberWaitVue.do", produces = "text/plain;charset=UTF-8")
+	public String adminmemberWait() throws Exception{
+		List<MemberVO> members=mService.memberWait();
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(members);
+		  
+		  return json;
+	}
+	
+	// 판매자 가입 승인
+	@GetMapping(value = "admin/accessMember.do", produces = "text/plain;charset=UTF-8")
+	public void accessMember(String userId)
+	{
+		mService.accessMember(userId);
+	}
+	
+	// 판매자 가입 거절
+	@GetMapping(value = "admin/noAccessMember.do", produces = "text/plain;charset=UTF-8")
+	public void noAccessMember(String userId)
+	{
+		mService.noAccessMember(userId);
 	}
 	
 	// 硫ㅻ쾭 �븘�씠�뵒 以묐났泥댄겕

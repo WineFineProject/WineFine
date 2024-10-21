@@ -70,6 +70,17 @@ public class MemberDAO {
 		return mapper.memberDetail(id);
 	}
 
+	public List<MemberVO> memberWait() {
+    	return mapper.memberWait();
+    }
+	
+	public void accessMember(String id) {
+		mapper.accessMember(id);
+	}
+	
+	public void noAccessMember(String id) {
+		mapper.noAccessMember(id);
+	}
 	// �쉶�썝 �젙蹂� �닔�젙
 	public void updateMember(MemberVO member) {
 		mapper.updateMember(member);

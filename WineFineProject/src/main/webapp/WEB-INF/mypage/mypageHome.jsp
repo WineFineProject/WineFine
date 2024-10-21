@@ -58,67 +58,55 @@
 			</div>
 		</div>
 		<div class="modal" :class="{show:sModal}">
-			<div class="modal-content" style="width: 400px; height: 580px;margin-top: 7%;">
+			<div class="modal-content" style="width: 420px; height: 420px;margin-top: 7%;">
             <div class="modal-header">
                 <h5 class="modal-title" id="addEventModalLabel">{{state==='1'?'예약보기':'일정보기'}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="cModal(false)"></button>
             </div>
             <div class="modal-body" v-if="state==='2'">
-                    <div class="mb-3">
-                        <label for="subject" class="label">제목</label>
-                        <span>{{vo.subject}}</span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="content" class="label">내용</label>
-                        <span>{{vo.content}}</span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="start" class="label">시작 일자</label>
-                        <span>{{vo.startday}}</span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="end" class="label">종료 일자</label>
-                        <span>{{vo.endday}}</span>
-                    </div>
-                    <div>
+                    <table class="table" id="coupon-table">
+                     <tr>
+                        <th width="30%">제목</th>
+                        <td width="70%">{{vo.subject}}</td>
+                     </tr>   
+                     <tr>
+                        <th>내용</th>
+                        <td>{{vo.content}}</td>
+                     </tr>
+                     <tr>   
+                        <th>시작 일자</th>
+                        <td>{{vo.startday}}</td>
+                     </tr>
+                     <tr>   
+                        <th>종료 일자</th>
+                        <td>{{vo.endday}}</td>
+                     </tr>
+                     </table>   
+                    <div style="margin-top: 30px">
                     <button type="submit" class="btn btn-wine" @click="deleteBtn()">삭제</button>
                     </div>
             </div>
             <div class="modal-body" v-if="state==='1'">
-                    <div class="mb-3">
-                        <label for="subject" class="label">제목</label>
-                        <input type="text" class="form-control" v-model="subject">
-                    </div>
-                    <div class="mb-3">
-                        <label for="title" class="label">내용</label>
-                        <input type="text" class="form-control" v-model="content">
-                    </div>
-                    <div class="mb-3">
-                        <label for="start" class="label">시작 일자</label>
-                        <input type="date" class="form-control" v-model="startday">
-                    </div>
-                    <div class="mb-3">
-                        <label for="end" class="label">종료 일자</label>
-                        <input type="date" class="form-control" v-model="endday">
-                    </div>
-                    <div class="mb-3">
-                    <table style="width:100%">
-                    <tr>
-                    <td width="20%"></td>
-                    <td width="30%">배경색</td>
-                    <td width="30%">글자색</td>
-                    <td width="20%"></td>
-                    </tr>
-                    <tr>
-                    <td width="20%"></td>
-                    <td width="30%"><input type="color" v-model="bcolor" required></td>
-                    <td width="30%"><input type="color" v-model="fcolor" required></td>
-                    <td width="20%"></td>
-                    </tr>
-                    </table>
-                    </div>
+                    <table class="table" id="coupon-table">
+                     <tr>
+                        <th width="30%">제목</th>
+                        <td width="70%">{{vo.evo.title}}</td>
+                     </tr>   
+                     <tr>
+                        <th>예약일</th>
+                        <td>{{vo.evo.eday}}</td>
+                     </tr>
+                     <tr>   
+                        <th>예약 인원</th>
+                        <td>{{vo.person}}명</td>
+                     </tr>
+                     <tr>   
+                        <th>주소</th>
+                        <td>{{vo.evo.address}}</td>
+                     </tr>
+                     </table>   
                     <div>
-                    <button type="submit" class="btn btn-wine" @click="deleteBtn()">삭제</button>
+                    <button type="submit" class="btn btn-wine" @click="deletebtn()">삭제</button>
                     </div>
             </div>
 			</div>
@@ -145,6 +133,17 @@
 		  }
 	  },
 	  methods:{
+		  deletebtn(){
+			  axios.get('../mypage/vueDeleteReserve.do',{
+				  params:{
+					  rno:this.vo.rno
+				  }
+			  }).then(response=>{
+				  this.cList()
+				  this.vo={}
+				  this.cModal(false)
+			  })
+		  },
 		  deleteBtn(){
 			  axios.get('../mypage/memoDelete.do',{	
 				 params:{
@@ -169,6 +168,10 @@
 			  if(this.endday===''){
 				  return
 			  }
+			  if (new Date(this.startday) > new Date(this.endday)) {
+			        alert("시작일은 종료일보다 늦을 수 없습니다");
+			        return;
+			    }
 			  axios.post('../mypage/memoInsert.do',null,{
 				  params:{
 					  subject:this.subject,

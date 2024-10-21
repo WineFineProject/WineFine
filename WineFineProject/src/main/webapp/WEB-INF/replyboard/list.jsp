@@ -9,7 +9,7 @@
 <body>
 <div class="container" style="margin-top:50px;" id="replyList">
      <h3 class="text-center">1:1 문의게시판</h3>
-     <div class="row" style="margin-top: 50px">
+     <div class="row" style="margin-top: 10px">
      <div>
        <sec:authorize access="hasRole('ROLE_USER')"> 
                    <a href="../replyboard/insert1.do" class="btn btn-sm" style="background-color: #FCD500;">글쓰기</a>
@@ -22,7 +22,7 @@
        <tr>
         <th width=10% class="text-center">번호</th>
         <th width=35% class="text-center">제목</th>
-        <th width=15% class="text-center">이름</th>
+        <th width=15% class="text-center">작성자</th>
         <th width=15% class="text-center">작성일</th>
         <th width=10% class="text-center">조회수</th>
         <th width=15% class="text-center">답변상태</th>

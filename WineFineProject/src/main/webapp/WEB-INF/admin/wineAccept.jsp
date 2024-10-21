@@ -12,6 +12,11 @@ color: white;
 #adminItemApp table tr td table{
 margin-bottom: 0px;
 }
+#coupon-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
 </style>
 </head>
 <body>
@@ -30,7 +35,7 @@ margin-bottom: 0px;
 			<template v-for="(vo, index) in list">
 				<tr @click="checkInfo(index)">
 					<td width="7%" class="text-center">{{vo.wno}}</td>
-					<td width="7%" class="text-center"><img :src="vo.poster" width="100%" style="max-height: 80px;"></td>
+					<td width="7%" class="text-center"><img :src="vo.poster" width="55px" style="max-height: 60px;"></td>
 					<td width="30%" class="text-center">{{vo.namekor}}</td>
 					<td width="15%" class="text-center">{{vo.mvo.nickName}}</td>
 					<td width="10%" class="text-center">{{vo.type}}</td>

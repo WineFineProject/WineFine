@@ -43,10 +43,10 @@
 							<a href="../admin/memberList.do">회원 목록</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/my_change_pwd.do">가입신청 대기</a>
+							<a href="../admin/memberWait.do">가입신청 대기</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../mypage/my_change_pwd.do">신고</a>
+							<a href="../admin/report.do">신고</a>
 						</li>
 						<li class="list-group-item">
 							<a href="../admin/replyboard.do">1:1 문의</a>

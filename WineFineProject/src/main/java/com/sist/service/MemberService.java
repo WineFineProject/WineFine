@@ -1,11 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
-
-import com.sist.vo.BlackListVO;
 import com.sist.vo.MemberVO;
 
 public interface MemberService {
@@ -16,6 +12,9 @@ public interface MemberService {
 	public int adminmemberCount();
 	public void deleteMember(String id);
 	public MemberVO memberDetail(String id);
+	public List<MemberVO> memberWait();
+	public void accessMember(String id);
+	public void noAccessMember(String id);
 	public void updateMember(MemberVO member);
 	public int memberPhoneCheck(String phone);
 	public int memberEmailCheck(String email);

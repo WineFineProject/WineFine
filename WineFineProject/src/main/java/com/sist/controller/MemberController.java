@@ -2,7 +2,6 @@ package com.sist.controller;
 
 import com.sist.service.MemberService;
 import com.sist.vo.*;
-import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -54,12 +53,12 @@ public class MemberController {
 		return "seller/memberDetail";
 	}
 
-	@PostMapping("seller/deleteMember.do")
-	public String deleteMember(String id) {
-		mService.deleteMember(id);
-		return "redirect:../seller/memberList.do";
+	@GetMapping("admin/memberWait.do")
+	public String memberWait() {
+		
+		return "admin/memberWait";
 	}
-
+	
 	@GetMapping("seller/updateMember.do")
 	public String updateMember(String id, Model model) {
 		MemberVO member = mService.memberDetail(id);

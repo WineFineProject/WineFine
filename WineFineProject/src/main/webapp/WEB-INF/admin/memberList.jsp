@@ -57,7 +57,7 @@
 				</template>
             </tbody>
         </table>
-        <div class="col-12 text-center" >
+        <div class="col-12 text-center">
         <div class="pagination-area d-sm-flex mt-15" style="justify-content: center">
             <nav aria-label="#">
                <ul class="pagination" style="display: flex;">
@@ -123,14 +123,17 @@
             	},
             	prev(){
           			 this.curpage=this.startPage-1
+          			 this.isShow=Array(10).fill(false)
           			 this.mList()
           		 },
           		 next(){
           			 this.curpage=this.endPage+1
+          			 this.isShow=Array(10).fill(false)
           			 this.mList()
           		 },
           		 pageChange(page){
           			 this.curpage=page
+          			 this.isShow=Array(10).fill(false)
           			 this.mList()
           		 },
           		 range(start,end){

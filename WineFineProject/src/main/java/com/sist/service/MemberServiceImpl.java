@@ -1,13 +1,11 @@
 package com.sist.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sist.dao.MemberDAO;
-import com.sist.vo.BlackListVO;
 import com.sist.vo.MemberVO;
 
 @Service
@@ -101,5 +99,20 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void visitCheck() {
 		dao.visitCheck();
+	}
+	@Override
+	public List<MemberVO> memberWait() {
+		// TODO Auto-generated method stub
+		return dao.memberWait();
+	}
+	@Override
+	public void accessMember(String id) {
+		// TODO Auto-generated method stub
+		dao.accessMember(id);
+	}
+	@Override
+	public void noAccessMember(String id) {
+		// TODO Auto-generated method stub
+		dao.noAccessMember(id);
 	}
 }

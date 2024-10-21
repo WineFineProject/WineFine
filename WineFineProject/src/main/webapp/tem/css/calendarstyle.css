@@ -34,3 +34,11 @@
 .fc-event-title, .fc-event-title-container{
 cursor: pointer;
 }
+
+ #coupon-table td{
+    border: 1px solid #ddd;
+ }
+#coupon-table th {
+    background-color: #f8f8f8;
+    color: #333;
+}

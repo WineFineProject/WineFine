@@ -17,4 +17,8 @@ public class Wine_ReportVO {
 	private int wreno, type, tno, state;
 	private String userid, rid, category,content, dbday;
 	private Date regdate;
+	private BoardVO bvo=new BoardVO();
+	private BoardReplyVO brvo=new BoardReplyVO();
+	private WineVO wvo=new WineVO();
+	private WineReviewVO wrvo=new WineReviewVO();
 }
