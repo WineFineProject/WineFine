@@ -4,12 +4,9 @@ import lombok.Data;
 
 @Data
 public class CartVO {
-	private int cno, wno, price, count;
-	private WineVO wine;
-	private String id; // memberVO id
+	private int cno, wno, account;
+	private String userId, dbday;
+	private WineVO wvo=new WineVO();
 
-	// private List<SellerGroupVO> sellerGroups;
-	//private int totalCount;
-	//idprivate int totalPrice;
 
 }

@@ -1,6 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,6 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public String addCart(CartVO vo) {
 		return dao.addCart(vo);
-	}
-	@Override
-	public List<CartVO> cartListData(String id) {
-		
-		return dao.cartListData(id);
 	}
 	@Override
 	public WineVO getWine(int wno,int cno) {
@@ -43,4 +39,17 @@ public class CartServiceImpl implements CartService{
 	public int myCartCount(String userId) {
 		return dao.myCartCount(userId);
 	}
+	@Override
+	public List<CartVO> cartListData(Map map) {
+		return dao.cartListData(map);
+	}
+	@Override
+	public int cartTotalPage(Map map) {
+		return dao.cartTotalPage(map);
+	}
+	@Override
+	public void deleteCart(int cno) {
+		dao.deleteCart(cno);
+	}
+	
 }

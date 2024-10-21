@@ -393,12 +393,13 @@
     				srating: 0,
     				wtypes: [],
     				foods: [],
-    				selectFoods: [],
+    				selectFoods: '${search.food}',
     				aroma:[],
-    				selectAroma: []
+    				selectAroma: '${search.aroma}'
     			}
     		},
     		mounted(){
+    			console.log(this.selectAroma)
 				this.dataRecv()
         	},
     		methods:{

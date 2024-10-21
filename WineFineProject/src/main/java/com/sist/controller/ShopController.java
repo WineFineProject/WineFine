@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ShopController {
@@ -22,8 +23,10 @@ public class ShopController {
 		return "shop/mainhome";
 	}
 	
-	@GetMapping("shop/list.do")
-	public String wine_list() {
+	@RequestMapping("shop/list.do")
+	public String wine_list(FilterVO vo, Model model) {
+		System.out.println(vo);
+		model.addAttribute("search", vo);
 		return "shop/list";
 	}
 	

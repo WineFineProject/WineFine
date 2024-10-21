@@ -21,22 +21,30 @@ public interface CartMapper {
 	public String addCart(CartVO vo);
 	
 	// 목록
-	@Select("SELECT c.cno,c.wno,c.price as cart_price,c.count,c.id " +
-            "w.namekor,w.poster,w.price as wine_price " +
-            "FROM cart c JOIN wine w ON c.wno = w.wno " +
-            "WHERE c.id = #{id}")
     @Results({
-        @Result(property = "cno", column = "cno"),
-        @Result(property = "wno", column = "wno"),
-        @Result(property = "price", column = "cart_price"),
-        @Result(property = "count", column = "count"),
-        @Result(property = "id", column = "id"),
-        @Result(property = "wine.namekor", column = "namekor"),
-        @Result(property = "wine.poster", column = "poster"),
-        @Result(property = "wine.price", column = "wine_price")
+        @Result(property = "wvo.namekor", column = "namekor"),
+        @Result(property = "wvo.poster", column = "poster"),
+        @Result(property = "wvo.price", column = "price"),
+        @Result(property = "wvo.mvo.nickName", column = "nickname")
     })
-	public List<CartVO> cartListData(@Param("id") String id);
+  @Select("SELECT cno, wno, userid, account, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, namekor, poster, price, nickname, num "
+  		+ "FROM (SELECT cno, wno, userid, account, regdate, namekor, poster, price, nickname, rownum as num "
+  		+ "FROM (SELECT c.cno, c.wno, c.userid, c.account, c.regdate, w.namekor, w.poster, w.price, m.nickname "
+  		+ "FROM wine_cart c JOIN wine w ON c.wno=w.wno "
+  		+ "JOIN wine_member m ON c.userId=m.userid "
+  		+ "WHERE c.userid=#{userid} "
+  		+ "ORDER BY c.regdate DESC)) "
+  		+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<CartVO> cartListData(Map map);
 	
+  @Select("SELECT CEIL(COUNT(*)/10.0) FROM wine_cart WHERE userid=#{userid}")
+  public int cartTotalPage(Map map);
+    
+  @Delete("DELETE FROM wine_cart WHERE cno=#{cno}")
+  public void deleteCart(int cno);
+  
+  
+  
 	@Select("SELECT w.wno,w.namekor,w.poster,w.price,"
 			+ "c.wno"
 			+ "FROM wine w JOIN cart c ON w.wno=c.cno "

@@ -37,6 +37,10 @@ public interface WineReviewMapper {
 	
 	@Update("UPDATE wine SET score=(SELECT NVL(AVG(srating),0) FROM wine_review WHERE wno=#{wno}) WHERE wno=#{wno}")
 	public void wineScoreUpdate(int wno);
+	
+	@Select("SELECT COUNT(*) FROM wine_review "
+			+ "WHERE wno = #{wno} AND userid = #{userid} ")
+	public int reviewCheck (@Param("wno")int wno, @Param("userid")String userid);
 }
 
 

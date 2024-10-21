@@ -189,8 +189,16 @@ public class ShopServiceImpl implements ShopService{
 	@Override
 	public LikeVO wineLikeOn(LikeVO lvo) {
 		// TODO Auto-generated method stub
-		return wineLikeOn(lvo);
+		return sdao.wineLikeOn(lvo);
 	}
+	@Override
+	public String selectUsername(int wno) {
+		// TODO Auto-generated method stub
+		return sdao.selectUsername(wno);
+	}
+
+	
+	
 }
 
 

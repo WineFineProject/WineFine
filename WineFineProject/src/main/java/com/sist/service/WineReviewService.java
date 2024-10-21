@@ -19,4 +19,6 @@ public interface WineReviewService {
 	public int myReviewTotalPage(Map map);
 	public void mypageReviewDelete(int wrvno);
 	public void wineScoreUpdate(int wno);
+	
+	public int reviewCheck (int wno,String userid);
 }

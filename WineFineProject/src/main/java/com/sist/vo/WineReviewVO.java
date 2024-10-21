@@ -13,7 +13,7 @@ import java.util.*;
 import lombok.Data;
 @Data
 public class WineReviewVO {
-	private int wrvno, wno, srating;
+	private int wrvno, wno, srating, totalRating, reviewCount;
 	private String userid, nickname, content, dbday;
 	private Date regdate;
 	private WineVO wvo=new WineVO();

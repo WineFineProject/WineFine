@@ -29,8 +29,6 @@ public class ReviewRestCountroller {
 			vo.setUserid(id);
 			vo.setNickname(nickName);
 			
-			wservice.reviewInsert(vo);
-			
 			result = "yes";
 		}catch(Exception ex) {
 			result = ex.getMessage();
@@ -66,6 +64,6 @@ public class ReviewRestCountroller {
 	public void mypageReviewDelete(int wrvno, int wno, HttpSession session) {
 
 		wservice.mypageReviewDelete(wrvno);
-		wservice.wineScoreUpdate(wno);
+		
 	}
 }

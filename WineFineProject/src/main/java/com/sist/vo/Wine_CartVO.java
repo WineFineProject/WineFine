@@ -12,6 +12,7 @@ import lombok.Data;
 @Data
 public class Wine_CartVO {
 	private int wno,cno,account;
-	private String userid,dbdate;
+	private String userid,dbday;
 	private Date regdate;
+	private WineVO vo=new WineVO();
 }

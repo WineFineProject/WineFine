@@ -3,6 +3,7 @@ package com.sist.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,8 +17,9 @@ public class WineReviewDAO {
 	private WineReviewMapper mapper;
 	
 //	추가
-	public void reviewInsert(WineReviewVO vo) {
+	public void reviewInsert(WineReviewVO vo) {		
 		mapper.reviewInsert(vo);
+		mapper.wineScoreUpdate(vo.getWno());
 	}
 //	상세
 	public List<WineReviewVO> reviewList(int wno,int count) {
@@ -30,6 +32,7 @@ public class WineReviewDAO {
 //	삭제
 	public void reviewDelete(WineReviewVO vo) {
 		mapper.reviewDelete(vo);
+		mapper.wineScoreUpdate(vo.getWno());
 	}
 	
 	public List<WineReviewVO> myReviewList(Map map){
@@ -49,4 +52,13 @@ public class WineReviewDAO {
 	public void wineScoreUpdate(int wno) {
 		mapper.wineScoreUpdate(wno);
 	}
+//	리뷰 작성 확인
+	public int reviewCheck (int wno,String userid) {
+		return mapper.reviewCheck(wno, userid);
+	}
+
+
+
+
+
 }
