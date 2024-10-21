@@ -126,8 +126,8 @@ public interface MemberMapper {
 	@Update("UPDATE wine_member SET lastlogin=sysdate WHERE userId=#{userId}")
 	public void memberLastLogin(String userId);
 	
-	@Insert("INSERT INTO wine_visit VALUES((SELECT NVL(MAX(vno)+1, 1) FROM wine_visit), sysdate)")
-	public void visitCheck();
+	@Insert("INSERT INTO wine_visit VALUES((SELECT NVL(MAX(vno)+1, 1) FROM wine_visit), sysdate, #{pageid})")
+	public void visitCheck(String pageid);
 	
 	@Update("UPDATE authority SET authority='ROLE_SELLER' WHERE userId=#{userId}")
 	public void sellerAuthority(MemberVO vo);

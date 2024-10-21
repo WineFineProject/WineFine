@@ -14,6 +14,7 @@
 	<typeAlias type="com.sist.vo.ReplyBoardVO" alias="ReplyBoardVO"/>
 	<typeAlias type="com.sist.vo.WineReviewVO" alias="WineReviewVO"/>
 	<typeAlias type="com.sist.vo.Wine_PaymentVO" alias="Wine_PaymentVO"/>
+	<typeAlias type="com.sist.vo.VisitVO" alias="VisitVO"/>
 	</typeAliases>
 	<mappers>
 	<mapper resource="com/sist/mapper/wine_mapper.xml"/>
@@ -24,5 +25,7 @@
 	<mapper resource="com/sist/mapper/replyboard_mapper.xml"/>
 	<mapper resource="com/sist/mapper/item_mapper.xml"/>
 	<mapper resource="com/sist/mapper/review_mapper.xml"/>
+	<mapper resource="com/sist/mapper/admin_mapper.xml"/>
+	<mapper resource="com/sist/mapper/seller_mapper.xml"/>
 	</mappers>
 </configuration>

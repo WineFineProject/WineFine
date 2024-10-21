@@ -24,7 +24,8 @@ public class AdminRestController {
 	private SaleService sService;
 	@Autowired
 	private ShopService ssService;
-	
+	@Autowired
+	private AdminService aService;
 	@GetMapping(value = "admin/vueCouponList.do", produces = "text/plain;charset=UTF-8")
 	public String adminVueCouponList() throws Exception{
 		Map map=new HashMap();
@@ -144,6 +145,32 @@ public class AdminRestController {
 		map.put("list", list);
 		map.put("curPage", page);
 		map.put("totalPage", totalPage);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(map);
+	}
+	
+	@GetMapping(value = "admin/vueHomeInfo.do", produces = "text/plain;charset=UTF-8")
+	public String adminVueHome() throws Exception{
+		List<Integer> list=aService.visitWeeks();
+		int maxVisit=aService.visitMax();
+		Map map=new HashMap();
+		
+		int noneCoupon=aService.noneCoupon();
+		int noneSale=aService.noneSale();
+		int noneBanner=aService.noneBanner();
+		int noneItem=aService.noneItem();
+		int noneAnswer=aService.noneAnswer();
+		int nonePayment=aService.nonePayment();
+		
+		map.put("dates", list);
+		map.put("maxVisit", maxVisit);
+		map.put("noneCoupon", noneCoupon);
+		map.put("noneSale", noneSale);
+		map.put("noneBanner", noneBanner);
+		map.put("noneItem", noneItem);
+		map.put("noneAnswer", noneAnswer);
+		map.put("nonePayment", nonePayment);
 		
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(map);

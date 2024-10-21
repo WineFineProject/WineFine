@@ -97,8 +97,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public void visitCheck() {
-		dao.visitCheck();
+	public void visitCheck(String pageid) {
+		dao.visitCheck(pageid);
 	}
 	@Override
 	public List<MemberVO> memberWait() {

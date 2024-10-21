@@ -118,7 +118,7 @@ public class MemberDAO {
   	mapper.memberLastLogin(userId);
   }
   
-  public void visitCheck() {
-  	mapper.visitCheck();
+  public void visitCheck(String pageid) {
+  	mapper.visitCheck(pageid);
   }
 }

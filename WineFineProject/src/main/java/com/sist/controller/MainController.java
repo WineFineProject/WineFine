@@ -31,7 +31,7 @@ public class MainController {
 	public String mainStart() {
 		saleService.promotionSaleEndUpdate();
 		cService.promotionCouponEndUpdate();
-		mService.visitCheck();
+		mService.visitCheck("home");
 		return "redirect:../main/main.do";
 	}
 }
