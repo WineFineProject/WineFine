@@ -107,6 +107,10 @@
 	flex: 0 0 auto; /* 아이템이 고정 크기를 유지하도록 설정 */
 	margin-right: 10px; /* 아이템 사이 간격 */
 }
+
+.text-secondary-wine {
+	color: #881824 !important;
+}
 </style>
 </head>
 <body>
@@ -124,7 +128,7 @@
 				<div class="col-xl-10">
 					<div class="row g-4">
 						<div class="col-lg-5">
-							<div class="border rounded" style="width: 400px;">
+							<div class="border rounded" style="width: 400px; border-color: #881824 !important;">
 								<img :src="vo.poster" class="img-fluid rounded" alt="Image">
 
 							</div>
@@ -134,9 +138,7 @@
 							<h4 class="fw-bold mb-3"></h4>
 							<p class="mb-3 d-flex align-items-center">
 								<span :class="vo.type === '화이트' ? 'whitecor' : 'winecor'">{{vo.type}} </span> | <span v-for="(nvo,index) in nname">{{index === 0 ?'':'&nbsp;|&nbsp;'}}<a>{{nvo}}</a>
-								</span> <span class="img-margin"> <span> 
-								<img src="../img/like_off.png" @click="likeOn()" class="img-size img-hover" v-if="Lcheck === 0 || sessionId ==='' "> 
-								<img src="../img/like_on.png" @click="likeOff()" class="img-size img-hover" v-if="Lcheck !== 0 && sessionId !=='' "> <span class="img-text"><b>{{likeCount}}</b></span>
+								</span> <span class="img-margin"> <span> <img src="../img/like_off.png" @click="likeOn()" class="img-size img-hover" v-if="Lcheck === 0 || sessionId ==='' "> <img src="../img/like_on.png" @click="likeOff()" class="img-size img-hover" v-if="Lcheck !== 0 && sessionId !=='' "> <span class="img-text"><b>{{likeCount}}</b></span>
 								</span> <img src="../img/eye.png" class="img-size "> <span class="img-text"><b>{{vo.hit}}</b></span> <span @click="copyLink()" class="img-hover"> <img src="../img/share.png" class="img-size "> <span> </span>
 								</span>
 								</span>
@@ -147,7 +149,7 @@
 							</p>
 							<h5 class="fw-bold mb-3">{{vo.price}}({{vo.vol}})</h5>
 							<div class="d-flex mb-4">
-								<b class="font-style">평점</b> <span v-for="as in 5" class="no-style"><i :class="{'text-secondary':vo.score>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>&nbsp; <b class="font-style" style="color: orange">{{formattedValue}}</b>
+								<b class="font-style">평점</b> <span v-for="as in 5" class="no-style"><i :class="{'text-secondary-wine':vo.score>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>&nbsp; <b class="font-style" style="color: orange">{{formattedValue}}</b>
 							</div>
 							<div class="d-flex mb-4">
 								<p>
@@ -172,19 +174,19 @@
 							</div>
 
 							<div class="d-flex align-items-center mb-5">
-<!-- 								<div class="input-group quantity" style="width: 100px;"> -->
-<!-- 									<div class="input-group-btn"> -->
-<!-- 										<button class="btn btn-sm btn-minus rounded-circle bg-light border"> -->
-<!-- 											<i class="fa fa-minus"></i> -->
-<!-- 										</button> -->
-<!-- 									</div> -->
-<!-- 									<input type="text" class="form-control form-control-sm text-center border-0" value="1"> -->
-<!-- 									<div class="input-group-btn"> -->
-<!-- 										<button class="btn btn-sm btn-plus rounded-circle bg-light border"> -->
-<!-- 											<i class="fa fa-plus"></i> -->
-<!-- 										</button> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
+								<!-- 								<div class="input-group quantity" style="width: 100px;"> -->
+								<!-- 									<div class="input-group-btn"> -->
+								<!-- 										<button class="btn btn-sm btn-minus rounded-circle bg-light border"> -->
+								<!-- 											<i class="fa fa-minus"></i> -->
+								<!-- 										</button> -->
+								<!-- 									</div> -->
+								<!-- 									<input type="text" class="form-control form-control-sm text-center border-0" value="1"> -->
+								<!-- 									<div class="input-group-btn"> -->
+								<!-- 										<button class="btn btn-sm btn-plus rounded-circle bg-light border"> -->
+								<!-- 											<i class="fa fa-plus"></i> -->
+								<!-- 										</button> -->
+								<!-- 									</div> -->
+								<!-- 								</div> -->
 
 								<a class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary" @click="handleAddToCart()"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
 								</a> <a class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary" @click="handleBuyNow()"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Buy Now
@@ -282,7 +284,7 @@
 
 								<table style="width: 100%">
 									<tr>
-										<td style="width: 140px;" class="text-center">별점 <span v-for="as in 5" class="no-style"><i :class="{'text-secondary':vw.srating>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>
+										<td style="width: 140px;" class="text-center">별점 <span v-for="as in 5" class="no-style"><i :class="{'text-secondary-wine':vw.srating>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>
 										</td>
 										<td style="width: 130px;" class="text-center">
 											<h5>
@@ -305,7 +307,7 @@
 
 							</div>
 
-							<div style="text-align: center;">
+							<div style="text-align: center;" v-if="count < reviewCount">
 								<button @click="viewMore()">
 									<h5>더보기</h5>
 								</button>
@@ -331,8 +333,8 @@
 								</div>
 
 								<div v-if="sessionId !== ''" style="display: flex; justify-content: center; align-items: center;">
-									<textarea rows="4" cols="62" ref="review" v-model="review" class="form-control" style="width: 100%; resize: none; margin-right: 10px;"></textarea>
-									<button class="form-control" style="background-color: #57102F; color: white; width: 100px; height: 110px;" @click="reviewInsert()">리뷰쓰기</button>
+										<textarea rows="4" cols="62" ref="review" v-model="review" class="form-control" style="width: 100%; resize: none; margin-right: 10px;"></textarea>
+										<button class="form-control" style="background-color: #57102F; color: white; width: 100px; height: 110px;" @click="reviewInsert()">리뷰쓰기</button>
 								</div>
 
 							</template>
@@ -362,7 +364,7 @@
 								<h3 class="fw-bold mb-0">&nbsp; "{{vo.makerkor}}" 의 다른 상품</h3>
 								<br>
 								<div class="owl-carousel vegetable-carousel justify-content-center">
-									<div class="border border-primary rounded position-relative vesitable-item otherWine" v-for="mk in otherMaker" :key="mk.wno" style="width: 250px;">
+									<div class="border rounded position-relative vesitable-item otherWine" v-for="mk in otherMaker" :key="mk.wno" style="width: 250px; border-color: #881824 !important">
 										<a :href="'../shop/detail.do?wno=' + mk.wno + '&page=' + 2">
 											<div style="width: 250px; height: 250px;">
 												<img :src="mk.poster" class="img-fluid rounded-top" alt="" style="width: 250px; height: 267px; padding: 24px 24px 0;">
@@ -389,7 +391,7 @@
 								<h3 class="fw-bold mb-0">&nbsp; "{{sellerName}}" 의 Top 5</h3>
 								<br>
 								<div class="owl-carousel vegetable-carousel justify-content-center" style="overflow-x: auto;">
-									<div class="border border-primary rounded position-relative vesitable-item otherWine" v-for="sl in otherSeller" :key="sl.wno" style="width: 250px;">
+									<div class="border rounded position-relative vesitable-item otherWine" v-for="sl in otherSeller" :key="sl.wno" style="width: 250px; border-color: #881824 !important">
 										<a :href="'../shop/detail.do?wno=' + sl.wno + '&page=' + 2">
 											<div style="width: 250px; height: 250px;">
 												<img :src="sl.poster" class="img-fluid rounded-top" alt="" style="width: 250px; height: 267px; padding: 24px 24px 0;">
@@ -483,6 +485,7 @@
 	            reviewCount: 0,
 	            likeCount: 0,
 	            Lcheck: 0,
+	            reviewCheck: 0,
 	            sellerName: ''
 	        }
 	    },
@@ -505,14 +508,15 @@
 	            this.otherMaker = response.data.otherMaker
 				this.otherSeller = response.data.otherSeller
 				this.reviewListData = response.data.reviewListData
-				this.reviewCount = response.data.reviewCount				
+				this.reviewCount = response.data.reviewCount		
 				console.log('reviewCount : ' + this.reviewCount)
+
 				this.count = response.data.count
 	            console.log('count : ' + this.count)
-// 	            if (this.sessionId !== ''){
-// 					this.Lcheck = response.data.Lcheck            	
-// 					console.log('Lcheck 값 : ' + this.Lcheck)
-// 	            }
+	            if (this.sessionId !== ''){
+					this.Lcheck = response.data.Lcheck            	
+					console.log('Lcheck 값 : ' + this.Lcheck)
+	            }
 	            this.likeCount = response.data.likeCount
 	            console.log('likeCount 값 : ' + this.likeCount)
 	            // Owl Carousel 초기화
@@ -527,6 +531,10 @@
 	                })
 	            })
 	            this.sellerName = response.data.sellerName
+	            if(this.sessionId !== ''){
+					this.reviewCheck = respnse.data.this.reviewCheck
+					console.log('reviewCheck : ' + this.reviewCheck)	            	
+	            }
 	        }).catch(error => {
 	            console.error('데이터 로드 오류:', error.response)
 	        })
@@ -545,8 +553,8 @@
 	    			console.log(response.data)	    			
 	    			console.log('보내는 값 : ' + this.wno)	    			
 		    		alert('좋아요 추가 완료!')
-	    			this.dataRecv()
 	    			this.Lcheck = response.data.Lcheck
+	    			this.dataRecv()
 	    		}).catch(error => {
 	    			console.log(error.response)
 	    		})	    		
@@ -563,8 +571,8 @@
 	    		}).then(response => {
 	    			console.log(response.data)
 		    		alert('좋아요 취소')
-	    			this.dataRecv()
 	    			this.Lcheck = response.data.Lcheck
+	    			this.dataRecv()
 	    		}).catch(error => {
 	    			console.log(error.response)
 	    		})
@@ -684,6 +692,11 @@
     				this.$refs.review.focus()
     				return
     			}
+    			if(this.reviewCheck !== 0){
+    				alert('리뷰는 한 번만 작성 가능합니다')
+    				this.review = ''
+    				return
+    			}
     			axios.post('../shop/review_insert.do',null,{
     				params:{
 						wno: this.wno,
@@ -695,12 +708,11 @@
 	   				 console.log('내용 : ' + this.review)	 
 	   				 console.log('별점 : ' + this.srating)	 
 	   				 this.review = ''
-	   				 alert('작성되었습니다')
-	   				 
+	   				 alert('작성되었습니다')	   				 
+	    			 this.dataRecv()	   				 
 			   }).catch(error=>{
 				     console.log(error.response)
 			   })
-    			this.dataRecv()
 	        },
 	        reviewDelete(wrvno){
 	        	axios.get('../shop/review_delete.do',{
@@ -715,10 +727,10 @@
 	        			alert('삭제 실패!')
 	        			console.log(response.data)
 	        		}
+		        	this.dataRecv()
 	        	}).catch(error => {
 	        		console.log(error.response)
 	        	})
-	        	this.dataRecv()
 	        },
 	        viewMore(){
 	        	this.count += 4
@@ -759,6 +771,7 @@
 			          this.Lcheck = response.data.Lcheck
 			          this.likeCount = response.data.likeCount
 			          this.sellerName = response.data.sellerName
+			          this.reviewCheck = response.data.reviewCheck
 		        }).catch(error => {
 		            console.error('데이터 로드 오류:', error.response)
 		        })

@@ -196,7 +196,7 @@ public class ShopServiceImpl implements ShopService{
 		// TODO Auto-generated method stub
 		return sdao.selectUsername(wno);
 	}
-	
+
 	
 	
 }

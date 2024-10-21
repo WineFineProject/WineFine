@@ -57,4 +57,10 @@ public class WineReviewServiceImpl implements WineReviewService{
 	public void wineScoreUpdate(int wno) {
 		wdao.wineScoreUpdate(wno);
 	}
+	
+	@Override
+	public int reviewCheck(int wno, String userid) {
+		// TODO Auto-generated method stub
+		return wdao.reviewCheck(wno, userid);
+	}
 }

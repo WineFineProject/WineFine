@@ -93,6 +93,7 @@ public class ShopRestController {
 		int likeCount = lservice.wineLikeCount(wno);
 		String sellerName = sservice.selectUsername (wno);
 
+		
 		String[] gnolink = {};
 		if (vo.getGrape() != null) {
 			gnolink = vo.getGrape().split(",");
@@ -115,10 +116,17 @@ public class ShopRestController {
 		map.put("likeCount", likeCount);
 		map.put("sellerName", sellerName);
 		
+		int reviewCheck = 0;
+		if(id != null) {	
+			reviewCheck =  wservice.reviewCheck(wno, id);
+		}
+		map.put("reviewCheck", reviewCheck);
+		
+		int Lcheck = 0;
 		if(id != null) {
-			int Lcheck = lservice.likeCheck(wno, id);
-			map.put("Lcheck", Lcheck);			
+			Lcheck = lservice.likeCheck(wno, id);
 		}		
+		map.put("Lcheck", Lcheck);			
 
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);

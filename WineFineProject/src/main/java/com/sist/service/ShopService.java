@@ -51,5 +51,7 @@ public interface ShopService {
 	public int myPaymentTotalPage(Map map);
 	public String selectUsername (int wno);
 
+
+
 	
 }
