@@ -505,7 +505,7 @@
 	            category: '배송관련',
 	            content: '',
 	            review: '',
-	            srating: 0,
+	            srating: 1,
 	            reviewListData: [],
 	            count: 4,
 	            isOn: false,

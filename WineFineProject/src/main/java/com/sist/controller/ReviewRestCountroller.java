@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.WineReviewServiceImpl;
 import com.sist.vo.WineReviewVO;
+import com.sist.vo.WineVO;
 
 import oracle.net.aso.l;
 
@@ -62,7 +63,8 @@ public class ReviewRestCountroller {
 	}
 	
 	@GetMapping(value = "mypage/myReviewDelete.do", produces = "text/plain;charset=UTF-8")
-	public void mypageReviewDelete(int wrvno, int wno) {
+	public void mypageReviewDelete(int wrvno, int wno, HttpSession session) {
+
 		wservice.mypageReviewDelete(wrvno);
 		wservice.wineScoreUpdate(wno);
 	}

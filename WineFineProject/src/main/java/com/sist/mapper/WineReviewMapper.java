@@ -24,7 +24,7 @@ public interface WineReviewMapper {
 	public int reviewTotalCount(int wno);
 //	삭제
 	@Delete("DELETE FROM wine_review "
-			+ "WHERE wno = #{wno} AND userid = #{userid} ")
+			+ "WHERE wrvno = #{wrvno}")
 	public void reviewDelete(WineReviewVO vo);
 	
 	public List<WineReviewVO> myReviewList(Map map);	

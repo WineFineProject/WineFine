@@ -154,7 +154,7 @@ public interface ShopMapper {
 	public void insertCart(Wine_CartVO vo);
 
 	@Update("UPDATE wine_cart SET "
-			+"account = account + #{account} "
+			+"account = account + #{account} , regdate = SYSDATE "
 	  	    +"WHERE wno=#{wno}")
 	public void wineCartAccountUpdate(Wine_CartVO vo);
 	
