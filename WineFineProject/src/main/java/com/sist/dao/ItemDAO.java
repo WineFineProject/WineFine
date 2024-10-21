@@ -1,6 +1,8 @@
 package com.sist.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,6 +14,7 @@ import com.sist.vo.MakerVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeBoardVO;
 import com.sist.vo.WineVO;
+import com.sist.vo.Wine_PaymentVO;
 
 @Repository
 public class ItemDAO {
@@ -106,4 +109,21 @@ public class ItemDAO {
 	 {
 		 return mapper.approvalCheckCount(id, state);				 
 	 }
+	 public List<Wine_PaymentVO> orderList(Map map)
+	 {
+		 return mapper.orderList(map);
+	 }
+	 public Map<String, BigDecimal> getOrderCounts(String userId)
+	 {
+		 return mapper.getOrderCounts(userId);
+	 }
+	 public void ordercancelUpdate(int wpno)
+	 {
+		 mapper.ordercancelUpdate(wpno);
+	 }
+	 public void ordereturnUpdate(int wpno)
+	 {
+		 mapper.ordereturnUpdate(wpno);
+	 }
+	 
 }

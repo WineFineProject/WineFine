@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.ItemMapper">
+	<resultMap type="com.sist.vo.Wine_PaymentVO" id="payMap">
+		<result property="wvo.namekor" column="namekor" />
+		<result property="wvo.price" column="price" />
+		<result property="wvo.seller" column="seller" />
+		<result property="dvo.name" column="name" />
+		<result property="dvo.post" column="post" />
+		<result property="dvo.addr1" column="addr1" />
+		<result property="dvo.addr2" column="addr2" />
+		<result property="dvo.msg" column="msg" />
+		<result property="mcvo.title" column="ctitle" />
+		<result property="mcvo.discount" column="cdiscount" />
+		<result property="svo.title" column="stitle" />
+		<result property="svo.discount" column="sdiscount" />
+	</resultMap>
+
+	<!-- 판매자 주문 조회 -->
+	<select id="orderList" parameterType="hashmap" resultMap="payMap">
+		SELECT wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,
+		namekor, price, seller, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, num
+		FROM (SELECT wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, regdate,
+		namekor, price, seller, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, rownum as num
+		FROM (SELECT wp.wpno, wp.wno, wp.account, wp.payment, wp.mipoint, wp.wdno, wp.mcno, wp.psno, wp.state, wp.userid, wp.regdate,
+		wvo.namekor, wvo.price, wvo.seller, dvo.name, dvo.post, dvo.addr1, dvo.addr2, dvo.msg, mcvo.title as ctitle, mcvo.discount as cdiscount, svo.title as stitle, svo.discount as sdiscount  
+		FROM wine_payment wp JOIN wine wvo ON wp.wno=wvo.wno
+		JOIN wine_delivery dvo ON wp.wdno=dvo.wdno
+		LEFT JOIN my_coupon mcvo ON wp.mcno=mcvo.mcno
+		LEFT JOIN promotion_sale svo ON wp.psno=svo.psno
+		WHERE wvo.seller=#{userId}
+		ORDER BY regdate DESC))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 판매자 주문 개수 -->
+	<select id="getOrderCounts" parameterType="hashmap" resultType="map">
+    SELECT 
+        COALESCE(SUM(CASE WHEN wp.state = 0 THEN 1 ELSE 0 END), 0) AS completed,
+	    COALESCE(SUM(CASE WHEN wp.state = 1 THEN 1 ELSE 0 END), 0) AS preparing,
+	    COALESCE(SUM(CASE WHEN wp.state = 2 THEN 1 ELSE 0 END), 0) AS delivering,
+	    COALESCE(SUM(CASE WHEN wp.state = 3 THEN 1 ELSE 0 END), 0) AS delivered,
+	    COALESCE(SUM(CASE WHEN wp.state = 7 THEN 1 ELSE 0 END), 0) AS returnRequested,
+	    COALESCE(SUM(CASE WHEN wp.state = 8 THEN 1 ELSE 0 END), 0) AS sellerCancelled,
+	    COALESCE(SUM(CASE WHEN wp.state = 9 THEN 1 ELSE 0 END), 0) AS returnCompleted,
+	    COUNT(wp.wno) AS totalCount                               
+    FROM wine_payment wp 
+    JOIN wine wvo ON wp.wno = wvo.wno 
+    WHERE wvo.seller = #{userId}
+</select>
+	<!-- 선택 상품 삭제 -->
 	<delete id="deleteItems" parameterType="java.util.List">
       DELETE FROM wine 
       WHERE wno IN 
@@ -8,6 +55,7 @@
         #{id}
       </foreach>
    </delete>
+   	<!-- 전체 상품 수정 -->
     <update id="updateItem" parameterType="WineVO">
         UPDATE wine
         SET 

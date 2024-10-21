@@ -1,6 +1,8 @@
 package com.sist.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import com.sist.vo.MakerVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeBoardVO;
 import com.sist.vo.WineVO;
+import com.sist.vo.Wine_PaymentVO;
 import com.sist.dao.*;
 
 @Service
@@ -149,6 +152,30 @@ public class ItemServiceImpl implements ItemService{
 	public int approvalCheckCount(String id, int state) {
 		// TODO Auto-generated method stub
 		return dao.approvalCheckCount(id, state);
+	}
+
+	@Override
+	public List<Wine_PaymentVO> orderList(Map map) {
+		// TODO Auto-generated method stub
+		return dao.orderList(map);
+	}
+
+	@Override
+	public Map<String, BigDecimal> getOrderCounts(String userId) {
+		// TODO Auto-generated method stub
+		return dao.getOrderCounts(userId);
+	}
+
+	@Override
+	public void ordercancelUpdate(int wpno) {
+		// TODO Auto-generated method stub
+		dao.ordercancelUpdate(wpno);
+	}
+
+	@Override
+	public void ordereturnUpdate(int wpno) {
+		// TODO Auto-generated method stub
+		dao.ordereturnUpdate(wpno);
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.sist.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.sist.vo.GrapeVO;
 import com.sist.vo.ItemNationVO;
@@ -8,6 +10,7 @@ import com.sist.vo.MakerVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeBoardVO;
 import com.sist.vo.WineVO;
+import com.sist.vo.Wine_PaymentVO;
 
 public interface ItemService {
 	public void wineItemInsert(WineVO vo);
@@ -32,4 +35,9 @@ public interface ItemService {
 	public String noticeWineName(int target);
 	public List<WineVO> approvalCheckList(String id, int state);
 	public int approvalCheckCount(String id, int state);
+	public List<Wine_PaymentVO> orderList(Map map);
+	public Map<String, BigDecimal> getOrderCounts(String userId);
+	public void ordercancelUpdate(int wpno);
+	public void ordereturnUpdate(int wpno);
+	 
 }

@@ -1,6 +1,8 @@
 package com.sist.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -126,4 +128,19 @@ public interface ItemMapper {
 	        + "WHERE num <= #{end} ")
 	public List<WineVO> sellerWineList(@Param("id") String id, @Param("end") int end);
 	
+	//판매자 주문 조회
+	public List<Wine_PaymentVO> orderList(Map map);
+	
+	// 판매자 주문 개수
+	public Map<String, BigDecimal> getOrderCounts(@Param("userId")String userId);
+	
+	// 판매자 주문 취소
+	@Update("UPDATE wine_payment SET state = 8 "
+	        + "WHERE wpno=#{wpno}")
+	public void ordercancelUpdate(int wpno);
+	
+	// 판매자 반품 승인
+	@Update("UPDATE wine_payment SET state = 9 "
+	        + "WHERE wpno=#{wpno}")
+	public void ordereturnUpdate(int wpno);
 }

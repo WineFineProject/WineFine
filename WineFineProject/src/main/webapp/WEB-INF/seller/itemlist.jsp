@@ -21,9 +21,14 @@
 	width: 10%;
 
 }
-
+.table th, .table td{
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+}
 .editable {
 	text-decoration: underline;
+	text-underline-position: under;
 	cursor: pointer;
 }
 .itemlistright{
@@ -32,12 +37,16 @@
 .itemlisttop{
 	margin-right: 5px;
 }
+.ilisttable
+{	
+	table-layout: fixed;
+	display: table-cell;
+}
 </style>
 </head>
 <body>
 	<div class="container" id="itemList">
-		<h3 class="text-center" style="width: 100%;">
-			&emsp;&emsp;상품 조회</h3>
+		<h3 class="text-center" style="width: 100%;">&emsp;&emsp;상품 조회</h3>
 		<div class="row">
 			<div class="itemlistright">
 				<select v-model="sortOrder" class="itemlisttop">
@@ -45,58 +54,65 @@
 					<option value="popular">인기순</option>
 				</select>
 				<button type="button" @click="dataRecv()" class="itemlisttop">조회</button>
-				<button type="button" class="itemlisttop allitem" @click="saveAllChanges">변경
-					내용 저장</button>
-				<button type="button" class="itemlisttop allitem" @click="deleteSelected()">선택
-					삭제</button>
+				<button type="button" class="itemlisttop allitem"
+					@click="saveAllChanges">변경 내용 저장</button>
+				<button type="button" class="itemlisttop allitem"
+					@click="deleteSelected()">선택 삭제</button>
 				<span style="width: 15%; float: left;">총 {{iCount}} 개</span>
 			</div>
-			<table class="table">
+			<table class="table ilisttable">
 				<tr>
-					<th>선택</th>
-					<th>상품번호</th>
-					<th colspan="2" class="text-center">상품명</th>
-					<th>정가</th>
-					<th>재고</th>
-					<th>배송</th>
-					<th>조회수</th>
-					<th>등록일</th>
-					<th>판매상태</th>
-					<th>판매자공지</th>
-					<th>수정/삭제</th>
+					<th width="5%">선택</th>
+					<th width="10%">상품번호</th>
+					<th colspan="2" class="text-center" width="25%">상품명</th>
+					<th width="10%">정가</th>
+					<th width="5%">재고</th>
+					<th width="10%">배송</th>
+					<th width="5%">조회수</th>
+					<th width="10%">등록일</th>
+					<th width="10%">판매상태</th>
+					<th width="5%">판매자공지</th>
+					<th width="5%">수정/삭제</th>
 				</tr>
 				<tr v-for="vo in iList" :key="vo.wno">
-					<td><input type="checkbox" v-model="vo.selected"></td>
-					<td>{{vo.wno}}</td>
-					<td><img :src="vo.poster" style="width: 40px; height: 60px">
+					<td width="5%"><input type="checkbox" v-model="vo.selected"></td>
+					<td width="10%">{{vo.wno}}</td>
+					<td width="5%">
+					<img :src="vo.poster" style="width: 40px; height: 60px"></td>
+					<td width="20%" class="editable ilistnamekor">
+					<input v-if="vo.isEditingName" v-model="vo.namekor" style="width:360px;"/> 
+					<span v-else @dblclick="vo.isEditingName = true" style="text-align: left;">{{ vo.namekor }}</span>
 					</td>
-					<td class="editable"><input v-if="vo.isEditingName"
-						v-model="vo.namekor" /> <span v-else
-						@dblclick="vo.isEditingName = true">{{ vo.namekor }}</span></td>
-					<td class="editable"><input v-if="vo.isEditingPrice"
-						v-model="vo.price" /> <span v-else
-						@dblclick="vo.isEditingPrice = true">{{ vo.price }}</span></td>
-					<td class="editable"><input v-if="vo.isEditingStack"
-						v-model="vo.stack" /> <span v-else
+					<td width="10%" class="editable">
+					<input v-if="vo.isEditingPrice" v-model="vo.price" style="max-width:80px;"/> 
+					<span v-else @dblclick="vo.isEditingPrice = true">{{ vo.price }}</span>
+					</td>
+					<td width="5%" class="editable">
+					<input v-if="vo.isEditingStack" v-model="vo.stack" style="max-width:35px;"/> 
+						
+					<span v-else
 						@dblclick="vo.isEditingStack = true">{{ vo.stack }}</span></td>
-					<td>기본배송</td>
-					<td>{{vo.hit}}</td>
-					<td>{{vo.dbday}}</td>
-					<td class="editable" @dblclick="enableEditState(vo)"><select
-						v-if="vo.isEditingState" v-model="vo.state">
+					<td width="10%">기본배송</td>
+					<td width="5%">{{vo.hit}}</td>
+					<td width="10%">{{vo.dbday}}</td>
+					<td width="10%" class="editable" @dblclick="enableEditState(vo)">
+					<select v-if="vo.isEditingState" v-model="vo.state" style="max-width:75px;">
 							<option value="1">판매중</option>
 							<option value="2">품절</option>
 							<option value="3">판매중단</option>
-					</select> <span v-else @dblclick="vo.isEditingState = true">
+					</select> 
+					<span v-else @dblclick="vo.isEditingState = true">
 							{{getStateLabel(vo.state) }}</span></td>
-					<td class="editable" @dblclick="enableEditNbno(vo)"><select
-						v-if="vo.isEditingNbno && getFilteredNList().length > 0"
-						v-model="vo.nbno">
+					<td width="5%" class="editable" @dblclick="enableEditNbno(vo)">
+					<select v-if="vo.isEditingNbno && getFilteredNList().length > 0"
+						v-model="vo.nbno" style="max-width:80px;">
 							<option v-for="nvo in getFilteredNList()" :key="nvo.nbno"
 								:value="nvo.nbno">{{ nvo.subject }}</option>
-					</select> <span v-else @dblclick="vo.isEditingNbno = true"> {{vo.nbno
-							}}</span></td>
-					<td><a :href="'edit.do?wno='+vo.wno" class="dbtn">수정</a>
+					    </select> 
+					<span v-else @dblclick="vo.isEditingNbno = true">
+							{{vo.nbno}}</span>
+					</td>
+					<td width="5%"><a :href="'edit.do?wno='+vo.wno" class="dbtn">수정</a>
 						<button type="button" v-on:click="itemDelete(vo)">삭제</button></td>
 				</tr>
 				<tr>
@@ -316,8 +332,7 @@
                             }
                         })
                         .catch(error => {
-                            console.error(error);
-                            alert("삭제 중 오류가 발생했습니다.")
+                            console.error(error)
                         })
                 	}
                 },
@@ -326,7 +341,7 @@
     					alert('첫 페이지 입니다')
     					return
     				}
-    			        this.curpage = this.startPage-1
+    				    this.startPage>10 ? this.curpage=this.startPage-1 : this.curpage=this.startPage
     			        this.dataRecv() 			    
     			},
     			next() {
@@ -334,8 +349,7 @@
     			        alert('마지막 페이지 입니다')
     			        return
     			    }
-    			    
-    			    this.curpage <= this.endPage ? this.curpage=this.endPage+1 : this.curpage=this.endPage
+    			    this.endPage+1<=this.totalpage? this.curpage=this.endPage+1 : this.curpage=this.endPage
     			    this.dataRecv()
     			},
   		  	pageChange(page){

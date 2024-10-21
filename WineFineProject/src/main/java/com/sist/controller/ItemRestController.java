@@ -1,10 +1,7 @@
 package com.sist.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,16 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.ItemService;
-import com.sist.vo.MakerVO;
-import com.sist.vo.MemberVO;
-import com.sist.vo.NoticeBoardVO;
-import com.sist.vo.WineVO;
-import com.sist.vo.BoardVO;
-import com.sist.vo.GrapeVO;
-import com.sist.vo.ItemNationVO;
+import com.sist.vo.*;
 
 @RestController
 public class ItemRestController {
@@ -233,5 +223,71 @@ public class ItemRestController {
 		String json = mapper.writeValueAsString(map);
 		
 		return json;
+	}
+	
+	@GetMapping(value = "seller/orderList_vue.do", produces = "text/plain;charset=UTF-8")
+	public String sellerOrderList(String id, int page) throws Exception {
+		
+		int rowSize=10;
+		int start=(rowSize*page)-(rowSize-1);
+		int end=rowSize*page;
+		
+		Map omap=new HashMap();
+		omap.put("userId", id);
+		omap.put("start", start);
+		omap.put("end", end);
+		
+		List<Wine_PaymentVO> oList= iService.orderList(omap);
+		Map<String, BigDecimal> orderCounts = iService.getOrderCounts(id);
+		System.out.println(orderCounts);
+		int totalCount = orderCounts.get("TOTALCOUNT").intValue();
+		int completed = orderCounts.get("COMPLETED").intValue();
+		int preparing = orderCounts.get("PREPARING").intValue();
+		int delivering = orderCounts.get("DELIVERING").intValue();
+		int delivered = orderCounts.get("DELIVERED").intValue();
+		int returnRequested = orderCounts.get("RETURNREQUESTED").intValue();
+		int sellerCancelled = orderCounts.get("SELLERCANCELLED").intValue();
+		int returnCompleted = orderCounts.get("RETURNCOMPLETED").intValue();
+		
+		final int BLOCK=10;
+		int totalpage = (int) Math.ceil((double) totalCount / rowSize);
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage = ((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(totalpage<endPage)
+			endPage=totalpage;
+		
+		Map map= new HashMap();
+		map.put("oList", oList);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("curpage",page);
+		map.put("totalpage", totalpage);
+		map.put("totalCount", totalCount);
+		map.put("completed", completed);
+		map.put("preparing", preparing);
+		map.put("delivering", delivering);
+		map.put("delivered", delivered);
+		map.put("returnRequested", returnRequested);
+		map.put("sellerCancelled", sellerCancelled);
+		map.put("returnCompleted", returnCompleted);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(map);
+		
+		return json;
+	}
+	@PostMapping(value = "seller/orderCancel_vue.do", produces = "text/plain;charset=UTF-8")
+	public String orderCancel(int wpno) {
+		String result="";
+		iService.ordercancelUpdate(wpno);
+		result="OK";
+		return result;
+	}
+	@PostMapping(value = "seller/orderReturnCheck_vue.do", produces = "text/plain;charset=UTF-8")
+	public String orderReturnCheck(int wpno) {
+		String result="";
+		iService.ordereturnUpdate(wpno);
+		result="OK";
+		return result;
 	}
 }
