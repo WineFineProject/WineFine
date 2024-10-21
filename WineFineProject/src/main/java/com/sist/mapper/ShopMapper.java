@@ -57,7 +57,7 @@ public interface ShopMapper {
 	public WineVO wineDetailData(int wno);
 
 //	���씤援щℓ �젙蹂�
-	@Select("SELECT wno, namekor, TO_NUMBER(REPLACE(REPLACE(price, '�썝', ''), ',', '')) AS price, poster, seller, type "
+	@Select("SELECT wno, namekor, TO_NUMBER(REPLACE(REPLACE(price, '원', ''), ',', '')) AS price, poster, seller, type "
 	        + "FROM wine "
 	        + "WHERE wno = #{wno}")
 	public WineVO winebuy(int wno);

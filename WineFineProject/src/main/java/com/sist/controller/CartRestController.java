@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sist.vo.CartVO;
 import com.sist.vo.WineVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.sist.dao.CartDAO;
 import com.sist.service.CartService;
 
@@ -31,12 +32,10 @@ public class CartRestController {
 		 if (id == null) {
 		        return "redirect:/member/login.do";
 		    }
-		List<CartVO> cartListData = cDao.cartListData(id);
 		
 		//WineVO wineData = cDao.getWine(wno);
 				
 		Map map = new HashMap();
-		map.put("list", cartListData);
 		//map.put("wine",wineData);
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -63,5 +62,28 @@ public class CartRestController {
 //		return cService.delCart(cno);
 //	}
 	
+	@GetMapping(value = "cart/vueMyCart.do",produces = "text/plain;charset=UTF-8")
+	public String cartVueMyCart(int page, HttpSession session) throws Exception{
+		String id=(String)session.getAttribute("userId");
+		int rowSize=10;
+	   int start=(rowSize*page)-(rowSize-1);
+	   int end=rowSize*page;
+		  
+	   Map map=new HashMap(); 
+	   map.put("userid", id);
+	   map.put("start", start);
+	   map.put("end", end);
+	   
+	   List<CartVO> list=cService.cartListData(map);
+	   int totalPage=cService.cartTotalPage(map);
+	   
+	   map=new HashMap();
+	   map.put("curPage", page);
+	   map.put("totalPage", totalPage);
+	   map.put("list", list);
+	   
+	   JsonMapper mapper=new JsonMapper();
+	   return mapper.writeValueAsString(map);
+	}
 	
 }	

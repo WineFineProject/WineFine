@@ -1,6 +1,7 @@
 package com.sist.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
@@ -22,10 +23,6 @@ public class CartDAO {
 		return mapper.addCart(vo);
 	}
 	
-	public List<CartVO> cartListData(String id){
-		return mapper.cartListData(id);
-	}	
-	
 	public WineVO getWine(int wno,int cno) {
 		return mapper.getWine(wno,cno);
 	}
@@ -41,5 +38,11 @@ public class CartDAO {
 	
 	public int myCartCount(String userId) {
 		return mapper.myCartCount(userId);
+	}
+	public List<CartVO> cartListData(Map map){
+		return mapper.cartListData(map);
+	}
+	public int cartTotalPage(Map map) {
+		return mapper.cartTotalPage(map);
 	}
 }

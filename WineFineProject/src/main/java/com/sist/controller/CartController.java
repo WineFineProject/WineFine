@@ -26,7 +26,7 @@ public class CartController {
 		if (id == null) {
 			return "redirect:/member/login.do";
 		}
-		return "cart/inMyCart";
+		return "cart/cartList";
 	}
 
 }
