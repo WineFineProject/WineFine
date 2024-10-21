@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.sist.mapper.*;
 import com.sist.vo.BoardReplyVO;
 import com.sist.vo.BoardVO;
+import com.sist.vo.Wine_ReportVO;
 
 @Repository
 public class BoardDAO {
@@ -134,8 +135,11 @@ public class BoardDAO {
 	 {
 		 mapper.boardReplyAllDelete(bno);
 	 }
-	 
-	 // noticeboard
+	 public void boardReportInsert (Wine_ReportVO vo)
+	 {
+		 mapper.boardReportInsert(vo);
+	 }
+// noticeboard
 	 public List<BoardVO> noticeboardListData(int start, int end)
 	 {
 		 return mapper.noticeboardListData(start, end);

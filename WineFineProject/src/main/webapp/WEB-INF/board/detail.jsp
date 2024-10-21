@@ -27,15 +27,24 @@
 	text-align: center;
 	margin-right:10px;
 }
+.boarddetailtop{
+	display: inline-block;
+}
+.breport{
+background-color: white;
+border: none; 
+font-family: 'OpenSans', sans-serif;
+}
 </style>
 </head>
 <body>
  <div class="container" id="bDetail">
      <h3 class="text-center">자유게시판</h3>
      <div class="detail-box">
-          <span v-if="vo.cno==4">&nbsp;[일반]&nbsp;</span>
-          <span v-if="vo.cno==5">&nbsp;[이벤트]&nbsp;</span>
-          <span v-if="vo.cno==6">&nbsp;[상품]&nbsp;</span>
+          <span v-if="vo.cno==1" class="boardetailtop">&nbsp;[자유]&nbsp;</span>
+          <span v-if="vo.cno==2" class="boardetailtop">&nbsp;[정보]&nbsp;</span>
+          <span v-if="vo.cno==3" class="boardetailtop">&nbsp;[질문]&nbsp;</span>
+          <button v-if="id!==''" @click="changeModal(true, vo, 1)" type="button" class="boardetailtop breport" style="float:right;">신고</button>
         <h2 class="post-title">{{vo.subject}}</h2>
            <span class="author-name">{{vo.nickname}}</span>
            <span class="meta-separator">|</span>
@@ -71,11 +80,11 @@
      	<tr class="text-left" style="border-bottom-color: white; border-top-color: white;">
      		<td colspan="2" v-if="rvo.depth===1" style="color:black; font-weight: bold; ">{{rvo.nickname}}</td>
      		<td v-if="rvo.depth===1 && id!==''">
-     		<button @click="changeModal(true, rvo)" type="button" style="background-color: white;border: none; font-family: 'OpenSans', sans-serif;">신고</button>
+     		<button v-if="id!==''" @click="changeModal(true, rvo, 2)" type="button" class="breport">신고</button>
      	</td>
      		<td colspan="2" v-if="rvo.depth===2" style="color:black; font-weight: bold; margin-left: 15px;">⤷&nbsp;{{rvo.nickname}}</td>
      		<td v-if="rvo.depth===2 && id!==''">
-     		<button @click="changeModal(true, rvo)" type="button" style="background-color: white;border: none; font-family: 'OpenSans', sans-serif;">신고</button>
+     		<button v-if="id!==''" @click="changeModal(true, rvo, 2)" type="button" class="breport">신고</button>
      		</td>
      	</tr>
      	<tr class="text-left" style="border-color: white;">
@@ -117,28 +126,34 @@
 				<span class="close" @click="changeModal(false)">&times;</span>
 				<table class="table" style="margin-top: 50px;">
 					<tr>
-						<td hidden>{{selectedreply.brno}}</td>
 						<td hidden>{{vo.dbday}}</td>
+						<td hidden></td>
 					<tr>
-					<tr>
-						<th width="30%">신고 댓글 내용:</th>
-						<td width="70%">{{selectedreply.msg}}</td>
-					</tr>
 					<tr>
 						<th width="30%">신고자 ID : </th>
 						<td width="70%">{{id}}</td>
 					</tr>
 					<tr>
 						<th width="30%">신고대상 ID : </th>
-						<td width="70%">{{selectedreply.id}}</td>
+						<td width="70%">{{type === 1 ? vo.id : rvo.id}}</td>
 					</tr>
 					<tr>
 						<th width="30%">신고 사유:</th>
+						<td width="70%">
+						<select v-model="brrcategory">
+							<option value="욕설/비방">욕설/비방</option>
+							<option value="홍보/도배">홍보/도배</option>
+							<option value="부적절한 내용">부적절한 내용</option>
+						</select>
+						</td>
+					</tr>
+					<tr>
+						<th width="30%">상세 사유:</th>
 						<td width="70%"><textarea rows="2" cols="30"  v-model="brrcontent" style="width: 100%; resize: none;"></textarea>
 					</tr>
 					<tr>
 						<td colspan="2" class="rmbtn">
-							<button type="button" class="rmbtn btn-sm btn-danger" @click="">접수</button>
+							<button type="button" class="rmbtn btn-sm btn-danger" @click="insertrreport()">접수</button>
 							<button type="button" class="rmbtn btn-sm btn-secondary" @click="changeModal(false)">취소</button>
 						</td>
 					</tr>
@@ -159,6 +174,8 @@
     			bno:${bno},
     			brno:0,
     			sbrno:0,
+    			tno:0,
+    			rid:'',
     			nickname:'${sessionScope.nickName}',
     			root:'',
     			isEditing:false,
@@ -167,8 +184,9 @@
     			showModal:false,
     			selectedreply:{},
     			brrcontent:'',
+    			type:0,
+    			brrcategory:"",
      			id:'${sessionScope.userId}'
-    			
     		}
     	},
     	mounted(){
@@ -192,28 +210,39 @@
     		this.replyRead()
     	},
     	methods:{
-            	changeModal(check, report=null){
+            	changeModal(check, report=null, reportType){
     				this.showModal=check
     				if (report) {
-    			        this.selectedreply = report
+    			        this.type=reportType
+    			        if (reportType === 1) { 
+    			            this.vo = report
+    			        } else if (reportType === 2) { 
+    			            this.rvo = report
+    			        }
     			    }
     			},
     			insertrreport(){
     				if(this.brrcontent==="")
     				  {
-    					 alert("신고 사유를 입력해주세요")
+    					 alert("신고 상세 사유를 입력해주세요")
     					  return
     				  }
-    				axios.post('../board/rreport_Insert.do', null, {
+    				this.tno = (this.type === 1) ? this.vo.bno : this.rvo.brno
+    				this.rid = (this.type === 1) ? this.vo.id : this.rvo.id
+    				axios.post('../board/breport_insert.do', null, {
     					params:{
-    						tno:this.sbrno,
-    						sendid:sessionScope.id,
-    						recvid:this.id,
+    						type:this.type,
+    						tno: this.tno,
+    						userid:this.id,
+    						category:this.brrcategory,
+    						rid:this.rid,
     						content:this.brrcontent
     					}
     				}).then(response=>{
-    					alert('댓글 신고 접수완료')
+    					alert('신고 접수완료')
     					this.changeModal(false)
+    					this.brrcontent = ""
+    			        this.brrcategory = ""
     				})
     			},
           	toggleReplyInput(rvo) {

@@ -176,6 +176,11 @@ public class BoardServiceImpl implements BoardService{
 		dao.boardReplyAllDelete(bno);
 	}
 
+	@Override
+	public void boardReportInsert(Wine_ReportVO vo) {
+		// TODO Auto-generated method stub
+		dao.boardReportInsert(vo);
+	}
 
 
 //noticboard
