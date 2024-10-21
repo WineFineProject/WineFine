@@ -112,4 +112,7 @@ public interface MemberMapper {
 	//최근 로그인
 	@Update("UPDATE wine_member SET lastlogin=sysdate WHERE userId=#{userId}")
 	public void memberLastLogin(String userId);
+	
+	@Insert("INSERT INTO wine_visit VALUES((SELECT NVL(MAX(vno)+1, 1) FROM wine_visit), sysdate)")
+	public void visitCheck();
 }

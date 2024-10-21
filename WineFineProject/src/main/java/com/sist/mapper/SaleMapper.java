@@ -7,15 +7,15 @@ import com.sist.vo.*;
 import java.util.*;
 
 public interface SaleMapper {
-	// ÇÒÀÎÇÁ·Î¸ð¼Ç µî·Ï
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¸ï¿½ï¿½ ï¿½ï¿½ï¿½
 	@Insert("INSERT INTO promotion_sale VALUES((SELECT NVL(MAX(psno)+1, 1) FROM promotion_sale), #{title}, #{userid}, #{discount}, #{type}, #{target}, #{startDay}, #{endDay}, #{state})")
 	public void promotionSaleInput(PromotionSaleVO vo);
 	
-	// ÇÁ·Î¸ð¼Ç ½ÂÀÎ
+	// ï¿½ï¿½ï¿½Î¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@Update("UPDATE promotion_sale SET state=1 WHERE psno=#{psno}")
 	public void promotionApproval(int psno);
 	
-	// ÇÁ·Î¸ð¼Ç °ÅÀý
+	// ï¿½ï¿½ï¿½Î¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@Update("UPDATE promotion_sale SET state=2 WHERE psno=#{psno}")
 	public void promotionRejection(int psno);
 	
@@ -24,4 +24,7 @@ public interface SaleMapper {
 	public List<PromotionSaleVO> saleActiveList(String id);
 	
 	public List<PromotionSaleVO> sellerSaleActiveList(String id);	
+	
+	@Update("UPDATE promotion_sale SET state=9 WHERE enddate<sysdate")
+	public void promotionSaleEndUpdate();
 }

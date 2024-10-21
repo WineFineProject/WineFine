@@ -98,4 +98,8 @@ public class MemberServiceImpl implements MemberService{
 		dao.gradeDecrement(userId);
 	}
 	
+	@Override
+	public void visitCheck() {
+		dao.visitCheck();
+	}
 }

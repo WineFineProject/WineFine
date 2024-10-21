@@ -28,7 +28,7 @@ public class AdminRestController {
 	@GetMapping(value = "admin/vueCouponList.do", produces = "text/plain;charset=UTF-8")
 	public String adminVueCouponList() throws Exception{
 		Map map=new HashMap();
-		List<PromotionCouponVO> waitCoupon=cService.promotionWaitList("");
+		List<PromotionCouponVO> waitCoupon=cService.promotionWaitList();
 		List<PromotionCouponVO> activeCoupon=cService.promotionActiveList("");
 		for(PromotionCouponVO vo:activeCoupon) {
 			if(vo.getType()==1) {
@@ -93,7 +93,7 @@ public class AdminRestController {
 		List<PromotionSaleVO> activeSale=sService.saleActiveList("");
 		for(PromotionSaleVO vo:activeSale) {
 			if(vo.getType()==1) {
-				vo.setTargetname("��ü");
+				vo.setTargetname("전체");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);
@@ -104,7 +104,7 @@ public class AdminRestController {
 		}
 		for(PromotionSaleVO vo:waitSale) {
 			if(vo.getType()==1) {
-				vo.setTargetname("��ü");
+				vo.setTargetname("전체");
 			}
 			else if(vo.getType()==2) {
 				vo.setTargetname(types[vo.getType()]);

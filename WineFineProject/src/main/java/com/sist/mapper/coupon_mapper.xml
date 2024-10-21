@@ -32,8 +32,8 @@
 		state=1 ORDER BY discount DESC
 	</select>
 
-	<!-- 승인 대기 쿠폰 목록 -->
-	<select id="promotionWaitList" parameterType="String" resultMap="PromotionCouponMap">
+	<!-- 판매자 승인 대기 쿠폰 목록 -->
+	<select id="sellerPromotionWaitList" parameterType="String" resultMap="PromotionCouponMap">
 		SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate,
 		'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay,
 		CASE
@@ -43,7 +43,21 @@
 		END as namekor,
 		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
 		FROM promotion_coupon WHERE
-		enddate>sysdate AND state=0 AND userid LIKE '%'||#{id}||'%'
+		enddate>sysdate AND state=0 AND userid =#{id}
+	</select>
+	
+	<!-- 관리자 승인대기 쿠폰 목록 -->
+	<select id="promotionWaitList" resultMap="PromotionCouponMap">
+		SELECT pcno, title, userid, discount, type, target, TO_CHAR(startdate,
+		'YYYY-MM-DD') as startDay, TO_CHAR(enddate, 'YYYY-MM-DD') as endDay,
+		CASE
+		WHEN type = 3 THEN (SELECT namekor FROM wine WHERE wine.wno = target)
+		ELSE
+		NULL
+		END as namekor,
+		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
+		FROM promotion_coupon WHERE
+		enddate>sysdate AND state=0
 	</select>
 
 	<!-- 진행 중인 쿠폰 -->
@@ -71,7 +85,7 @@
 		END as namekor,
 		(SELECT nickname FROM wine_member WHERE promotion_coupon.userid=wine_member.userid) as nickName
 		FROM promotion_coupon WHERE
-		state=1 AND userid LIKE '%'||#{id}||'%' AND sysdate BETWEEN startDate AND endDate
+		state=1 AND userid =#{id} AND sysdate BETWEEN startDate AND endDate
 	</select>
 
 	<!-- mypage 쿠폰 수령 -->

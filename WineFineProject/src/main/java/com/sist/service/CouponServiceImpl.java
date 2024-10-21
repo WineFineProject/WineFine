@@ -31,8 +31,8 @@ public class CouponServiceImpl implements CouponService{
 		return dao.promotionActiveList(id);
 	}
 	@Override
-	public List<PromotionCouponVO> promotionWaitList(String id) {
-		return dao.promotionWaitList(id);
+	public List<PromotionCouponVO> promotionWaitList() {
+		return dao.promotionWaitList();
 	}
 	@Override
 	public void promotionApproval(int pcno) {
@@ -49,5 +49,14 @@ public class CouponServiceImpl implements CouponService{
 	@Override
 	public List<PromotionCouponVO> sellerPromotionActiveList(String id) {
 		return dao.sellerPromotionActiveList(id);
+	}
+	
+	@Override
+	public List<PromotionCouponVO> sellerPromotionWaitList(String id) {
+		return dao.sellerPromotionWaitList(id);
+	}
+	@Override
+	public void promotionCouponEndUpdate() {
+		dao.promotionCouponEndUpdate();
 	}
 }

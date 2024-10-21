@@ -34,4 +34,8 @@ public class SaleDAO {
 	public List<PromotionSaleVO> sellerSaleActiveList(String id) {
 		return mapper.sellerSaleActiveList(id);
 	}
+	
+	public void promotionSaleEndUpdate() {
+		mapper.promotionSaleEndUpdate();
+	}
 }

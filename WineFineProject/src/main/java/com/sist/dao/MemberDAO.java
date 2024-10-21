@@ -103,4 +103,8 @@ public class MemberDAO {
   public void memberLastLogin(String userId) {
   	mapper.memberLastLogin(userId);
   }
+  
+  public void visitCheck() {
+  	mapper.visitCheck();
+  }
 }

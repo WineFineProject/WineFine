@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.CouponMapper;
+import com.sist.mapper.SaleMapper;
 import com.sist.vo.*;
 
 @Repository
@@ -26,8 +27,8 @@ public class CouponDAO {
 		mapper.getCoupon(vo);
 	}
 	
-	public List<PromotionCouponVO> promotionWaitList(String id){
-		return mapper.promotionWaitList(id);
+	public List<PromotionCouponVO> promotionWaitList(){
+		return mapper.promotionWaitList();
 	}
 	
 	public List<PromotionCouponVO> promotionActiveList(String id){
@@ -48,5 +49,13 @@ public class CouponDAO {
 
 	public List<PromotionCouponVO> sellerPromotionActiveList(String id){
 		return mapper.sellerPromotionActiveList(id);
+	}
+	
+	public List<PromotionCouponVO> sellerPromotionWaitList(String id){
+		return mapper.sellerPromotionWaitList(id);
+	}
+	
+	public void promotionCouponEndUpdate() {
+		mapper.promotionCouponEndUpdate();
 	}
 }

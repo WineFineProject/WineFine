@@ -12,7 +12,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.*;
 import com.sist.manager.NaverNewsManager;
 import com.sist.service.BannerService;
+import com.sist.service.CouponService;
 import com.sist.service.InformationService;
+import com.sist.service.MemberService;
+import com.sist.service.SaleService;
 import com.sist.service.ShopService;
 import com.sist.vo.*;
 
@@ -28,6 +31,7 @@ public class MainRestController {
 	private ShopService sService;
 	@Autowired
 	private InformationService iService;
+
 	private String[] keyword= {"와인", "레드와인", "화이트와인"};
 	@GetMapping(value = "main/list.do", produces = "text/plain;charset=UTF-8")
 	public String mainList(int page, @RequestParam Map params) {
@@ -125,4 +129,6 @@ public class MainRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(map);
 	}
+	
+	
 }

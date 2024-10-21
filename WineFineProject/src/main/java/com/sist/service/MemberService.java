@@ -27,4 +27,5 @@ public interface MemberService {
     public void memberLastLogin(String userId);
     public void gradeIncrement(String userId);
     public void gradeDecrement(String userId);
+    public void visitCheck();
 }

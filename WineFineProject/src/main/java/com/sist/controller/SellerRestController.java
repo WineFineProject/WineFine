@@ -34,6 +34,8 @@ public class SellerRestController {
 		String id = (String) session.getAttribute("userId");
 		map.put("fd", fd);
 		map.put("id", id);
+		System.out.println(id);
+		System.out.println(fd);
 		List<WineVO> list = sService.wineFindList(map);
 		JsonMapper mapper = new JsonMapper();
 		String json = mapper.writeValueAsString(list);
@@ -50,13 +52,13 @@ public class SellerRestController {
 	public String sellerVueCouponList(HttpSession session) throws Exception {
 		Map map = new HashMap();
 		String id = (String) session.getAttribute("userId");
-		List<PromotionCouponVO> waitCoupon = cService.promotionWaitList(id);
+		List<PromotionCouponVO> waitCoupon = cService.sellerPromotionWaitList(id);
 		List<PromotionCouponVO> activeCoupon = cService.sellerPromotionActiveList(id);
 		for (PromotionCouponVO vo : activeCoupon) {
 			if (vo.getType() == 1) {
 				vo.setTargetname("전체");
 			} else if (vo.getType() == 2) {
-				vo.setTargetname(types[vo.getType()]);
+				vo.setTargetname(types[vo.getTarget()]);
 			} else if (vo.getType() == 3) {
 				vo.setTargetname(vo.getWvo().getNamekor());
 			}
@@ -65,7 +67,7 @@ public class SellerRestController {
 			if (vo.getType() == 1) {
 				vo.setTargetname("전체");
 			} else if (vo.getType() == 2) {
-				vo.setTargetname(types[vo.getType()]);
+				vo.setTargetname(types[vo.getTarget()]);
 			} else if (vo.getType() == 3) {
 				vo.setTargetname(vo.getWvo().getNamekor());
 			}

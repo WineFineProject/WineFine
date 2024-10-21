@@ -36,4 +36,8 @@ public class SaleServiceImpl implements SaleService{
 	public List<PromotionSaleVO> sellerSaleActiveList(String id) {
 		return dao.sellerSaleActiveList(id);
 	}
+	@Override
+	public void promotionSaleEndUpdate() {
+		dao.promotionSaleEndUpdate();
+	}
 }
