@@ -61,7 +61,7 @@
                     <option value="0">제목</option>
                     <option value="1">작성자</option>
             </select>
-          <input type=text size=20 v-model="find" ref="find" class="form-control" placeholder="검색어를 입력해주세요" style="width: 50%; display: inline-block; margin-right:5px;">
+          <input type=text size=20 v-model="find" ref="find" class="form-control" placeholder="검색어를 입력해주세요" style="width: 50%; display: inline-block; margin-right:5px;" @keyup.enter="findboard">
           <input type="button" value="검색" class="ctbtn form-control" @click="findboard()">
     	 </td>
         </tr>
@@ -167,27 +167,59 @@
     			})
     		},
     		 findboard() {
-    			localStorage.setItem('isSearch', this.isSearch);
-    		    localStorage.setItem('find', this.find.trim());
-    		    localStorage.setItem('type', this.type);
-    		    location.href = "../board/find.do";
+    			this.curpage=1
+  				this.finddataRecv()
+    	    },
+    	    finddataRecv() {
+    	        axios.get('../board/find_vue.do', {
+    	            params: {
+    	                page: this.curpage,
+    	                type: this.type,
+    	                find: this.find,
+    	                isSearch: this.isSearch
+    	            }
+    	        }).then(response => {
+    	            this.list = response.data.list
+    	            this.cList = response.data.cList
+    	            this.curpage = response.data.curpage
+    	            this.startPage = response.data.startPage
+    	            this.endPage = response.data.endPage
+    	        }).catch(error => {
+    	            console.log(error.response)
+    	        })
     	    },
     		typeChange(type){
     			this.curpage=1
     			this.type=type
-    			this.dataRecv()
+    			 if (this.find.trim() !== "") {
+    			        this.finddataRecv()
+    			    } else {
+    			        this.dataRecv()
+    			    }
     		},
     	   prev(){
  			   this.curpage=this.curpage>1?this.curpage-1:this.curpage
- 			   this.dataRecv()
+ 					  if (this.find.trim() !== "") {
+ 	    			        this.finddataRecv()
+ 	    			    } else {
+ 	    			        this.dataRecv()
+ 	    			    }
  		   },
  		   next(){
  			   this.curpage=this.curpage<this.endPage?this.curpage+1:this.curpage
- 			   this.dataRecv()
+ 					  if (this.find.trim() !== "") {
+ 	    			        this.finddataRecv()
+ 	    			    } else {
+ 	    			        this.dataRecv()
+ 	    			    }
  		   },
  		  	pageChange(page){
  			   	 this.curpage=page
- 	 			 this.dataRecv()
+ 			   	if (this.find.trim() !== "") {
+			        this.finddataRecv()
+			    } else {
+			        this.dataRecv()
+			    }
  	 		},
  	 		 range(start,end){
  	 			 let arr=[]

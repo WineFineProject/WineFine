@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sist.vo.BoardReplyVO;
 import com.sist.vo.BoardVO;
+import com.sist.vo.Wine_ReportVO;
 
 public interface BoardService {
 	public List<BoardVO> boardListData(int start, int end);
@@ -34,6 +35,7 @@ public interface BoardService {
 	public void boardReplyDelete(int brno);
 	public void boardRepliesDelete(int brno);
 	public void boardReplyAllDelete(int bno);
+	public void boardReportInsert (Wine_ReportVO vo);
 	
 	public List<BoardVO> noticeboardListData(int start, int end);
 	public List<BoardVO> noticeboardTypeListData(int cno, int start, int end);

@@ -364,25 +364,16 @@ public class BoardRestController {
 	}
 
 	@PostMapping(value="board/reply_insert_vue.do",produces = "text/plain;charset=UTF-8")
-	public String reply_insert(BoardReplyVO vo,HttpSession session) throws Exception
+	public String reply_insert(BoardReplyVO vo) throws Exception
 	{
-		//String id=(String)session.getAttribute("id");
-		// String nickname=(String)session.getAttribute("nickname");
-		//vo.setId(id);
-		//vo.setNickame(nickname);
 		bService.boardReplyInsert(vo);
 
 		return boardReply_list(vo.getBno());
 	}
 
 	@PostMapping(value="board/reReply_insert_vue.do",produces = "text/plain;charset=UTF-8")
-	public String rereply_insert(BoardReplyVO vo, HttpSession session) throws Exception
-	{
-		//String id=(String)session.getAttribute("id");
-		// String nickname=(String)session.getAttribute("nickname");
-		//vo.setId(id);
-		//vo.setNickname(nickname);
-		
+	public String rereply_insert(BoardReplyVO vo) throws Exception
+	{		
 			bService.boardReReplyInsert(vo);
 		
 		return boardReply_list(vo.getBno());
@@ -414,7 +405,15 @@ public class BoardRestController {
 		bService.boardReplyUpdate(vo);
 		return boardReply_list(bno);
 	}
-
+	@PostMapping(value="board/breport_insert.do",produces = "text/plain;charset=UTF-8")
+	public String breport_insert (Wine_ReportVO vo) throws Exception
+	{
+		String result="";
+		bService.boardReportInsert(vo);		
+		result="OK";
+		return result;
+	}
+	
 	//noticeboard
 	@GetMapping(value="noticeboard/list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String noticeboard_list(int page, Integer type) throws Exception

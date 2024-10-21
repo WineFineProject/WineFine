@@ -128,7 +128,7 @@ public class ItemRestController {
 		map.put("curpage",page);
 		map.put("startPage", startPage);
 		map.put("endPage", endPage);
-		System.out.println(endPage);
+		map.put("totalpage", totalpage);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);

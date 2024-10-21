@@ -176,6 +176,12 @@ public interface BoardMapper {
 			 +"WHERE bno=#{bno}")
 	 public void boardReplyAllDelete(int bno);
 	 
+	 //신고 등록
+      @Insert("INSERT INTO wine_report (WRENO, USERID, TYPE, TNO, RID, REGDATE, CONTENT, CATEGORY) "
+      		+ "VALUES (wre_wreno_seq.nextval, #{userid}, #{type}, "
+      		+ " #{tno}, #{rid}, SYSDATE, #{content}, #{category}) ")
+      		public void boardReportInsert (Wine_ReportVO vo);
+	 
 //noticeboard
 	// 전체 게시글 목록
 		@Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, num "
