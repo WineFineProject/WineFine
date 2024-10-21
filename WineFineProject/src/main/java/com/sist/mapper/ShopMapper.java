@@ -15,33 +15,37 @@ public interface ShopMapper {
 	WNO NAMEKOR NAMEENG TYPE PRICE VOL SUGAR ACID BODY TANNIN AROMA FOOD
 	MAKER NATION GRAPE ALCOHOL SELLER STACK SCORE HIT REGDATE LIKECOUNT POSTER STATE
 	 */
-//	와인 리스트
+//	와인 총 갯수
+	@Select("SELECT COUNT(*) "
+			+ "FROM wine")
+	public int wineCount();
+//	���씤 由ъ뒪�듃
 	@Select("SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, num "
 	        + "FROM (SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, rownum as num "
 	        + "FROM (SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster "
 	        + "FROM wine ORDER BY wno ASC, state DESC)) "
 	        + "WHERE num BETWEEN #{start} AND #{end}")
 	public List<WineVO> wineListData(@Param("start")int start,@Param("end")int end);
-//	총 페이지
+//	珥� �럹�씠吏�
 	@Select("SELECT CEIL(COUNT(*)/12.0) FROM wine")
 	public int shopTotalPage();
 	
-//	조회수
+//	議고쉶�닔
 	@Update("UPDATE wine SET "
 			+ "hit=hit+1 "
 			+ "WHERE wno=#{wno} ")
 	public void hitIncrement(int wno);
 	
-//  포도명
+//  �룷�룄紐�
 	@Select("SELECT namekor FROM grape WHERE (SELECT grape FROM wine WHERE wno = #{wno}) LIKE '%'||no||'%' ")
 	public List<String> grapeName(int wno);
 
-//	나라명
+//	�굹�씪紐�
 	@Select("SELECT namekor FROM nation WHERE (SELECT nation FROM wine WHERE wno = #{wno}) LIKE '%'||no||'%' ")
 	public List<String> nationName(int wno); 
 
 	
-//	와인 상세보기
+//	���씤 �긽�꽭蹂닿린
 	@Select("SELECT w.wno, w.vol, w.type, w.tannin, w.sugar, w.state, w.stack, "
 	        + "w.seller, w.score, w.regdate, w.price, w.poster, w.nation, "
 	        + "w.namekor, w.nameeng, w.maker, w.likecount, w.hit, w.grape, "
@@ -52,14 +56,14 @@ public interface ShopMapper {
 	        + "WHERE w.wno = #{wno}")
 	public WineVO wineDetailData(int wno);
 
-//	와인구매 정보
-	@Select("SELECT wno, namekor, TO_NUMBER(REPLACE(REPLACE(price, '원', ''), ',', '')) AS price, poster, seller, type "
+//	���씤援щℓ �젙蹂�
+	@Select("SELECT wno, namekor, TO_NUMBER(REPLACE(REPLACE(price, '�썝', ''), ',', '')) AS price, poster, seller, type "
 	        + "FROM wine "
 	        + "WHERE wno = #{wno}")
 	public WineVO winebuy(int wno);
 
 	
-//	사용 가능 쿠폰 가져오기
+//	�궗�슜 媛��뒫 荑좏룿 媛��졇�삤湲�
 	@Select("SELECT mcno, title, discount, TO_CHAR(enddate,'YYYY-MM-DD') as endDay "
 	        + "FROM my_coupon  "
 	        + "WHERE recvid = #{id} "
@@ -67,7 +71,7 @@ public interface ShopMapper {
 	        + "AND SYSDATE BETWEEN startdate AND enddate ")
 	public List<MyCouponVO> selectCoupon(String id);
 	
-//	프로모션 세일
+//	�봽濡쒕え�뀡 �꽭�씪
 	@Select("WITH filtered_promotion_sale AS ( "
 			+ "  SELECT * "
 			+ "  FROM promotion_sale "
@@ -84,7 +88,7 @@ public interface ShopMapper {
 			+ "FETCH FIRST 1 ROWS ONLY ")
 	public List<PromotionSaleVO> promotionGetSale(Map map);
 	
-//	같은 생산자
+//	媛숈� �깮�궛�옄
 	@Select("SELECT wno, type, namekor, price, vol, poster, hit "
 	        + "FROM (SELECT wno, type, namekor, price, vol, poster, hit "
 	        + "      FROM wine "
@@ -93,7 +97,7 @@ public interface ShopMapper {
 	        + "WHERE ROWNUM <= 5")
 	public List<WineVO> otherWine_maker(int wno);
 	
-//	같은 판매자 
+//	媛숈� �뙋留ㅼ옄 
 	@Select("SELECT wno, type, namekor, price, vol, poster, hit "
 	        + "FROM (SELECT wno, type, namekor, price, vol, poster, hit "
 	        + "      FROM wine "
@@ -102,49 +106,49 @@ public interface ShopMapper {
 	        + "WHERE ROWNUM <= 5")
 	public List<WineVO> otherWine_seller(int wno);
 
-//	포인트 가져오기
+//	�룷�씤�듃 媛��졇�삤湲�
 	@Select("SELECT point "
 			+ "FROM wine_member "
 			+ "WHERE userid = #{id}")
 	public String getPoint(String id);
 	
-//	회원등급 가져오기
+//	�쉶�썝�벑湲� 媛��졇�삤湲�
 	@Select("SELECT grade "
 			+ "FROM wine_member "
 			+ "WHERE userid = #{id}")
 	public String getgrade(String id);
 	
-//	배송지 
+//	諛곗넚吏� 
 	@Select("SELECT * "
 			+ "FROM wine_delivery "
 			+ "WHERE userid = #{id} "
 			+ "ORDER BY state DESC ")
 	public List<DeliveryVO> getDeli(String id);	
 	
-//	배송지 추가하기
-//	INSERT INTO wine_delivery VALUES ('5','풍성빌딩', 'ping', '01016','서울 강북구 4.19로21길 4', '1212', '1212', 0);
+//	諛곗넚吏� 異붽��븯湲�
+//	INSERT INTO wine_delivery VALUES ('5','�뭾�꽦鍮뚮뵫', 'ping', '01016','�꽌�슱 媛뺣턿援� 4.19濡�21湲� 4', '1212', '1212', 0);
 	@Insert("INSERT INTO wine_delivery (name, userid, post, addr1, addr2, msg, status) VALUES (#{name}, #{userid}, #{post}, #{addr1}, #{addr2}, #{msg}, 0) ")
 	public void addDeli(DeliveryVO vo);
 	
-//	사용 적립금 차감하기
+//	�궗�슜 �쟻由쎄툑 李④컧�븯湲�
 	@Update("UPDATE wine_member SET "
 			+ "point = point - #{mipoint} "
 			+ "WHERE userid = #{userId} ")
 	public void usePoint (MemberVO vo);
 	
-//	결제 적립금 추가하기
+//	寃곗젣 �쟻由쎄툑 異붽��븯湲�
 	@Update("UPDATE wine_member "
 	        + "SET point = point + #{plpoint} "
 	        + "WHERE userid = #{userId} ")
 	public void plusPoint(MemberVO vo);
 	
-//	쿠폰 사용
+//	荑좏룿 �궗�슜
 	@Update("UPDATE my_coupon "
 			+ "SET state = 0 "
 			+ "WHERE mcno = #{mcno} ")
 	public void useCoupon(MyCouponVO vo);
 	
-//	장바구니 저장
+//	�옣諛붽뎄�땲 ���옣
 	@Insert("INSERT INTO wine_cart (cno, wno, userid, account, regdate) "
 	        + "VALUES (wc_cno_seq.nextval, #{wno}, #{userid}, #{account}, SYSDATE)")
 	public void insertCart(Wine_CartVO vo);
@@ -158,12 +162,12 @@ public interface ShopMapper {
 			+"WHERE wno=#{wno}")
 	public int wineCartwnoCount(int wno);
 	
-//	구매 저장
+//	援щℓ ���옣
 	@Insert("INSERT INTO wine_payment (wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, regdate) "
 	        + "VALUES (wp_wpno_seq.nextval, #{wno}, #{account}, #{payment}, #{mipoint}, #{wdno}, "
 	        + "#{mcno}, #{psno}, 0, #{userid}, SYSDATE) ")
 	public void insertPayment(Wine_PaymentVO vo);
-//	구매 추가
+//	援щℓ 異붽�
 	@Update("UPDATE wine_payment SET "
 			+ "account = account + #{account} "
 			+ "WHERE wno = #{wno} ")
@@ -173,11 +177,20 @@ public interface ShopMapper {
 			+ "WHERE wpno = #{wpno}")
 	public int wineBuywpnoCount(int wpno);
 	
-//	신고하기
+//	�떊怨좏븯湲�
 	@Insert("INSERT INTO wine_report (WRENO, USERID, TYPE, TNO, STATE, RID, REGDATE, CONTENT, CATEGORY) "
 			+ "VALUES (wre_wreno_seq.nextval, #{userid}, #{type}, "
 			+ " #{tno}, #{state}, #{rid}, SYSDATE, #{content}, #{category}) ")
 	public void insertReport (Wine_ReportVO vo);
+	
+	@Insert("INSERT INTO winelike (lno, wno, id) "
+			+ "VALUES (wl_lno_seq.nextval, #{wno}, #{id}) ")
+	public LikeVO wineLikeOn (LikeVO lvo);
+	
+	@Delete("DELETE FROM winelike "
+			+ "WHERE lno = #{lno} ")
+	public LikeVO wineLikeOff (LikeVO lvo);
+	
 	
 }
 

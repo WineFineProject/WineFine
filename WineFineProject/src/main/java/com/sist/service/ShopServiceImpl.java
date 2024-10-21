@@ -176,6 +176,21 @@ public class ShopServiceImpl implements ShopService{
 	public int myPaymentTotalPage(Map map) {
 		return wDao.myPaymentTotalPage(map);
 	}
+	
+	@Override
+	public int wineCount() {
+		return sdao.wineCount();
+	}
+	@Override
+	public LikeVO wineLikeOff(LikeVO lvo) {
+		// TODO Auto-generated method stub
+		return sdao.wineLikeOff(lvo);
+	}
+	@Override
+	public LikeVO wineLikeOn(LikeVO lvo) {
+		// TODO Auto-generated method stub
+		return wineLikeOn(lvo);
+	}
 }
 
 

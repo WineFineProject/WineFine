@@ -21,7 +21,7 @@ public interface WineReviewMapper {
 	@Select("SELECT COUNT(*) "
 			+ "FROM wine_review "
 			+ "WHERE wno = #{wno} ")
-	public WineReviewVO reviewTotalCount(int wno);
+	public int reviewTotalCount(int wno);
 //	삭제
 	@Delete("DELETE FROM wine_review "
 			+ "WHERE wno = #{wno} AND userid = #{userid} ")

@@ -14,87 +14,87 @@ public class ShopDAO {
 	@Autowired
 	private ShopMapper mapper;
 	
-//	�뜝�룞�삕�뜝�럩逾� 占쎈뎨占쎈봾裕욃뜝�럥諭� 占쎈퉲占쎈츊占쎌졑
+//	占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈윪�억옙 �뜝�럥�렓�뜝�럥遊얕짆�쉩�쐻占쎈윥獄�占� �뜝�럥�돯�뜝�럥痢듿뜝�럩議�
 	public List<WineVO> wineListData(int start,int end){
 		return mapper.wineListData(start, end);
 	}
-//	�뜝�룞�삕�뜝�럩逾� 占쎈／�뜝占� �뜝�럥�쓡�뜝�럩逾좂춯�쉻�삕
+//	占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈윪�억옙 �뜝�럥竊륅옙�쐻�뜝占� 占쎈쐻占쎈윥占쎌뱻占쎈쐻占쎈윪�얠쥉異�占쎌돸占쎌굲
 	public int shopTotalPage() {
 		return mapper.shopTotalPage();
 	}
-//	占쎄맒占쎄쉭癰귣떯由�
+//	�뜝�럡留믣뜝�럡�돪�솻洹ｋ뼬�뵳占�
 	public WineVO wineDetailData(int wno) {
 	    mapper.hitIncrement(wno);
 	    return mapper.wineDetailData(wno);
 	}
-// 	占쎈７占쎈즲筌륅옙 揶쏉옙占쎌죬占쎌궎疫뀐옙
+// 	�뜝�럥竊쀥뜝�럥利꿰춯瑜낆삕 �뤆�룊�삕�뜝�럩二у뜝�럩沅롧뼨�먯삕
 	public List<String> grapeName(int wno) {
 		return mapper.grapeName(wno);
 	}
-//	占쎄돌占쎌뵬筌륅옙 揶쏉옙占쎌죬占쎌궎疫뀐옙
+//	�뜝�럡�룎�뜝�럩逾х춯瑜낆삕 �뤆�룊�삕�뜝�럩二у뜝�럩沅롧뼨�먯삕
 	public List<String> nationName(int wno){
 		return mapper.nationName(wno);
 	}
 
-//	���씤援щℓ
+//	占쏙옙占쎌뵥�뤃�됤꼻
 	public WineVO winebuy(int wno) {
 		return mapper.winebuy(wno);
 	}
-//	�궗�슜 媛��뒫�븳 荑좏룿 由ъ뒪�듃
+//	占쎄텢占쎌뒠 揶쏉옙占쎈뮟占쎈립 �뜎醫뤿？ �뵳�딅뮞占쎈뱜
 	public List<MyCouponVO> selectCoupon(String id) {
 		return mapper.selectCoupon(id);
 	}
-//	�븷�씤�쑉�씠 媛��옣 �넂�� �봽濡쒕え�뀡 �솗�씤�븯湲�
+//	占쎈막占쎌뵥占쎌몛占쎌뵠 揶쏉옙占쎌삢 占쎈꼥占쏙옙 占쎈늄嚥≪뮆�걟占쎈�� 占쎌넇占쎌뵥占쎈릭疫뀐옙
 	public List<PromotionSaleVO> promotionGetSale(Map map) {
 		return mapper.promotionGetSale(map);
 	}
-//	생산자의 다른 와인
+//	�깮�궛�옄�쓽 �떎瑜� ���씤
 	public List<WineVO> otherWine_maker(int wno){
 		return mapper.otherWine_maker(wno);
 	}	
-//	판매자의 다른 와인
+//	�뙋留ㅼ옄�쓽 �떎瑜� ���씤
 	public List<WineVO> otherWine_seller(int wno){
 		return mapper.otherWine_seller(wno);
 	}
-//	포인트 가져오기
+//	�룷�씤�듃 媛��졇�삤湲�
 	public String getPoint(String id) {
 		return mapper.getPoint(id);
 	}
 
-//	회원 등급 가져오기
+//	�쉶�썝 �벑湲� 媛��졇�삤湲�
 	public String getgrade(String id) {
 		return mapper.getgrade(id);
 	}
 
-//	배송지 가져오기
+//	諛곗넚吏� 媛��졇�삤湲�
 	public List<DeliveryVO> getDeli(String id) {
 		return mapper.getDeli(id);
 	}
 	
 	
-//	사용 적립금 차감하기
+//	�궗�슜 �쟻由쎄툑 李④컧�븯湲�
 
 	public void usePoint (MemberVO vo) {
 		mapper.usePoint(vo);
 	}
 	
-//	결제 적립금 추가하기
+//	寃곗젣 �쟻由쎄툑 異붽��븯湲�
 
 	public void plusPoint (MemberVO vo) {
 		mapper.plusPoint(vo);
 	}
 	
-//	쿠폰 사용
+//	荑좏룿 �궗�슜
 
 	public void useCoupon(MyCouponVO vo) {
 		mapper.useCoupon(vo);
 	}	
 	
-//	장바구니 추가
+//	�옣諛붽뎄�땲 異붽�
 	public void insertCart(Wine_CartVO vo) {
 		mapper.insertCart(vo);
 	}
-//	장바구니 수량 추가
+//	�옣諛붽뎄�땲 �닔�웾 異붽�
 	public void wineCartAccountUpdate(Wine_CartVO vo) {
 		mapper.wineCartAccountUpdate(vo);
 	}
@@ -102,7 +102,7 @@ public class ShopDAO {
 		return mapper.wineCartwnoCount(wno);
 	}
 	
-//	구매 추가
+//	援щℓ 異붽�
 	public void insertPayment(Wine_PaymentVO vo) {
 		mapper.insertPayment(vo);
 	}
@@ -112,11 +112,21 @@ public class ShopDAO {
 	public int wineBuywpnoCount(int wpno) {
 		return mapper.wineBuywpnoCount(wpno);
 	}
-// 	신고하기
+// 	�떊怨좏븯湲�
 	public void insertReport (Wine_ReportVO vo) {
 		mapper.insertReport(vo);
 	}
+	public int wineCount() {
+		return mapper.wineCount();
+	}
 
+	public LikeVO wineLikeOff (LikeVO lvo) {
+		return mapper.wineLikeOff(lvo);
+	}
+	public LikeVO wineLikeOn (LikeVO lvo) {
+		return mapper.wineLikeOn(lvo);
+	}
+	
 
 	
 

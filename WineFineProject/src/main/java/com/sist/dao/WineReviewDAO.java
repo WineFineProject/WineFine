@@ -24,7 +24,7 @@ public class WineReviewDAO {
 		return mapper.reviewList(wno, count);
 	}
 //	총 리뷰 수
-	public WineReviewVO reviewTotalCount(int wno) {
+	public int reviewTotalCount(int wno) {
 		return mapper.reviewTotalCount(wno);
 	}
 //	삭제

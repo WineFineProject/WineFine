@@ -27,7 +27,7 @@ public class WineReviewServiceImpl implements WineReviewService{
 	}
 
 	@Override
-	public WineReviewVO reviewTotalCount(int wno) {
+	public int reviewTotalCount(int wno) {
 		// TODO Auto-generated method stub
 		return wdao.reviewTotalCount(wno);
 	}
