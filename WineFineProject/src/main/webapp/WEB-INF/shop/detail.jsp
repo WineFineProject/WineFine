@@ -445,6 +445,39 @@
 					</table>
 				</div>
 			</div>
+			
+			<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
+				<div class="modal-content" style="width: 650px; height: 400px;">
+					<h3 class="text-center">신고하기</h3>
+					<table class="table" style="margin-top: 50px;">
+						<tr>
+							<th width="20%" class="text-center">신고대상 ID :</th>
+							<td width="20%" class="text-center">{{sellerName}}</td>
+							<th width="20%" class="text-center">상품명 :</th>
+							<td width="40%" class="text-center">{{vo.namekor}}</td>
+						</tr>
+						<tr>
+							<th width="20%" class="text-center">카테고리 :</th>
+							<td colspan="3"><select style="width: 175px;" v-model="category" @change="selectCategory($event)">
+									<option value="상품관련">상품관련</option>
+									<option value="배송관련">배송관련</option>
+									<option value="기타신고">기타신고</option>
+							</select></td>
+						</tr>
+						<tr>
+							<th width="20%" class="text-center">신고 사유:</th>
+							<td colspan="3"><textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
+						</textarea></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="rmbtn" style="text-align: center; border-bottom: none;">
+								<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport()">접수</button> &nbsp;&nbsp;
+								<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal(false)">취소</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
 
 
 		</div>
@@ -490,54 +523,7 @@
 	        }
 	    },
 	    mounted() {
-	        // 초기 데이터 로드
-	        axios.get('../shop/detail_vue.do', {
-	            params: {
-	                wno: this.wno,
-	                count: this.count
-	            }
-	        }).then(response => {
-	            console.log(response.data)
-	            this.vo = response.data.vo
-	            this.gname = response.data.gname
-	            this.nname = response.data.nname
-	            this.mname = response.data.mname
-	            this.gnolink = response.data.gnolink
-	            this.nnolink = response.data.nnolink
-	            this.mnolink = response.data.mnolink
-	            this.otherMaker = response.data.otherMaker
-				this.otherSeller = response.data.otherSeller
-				this.reviewListData = response.data.reviewListData
-				this.reviewCount = response.data.reviewCount		
-				console.log('reviewCount : ' + this.reviewCount)
-
-				this.count = response.data.count
-	            console.log('count : ' + this.count)
-	            if (this.sessionId !== ''){
-					this.Lcheck = response.data.Lcheck            	
-					console.log('Lcheck 값 : ' + this.Lcheck)
-	            }
-	            this.likeCount = response.data.likeCount
-	            console.log('likeCount 값 : ' + this.likeCount)
-	            // Owl Carousel 초기화
-	            this.$nextTick(() => {
-	                this.carousel = $('.owl-carousel').owlCarousel({
-	                    items: 1, // 한 번에 보여줄 아이템 수
-	                    loop: true,
-	                    margin: 10,
-	                    nav: false,
-	                    touchDrag: true, // 드래그 활성화
-	                    mouseDrag: true, // 마우스 드래그 활성화
-	                })
-	            })
-	            this.sellerName = response.data.sellerName
-	            if(this.sessionId !== ''){
-					this.reviewCheck = respnse.data.this.reviewCheck
-					console.log('reviewCheck : ' + this.reviewCheck)	            	
-	            }
-	        }).catch(error => {
-	            console.error('데이터 로드 오류:', error.response)
-	        })
+	        this.dataRecv()
 	    },
 	    methods: {
 	    	likeOn(){
@@ -686,15 +672,15 @@
 	            }
 	        },
 	        reviewInsert(){
+    			if(this.reviewCheck !== 0){
+    				alert('리뷰는 한 번만 작성 가능합니다')
+    				this.review = ''
+    				return
+    			}
     			if(this.review === "")
     			{
     				alert('내용을 입력 해 주세요')
     				this.$refs.review.focus()
-    				return
-    			}
-    			if(this.reviewCheck !== 0){
-    				alert('리뷰는 한 번만 작성 가능합니다')
-    				this.review = ''
     				return
     			}
     			axios.post('../shop/review_insert.do',null,{
