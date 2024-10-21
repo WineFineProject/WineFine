@@ -10,7 +10,7 @@
 <body>
 	<div class="row" id="replyBoardList">
 		<h3 class="text-center">1:1 문의게시판</h3>
-		<table class="table">
+		<table style="margin-bottom: 10px">
 			<tr>
 				<td class="text-right">
 					<a href="../seller/noticeInsert.do" class="btn btn-sm" style="background-color: #FCD500;">글쓰기</a>
@@ -38,7 +38,7 @@
 				</td>
 			</tr>
 		</table>
-		<table class="table">
+		<table>
 			<tr>
 				<td class="text-center">
 					<button t class="btn btn-sm btn-danger" @click="replyList(startPage>1?curPage-1:curPage)">이전</button>
@@ -48,7 +48,7 @@
 			</tr>
 		</table>
 		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
-			<div class="modal-content" style="height: 485px; width: 800px;">
+			<div class="modal-content" style="height: 485px; width: 800px;margin-top: 120px;">
 				<span class="close" @click="changeModal(false)">&times;</span>
 				<h3 class="text-center">답변</h3>
 				<!-- <table>
@@ -86,7 +86,7 @@
 			</div>
 		</div>
 		<div class="modal" :class="{ show: showModal2 }" @click.self="changeModal2(false)">
-			<div class="modal-content" style="height: 600px; width: 800px;">
+			<div class="modal-content" style="height: 600px; width: 800px;margin-top: 120px;">
 				<span class="close" @click="changeModal2(false)">&times;</span>
 				<h3 class="text-center">답변 작성</h3>
 				<div class="form-group" style="margin-top: 10px;">

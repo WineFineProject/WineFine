@@ -22,12 +22,6 @@
 	border-color: white;
 	color: white;
 }
-.bsbtn{
-	background-color: #FFCC52 !important;
-	color:gray;
-	width: 18%; 
-	text-align: center;
-}
 .blistsub{
 	white-space: nowrap;
     overflow: hidden;
@@ -38,6 +32,14 @@
     width: 100%; 
     table-layout: fixed; 
 }
+
+.table-fixed {
+    width: 100%; 
+    table-layout: fixed; 
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -69,10 +71,10 @@
         <tr>
          <th width="5%" class="text-center">번호</th>
          <th width="10%" class="text-center">분류</th>
-         <th width="40%" class="text-center">제목</th>
+         <th width="45%" class="text-center">제목</th>
          <th width="15%" class="text-center">작성자</th>
          <th width="15%" class="text-center">작성일</th>
-         <th width="15%" class="text-center">조회수</th>
+         <th width="10%" class="text-center">조회수</th>
         </tr>
        </thead>
 		<tbody v-if="type===0">
@@ -99,17 +101,17 @@
          	<span v-if="vo.cno==3">[질문]</span>
          </td>
          <td width="40%" v-if="vo.filecount>0" class="blistsub"><a :href="'detail.do?bno='+vo.bno">&#127748; {{vo.subject}}&nbsp;({{vo.creplycount}})</a></td>
-         <td width="40%" v-else class="blistsub"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.creplycount}})</a></td>
+         <td width="45%" v-else class="blistsub"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.creplycount}})</a></td>
          <td width="15%" class="text-center">{{vo.nickname}}</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
-         <td width="15%" class="text-center">{{vo.hit}}</td>
+         <td width="10%" class="text-center">{{vo.hit}}</td>
         </tr>
        </tbody>
        <tfoot style="border-color:white;">
          <tr>
           <!-- 로그인 상태에서만 글쓰기 버튼 보이게 -->
          <td colspan="3" class="text-left">
-            <a v-if="id!=''" href="../board/insert.do" class="bsbtn form-control">글쓰기</a>
+            <a v-if="id!=''" href="../board/insert.do" class="btn btn-warning">글쓰기</a>
     		<p v-else>로그인 후 글을 작성할 수 있습니다</p>
          </td>
         </tr>

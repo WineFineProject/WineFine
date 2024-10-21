@@ -85,7 +85,8 @@
 		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
 			<div class="modal-content" style="height: 485px;">
 				<span class="close" @click="changeModal(false)">&times;</span>
-				<table class="table" style="margin-top: 50px;">
+				<table class="table" style="margin-top: 10px;">
+				<h4 class="text-center">프로모션 등록</h4>
 					<tr>
 						<th width="30%">프로모션 이름</th>
 						<td width="70%"><input type="text" v-model="eventName" style="width: 100%" @keyup="checkBtn()"></td>

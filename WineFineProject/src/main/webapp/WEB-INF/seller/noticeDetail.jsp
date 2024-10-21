@@ -10,11 +10,7 @@
 	<div class="row" id="noticeTable">
 		<h3 class="text-center" style="margin-bottom: 30px">공지사항</h3>
 		<div>
-        <div class="detail-box">
-            <td width="35%">
-                <!-- <span v-if="vo.type===2">{{cnos[vo.cno]}}&nbsp;</span>
-                <span v-if="vo.type===3">{{cno[vo.cno]}}&nbsp;</span> -->
-            </td>
+        <div class="detail-box" style="width:800px;margin: 0 auto">
             <h2 class="post-title">{{detail.subject}}</h2>
             <div class="post-meta">
                 <span class="author-name">{{detail.nickname}}</span>
