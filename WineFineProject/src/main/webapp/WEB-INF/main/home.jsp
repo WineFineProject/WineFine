@@ -154,105 +154,107 @@
 		<div style="height: 50px;"></div>
 		<div class="container">
 			<h2 class="text-center">와인 찾기</h2>
-			<div class="filter" style="border-radius: 15px 15px 0px 0px;">
-				<div class="filter-item">
-					<div class="filter-img">
-						<i class="fa-solid fa-glass-cheers filter-icons"></i>
+			<form action="../shop/list.do" method="post">
+				<div class="filter" style="border-radius: 15px 15px 0px 0px;">
+					<div class="filter-item">
+						<div class="filter-img">
+							<i class="fa-solid fa-glass-cheers filter-icons"></i>
+						</div>
+						<ul class="filter-box">
+							<li>
+								<label :class="{'item-wine':types.includes('레드') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="레드">레드</label>
+							</li>
+							<li>
+								<label :class="{'item-wine':types.includes('화이트') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="화이트"> 화이트</label>
+							</li>
+							<li>
+								<label :class="{'item-wine':types.includes('로제') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="로제"> 로제</label>
+							</li>
+							<li>
+								<label :class="{'item-wine':types.includes('스파클링') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="스파클링"> 스파클링</label>
+							</li>
+							<li>
+								<label :class="{'item-wine':types.includes('주정강화') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="주정강화"> 주정강화</label>
+							</li>
+							<li>
+								<label :class="{'item-wine':types.includes('기타') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="기타"> 기타</label>
+							</li>
+						</ul>
 					</div>
-					<ul class="filter-box">
-						<li>
-							<label :class="{'item-wine':types.includes('레드') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="레드">레드</label>
-						</li>
-						<li>
-							<label :class="{'item-wine':types.includes('화이트') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="화이트"> 화이트</label>
-						</li>
-						<li>
-							<label :class="{'item-wine':types.includes('로제') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="로제"> 로제</label>
-						</li>
-						<li>
-							<label :class="{'item-wine':types.includes('스파클링') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="스파클링"> 스파클링</label>
-						</li>
-						<li>
-							<label :class="{'item-wine':types.includes('주정강화') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="주정강화"> 주정강화</label>
-						</li>
-						<li>
-							<label :class="{'item-wine':types.includes('기타') }"><input name="type" type="checkbox" v-model="types" style="display: none" value="기타"> 기타</label>
-						</li>
-					</ul>
-				</div>
-				<div class="filter-item">
-					<div class="filter-img">
-						<i class="fa-solid fa-coins filter-icons"></i>
+					<div class="filter-item">
+						<div class="filter-img">
+							<i class="fa-solid fa-coins filter-icons"></i>
+						</div>
+						<ul class="filter-box">
+							<li>
+								<label :class="{'item-wine':price==='3'}"><input name="price" type="radio" v-model="price" style="display: none" value="3">~3만원</label>
+							</li>
+							<li>
+								<label :class="{'item-wine':price==='5'}"><input name="price" type="radio" v-model="price" style="display: none" value="5">~5만원</label>
+							</li>
+							<li>
+								<label :class="{'item-wine':price==='7'}"><input name="price" type="radio" v-model="price" style="display: none" value="7">~7만원</label>
+							</li>
+							<li>
+								<label :class="{'item-wine':price==='10'}"><input name="price" type="radio" v-model="price" style="display: none" value="10">~10만원</label>
+							</li>
+							<li>
+								<label :class="{'item-wine':price==='20'}"><input name="price" type="radio" v-model="price" style="display: none" value="20">~20만원</label>
+							</li>
+							<li>
+								<label :class="{'item-wine':price==='99999'}"><input name="price" type="radio" v-model="price" style="display: none" value="99999">20만원 이상</label>
+							</li>
+						</ul>
 					</div>
-					<ul class="filter-box">
-						<li>
-							<label :class="{'item-wine':price==='3'}"><input name="price" type="radio" v-model="price" style="display: none" value="3">~3만원</label>
-						</li>
-						<li>
-							<label :class="{'item-wine':price==='5'}"><input name="price" type="radio" v-model="price" style="display: none" value="5">~5만원</label>
-						</li>
-						<li>
-							<label :class="{'item-wine':price==='7'}"><input name="price" type="radio" v-model="price" style="display: none" value="7">~7만원</label>
-						</li>
-						<li>
-							<label :class="{'item-wine':price==='10'}"><input name="price" type="radio" v-model="price" style="display: none" value="10">~10만원</label>
-						</li>
-						<li>
-							<label :class="{'item-wine':price==='20'}"><input name="price" type="radio" v-model="price" style="display: none" value="20">~20만원</label>
-						</li>
-						<li>
-							<label :class="{'item-wine':price==='99999'}"><input name="price" type="radio" v-model="price" style="display: none" value="99999">20만원 이상</label>
-						</li>
-					</ul>
-				</div>
-				<div class="filter-item">
-					<div class="filter-img">
-						<i class="fa-solid fa-spray-can-sparkles filter-icons"></i>
+					<div class="filter-item">
+						<div class="filter-img">
+							<i class="fa-solid fa-spray-can-sparkles filter-icons"></i>
+						</div>
+						<ul class="filter-box">
+							<li v-for="aroma in aromaList">
+								<label :class="{'item-wine':aromas.includes(aroma) }"><input name="aroma" type="checkbox" v-model="aromas" style="display: none" :value="aroma">{{aroma}}</label>
+							</li>
+						</ul>
 					</div>
-					<ul class="filter-box">
-						<li v-for="aroma in aromaList">
-							<label :class="{'item-wine':aromas.includes(aroma) }"><input name="aroma" type="checkbox" v-model="aromas" style="display: none" :value="aroma">{{aroma}}</label>
-						</li>
-					</ul>
-				</div>
-				<div class="filter-item">
-					<div class="filter-img">
-						<i class="fa-solid fa-utensils filter-icons"></i>
+					<div class="filter-item">
+						<div class="filter-img">
+							<i class="fa-solid fa-utensils filter-icons"></i>
+						</div>
+						<ul class="filter-box">
+							<li v-for="food in foodList">
+								<label :class="{'item-wine':foods.includes(food) }"><input name="food" type="checkbox" v-model="foods" style="display: none" :value="food">{{food}}</label>
+							</li>
+						</ul>
 					</div>
-					<ul class="filter-box">
-						<li v-for="food in foodList">
-							<label :class="{'item-wine':foods.includes(food) }"><input name="food" type="checkbox" v-model="foods" style="display: none" :value="food">{{food}}</label>
-						</li>
-					</ul>
-				</div>
-				<div class="filter-item">
-					<div class="filter-img">
-						<i class="fa-regular fa-face-grin-tongue filter-icons"></i>
+					<div class="filter-item">
+						<div class="filter-img">
+							<i class="fa-regular fa-face-grin-tongue filter-icons"></i>
+						</div>
+						<ul class="filter-box">
+							<li>
+								당도 <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="sugar" style="display: none;"><i :class="{'text-wine':sugar>=ss}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								</label>
+							</li>
+							<li>
+								산도 <label v-for="as in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="acidStars" :value="as" v-model="acid" style="display: none;"><i :class="{'text-wine':acid>=as}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								</label>
+							</li>
+							<li>
+								바디 <label v-for="bs in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="bodyStars" :value="bs" v-model="body" style="display: none;"><i :class="{'text-wine':body>=bs}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								</label>
+							</li>
+							<li>
+								탄닌 <label v-for="ts in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="tanninStars" :value="ts" v-model="tannin" style="display: none;"><i :class="{'text-wine':tannin>=ts}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								</label>
+							</li>
+						</ul>
 					</div>
-					<ul class="filter-box">
-						<li>
-							당도 <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="sugar" style="display: none;"><i :class="{'text-wine':sugar>=ss}" style="margin-right: 2px;" class="fa fa-circle"></i>
-							</label>
-						</li>
-						<li>
-							산도 <label v-for="as in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="acidStars" :value="as" v-model="acid" style="display: none;"><i :class="{'text-wine':acid>=as}" style="margin-right: 2px;" class="fa fa-circle"></i>
-							</label>
-						</li>
-						<li>
-							바디 <label v-for="bs in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="bodyStars" :value="bs" v-model="body" style="display: none;"><i :class="{'text-wine':body>=bs}" style="margin-right: 2px;" class="fa fa-circle"></i>
-							</label>
-						</li>
-						<li>
-							탄닌 <label v-for="ts in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="tanninStars" :value="ts" v-model="tannin" style="display: none;"><i :class="{'text-wine':tannin>=ts}" style="margin-right: 2px;" class="fa fa-circle"></i>
-							</label>
-						</li>
-					</ul>
 				</div>
-			</div>
-			<div style="text-align: right">
-				<button class="btn btn-sm btn-wine2" type="button" @click="resetSelect()" style="margin-right: 10px;">초기화</button>
-				<button class="btn btn-sm btn-wine2" type="button">검색</button>
-			</div>
+				<div style="text-align: right">
+					<button class="btn btn-sm btn-wine2" type="button" @click="resetSelect()" style="margin-right: 10px;">초기화</button>
+					<button class="btn btn-sm btn-wine2" type="submit">검색</button>
+				</div>
+			</form>
 		</div>
 	</div>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

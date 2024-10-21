@@ -45,4 +45,7 @@ public class CartDAO {
 	public int cartTotalPage(Map map) {
 		return mapper.cartTotalPage(map);
 	}
+	public void deleteCart(int cno) {
+		mapper.deleteCart(cno);
+	}
 }

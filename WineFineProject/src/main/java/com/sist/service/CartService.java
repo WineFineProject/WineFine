@@ -21,4 +21,5 @@ public interface CartService {
 	public int myCartCount(String userId);
 	public List<CartVO> cartListData(Map map);
 	public int cartTotalPage(Map map);
+	public void deleteCart(int cno);
 }

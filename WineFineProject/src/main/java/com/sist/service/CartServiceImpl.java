@@ -47,4 +47,9 @@ public class CartServiceImpl implements CartService{
 	public int cartTotalPage(Map map) {
 		return dao.cartTotalPage(map);
 	}
+	@Override
+	public void deleteCart(int cno) {
+		dao.deleteCart(cno);
+	}
+	
 }

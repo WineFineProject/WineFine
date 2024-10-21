@@ -56,7 +56,7 @@
 										<p class="mb-0 mt-4">{{vo.dbday}}</p>
 									</td>
 									<td class="text-center">
-										<button @:click="drop()" class="btn btn-md rounded-circle bg-light border mt-4">
+										<button @:click="deleteCart(vo.cno)" class="btn btn-md rounded-circle bg-light border mt-4">
 											<i class="fa fa-times text-danger"></i>
 										</button>
 										<a :href="'../shop/buy.do?wno='+vo.wno+'&account='+vo.account" class="btn btn-md rounded-circle bg-light border mt-4">
@@ -98,6 +98,15 @@ let cartListApp=Vue.createApp({
 				this.list=response.data.list
 				curPage=response.data.curPage
 				totalPage=response.data.totalPage
+			})
+		},
+		deleteCart(cno){
+			axios.get('../cart/vueCartDelete.do', {
+				params:{
+					cno:cno
+				}
+			}).then(response=>{
+				this.cList(1)
 			})
 		}
 	},

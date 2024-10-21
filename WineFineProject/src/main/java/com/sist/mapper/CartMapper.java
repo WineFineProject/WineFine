@@ -40,6 +40,11 @@ public interface CartMapper {
   @Select("SELECT CEIL(COUNT(*)/10.0) FROM wine_cart WHERE userid=#{userid}")
   public int cartTotalPage(Map map);
     
+  @Delete("DELETE FROM wine_cart WHERE cno=#{cno}")
+  public void deleteCart(int cno);
+  
+  
+  
 	@Select("SELECT w.wno,w.namekor,w.poster,w.price,"
 			+ "c.wno"
 			+ "FROM wine w JOIN cart c ON w.wno=c.cno "

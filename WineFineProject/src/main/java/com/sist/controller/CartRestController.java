@@ -86,4 +86,8 @@ public class CartRestController {
 	   return mapper.writeValueAsString(map);
 	}
 	
+	@GetMapping(value = "cart/vueCartDelete.do",produces = "text/plain;charset=UTF-8")
+	public void cartVueDelete(int cno) {
+		cService.deleteCart(cno);
+	}
 }	

@@ -54,7 +54,7 @@ public class ShopRestController {
 		List<WineVO> list = sservice.wineListData(start, end);
 
 		int totalpage = sservice.shopTotalPage();
-
+		
 		final int BLOCK = 10;
 		int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
 		int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
