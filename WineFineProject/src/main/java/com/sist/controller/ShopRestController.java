@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sist.dao.ShopDAO;
-import com.sist.dao.WineDAO;
 import com.sist.service.LikeService;
 import com.sist.service.MemberService;
 import com.sist.service.ShopService;
@@ -25,7 +23,7 @@ import oracle.jdbc.proxy.annotation.Post;
 
 @RestController
 public class ShopRestController {
-	String[] wtypes = { "", "占쎌쟿占쎈굡", "占쎌넅占쎌뵠占쎈뱜", "占쎈뮞占쎈솁占쎄깻筌랃옙", "雅뚯눘�젟揶쏅벤�넅", "疫꿸퀬占�" };
+	String[] wtypes = { "", "레드", "화이트", "스파클링", "로제", "주정강화", "기타" };
 	String[] foods = { "소", "돼지", "양", "치킨", "피자", "비빔밥", "가리비", "아시아", "건육", "케이크", "튀김", "생선", "누들", "과일", "샐러드",
 			"치즈", "샴페인" };
 	String[] aroma = { "꽃", "돌", "레몬", "말린과일", "베리", "사과", "숙성", "시나몬", "아몬드", "오크통", "크로와상", "파인애플", "파프리카", "허브" };
