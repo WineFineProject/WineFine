@@ -96,6 +96,9 @@ public class MemberDAO {
 	}
   public void insertMember(MemberVO vo) {
   	mapper.insertMember(vo);
+  	if(vo.getState()==1) {
+  		mapper.sellerAuthority(vo);
+  	}
   }
   public MemberVO memberSessionData(String userId) {
   	return mapper.memberSessionData(userId);

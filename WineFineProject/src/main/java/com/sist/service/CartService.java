@@ -18,4 +18,5 @@ public interface CartService {
 	public WineVO getWine(int wno,int cno);
 	public int updateCart(int cno,int count,String id);
 	public int delCart(int cno);
+	public int myCartCount(String userId);
 }

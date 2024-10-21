@@ -24,13 +24,17 @@
 		<div class="container topbar bg-wine d-none d-lg-block">
 			<div class="d-flex justify-content-between">
 				<div class="top-info ps-2">
-					<small class="me-3"><i class="fas fa-map-marker-alt me-2 text-wine"></i> <a href="#" class="text-white">123 Street, New York</a></small> <small class="me-3"><i
-						class="fas fa-envelope me-2 text-wine"></i> <a href="#" class="text-white">Email@Example.com</a></small>
+					<small class="me-3"><i class="fas fa-map-marker-alt me-2 text-wine"></i> <a href="#" class="text-white">123 Street, New York</a></small> <small class="me-3"><i class="fas fa-envelope me-2 text-wine"></i> <a href="#" class="text-white">Email@Example.com</a></small>
 				</div>
 				<div class="top-link pe-2">
-					<a href="#" class="text-white"> <small class="text-white mx-2">Privacy Policy</small>/
-					</a> <a href="#" class="text-white"> <small class="text-white mx-2">Terms of Use</small>/
-					</a> <a href="#" class="text-white"> <small class="text-white ms-2">Sales and Refunds</small>
+					<a href="#" class="text-white">
+						<small class="text-white mx-2">Privacy Policy</small>/
+					</a>
+					<a href="#" class="text-white">
+						<small class="text-white mx-2">Terms of Use</small>/
+					</a>
+					<a href="#" class="text-white">
+						<small class="text-white ms-2">Sales and Refunds</small>
 					</a>
 				</div>
 			</div>
@@ -49,27 +53,34 @@
 						<div class="nav-item dropdown">
 							<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">와인샵</a>
 							<div class="dropdown-menu m-0 bg-light rounded-0">
-								<a href="../shop/list.do" class="dropdown-item">일반판매</a> <a href="../replyboard/list.do" class="dropdown-item">예약판매</a>
+								<a href="../shop/list.do" class="dropdown-item">일반판매</a>
+								<a href="../replyboard/list.do" class="dropdown-item">예약판매</a>
 							</div>
 						</div>
 						<div class="nav-item dropdown">
 							<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">이벤트</a>
 							<div class="dropdown-menu m-0 bg-light rounded-0">
-								<a href="../event/list.do" class="dropdown-item">시음회</a> 
+								<a href="../event/list.do" class="dropdown-item">시음회</a>
 							</div>
 						</div>
-						<a href="../mypage/mypageHome.do" class="nav-item nav-link">mypage</a> <a href="../admin/adminHome.do" class="nav-item nav-link">admin</a> <a href="../seller/sellerHome.do"
-							class="nav-item nav-link">seller</a>
+						<a href="../mypage/mypageHome.do" class="nav-item nav-link">mypage</a>
+						<a href="../admin/adminHome.do" class="nav-item nav-link">admin</a>
+						<a href="../seller/sellerHome.do" class="nav-item nav-link">seller</a>
 						<div class="nav-item dropdown">
 							<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">와인</a>
 							<div class="dropdown-menu m-0 bg-light rounded-0">
-								<a href="../grape/list.do" class="dropdown-item">주요품종</a> <a href="../nation/list.do" class="dropdown-item">생산지역</a> <a href="../maker/list.do" class="dropdown-item">생산자</a>
+								<a href="../grape/list.do" class="dropdown-item">주요품종</a>
+								<a href="../nation/list.do" class="dropdown-item">생산지역</a>
+								<a href="../maker/list.do" class="dropdown-item">생산자</a>
 							</div>
 						</div>
 						<div class="nav-item dropdown">
 							<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">커뮤니티</a>
 							<div class="dropdown-menu m-0 bg-light rounded-0">
-								<a href="../board/list.do" class="dropdown-item">자유게시판</a> <a href="../noticeboard/list.do" class="dropdown-item">공지사항</a> <a href="../replyboard/list.do" class="dropdown-item">1:1 문의</a><a href="../shop/sellerShop.do?id=han" class="dropdown-item">판매자 상점</a>
+								<a href="../board/list.do" class="dropdown-item">자유게시판</a>
+								<a href="../noticeboard/list.do" class="dropdown-item">공지사항</a>
+								<a href="../replyboard/list.do" class="dropdown-item">1:1 문의</a>
+								<a href="../shop/sellerShop.do?id=han" class="dropdown-item">판매자 상점</a>
 							</div>
 						</div>
 					</div>
@@ -77,15 +88,17 @@
 						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="fas fa-search text-wine"></i>
 						</button>
-						<a class="position-relative me-4 my-auto" style="cursor: pointer;" @click="changeNotice()"> <i class="fas fa-comment-alt fa-2x"></i> <span :class="{hide:count===0}"
-							class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">{{count}}</span>
+						<a class="position-relative me-4 my-auto" style="cursor: pointer;" @click="changeNotice()">
+							<i class="fas fa-comment-alt fa-2x"></i> <span :class="{hide:count===0}" class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">{{count}}</span>
 						</a>
 						<div class="notice_list" :class="{hide:!isShow, active:isShow}">
 							<h4 class="text-center" style="margin-top: 10px;">미확인 알림 {{count}}건</h4>
 							<table class="table" style="width: 90%; table-layout: fixed; margin: 0px auto;">
 								<tr v-for="(vo, index) in newNotice" @click="showInfo(vo)">
 									<td width="5%">{{index+1}}</td>
-									<td width="55%" class="scrollable-text"><p>{{vo.subject}}</p></td>
+									<td width="55%" class="scrollable-text">
+										<p>{{vo.subject}}</p>
+									</td>
 									<td width="13%">{{vo.sendid}}</td>
 									<td width="27%">{{vo.dbday}}</td>
 								</tr>
@@ -95,21 +108,28 @@
 							<table class="table" style="width: 90%; table-layout: fixed; margin: 0px auto;">
 								<tr v-for="(vo, index) in oldNotice" @click="showInfo(vo)">
 									<td width="5%">{{index+1}}</td>
-									<td width="55%" class="scrollable-text"><p>{{vo.subject}}</p></td>
+									<td width="55%" class="scrollable-text">
+										<p>{{vo.subject}}</p>
+									</td>
 									<td width="13%">{{vo.sendid}}</td>
 									<td width="27%">{{vo.dbday}}</td>
 								</tr>
 							</table>
 						</div>
-						<a href="../cart/inMyCart.do" class="position-relative me-4 my-auto"> <i class="fa fa-shopping-bag fa-2x"></i> <span
-							class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+						<a href="../cart/inMyCart.do" class="position-relative me-4 my-auto">
+							<i class="fa fa-shopping-bag fa-2x"></i>
+							<c:if test="${sessionScope.userId!=null }">
+								<span v-show="cartCount>0" class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">{{cartCount}}</span>
+							</c:if>
 						</a>
 						<c:if test="${sessionScope.userId==null }">
-							<a href="../member/login.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
+							<a href="../member/login.do" class="my-auto">
+								<i class="fas fa-user fa-2x"></i>
 							</a>
 						</c:if>
 						<c:if test="${sessionScope.userId!=null }">
-							<a href="../member/logout.do" class="my-auto"> <i class="fas fa-sign-out-alt fa-2x"></i>
+							<a href="../member/logout.do" class="my-auto">
+								<i class="fas fa-sign-out-alt fa-2x"></i>
 							</a>
 						</c:if>
 					</div>
@@ -118,10 +138,12 @@
 			<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
 				<div class="modal-content" style="height: 455px;">
 					<span class="close" @click="changeModal(false)">&times;</span>
-					<table class="table" style="table-layout: fixed;margin-top: 20px;">
+					<table class="table" style="table-layout: fixed; margin-top: 20px;">
 						<tr>
 							<th width="20%">제목</th>
-							<td colspan="3" class="scrollable-text"><p>{{select.subject}}</p></td>
+							<td colspan="3" class="scrollable-text">
+								<p>{{select.subject}}</p>
+							</td>
 						</tr>
 						<tr>
 							<th width="20%">보낸이</th>
@@ -130,7 +152,9 @@
 							<td width="30%">{{select.dbday}}</td>
 						</tr>
 						<tr>
-							<td colspan="4" class="content-box"><pre>{{select.content}}</pre></td>
+							<td colspan="4" class="content-box">
+								<pre>{{select.content}}</pre>
+							</td>
 						</tr>
 					</table>
 				</div>
@@ -146,7 +170,8 @@
 				isShow:false,
 				count:0,
 				showModal:false,
-				select:{}
+				select:{},
+				cartCount:0
 			}
 		},
 		methods:{
@@ -158,6 +183,7 @@
 					this.count=response.data.count
 					this.newNotice=response.data.newNotice
 					this.oldNotice=response.data.oldNotice
+					this.cartCount=response.data.cartCount
 				})
 			},
 			changeModal(check){

@@ -94,8 +94,8 @@ public interface MemberMapper {
 	public void updateMember(MemberVO member);
 
 	// 멤버 등록
-	@Insert("INSERT INTO wine_member (userid, username, userpwd, sex, birthday, email, post, addr1, addr2, phone, nickname) "
-			+ "VALUES(#{userId}, #{userName}, #{userPwd}, #{sex}, #{birthday}, #{email}, #{post}, #{addr1}, #{addr2}, #{phone}, #{nickName})")
+	@Insert("INSERT INTO wine_member (userid, username, userpwd, sex, birthday, email, post, addr1, addr2, phone, nickname, state) "
+			+ "VALUES(#{userId}, #{userName}, #{userPwd}, #{sex}, #{birthday}, #{email}, #{post}, #{addr1}, #{addr2}, #{phone}, #{nickName}, #{state})")
 	public void insertMember(MemberVO vo);
 
 	// 멤버 권한
@@ -115,4 +115,7 @@ public interface MemberMapper {
 	
 	@Insert("INSERT INTO wine_visit VALUES((SELECT NVL(MAX(vno)+1, 1) FROM wine_visit), sysdate)")
 	public void visitCheck();
+	
+	@Update("UPDATE authority SET authority='ROLE_SELLER' WHERE userId=#{userId}")
+	public void sellerAuthority(MemberVO vo);
 }

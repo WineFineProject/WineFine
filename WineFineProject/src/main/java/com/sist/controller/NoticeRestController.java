@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.sist.service.CartService;
 import com.sist.service.NoticeService;
 import com.sist.vo.NoticeVO;
 
@@ -22,7 +23,8 @@ import com.sist.vo.NoticeVO;
 public class NoticeRestController {
 	@Autowired
 	private NoticeService nService;
-	
+	@Autowired
+	private CartService cService;
 	@PostMapping(value = "notice/vueAdminNoticeSend.do", produces = "text/plain;charset=UTF-8")
 	public void noticeVueAdminNoticeSend(NoticeVO vo) {
 		vo.setSendid("admin");
@@ -52,9 +54,11 @@ public class NoticeRestController {
 		int count=nService.noticeNewCount(id);
 		List<NoticeVO> newNotice=nService.noticeNewListData(id);
 		List<NoticeVO> oldNotice=nService.noticeOldListData(id);
+		int cartCount=cService.myCartCount(id);
 		map.put("count", count);
 		map.put("newNotice", newNotice);
 		map.put("oldNotice", oldNotice);
+		map.put("cartCount", cartCount);
 		JsonMapper mapper=new JsonMapper();
 		String json=mapper.writeValueAsString(map);
 		return json;

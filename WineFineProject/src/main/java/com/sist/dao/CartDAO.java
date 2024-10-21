@@ -39,4 +39,7 @@ public class CartDAO {
 		return mapper.delCart(cno);
 	}
 	
+	public int myCartCount(String userId) {
+		return mapper.myCartCount(userId);
+	}
 }

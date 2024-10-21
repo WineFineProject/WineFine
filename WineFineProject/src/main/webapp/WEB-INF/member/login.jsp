@@ -17,7 +17,11 @@
 	align-items: center;
 	height: 100vh;
 }
-
+label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+}
 .login__create, .login__find {
 	left: -4rem;
 }
@@ -71,8 +75,12 @@ $('#sign-up').click(function() {
 					<form action="../member/joinOk.do" method="post" @submit.prevent="insertMember()" id="signupForm">
 						<h1 class="login__title">Create Account</h1>
 						<div class="login__box">
+							<label><input type="radio" class="login__input" value="0" name="state" v-model="isSeller">일반사용자</label>
+							<label><input type="radio" class="login__input" value="1" name="state" v-model="isSeller">판매자</label>
+						</div>
+						<div class="login__box">
 							<i class='bx bx-face login__icon'></i>
-							<input type="text" placeholder="Username" class="login__input" ref="userName" name="userName" v-model="userName">
+							<input type="text" :placeholder="isSeller==='1'?'SellerName':'UserName'" class="login__input" ref="userName" name="userName" v-model="userName">
 						</div>
 
 						<div class="login__box">
@@ -83,7 +91,7 @@ $('#sign-up').click(function() {
 
 						<div class="login__box">
 							<i class='bx bx-ghost login__icon'></i>
-							<input type="text" placeholder="Nick name" class="login__input" ref="nickName" name="nickName" v-model="nickName" :readonly="isNickCheck">
+							<input type="text" :placeholder="isSeller==='1'?'CompanyName':'NickName'" class="login__input" ref="nickName" name="nickName" v-model="nickName" :readonly="isNickCheck">
 							<input type="button" value="중복확인" v-show="!isNickCheck" @click="checkNick()">
 						</div>
 
@@ -124,10 +132,10 @@ $('#sign-up').click(function() {
 						</div>
 						<div class="login__box">
 							<i class='bx bx-cake login__icon'></i>
-							<input type="text" placeholder="Birth" class="login__input" readonly>
+							<input type="text" :placeholder="isSeller==='1'?'Start Up':'Birth'" class="login__input" readonly>
 							<input type="date" name="birthday" v-model="birthday">
 						</div>
-						<div class="login__box" style="text-align: right;" id="sexCheck">
+						<div v-show="!(isSeller==='1')" class="login__box" style="text-align: right;" id="sexCheck">
 							<i class='bx bx-heart login__icon'></i>
 							<input type="text" placeholder="Gender" class="login__input" readonly>
 							<label class="login__input"> <input type="radio" value="남자" name="sex" v-model="sex"> 남자
@@ -276,7 +284,8 @@ $('#sign-up').click(function() {
 				isPhoneNone:false,
 				isPwdCheck:false,
 				isPwdValid:false,
-				showLogin:false
+				showLogin:false,
+				isSeller:0
 			}
 		},
 		methods:{

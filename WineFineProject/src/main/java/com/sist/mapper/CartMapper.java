@@ -54,4 +54,7 @@ public interface CartMapper {
 			+ "WHERE cno=#{cno}")
 	public int delCart(@Param("cno") int cno);
 	
+	// 카트 개수
+	@Select("SELECT COUNT(*) FROM wine_cart WHERE userid=#{userId}")
+	public int myCartCount(String userId);
 }

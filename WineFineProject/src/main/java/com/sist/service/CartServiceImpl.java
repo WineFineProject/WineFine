@@ -39,4 +39,8 @@ public class CartServiceImpl implements CartService{
 		return dao.delCart(cno);
 	}
 
+	@Override
+	public int myCartCount(String userId) {
+		return dao.myCartCount(userId);
+	}
 }
