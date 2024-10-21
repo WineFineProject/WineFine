@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.ShopDAO;
 import com.sist.dao.WineDAO;
+import com.sist.service.MemberService;
 import com.sist.service.ShopService;
 import com.sist.service.WineReviewService;
 import com.sist.vo.*;
@@ -27,9 +28,11 @@ public class ShopRestController {
 	String[] aroma = {"꽃","돌","레몬","말린과일","베리","사과","숙성","시나몬","아몬드","오크통","크로와상","파인애플","파프리카","허브"};
 	
 	private ShopService sservice;
+	private MemberService mService;
 	@Autowired
-	public ShopRestController(ShopService sservice) {
+	public ShopRestController(ShopService sservice, MemberService mService) {
 		this.sservice = sservice;
+		this.mService=mService;
 	}
 	@Autowired WineReviewService wservice;
 	
@@ -223,7 +226,32 @@ public class ShopRestController {
 		}
 		return result;
 	}
-	
+	@GetMapping(value = "mypage/vueMyPaymentList.do",produces = "text/plain;charset=UTF-8")
+	public String mypageVueMyPayment(int page, HttpSession session) throws Exception{
+		Map map=new HashMap();
+		
+		String id=(String)session.getAttribute("userId");
+		
+		MemberVO mvo=mService.memberDetail(id);
+		int rowsize=10;
+		int start=(rowsize*page)-(rowsize-1);
+		int end=rowsize*page;
+		
+		map.put("start", start);
+		map.put("end", end);
+		map.put("userId", id);
+		map.put("grade", mvo.getGrade());
+		List<Wine_PaymentVO> list=sservice.myPaymentList(map);
+		int totalPage=sservice.myPaymentTotalPage(map);
+		
+		map=new HashMap();
+		map.put("list", list);
+		map.put("curPage", page);
+		map.put("totalPage", totalPage);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(map);
+	}
 	
 	
 	

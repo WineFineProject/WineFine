@@ -13,6 +13,26 @@
 #myReserveApp table tr td table {
 	margin-bottom: 0px;
 }
+.scrollable-text {
+	position: relative;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.scrollable-text p {
+	display: inline-block;
+	white-space: nowrap;
+	transform: translateX(0);
+}
+
+.scrollable-text:hover p {
+	transform: translateX(-100%);
+	transition: transform 5s linear;
+}
+
+.scrollable-text p {
+	transition: none;
+}
 </style>
 </head>
 <body>
@@ -32,7 +52,7 @@
 			<tr @click="moreInfo(index)">
 				<td width="5%" class="text-center">{{vo.wpno}}</td>
 				<td width="5%" class="text-center"><img :src="vo.wvo.poster" width="100%"></td>
-				<td width="30%" class="text-center">{{vo.wvo.namekor}}</td>
+				<td width="30%" class="text-center scrollable-text"><p>{{vo.wvo.namekor}}</p></td>
 				<td width="5%" class="text-center">{{vo.account}}</td>
 				<td width="10%" class="text-center">{{vo.payment}}</td>
 				<td width="15%" class="text-center">{{vo.state===0?'결제완료':vo.state===1?'배송준비중':vo.state===2?'배송중':vo.state===3?'배송완료':vo.state===9?'반품':'결제취소'}}</td>
@@ -55,8 +75,8 @@
 						<tr>
 						<td width="6%" class="text-center">{{vo.wvo.type}}</td>
 						<td width="22%" class="text-center">{{vo.wvo.mvo.nickName}}</td>
-						<td width="24%" class="text-center">{{vo.wvo.grape}}</td>
-						<td width="24%" class="text-center">{{vo.wvo.nation}}</td>
+						<td width="24%" class="text-center scrollable-text"><p>{{vo.wvo.grape}}</p></td>
+						<td width="24%" class="text-center scrollable-text"><p>{{vo.wvo.nation}}</p></td>
 						<td width="24%" class="text-center">{{vo.wvo.maker}}</td>
 						</tr>
 					</table>
@@ -86,7 +106,7 @@
 						<tr>
 						<td width="15%" class="text-center">{{vo.dvo.name}}</td>
 						<td width="10%" class="text-center">{{vo.dvo.post}}</td>
-						<td width="40%" class="text-center">{{vo.dvo.addr1+' '+vo.dvo.addr2}}</td>
+						<td width="40%" class="text-center scrollable-text"><p>{{vo.dvo.addr1+' '+vo.dvo.addr2}}</p></td>
 						<td width="35%" class="text-center">{{vo.dvo.msg}}</td>
 						</tr>
 					</table>
