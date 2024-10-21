@@ -127,6 +127,9 @@ public class ShopDAO {
 		return mapper.wineLikeOn(lvo);
 	}
 	
+	public String selectUsername (int wno) {
+		return mapper.selectUsername(wno);
+	}
 
 	
 

@@ -134,7 +134,9 @@
 							<h4 class="fw-bold mb-3"></h4>
 							<p class="mb-3 d-flex align-items-center">
 								<span :class="vo.type === '화이트' ? 'whitecor' : 'winecor'">{{vo.type}} </span> | <span v-for="(nvo,index) in nname">{{index === 0 ?'':'&nbsp;|&nbsp;'}}<a>{{nvo}}</a>
-								</span> <span class="img-margin"> <span> <img :src="getLike()" @click="selectLike" class="img-size img-hover"> <span class="img-text"><b>0</b></span>
+								</span> <span class="img-margin"> <span> 
+								<img src="../img/like_off.png" @click="likeOn()" class="img-size img-hover" v-if="Lcheck === 0 || sessionId ==='' "> 
+								<img src="../img/like_on.png" @click="likeOff()" class="img-size img-hover" v-if="Lcheck !== 0 && sessionId !=='' "> <span class="img-text"><b>{{likeCount}}</b></span>
 								</span> <img src="../img/eye.png" class="img-size "> <span class="img-text"><b>{{vo.hit}}</b></span> <span @click="copyLink()" class="img-hover"> <img src="../img/share.png" class="img-size "> <span> </span>
 								</span>
 								</span>
@@ -170,25 +172,22 @@
 							</div>
 
 							<div class="d-flex align-items-center mb-5">
-								<div class="input-group quantity" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-minus rounded-circle bg-light border">
-											<i class="fa fa-minus"></i>
-										</button>
-									</div>
-									<input type="text" class="form-control form-control-sm text-center border-0" value="1">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-plus rounded-circle bg-light border">
-											<i class="fa fa-plus"></i>
-										</button>
-									</div>
-								</div>
+<!-- 								<div class="input-group quantity" style="width: 100px;"> -->
+<!-- 									<div class="input-group-btn"> -->
+<!-- 										<button class="btn btn-sm btn-minus rounded-circle bg-light border"> -->
+<!-- 											<i class="fa fa-minus"></i> -->
+<!-- 										</button> -->
+<!-- 									</div> -->
+<!-- 									<input type="text" class="form-control form-control-sm text-center border-0" value="1"> -->
+<!-- 									<div class="input-group-btn"> -->
+<!-- 										<button class="btn btn-sm btn-plus rounded-circle bg-light border"> -->
+<!-- 											<i class="fa fa-plus"></i> -->
+<!-- 										</button> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 
-								<a class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary" @click="handleAddToCart()">
-									<i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-								</a>
-								<a class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary" @click="handleBuyNow()">
-									<i class="fa fa-shopping-bag me-2 text-primary"></i> Buy Now
+								<a class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary" @click="handleAddToCart()"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+								</a> <a class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary" @click="handleBuyNow()"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Buy Now
 								</a>
 							</div>
 							<div style="text-align: right;">
@@ -213,23 +212,13 @@
 										<div class="row g-4">
 											<div class="col-6">
 												<ul class="info-list" style="width: 1230px;">
-													<li>
-														<span class="title">· 생산자</span> <span><a :href="'../maker/detail.do?no='+vo.maker" class="a-color">{{ vo.makerkor != null ? vo.makerkor : '정보없음' }} / {{ vo.makereng != null ? vo.makereng : '' }}</a></span>
-													</li>
-													<li>
-														<span class="title">· 국가/생산지역</span> <span v-for="(nvo,index) in nname">{{index === 0 ?'':'&nbsp;|&nbsp;'}}<a :href="'../nation/detail.do?no='+nnolink[index]" class="a-color">{{ nvo != null ? nvo : '정보없음' }}</a>
-														</span>
-													</li>
-													<li>
-														<span class="title">· 주요품종</span> <span v-for="(gvo,index) in gname">{{index === 0 ? '':'&nbsp;|&nbsp;'}}<a :href="'../grape/detail.do?no='+gnolink[index]" class="a-color">{{ gvo != null ? gvo : '정보없음' }}</a>
-														</span>
-													</li>
-													<li>
-														<span class="title">· 도수</span> <span class="content">{{ vo.alcohol != null ? vo.alcohol : '정보없음' }}</span>
-													</li>
-													<li>
-														<span class="title">· 추천음식</span> <span class="content">{{ vo.food != null ? vo.food : '정보없음' }}</span>
-													</li>
+													<li><span class="title">· 생산자</span> <span><a :href="'../maker/detail.do?no='+vo.maker" class="a-color">{{ vo.makerkor != null ? vo.makerkor : '정보없음' }} / {{ vo.makereng != null ? vo.makereng : '' }}</a></span></li>
+													<li><span class="title">· 국가/생산지역</span> <span v-for="(nvo,index) in nname">{{index === 0 ?'':'&nbsp;|&nbsp;'}}<a :href="'../nation/detail.do?no='+nnolink[index]" class="a-color">{{ nvo != null ? nvo : '정보없음' }}</a>
+													</span></li>
+													<li><span class="title">· 주요품종</span> <span v-for="(gvo,index) in gname">{{index === 0 ? '':'&nbsp;|&nbsp;'}}<a :href="'../grape/detail.do?no='+gnolink[index]" class="a-color">{{ gvo != null ? gvo : '정보없음' }}</a>
+													</span></li>
+													<li><span class="title">· 도수</span> <span class="content">{{ vo.alcohol != null ? vo.alcohol : '정보없음' }}</span></li>
+													<li><span class="title">· 추천음식</span> <span class="content">{{ vo.food != null ? vo.food : '정보없음' }}</span></li>
 												</ul>
 											</div>
 										</div>
@@ -241,17 +230,10 @@
 										<div class="row g-4">
 											<div class="col-6">
 												<ul class="info-list" style="width: 1230px;">
-													<li>
-														<span class="title">· 판매자 정보</span> <span class="content">{{vo.seller!=null ? vo.seller:'정보없음'}}</span>
-													</li>
-													<li>
-														<span class="title">· 신고하기</span> <span class="content">WineFine 은 소비자의 보호와 사이트의 안전거래를 위해 신고 센터를 운영하고 있습니다. <br> 안전 거레를 저해하는 경우 신고하여 주시기 바랍니다.
-														</span>
-													</li>
-													<li>
-														<span class="title"></span>
-														<input type="button" value="신고하기" class="report" @click="changeModal(true)">
-													</li>
+													<li><span class="title">· 판매자 정보</span> <span class="content">{{vo.seller!=null ? vo.seller:'정보없음'}}</span></li>
+													<li><span class="title">· 신고하기</span> <span class="content">WineFine 은 소비자의 보호와 사이트의 안전거래를 위해 신고 센터를 운영하고 있습니다. <br> 안전 거레를 저해하는 경우 신고하여 주시기 바랍니다.
+													</span></li>
+													<li><span class="title"></span> <input type="button" value="신고하기" class="report" @click="changeModal(true)"></li>
 												</ul>
 											</div>
 										</div>
@@ -263,9 +245,7 @@
 										<div class="row g-4">
 											<div class="col-6">
 												<ul class="info-list" style="width: 1230px;">
-													<li>
-														<span class="title">· 문의 게시판</span> <span class="content"></span>
-													</li>
+													<li><span class="title">· 문의 게시판</span> <span class="content"></span></li>
 													<li>
 														<table class="table">
 															<thead style="background-color: #efefef;">
@@ -302,8 +282,7 @@
 
 								<table style="width: 100%">
 									<tr>
-										<td style="width: 140px;" class="text-center">
-											별점 <span v-for="as in 5" class="no-style"><i :class="{'text-secondary':vw.srating>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>
+										<td style="width: 140px;" class="text-center">별점 <span v-for="as in 5" class="no-style"><i :class="{'text-secondary':vw.srating>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>
 										</td>
 										<td style="width: 130px;" class="text-center">
 											<h5>
@@ -316,10 +295,9 @@
 											</h5>
 										</td>
 										<td style="text-align: right;">
-											<button class="btn btn-md rounded-circle" @click="reviewDelete(vw.wrvno)">
+											<button class="btn btn-md rounded-circle" @click="reviewDelete(vw.wrvno)" v-if="vw.userid === sessionId">
 												<i class="fa fa-times text-danger"></i>
-											</button>
-											<img src="../img/Report.png" alt="Report" style="width: 30px; height: auto;" class="img-hover" @click="changeModal(true)">
+											</button> <img src="../img/Report.png" alt="Report" style="width: 30px; height: auto;" class="img-hover" @click="changeModal(true)">
 										</td>
 									</tr>
 								</table>
@@ -340,21 +318,20 @@
 								<div class="d-flex align-items-center">
 									<table>
 										<tr>
-											<th style="width: 130px;" class="text-center">
+											<th style="width: 130px; border: none;" class="text-center">
 												<h5>
 													<b>{{sessionId}}</b>
 												</h5>
 											</th>
-											<td style="width: 150px;">
-												별점 : <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="srating" style="display: none;"> <i :class="{'text-wine':srating>=ss}" style="margin-right: 2px;" class="fa fa-star"></i>
-												</label>
+											<td style="width: 150px;">별점 : <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="srating" style="display: none;"> <i :class="{'text-wine':srating>=ss}" style="margin-right: 2px;" class="fa fa-star"></i>
+											</label>
 											</td>
 										</tr>
 									</table>
 								</div>
 
 								<div v-if="sessionId !== ''" style="display: flex; justify-content: center; align-items: center;">
-									<textarea rows="4" cols="62" ref="review" v-model="review" class="form-control" style="width: 70%; resize: none; margin-right: 10px;"></textarea>
+									<textarea rows="4" cols="62" ref="review" v-model="review" class="form-control" style="width: 100%; resize: none; margin-right: 10px;"></textarea>
 									<button class="form-control" style="background-color: #57102F; color: white; width: 100px; height: 110px;" @click="reviewInsert()">리뷰쓰기</button>
 								</div>
 
@@ -409,7 +386,7 @@
 					<div class="tab-pane" id="tab2-content" role="tabpanel" aria-labelledby="nav-tab2">
 						<div class="px-2">
 							<div class="vesitable">
-								<h3 class="fw-bold mb-0">&nbsp; "{{vo.seller}}" 의 Top 5</h3>
+								<h3 class="fw-bold mb-0">&nbsp; "{{sellerName}}" 의 Top 5</h3>
 								<br>
 								<div class="owl-carousel vegetable-carousel justify-content-center" style="overflow-x: auto;">
 									<div class="border border-primary rounded position-relative vesitable-item otherWine" v-for="sl in otherSeller" :key="sl.wno" style="width: 250px;">
@@ -440,31 +417,26 @@
 					<table class="table" style="margin-top: 50px;">
 						<tr>
 							<th width="20%" class="text-center">신고대상 ID :</th>
-							<td width="20%" class="text-center">{{vo.seller}}</td>
+							<td width="20%" class="text-center">{{sellerName}}</td>
 							<th width="20%" class="text-center">상품명 :</th>
 							<td width="40%" class="text-center">{{vo.namekor}}</td>
 						</tr>
 						<tr>
 							<th width="20%" class="text-center">카테고리 :</th>
-							<td colspan="3">
-								<select style="width: 175px;" v-model="category" @change="selectCategory($event)">
+							<td colspan="3"><select style="width: 175px;" v-model="category" @change="selectCategory($event)">
 									<option value="상품관련">상품관련</option>
 									<option value="배송관련">배송관련</option>
 									<option value="기타신고">기타신고</option>
-								</select>
-							</td>
+							</select></td>
 						</tr>
 						<tr>
 							<th width="20%" class="text-center">신고 사유:</th>
-							<td colspan="3">
-								<textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
-						</textarea>
-							</td>
+							<td colspan="3"><textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
+						</textarea></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="rmbtn" style="text-align: center; border-bottom: none;">
-								<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport()">접수</button>
-								&nbsp;&nbsp;
+								<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport()">접수</button> &nbsp;&nbsp;
 								<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal(false)">취소</button>
 							</td>
 						</tr>
@@ -479,8 +451,7 @@
 
 
 	<!-- Back to Top -->
-	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top">
-		<i class="fa fa-arrow-up"></i>
+	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"> <i class="fa fa-arrow-up"></i>
 	</a>
 	<script>
 	let detailApp = Vue.createApp({
@@ -509,7 +480,10 @@
 	            reviewListData: [],
 	            count: 4,
 	            isOn: false,
-	            reviewCount: 0
+	            reviewCount: 0,
+	            likeCount: 0,
+	            Lcheck: 0,
+	            sellerName: ''
 	        }
 	    },
 	    mounted() {
@@ -535,6 +509,12 @@
 				console.log('reviewCount : ' + this.reviewCount)
 				this.count = response.data.count
 	            console.log('count : ' + this.count)
+// 	            if (this.sessionId !== ''){
+// 					this.Lcheck = response.data.Lcheck            	
+// 					console.log('Lcheck 값 : ' + this.Lcheck)
+// 	            }
+	            this.likeCount = response.data.likeCount
+	            console.log('likeCount 값 : ' + this.likeCount)
 	            // Owl Carousel 초기화
 	            this.$nextTick(() => {
 	                this.carousel = $('.owl-carousel').owlCarousel({
@@ -546,20 +526,48 @@
 	                    mouseDrag: true, // 마우스 드래그 활성화
 	                })
 	            })
+	            this.sellerName = response.data.sellerName
 	        }).catch(error => {
 	            console.error('데이터 로드 오류:', error.response)
 	        })
 	    },
 	    methods: {
-	    	getLike(){
-	    		return this.isOn ? '../img/like_on.png' : '../img/like_off.png'
+	    	likeOn(){
+	    		if(this.sessionId == ''){
+	    			alert('로그인 후 사용이 가능합니다')
+	                window.location.href = '../member/login.do'
+	    		}	    		
+	    		axios.get('../shop/likeOn.do',{
+	    			params:{
+	    				wno: this.wno
+	    			}	    			
+	    		}).then(response => {
+	    			console.log(response.data)	    			
+	    			console.log('보내는 값 : ' + this.wno)	    			
+		    		alert('좋아요 추가 완료!')
+	    			this.dataRecv()
+	    			this.Lcheck = response.data.Lcheck
+	    		}).catch(error => {
+	    			console.log(error.response)
+	    		})	    		
 	    	},
-	    	selectLike(){
+	    	likeOff(){
 	    		if(this.sessionId == ''){
 	    			alert('로그인 후 사용이 가능합니다')
 	                window.location.href = '../member/login.do'
 	    		}
-	    		this.isOn = !this.isOn
+	    		axios.get('../shop/likeOff.do', {
+	    			params:{
+	    				wno: this.wno
+	    			}
+	    		}).then(response => {
+	    			console.log(response.data)
+		    		alert('좋아요 취소')
+	    			this.dataRecv()
+	    			this.Lcheck = response.data.Lcheck
+	    		}).catch(error => {
+	    			console.log(error.response)
+	    		})
 	    	},
 	    	selectCategory($event){
 	    		console.log(this.category)
@@ -748,6 +756,9 @@
 			          })
 			          this.isOn = response.data.inOn
 			          this.reviewCount = response.data.reviewCount
+			          this.Lcheck = response.data.Lcheck
+			          this.likeCount = response.data.likeCount
+			          this.sellerName = response.data.sellerName
 		        }).catch(error => {
 		            console.error('데이터 로드 오류:', error.response)
 		        })

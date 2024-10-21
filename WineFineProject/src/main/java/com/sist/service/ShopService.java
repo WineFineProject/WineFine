@@ -49,4 +49,7 @@ public interface ShopService {
 	public int adminWinePage();
 	public List<Wine_PaymentVO> myPaymentList(Map map);
 	public int myPaymentTotalPage(Map map);
+	public String selectUsername (int wno);
+
+	
 }

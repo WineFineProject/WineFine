@@ -191,6 +191,12 @@ public interface ShopMapper {
 			+ "WHERE lno = #{lno} ")
 	public LikeVO wineLikeOff (LikeVO lvo);
 	
+	@Select("SELECT m.username "
+			+ "FROM wine_member m "
+			+ "JOIN wine w "
+			+ "ON m.userid = w.seller "
+			+ "where w.wno = #{wno} ")
+	public String selectUsername (int wno);
 	
 }
 
