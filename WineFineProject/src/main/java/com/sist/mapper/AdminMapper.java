@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 public interface AdminMapper {
 	public List<Integer> visitWeeks();
 	
-	@Select("SELECT max(count(*)) FROM wine_visit WHERE trunc(visitdate) BETWEEN trunc(sysdate-6) AND trunc(sysdate) GROUP BY trunc(visitdate)")
+	@Select("SELECT max(count(*)) FROM wine_visit WHERE trunc(visitdate) BETWEEN trunc(sysdate-6) AND trunc(sysdate) AND pageid='home' GROUP BY trunc(visitdate)")
 	public int visitMax();
 	
 	@Select("SELECT COUNT(*) FROM promotion_coupon WHERE state=0")

@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.SellerMapper">
+<select id="sellerVisitWeeks" parameterType="String" resultType="VisitVO">
+		SELECT TO_CHAR(d.visitDay, 'YYYY-MM-DD') as visitDay, NVL(w.visit_count, 0) AS visitCount
+		FROM (SELECT trunc(sysdate) - level + 1 AS visitDay FROM dual CONNECT BY level &lt;= 7) d
+		LEFT JOIN (SELECT trunc(visitdate) AS visitDay, COUNT(*) AS visit_count FROM wine_visit
+		WHERE trunc(visitdate) BETWEEN trunc(sysdate - 6) AND trunc(sysdate) AND pageid=#{pageid}
+		GROUP BY trunc(visitdate)) w
+		ON d.visitDay = w.visitDay
+		ORDER BY d.visitDay ASC
+	</select>
 </mapper>

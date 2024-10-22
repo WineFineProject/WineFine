@@ -50,7 +50,7 @@ public interface ShopService {
 	public List<Wine_PaymentVO> myPaymentList(Map map);
 	public int myPaymentTotalPage(Map map);
 	public String selectUsername (int wno);
-
+	public String getSeller(int wno);
 
 
 	

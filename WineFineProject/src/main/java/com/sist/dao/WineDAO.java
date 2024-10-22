@@ -48,4 +48,8 @@ public class WineDAO {
 	public int myPaymentTotalPage(Map map){
 		return mapper.myPaymentTotalPage(map);
 	}
+	
+	public String getSeller(int wno) {
+		return mapper.getSeller(wno);
+	}
 }

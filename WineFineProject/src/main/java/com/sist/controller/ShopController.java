@@ -4,6 +4,7 @@ import java.util.*;
 import javax.servlet.http.HttpSession;
 
 import com.sist.mapper.ShopMapper;
+import com.sist.service.MemberService;
 import com.sist.service.ShopService;
 import com.sist.vo.*;
 
@@ -12,12 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ShopController {
 	@Autowired
-	private ShopService pservice;
-	
+	private MemberService mService;
+	@Autowired
+	private ShopService sService;
 	@GetMapping("shop/mainhome.do")
 	public String mainhome() {
 		return "shop/mainhome";
@@ -28,6 +31,14 @@ public class ShopController {
 		System.out.println(vo);
 		model.addAttribute("search", vo);
 		return "shop/list";
+	}
+	
+	@GetMapping("shop/detailBefore.do")
+	public String shopDetailBefore(int wno, RedirectAttributes ra) {
+		ra.addAttribute("wno", wno);
+		String id=sService.getSeller(wno);
+		mService.visitCheck(id);
+		return "redirect:../shop/detail.do";
 	}
 	
 	@GetMapping("shop/detail.do")

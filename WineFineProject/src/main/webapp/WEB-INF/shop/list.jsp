@@ -261,7 +261,7 @@
 									<!-- 상품 list -->
 									<div class="col-md-6 col-lg-6 col-xl-4" v-for="vo in list"
 										style="margin-bottom: 20px; width: 300px;">
-										<a :href="'../shop/detail.do?wno=' + vo.wno">
+										<a :href="'../shop/detailBefore.do?wno=' + vo.wno">
 											<div class="rounded position-relative fruite-item"
 												style="width: 270px;">
 												<div class="fruite-img text-center" style="width: 270px;">
@@ -438,7 +438,6 @@
         				this.startPage=response.data.startPage
         				this.endPage=response.data.endPage
         				this.wineTcount = response.data.wineTcount
-        				this.wtypes = response.data.wtypes
         				console.log('getselectType : ' + this.getselectType)
         				this.foods = response.data.foods
         				console.log('getselectFoods : ' + this.getselectFoods)

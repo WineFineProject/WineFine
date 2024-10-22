@@ -5,7 +5,7 @@
 		SELECT TO_CHAR(d.visitDay, 'YYYY-MM-DD') as visitDay, NVL(w.visit_count, 0) AS visitCount
 		FROM (SELECT trunc(sysdate) - level + 1 AS visitDay FROM dual CONNECT BY level &lt;= 7) d
 		LEFT JOIN (SELECT trunc(visitdate) AS visitDay, COUNT(*) AS visit_count FROM wine_visit
-		WHERE trunc(visitdate) BETWEEN trunc(sysdate - 6) AND trunc(sysdate)
+		WHERE trunc(visitdate) BETWEEN trunc(sysdate - 6) AND trunc(sysdate) AND pageid='home'
 		GROUP BY trunc(visitdate)) w
 		ON d.visitDay = w.visitDay
 		ORDER BY d.visitDay ASC

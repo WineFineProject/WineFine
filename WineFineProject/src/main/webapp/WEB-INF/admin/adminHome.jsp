@@ -72,7 +72,7 @@
 					let max=_this.maxVisit
 				  $('.graph-bar').each(function() {
 				     var dataWidth = $(this).data('value');
-				     $(this).css("width", dataWidth/max*80 + "%");
+				     $(this).css("width", dataWidth/max*90 + "%");
 				  });
 				})
 			})

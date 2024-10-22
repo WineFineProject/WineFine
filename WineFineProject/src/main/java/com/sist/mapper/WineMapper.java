@@ -28,4 +28,7 @@ public interface WineMapper {
 	
 	@Select("SELECT CEIL(COUNT(*)/10.0) FROM wine_payment WHERE userid=#{userId}")
 	public int myPaymentTotalPage(Map map);
+	
+	@Select("SELECT seller FROM wine WHERE wno=#{wno}")
+	public String getSeller(int wno);
 }

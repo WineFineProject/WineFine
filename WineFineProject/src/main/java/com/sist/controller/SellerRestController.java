@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.sist.service.*;
 import com.sist.vo.*;
@@ -26,7 +27,10 @@ public class SellerRestController {
 	private SaleService ssService;
 	@Autowired
 	private NoticeBoardService nService;
-
+	@Autowired
+	private SellerService sellerService;
+	
+	
 	// 占쏙옙占쏙옙 占싯삼옙 占쏙옙占�
 	@GetMapping(value = "seller/findWine.do", produces = "text/plain;charset=UTF-8")
 	public String sellerFindWine(String fd, HttpSession session) throws Exception {
@@ -212,5 +216,20 @@ public class SellerRestController {
 		NoticeBoardVO vo = nService.noticeDetailData(nbno);
 		JsonMapper mapper = new JsonMapper();
 		return mapper.writeValueAsString(vo);
+	}
+	@GetMapping(value = "seller/vueSellerHomeInfo.do", produces = "text/plain;charset=UTF-8")
+	public String sellerVueHomeInfo(HttpSession session) throws Exception{
+		String id=(String)session.getAttribute("userId");
+		
+		Map map=new HashMap();
+		
+		List<Integer> dates=sellerService.sellerVisitWeeks(id);
+		int maxVisit=sellerService.sellerVisitMax(id);
+		
+		map.put("dates", dates);
+		map.put("maxVisit", maxVisit);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(map);
 	}
 }

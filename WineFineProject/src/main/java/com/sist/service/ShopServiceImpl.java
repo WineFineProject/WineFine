@@ -197,7 +197,10 @@ public class ShopServiceImpl implements ShopService{
 		return sdao.selectUsername(wno);
 	}
 
-	
+	@Override
+	public String getSeller(int wno) {
+		return wDao.getSeller(wno);
+	}
 	
 }
 
