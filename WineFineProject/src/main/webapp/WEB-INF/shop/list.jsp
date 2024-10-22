@@ -70,6 +70,9 @@
 	border-radius: 150px;
 	color: #881824;
 }
+.thispointer{
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -113,8 +116,12 @@
 				<div class="row g-4">
 					<div class="col-lg-12">
 						<div class="row g-4" style="margin-bottom: 15px;">
-							<div class="col-xl-3">
+							<div class="col-xl-3" style="border-bottom: 1px solid;">
 								<h3 class="mb-4">와인 필터</h3>
+									<p style="text-align: right;" @click="resetSelect()" class="thispointer"><small>초기화</small></p>
+									<b>TYPE :</b> <small>{{selectType}}</small><br>
+									<b>FOOD :</b> <small>{{selectFoods}}</small><br>
+									<b>AROMA :</b> <small>{{selectAroma}}</small><br>
 							</div>
 							<div class="col-1" style="width: 32px;"></div>
 							<div class="col-6" style="padding-top: 20px;">
@@ -154,28 +161,28 @@
 											<div class="mb-2">
 												<ul class="filter-box">
 													<li><label
-														:class="{'item-wine':wtypes.includes('레드') }"><input
-															name="type" type="checkbox" v-model="wtypes"
+														:class="{'item-wine':selectType.includes('레드') }"><input @change="filterChange()"
+															name="type" type="checkbox" v-model="selectType" class="thispointer"
 															style="display: none" value="레드">레드</label></li>
 													<li><label
-														:class="{'item-wine':wtypes.includes('화이트') }"><input
-															name="type" type="checkbox" v-model="wtypes"
+														:class="{'item-wine':selectType.includes('화이트') }"><input @change="filterChange()"
+															name="type" type="checkbox" v-model="selectType" class="thispointer"
 															style="display: none" value="화이트"> 화이트</label></li>
 													<li><label
-														:class="{'item-wine':wtypes.includes('로제') }"><input
-															name="type" type="checkbox" v-model="wtypes"
+														:class="{'item-wine':selectType.includes('로제') }"><input @change="filterChange()"
+															name="type" type="checkbox" v-model="selectType" class="thispointer"
 															style="display: none" value="로제"> 로제</label></li>
 													<li><label
-														:class="{'item-wine':wtypes.includes('스파클링') }"><input
-															name="type" type="checkbox" v-model="wtypes"
+														:class="{'item-wine':selectType.includes('스파클링') }"><input @change="filterChange()"
+															name="type" type="checkbox" v-model="selectType" class="thispointer"
 															style="display: none" value="스파클링"> 스파클링</label></li>
 													<li><label
-														:class="{'item-wine':wtypes.includes('주정강화') }"><input
-															name="type" type="checkbox" v-model="wtypes"
+														:class="{'item-wine':selectType.includes('주정강화') }"><input @change="filterChange()"
+															name="type" type="checkbox" v-model="selectType" class="thispointer"
 															style="display: none" value="주정강화"> 주정강화</label></li>
 													<li><label
-														:class="{'item-wine':wtypes.includes('기타') }"><input
-															name="type" type="checkbox" v-model="wtypes"
+														:class="{'item-wine':selectType.includes('기타') }"><input @change="filterChange()"
+															name="type" type="checkbox" v-model="selectType" class="thispointer"
 															style="display: none" value="기타"> 기타</label></li>
 												</ul>
 											</div>
@@ -197,9 +204,9 @@
 											<h4>음식매칭</h4>
 											<div class="mb-2">
 												<ul class="filter-box">
-													<li v-for="food in foods"><label
-														:class="{'item-wine':selectFoods.includes(food) }"><input
-															name="food" type="checkbox" v-model="selectFoods"
+													<li v-for="food in foodList"><label
+														:class="{'item-wine':selectFoods.includes(food) }"><input @change="filterChange()"
+															name="food" type="checkbox" v-model="selectFoods" class="thispointer"
 															style="display: none" :value="food">{{food}}</label></li>
 												</ul>
 											</div>
@@ -210,19 +217,19 @@
 											<h4>맛</h4>
 																	<ul class="filter-box">
 							<li>
-								당도 <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="sugar" style="display: none;"><i :class="{'text-wine':sugar>=ss}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								당도 <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input @change="filterChange()" type="radio" name="sugarStars" :value="ss" v-model="sugar" style="display: none;"><i :class="{'text-wine':sugar>=ss}" style="margin-right: 2px;" class="fa fa-circle"></i>
 								</label>
 							</li>
 							<li>
-								산도 <label v-for="as in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="acidStars" :value="as" v-model="acid" style="display: none;"><i :class="{'text-wine':acid>=as}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								산도 <label v-for="as in 5" class="no-style" style="cursor: pointer;"> <input @change="filterChange()" type="radio" name="acidStars" :value="as" v-model="acid" style="display: none;"><i :class="{'text-wine':acid>=as}" style="margin-right: 2px;" class="fa fa-circle"></i>
 								</label>
 							</li>
 							<li>
-								바디 <label v-for="bs in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="bodyStars" :value="bs" v-model="body" style="display: none;"><i :class="{'text-wine':body>=bs}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								바디 <label v-for="bs in 5" class="no-style" style="cursor: pointer;"> <input @change="filterChange()" type="radio" name="bodyStars" :value="bs" v-model="body" style="display: none;"><i :class="{'text-wine':body>=bs}" style="margin-right: 2px;" class="fa fa-circle"></i>
 								</label>
 							</li>
 							<li>
-								탄닌 <label v-for="ts in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="tanninStars" :value="ts" v-model="tannin" style="display: none;"><i :class="{'text-wine':tannin>=ts}" style="margin-right: 2px;" class="fa fa-circle"></i>
+								탄닌 <label v-for="ts in 5" class="no-style" style="cursor: pointer;"> <input @change="filterChange()" type="radio" name="tanninStars" :value="ts" v-model="tannin" style="display: none;"><i :class="{'text-wine':tannin>=ts}" style="margin-right: 2px;" class="fa fa-circle"></i>
 								</label>
 							</li>
 						</ul>
@@ -234,8 +241,8 @@
 											<h4>아로마</h4>
 											<div class="mb-2">
 												<ul class="filter-box">
-													<li v-for="ar in aroma"><label
-														:class="{'item-wine':selectAroma.includes(ar) }"><input
+													<li v-for="ar in aromaList"><label
+														:class="{'item-wine':selectAroma.includes(ar) }"><input @change="filterChange()"
 															name="ar" type="checkbox" v-model="selectAroma"
 															style="display: none" :value="ar">{{ar}}</label></li>
 												</ul>
@@ -359,39 +366,55 @@
         			totalpage: 0,
         			startPage: 0,
         			endPage: 0,
-        			sugar: 0,
-    				acid: 0,
-    				body: 0,
-    				tannin: 0,
-        			getsugar: '${search.sugarStars}',
-        			getacid: '${search.acidStars}',
-        			getbody: '${search.bodyStars}',
-        			gettannin: '${search.tanninStars}',
-    				wtypes: [],
+        			sugar: ${search.sugarStars},
+        			acid: ${search.acidStars},
+        			body: ${search.bodyStars},
+        			tannin: ${search.tanninStars},
+    				wtypeList: [],
     				selectType: [],
-    				getselectType: '${search.type}',
-    				foods: [],
+    				foodList: [],
     				selectFoods: [],
-    				getselectFoods: '${search.food}',
-    				aroma:[],
+    				aromaList:[],
     				selectAroma: [],
-    				getselectAroma: '${search.aroma}',
-    				selectPrice: 0,
-    				getselectPrice: '${search.price}'
+    				selectPrice: '${search.price}'
     			}
     		},
     		mounted(){
-    			console.log(this.getselectAroma)
-    			console.log(this.getselectFoods)
-    			console.log(this.getselectType)
-    			console.log(' getprice ' + this.getselectPrice)
-    			console.log(' getsugar ' + this.getsugar)
-    			console.log(' getacid ' + this.getacid)
-    			console.log(' getbody ' + this.getbody)
-    			console.log(' gettannin ' + this.gettannin)
+    			let typeStr='${search.type}'    
+       			if(typeStr!==''){
+	    			typeStr=typeStr.slice(1, typeStr.length-1)
+	    			for(s of typeStr.split(',')){
+	    				this.selectType.push(s.trim())       				
+       				}
+    			}
+    			let foodStr='${search.food}'
+    			if(foodStr!==''){
+	    			foodStr=foodStr.slice(1, foodStr.length-1)
+	    			for(s of foodStr.split(',')){
+	    				this.selectFoods.push(s.trim())
+	    			}
+    			}
+    			let aromaStr='${search.aroma}'
+    			if(aromaStr!==''){
+	    			aromaStr=aromaStr.slice(1, aromaStr.length-1)
+	    			for(s of aromaStr.split(',')){
+	    				this.selectAroma.push(s.trim())
+	    			}    				
+    			}
 				this.dataRecv()
         	},
     		methods:{
+    			resetSelect(){
+    				this.sugar=0
+    				this.acid=0
+    				this.body=0
+    				this.tannin=0
+    				this.selectFoods=[]
+    				this.selectAroma=[]
+    				this.selectType=[]
+    				this.selectPrice=''
+    				this.dataRecv()
+    			},
     			prev(){
     				if(this.curpage === 1){
     					alert('첫 페이지 입니다')
@@ -425,25 +448,51 @@
         			}
         			return arr;
         		},
+        		filterChange(){
+        			this.curpage=1
+        			this.dataRecv()
+        		},
         		dataRecv(){
+        			let typeStr='전체'
+        			if(this.selectType.length!==0)
+        				typeStr=this.selectType.join(',')
+        				
+        			let foodStr='전체'
+        			if(this.selectFoods.length!==0)
+	        			foodStr=this.selectFoods.join(',')
+	        			
+        			let aromaStr='전체'
+        			if(this.selectAroma.length!==0)
+	        			aromaStr=this.selectAroma.join(',')
+	        		
         			axios.get('../shop/list_vue.do',{
         				params:{
-        					page:this.curpage
+        					page:this.curpage,
+        					type : typeStr,
+         					food : foodStr,
+         					aroma : aromaStr,
+                			sugar: this.sugar,
+                			acid: this.acid,
+                			body: this.body,
+                			tannin: this.tannin,
+                			price:'전체'
         				}
         			}).then(response=>{
+        				console.log('typeStr'+typeStr)
+        				console.log('foodStr'+foodStr)
+        				console.log('aromaStr'+aromaStr)
+        				
         				console.log(response.data)
         				this.list=response.data.list
         				this.curpage=response.data.curpage
         				this.totalpage=response.data.totalpage
         				this.startPage=response.data.startPage
         				this.endPage=response.data.endPage
-        				this.wineTcount = response.data.wineTcount
-        				console.log('getselectType : ' + this.getselectType)
-        				this.foods = response.data.foods
-        				console.log('getselectFoods : ' + this.getselectFoods)
-        				this.aroma = response.data.aroma
-        				console.log('getselectAroma : ' + this.getselectAroma)
-        				this.getprice = response.data.getprice
+        				this.wineTcount = response.data.wineTcount       				
+        				this.aromaList = response.data.aromaList
+        				this.foodList = response.data.foodList
+        				this.selectPrice = response.data.selectPrice
+
         			}).catch(error=>{
         				console.log(error.response)
         			})

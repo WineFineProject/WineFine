@@ -201,6 +201,21 @@ public class ShopServiceImpl implements ShopService{
 	public String getSeller(int wno) {
 		return wDao.getSeller(wno);
 	}
+	@Override
+	public List<WineVO> wineFilter(Map map) {
+		// TODO Auto-generated method stub
+		return sdao.wineFilter(map);
+	}
+	
+	@Override
+	public List<WineVO> wineListData2(Map map) {
+		return wDao.wineListData2(map);
+	}
+	
+	@Override
+	public int wineTotalCount(Map map) {
+		return wDao.wineTotalCount(map);
+	}
 	
 }
 

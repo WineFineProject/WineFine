@@ -28,7 +28,6 @@ public class ShopController {
 	
 	@RequestMapping("shop/list.do")
 	public String wine_list(FilterVO vo, Model model) {
-		System.out.println(vo);
 		model.addAttribute("search", vo);
 		return "shop/list";
 	}

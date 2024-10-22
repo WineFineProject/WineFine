@@ -42,16 +42,37 @@ public class ShopRestController {
 	@Autowired
 	WineReviewService wservice;
 
-	@GetMapping(value = "shop/list_vue.do", produces = "text/plain;charset=UTF-8")
-	public String shop_list(int page) throws Exception {
+	@RequestMapping(value = "shop/list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String shop_list(int page, @RequestParam Map param) throws Exception {
+		System.out.println(param);
+		if(param.get("type")==null)
+			param.put("type", "");
+		if(param.get("food")==null)
+			param.put("food", "");
+		if(param.get("aroma")==null)
+			param.put("aroma", "");
+		if(param.get("fd")==null)
+			param.put("fd", "");
+//	    FilterVO filter = new FilterVO();
+//	    filter.setType(convertToList(param.get("type")));
+//	    filter.setFood(convertToList(param.get("food")));
+//	    filter.setAroma(convertToList(param.get("Aroma")));
+//	    filter.setPrice((String) param.get("price"));
+//	    filter.setSugarStars(parseInteger(param.get("sugarStars")));
+//	    filter.setAcidStars(parseInteger(param.get("acidStars")));
+//	    filter.setBodyStars(parseInteger(param.get("bodyStars")));
+//	    filter.setTanninStars(parseInteger(param.get("tanninStars")));
 		int rowsize = 12;
 		int start = (rowsize * page) - (rowsize - 1);
 		int end = rowsize * page;
 
-		int wineTcount = sservice.wineCount();
-		List<WineVO> list = sservice.wineListData(start, end);
+		param.put("start", start);
+		param.put("end", end);
+		List<WineVO> filter = sservice.wineListData2(param);
+		int wineTcount = sservice.wineTotalCount(param);
+		
 
-		int totalpage = sservice.shopTotalPage();
+		int totalpage = (int)(Math.ceil(wineTcount/12.0));
 		
 		final int BLOCK = 10;
 		int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
@@ -62,19 +83,30 @@ public class ShopRestController {
 
 //		占쎈쐻占쎈윥占쎈ぅ占쎈쐻占쎈윪�얠±�쐻占쎈윞占쎈뙃�뜝�럥�걫占쎈쐻�뜝占� 癲ル슢�뀈泳�怨뀀눀占쎄섶占쎌굲占쎈빝�뜝占� => JSON => VueJS占쎌뒙占쎈뙔占쎌굲 占쎈쐻占쎈윪占쎌벁占쎈쐻占쎈윥�땻占�
 		Map map = new HashMap();
-		map.put("list", list);
+		map.put("list", filter);
 		map.put("totalpage", totalpage);
 		map.put("curpage", page);
 		map.put("startPage", startpage);
 		map.put("endPage", endpage);
 		map.put("wineTcount", wineTcount);
-		map.put("wtypes", wtypes);
-		map.put("foods", foods);
-		map.put("aroma", aroma);
+		map.put("wtypeList", wtypes);
+		map.put("foodList", foods);
+		map.put("aromaList", aroma);
+//		map.put("filter", filter);
 
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);
 		return json;
+	}
+
+	private int parseInteger(Object object) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private List<String> convertToList(Object object) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@GetMapping(value = "shop/detail_vue.do", produces = "text/plain;charset=UTF-8")

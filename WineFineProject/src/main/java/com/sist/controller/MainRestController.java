@@ -38,7 +38,7 @@ public class MainRestController {
 		String json = "";
 		int start = (page - 1) * 12 + 1;
 		params.put("start", start);
-		List<WineVO> list = dao.wineListData(params);
+		List<WineVO> list = dao.wineListData2(params);
 		params.put("list", list);
 		int totalPage = dao.wineTotalPage();
 		int startPage = (page - 1) / 10 * 10 + 1;
