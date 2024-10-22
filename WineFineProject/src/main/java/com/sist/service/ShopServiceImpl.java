@@ -216,7 +216,57 @@ public class ShopServiceImpl implements ShopService{
 	public int wineTotalCount(Map map) {
 		return wDao.wineTotalCount(map);
 	}
+
+	@Override
+	public void paymentStateUpdate1() {
+		wDao.paymentStateUpdate1();
+	}
+
+	@Override
+	public void paymentStateUpdate2() {
+		wDao.paymentStateUpdate2();
+	}
+
+	@Override
+	public void paymentStateUpdate3() {
+		wDao.paymentStateUpdate3();
+	}
+
+	@Override
+	public List<Wine_PaymentVO> paymentGetAccount() {
+		return wDao.paymentGetAccount();
+	}
+
+	@Override
+	public void wineStackUpdate(Wine_PaymentVO vo) {
+		wDao.wineStackUpdate(vo);
+		
+	}
+
+	@Override
+	public void sellerAccUpdate(Wine_PaymentVO vo) {
+		wDao.sellerAccUpdate(vo);
+	}
 	
+	@Override
+	public void paymentReturnReques(int wpno) {
+		wDao.paymentReturnReques(wpno);
+	}
+	
+	@Override
+	public List<LikeVO> myLikeList(Map map) {
+		return wDao.myLikeList(map);
+	}
+	
+	@Override
+	public int myLikeTotalPage(Map map) {
+		return wDao.myLikeTotalPage(map);
+	}
+	
+	@Override
+	public void likeDelete(int rno) {
+		wDao.likeDelete(rno);
+	}
 }
 
 

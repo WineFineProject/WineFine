@@ -6,13 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sist.dao.NoticeDAO;
+import com.sist.dao.WineReturnDAO;
 import com.sist.vo.NoticeBoardVO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.WineReturnVO;
 
 @Service
 public class NoticeServiceImpl implements NoticeService{
 	@Autowired
 	private NoticeDAO dao;
+	@Autowired
+	private WineReturnDAO wDao;
 	@Override
 	public void noticeInsert(NoticeVO vo) {
 		dao.noticeInsert(vo);
@@ -37,5 +41,8 @@ public class NoticeServiceImpl implements NoticeService{
 	public void noticeStateUpdate(int nno) {
 		dao.noticeStateUpdate(nno);
 	}
-	
+	@Override
+	public void returnRequestInsert(WineReturnVO vo) {
+		wDao.returnRequestInsert(vo);
+	}
 }

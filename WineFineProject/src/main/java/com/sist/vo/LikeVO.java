@@ -11,5 +11,5 @@ ID
 public class LikeVO {
 	private int wno, lno;
 	private String id;
-
+	private WineVO wvo=new WineVO();
 }

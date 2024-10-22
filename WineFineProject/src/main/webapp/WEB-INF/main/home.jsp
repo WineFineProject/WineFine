@@ -311,7 +311,7 @@
 						pbno:this.bList[index].pbno
 					}
 				}).then(response=>{
-					location.href="../shop/detail.do?wno="+this.bList[index].wno
+					location.href="../shop/detailBefore.do?wno="+this.bList[index].wno
 				})
 			},
 			resetSelect(){

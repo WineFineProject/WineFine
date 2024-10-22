@@ -36,6 +36,9 @@ public class MyPageRestController {
 	@Autowired
 	private MypageService mService;
 	
+	@Autowired
+	private ShopService sService;
+	
 	// 회원정보 수정
 	@GetMapping(value = "my_edit2_member_vue.do", produces = "text/plain;charset=UTF-8")
 	public String myInfo(@SessionAttribute("userId") String userId) throws Exception
@@ -179,6 +182,35 @@ public class MyPageRestController {
 		  return json; 
 	  }
 	 
+	  @GetMapping(value="mypage/vueLikeList.do",produces ="text/plain;charset=UTF-8")
+	  public String mypageVueLikeList(int page, HttpSession session) throws Exception{
+	  	Map map=new HashMap();
+	  	String id=(String)session.getAttribute("userId");
+
+	  	int rowSize = 10;
+			int start = (rowSize * page) - (rowSize - 1);
+			int end = rowSize * page;
+
+			map.put("start", start);
+			map.put("end", end);
+			map.put("userid", id);
+
+			List<LikeVO> list=sService.myLikeList(map);
+			int totalPage=sService.myLikeTotalPage(map);
+			
+			map=new HashMap();
+			
+			map.put("list", list);
+			map.put("totalPage", totalPage);
+			map.put("curPage", page);
+			
+			ObjectMapper mapper=new ObjectMapper();
+			return mapper.writeValueAsString(map);
+	  }
 	
+	  @GetMapping(value="mypage/vueLikeDelete.do",produces ="text/plain;charset=UTF-8")
+	  public void mypageVueLikeDelete(int lno) {
+	  	sService.likeDelete(lno);
+	  }
 
 }

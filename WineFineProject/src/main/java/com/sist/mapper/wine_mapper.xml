@@ -4,6 +4,13 @@
 	<resultMap type="com.sist.vo.WineVO" id="wineMap">
 		<result property="mvo.nickName" column="nickname" />
 	</resultMap>
+	<resultMap type="com.sist.vo.LikeVO" id="likeMap">
+		<result property="wvo.namekor" column="namekor" />
+		<result property="wvo.poster" column="poster" />
+		<result property="wvo.type" column="type" />
+		<result property="wvo.price" column="price" />
+		<result property="wvo.mvo.nickName" column="nickname" />
+	</resultMap>
 	<resultMap type="com.sist.vo.Wine_PaymentVO" id="payMap">
 		<result property="wvo.namekor" column="namekor" />
 		<result property="wvo.poster" column="poster" />
@@ -137,11 +144,20 @@
 		FROM dual CONNECT BY REGEXP_SUBSTR(wvo.nation, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN nation n ON t.nation_no = n.no) AS nation,
 		(SELECT nickname FROM wine_member wm WHERE wm.userid=wvo.seller) as nickname
 		FROM wine_payment wp JOIN wine wvo ON wp.wno=wvo.wno
-		JOIN wine_delivery dvo ON wp.wdno=dvo.wdno
+		LEFT JOIN wine_delivery dvo ON wp.wdno=dvo.wdno
 		LEFT JOIN my_coupon mcvo ON wp.mcno=mcvo.mcno
 		LEFT JOIN promotion_sale svo ON wp.psno=svo.psno
 		WHERE wp.userid=#{userId}
 		ORDER BY wpno DESC))
 		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<select id="myLikeList" resultMap="likeMap" parameterType="hashmap">
+	SELECT lno, wno, namekor, type, poster, price, nickname, num 
+	FROM (SELECT lno, wno, namekor, type, poster, price, nickname, rownum as num 
+	FROM (SELECT lno, l.wno, w.namekor, w.type, w.poster, w.price, m.nickname 
+	FROM winelike l JOIN wine w ON l.wno=w.wno 
+	JOIN wine_member m ON w.seller=m.userid 
+	WHERE id=#{userid})) 
+	WHERE NUM BETWEEN #{start} AND #{end} 
 	</select>
 </mapper>

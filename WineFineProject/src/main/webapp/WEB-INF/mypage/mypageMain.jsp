@@ -55,7 +55,7 @@
 						<li class="list-group-item"><a href="../mypage/myReserve.do">예약내역</a></li>
 						<li class="list-group-item"><a href="../mypage/myboardlist.do">작성한글</a></li>
 						<li class="list-group-item"><a href="../mypage/myReview.do">작성리뷰</a></li>
-						<li class="list-group-item"><a href="../mypage/my_like.do">내좋아요</a></li>
+						<li class="list-group-item"><a href="../mypage/myLike.do">내좋아요</a></li>
 					</ul>
 				</div>
 			</div>

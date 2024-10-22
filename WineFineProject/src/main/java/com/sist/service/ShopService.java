@@ -60,4 +60,17 @@ public interface ShopService {
 	public List<WineVO> wineFilter(Map map);
 	public int wineTotalCount(Map map);
 	
+	
+	// 구매 업데이트
+	public void paymentStateUpdate1();
+	public void paymentStateUpdate2();
+	public void paymentStateUpdate3();
+	public List<Wine_PaymentVO> paymentGetAccount();
+	public void wineStackUpdate(Wine_PaymentVO vo);
+	public void sellerAccUpdate(Wine_PaymentVO vo);
+	public void paymentReturnReques(int wpno);
+	
+	public List<LikeVO> myLikeList(Map map);
+	public int myLikeTotalPage(Map map);
+	public void likeDelete(int rno);
 }

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.sist.service.CartService;
 import com.sist.service.NoticeService;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.WineReturnVO;
 
 @RestController
 public class NoticeRestController {
@@ -67,5 +68,15 @@ public class NoticeRestController {
 	@GetMapping(value = "notice/vueNoticeStateUpdate.do", produces = "text/plain;charset=UTF-8")
 	public void noticeVueStateUpdate(int nno) {
 		nService.noticeStateUpdate(nno);
+	}
+	@PostMapping(value = "notice/vueRequestSend.do", produces = "text/plain;charset=UTF-8")
+	public void noticeVueRequest(WineReturnVO vo, HttpSession session) {
+		String id=(String)session.getAttribute("userId");
+		String deSub=URLDecoder.decode(vo.getSubject(), StandardCharsets.UTF_8);
+		String deCont=URLDecoder.decode(vo.getContent(), StandardCharsets.UTF_8);
+		vo.setSubject(deSub);
+		vo.setContent(deCont);
+		vo.setSendid(id);
+		nService.returnRequestInsert(vo);
 	}
 }

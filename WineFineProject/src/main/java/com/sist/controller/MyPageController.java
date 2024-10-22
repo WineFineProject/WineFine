@@ -52,6 +52,10 @@ public class MyPageController {
 		return "mypage/myReview";
 	}
  //좋아요
+ @GetMapping("mypage/myLike.do")
+ public String mypageLike() {
+	 return "mypage/myLike";
+ }
  
  //배송주소 등록
  @GetMapping("mypage/delivery.do")

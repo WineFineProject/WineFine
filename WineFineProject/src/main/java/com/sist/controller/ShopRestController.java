@@ -324,5 +324,9 @@ public class ShopRestController {
 
 		return "";
 	}
+	@GetMapping(value = "shop/vueReturnRequest.do", produces = "text/plain;charset=UTF-8")
+	public void shopVueReturnRequest(int wpno) {
+		sservice.paymentReturnReques(wpno);
+	}
 
 }
