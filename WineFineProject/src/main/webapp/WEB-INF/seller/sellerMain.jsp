@@ -43,6 +43,7 @@
 						<li class="list-group-item"><a href="../seller/itemlist.do">판매상품목록</a></li>
 						<li class="list-group-item"><a href="../seller/approval.do">상품승인확인</a></li>
 						<li class="list-group-item"><a href="../seller/orderlist.do">주문관리</a></li>
+						<li class="list-group-item"><a href="../seller/chart.do">주간통계</a></li>
 					</ul>
 				</div>
 				<div class="panel panel-warning">

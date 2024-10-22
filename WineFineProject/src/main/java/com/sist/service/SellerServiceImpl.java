@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sist.dao.SellerDAO;
+import com.sist.vo.ChartVO;
 
 @Service
 public class SellerServiceImpl implements SellerService{
@@ -22,4 +23,18 @@ public class SellerServiceImpl implements SellerService{
 		return dao.sellerVisitMax(pageid);
 	}
 
+	@Override
+	public List<ChartVO> sellerSellTypePrice(String userid) {
+		return dao.sellerSellTypePrice(userid);
+	}
+
+	@Override
+	public List<ChartVO> sellerSellTypeAccount(String userid) {
+		return dao.sellerSellTypeAccount(userid);
+	}
+
+	@Override
+	public List<ChartVO> sellerAddrPrice(String userid) {
+		return dao.sellerAddrPrice(userid);
+	}
 }

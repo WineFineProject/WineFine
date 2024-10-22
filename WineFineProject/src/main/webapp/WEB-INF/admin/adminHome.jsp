@@ -36,12 +36,15 @@
 			</tr>
 		</table>
 		<div class="wrap">
-			<h2>7일간 방문자 통계</h2>
-			<div class="barGraph">
-				<ul class="graph">
-					<li style="margin-bottom:10px;text-align: left;" v-for="date in dates"><span class="graph-legend">{{date.visitDay}}</span><span class="graph-bar" style="display: inline-block;" :data-value="date.visitCount"></span></li>
-				</ul>
+			<h2>7일간 방문자 수</h2>
+			<div class="row" style="height: 350px; margin: 0px auto;">
+				<div style="width: 8%;"></div>
+				<div style="width: 12%; margin-top: auto;" class="text-center" v-for="date in dates">
+					<div class="graph-bar" :data-value="date.visitCount"></div>
+					<div class="graph-legend" style="margin: 0px auto;">{{date.visitDay}}</div>
+				</div>
 			</div>
+			<div style="width: 8%;"></div>
 		</div>
 	</div>
 	<script>
@@ -70,10 +73,10 @@
 				this.noneAnswer=response.data.noneAnswer
 				$(document).ready(function() {
 					let max=_this.maxVisit
-				  $('.graph-bar').each(function() {
-				     var dataWidth = $(this).data('value');
-				     $(this).css("width", dataWidth/max*90 + "%");
-				  });
+					  $('.graph-bar').each(function() {
+					     var dataWidth = $(this).data('value');
+					     $(this).css("height", dataWidth/max*350 + "px");
+					  });
 				})
 			})
 			_this=this

@@ -5,11 +5,13 @@
 	</definition>
 	<definition name="main" template="/WEB-INF/main/main.jsp">
 		<put-attribute name="header" value="/WEB-INF/main/header.jsp" />
+		<put-attribute name="head" value="/WEB-INF/main/head.jsp" />
 		<put-attribute name="home" value="/WEB-INF/main/home.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp" />
 	</definition>
 	<definition name="mypage" template="/WEB-INF/mypage/mypageMain.jsp">
 		<put-attribute name="header" value="/WEB-INF/main/header.jsp" />
+		<put-attribute name="head" value="/WEB-INF/main/head.jsp" />
 		<put-attribute name="mypageHome" value="/WEB-INF/mypage/mypageHome.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp" />
 	</definition>

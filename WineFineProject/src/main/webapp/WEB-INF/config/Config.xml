@@ -15,6 +15,7 @@
 	<typeAlias type="com.sist.vo.WineReviewVO" alias="WineReviewVO"/>
 	<typeAlias type="com.sist.vo.Wine_PaymentVO" alias="Wine_PaymentVO"/>
 	<typeAlias type="com.sist.vo.VisitVO" alias="VisitVO"/>
+	<typeAlias type="com.sist.vo.ChartVO" alias="ChartVO"/>
 	</typeAliases>
 	<mappers>
 	<mapper resource="com/sist/mapper/wine_mapper.xml"/>

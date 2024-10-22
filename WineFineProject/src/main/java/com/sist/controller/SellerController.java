@@ -47,6 +47,10 @@ public class SellerController {
 	public String sellerReplyBoard() {
 		return "seller/replyboard";
 	}
+	@GetMapping("seller/chart.do")
+	public String sellerChart() {
+		return "seller/chart";
+	}
 	@GetMapping("seller/replyInsert.do")
 	public String sellerReplyBoardInsert(int wrno, Model model) {
 		model.addAttribute("wrno", wrno);

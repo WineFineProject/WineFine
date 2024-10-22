@@ -92,6 +92,7 @@
 					addr1:'',
 					addr2:'',
 					msg:'',
+					addrEng:'',
 					isBase:false,
 					showModal:false
 				}
@@ -103,6 +104,7 @@
 						oncomplete:function(data){
 							 _this.post=data.zonecode
 							 _this.addr1=data.address
+							 _this.addrEng=data.sidoEnglish
 						}
 					}).open()
 				},
@@ -157,6 +159,7 @@
 							post:this.post,
 							addr1:this.addr1,
 							addr2:this.addr2,
+							addrEng:this.addrEng,
 							msg:this.msg,
 							state:state
 						}

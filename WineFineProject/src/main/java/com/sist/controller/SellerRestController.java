@@ -232,4 +232,21 @@ public class SellerRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(map);
 	}
+	@GetMapping(value = "seller/vueSellerTypeChart.do", produces = "text/plain;charset=UTF-8")
+	public String sellerVueTypeChart(HttpSession session) throws Exception{
+		String id=(String)session.getAttribute("userId");
+		Map map=new HashMap();
+		List<ChartVO> pList=sellerService.sellerSellTypePrice(id);
+		List<ChartVO> aList=sellerService.sellerSellTypeAccount(id);
+		List<ChartVO> rList=sellerService.sellerAddrPrice(id);
+		
+		map.put("pList", pList);
+		map.put("aList", aList);
+		map.put("rList", rList);
+		
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(map);
+	}
+	
 }

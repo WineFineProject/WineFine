@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.SellerMapper">
-<select id="sellerVisitWeeks" parameterType="String" resultType="VisitVO">
+	<select id="sellerVisitWeeks" parameterType="String" resultType="VisitVO">
 		SELECT TO_CHAR(d.visitDay, 'YYYY-MM-DD') as visitDay, NVL(w.visit_count, 0) AS visitCount
 		FROM (SELECT trunc(sysdate) - level + 1 AS visitDay FROM dual CONNECT BY level &lt;= 7) d
 		LEFT JOIN (SELECT trunc(visitdate) AS visitDay, COUNT(*) AS visit_count FROM wine_visit
@@ -9,5 +9,32 @@
 		GROUP BY trunc(visitdate)) w
 		ON d.visitDay = w.visitDay
 		ORDER BY d.visitDay ASC
+	</select>
+	<select id="sellerSellTypePrice" parameterType="String" resultType="ChartVO">
+		SELECT NVL(sum(wp.payment), 0) as price, w.type as type FROM wine_payment wp RIGHT JOIN wine w ON wp.wno=w.wno AND wp.state&lt;7 WHERE w.seller=#{userid} AND trunc(sysdate) BETWEEN trunc(sysdate-6) AND trunc(sysdate) GROUP BY w.type
+		ORDER BY CASE
+		WHEN w.type = '레드' THEN 1
+		WHEN w.type = '화이트' THEN 2
+		WHEN w.type = '스파클링' THEN 3
+		WHEN w.type = '로제' THEN 4
+		WHEN w.type = '주정강화' THEN 5
+		WHEN w.type = '기타' THEN 6
+		end
+	</select>
+	<select id="sellerSellTypeAccount" parameterType="String" resultType="ChartVO">
+		SELECT NVL(sum(wp.account), 0) as account, w.type as type FROM wine_payment wp RIGHT JOIN wine w ON wp.wno=w.wno AND wp.state&lt;7 WHERE w.seller=#{userid} AND trunc(sysdate) BETWEEN trunc(sysdate-6) AND trunc(sysdate) GROUP BY w.type
+		ORDER BY CASE
+		WHEN w.type = '레드' THEN 1
+		WHEN w.type = '화이트' THEN 2
+		WHEN w.type = '스파클링' THEN 3
+		WHEN w.type = '로제' THEN 4
+		WHEN w.type = '주정강화' THEN 5
+		WHEN w.type = '기타' THEN 6
+		end
+	</select>
+	<select id="sellerAddrPrice" parameterType="String" resultType="ChartVO">
+<!-- 		SELECT CASE WHEN INSTR(addrEng, '-') > 0 THEN SUBSTR(addrEng, 1, INSTR(addrEng, '-') - 1)
+		ELSE addrEng END AS addr, sum(payment) as price FROM wine_payment w JOIN wine_delivery wd ON w.wdno=wd.wdno JOIN wine ON w.wno=wine.wno WHERE wine.seller=#{userid} AND trunc(sysdate) BETWEEN trunc(sysdate-6) AND trunc(sysdate) GROUP BY addrEng -->
+		SELECT addrISO AS addr, sum(payment) as price FROM wine_payment w JOIN wine_delivery wd ON w.wdno=wd.wdno JOIN wine ON w.wno=wine.wno WHERE wine.seller=#{userid} AND trunc(sysdate) BETWEEN trunc(sysdate-6) AND trunc(sysdate) GROUP BY addrISO
 	</select>
 </mapper>
