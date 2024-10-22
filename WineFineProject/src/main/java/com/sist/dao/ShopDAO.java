@@ -18,6 +18,7 @@ public class ShopDAO {
 	public List<WineVO> wineListData(int start,int end){
 		return mapper.wineListData(start, end);
 	}
+
 //	占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈윪�억옙 �뜝�럥竊륅옙�쐻�뜝占� 占쎈쐻占쎈윥占쎌뱻占쎈쐻占쎈윪�얠쥉異�占쎌돸占쎌굲
 	public int shopTotalPage() {
 		return mapper.shopTotalPage();
@@ -131,8 +132,9 @@ public class ShopDAO {
 		return mapper.selectUsername(wno);
 	}
 
-	
-
+	public List<WineVO> wineFilter(Map map){
+		return mapper.wineFilter(map);
+	}
 	
 	
 

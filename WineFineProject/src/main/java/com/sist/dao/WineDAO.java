@@ -14,8 +14,12 @@ public class WineDAO {
 	@Autowired
 	private WineMapper mapper;
 	
-	public List<WineVO> wineListData(Map map){
-		return mapper.wineListData(map);
+	public List<WineVO> wineListData2(Map map){
+		return mapper.wineListData2(map);
+	}
+	
+	public int wineTotalCount(Map map) {
+		return mapper.wineTotalCount(map);
 	}
 	
 	public int wineTotalPage() {

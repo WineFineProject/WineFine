@@ -299,7 +299,7 @@
 										<td style="text-align: right;">
 											<button class="btn btn-md rounded-circle" @click="reviewDelete(vw.wrvno)" v-if="vw.userid === sessionId">
 												<i class="fa fa-times text-danger"></i>
-											</button> <img src="../img/Report.png" alt="Report" style="width: 30px; height: auto;" class="img-hover" @click="changeModal(true)">
+											</button> <img src="../img/Report.png" alt="Report" style="width: 30px; height: auto;" class="img-hover" @click="changeModal2(true)">
 										</td>
 									</tr>
 								</table>
@@ -444,9 +444,9 @@
 						</tr>
 					</table>
 				</div>
-			</div>
+			</div>		
 			
-			<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
+			<div class="modal" :class="{ show: showModal2 }" @click.self="changeModal(false)">
 				<div class="modal-content" style="width: 650px; height: 400px;">
 					<h3 class="text-center">신고하기</h3>
 					<table class="table" style="margin-top: 50px;">
@@ -458,9 +458,9 @@
 						</tr>
 						<tr>
 							<th width="20%" class="text-center">카테고리 :</th>
-							<td colspan="3"><select style="width: 175px;" v-model="category" @change="selectCategory($event)">
-									<option value="상품관련">상품관련</option>
-									<option value="배송관련">배송관련</option>
+							<td colspan="3"><select style="width: 175px;" v-model="category2" @change="selectCategory2($event)">
+									<option value="폭언/욕설">폭언/욕설</option>
+									<option value="불법광고">불법광고</option>
 									<option value="기타신고">기타신고</option>
 							</select></td>
 						</tr>
@@ -471,8 +471,8 @@
 						</tr>
 						<tr>
 							<td colspan="4" class="rmbtn" style="text-align: center; border-bottom: none;">
-								<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport()">접수</button> &nbsp;&nbsp;
-								<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal(false)">취소</button>
+								<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport2()">접수</button> &nbsp;&nbsp;
+								<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal2(false)">취소</button>
 							</td>
 						</tr>
 					</table>
@@ -508,7 +508,9 @@
 	            carousel: null, 
 	            account: 1,
 	            showModal: false,
+	            showModal2: false,	            
 	            category: '배송관련',
+	            category2: '폭언/욕설',
 	            content: '',
 	            review: '',
 	            srating: 1,
@@ -566,26 +568,22 @@
 	    	selectCategory($event){
 	    		console.log(this.category)
 	    	},
+	    	selectCategory2($event){
+	    		console.log(this.category2)
+	    	},
 	    	sendReport() {
 	    		axios.post('../shop/seller_report.do', null, {
 					params:{		  
 						userid: this.sessionId,
 		    			type: 3,
 		    			tno: this.wno,
-		    			state: 1,
+		    			state: 0,
 		    			rid: this.vo.seller,
 		    			category: this.category,
 		    			content: this.content	  	    			
 					}
 	    		}).then(response => {
 	    			console.log(response.data)
-	    			console.log('신고자 :' + this.sessionId)
-	    			console.log('타입 :' + 3)
-	    			console.log('상품번호 :' + this.wno)
-	    			console.log('신고상태 :' + 1)
-	    			console.log('피신고자 :' + this.vo.seller)
-	    			console.log('카테고리 :' + this.category)
-	    			console.log('내용 :' + this.content)
 	    			alert('신고가 접수되었습니다')
 	    			this.changeModal(false)
 	    		}).catch(error => {
@@ -594,37 +592,40 @@
 	    			this.changeModal(false)
 	    		})
 	    	},
-	    	reviewReport(userid) {
+	    	sendReport2() {
 	    		axios.post('../shop/seller_report.do', null, {
 					params:{		  
 						userid: this.sessionId,
 		    			type: 4,
 		    			tno: this.wno,
-		    			state: 1,
-		    			rid: userid,
-		    			category: this.category,
+		    			state: 0,
+		    			rid: this.vo.seller,
+		    			category: this.category2,
 		    			content: this.content	  	    			
 					}
 	    		}).then(response => {
 	    			console.log(response.data)
-	    			console.log('신고자 :' + this.sessionId)
-	    			console.log('타입 :' + 4)
-	    			console.log('상품번호 :' + this.wno)
-	    			console.log('신고상태 :' + 1)
-	    			console.log('피신고자 :' + this.vo.seller)
-	    			console.log('카테고리 :' + this.category)
-	    			console.log('내용 :' + this.content)
 	    			alert('신고가 접수되었습니다')
-	    			this.changeModal(false)
+	    			this.changeModal2(false)
 	    		}).catch(error => {
 	    			console.log(error.response)	    			
 	    			alert('신고 접수 실패' + error)
-	    			this.changeModal(false)
+	    			this.changeModal2(false)
 	    		})
 	    	},
+
 	    	changeModal(check){
 	    		if(this.sessionId){
 		    		this.showModal = check	    			
+	    		}else {
+	                alert('로그인 후 사용이 가능합니다.')
+	                window.location.href = '../member/login.do'
+	    		}
+	    		
+	    	},
+	    	changeModal2(check){
+	    		if(this.sessionId){
+		    		this.showModal2 = check	    			
 	    		}else {
 	                alert('로그인 후 사용이 가능합니다.')
 	                window.location.href = '../member/login.do'
@@ -695,7 +696,7 @@
 	   				 console.log('별점 : ' + this.srating)	 
 	   				 this.review = ''
 	   				 alert('작성되었습니다')	   				 
-	    			 this.dataRecv()	   				 
+	    			 this.dataRecv()
 			   }).catch(error=>{
 				     console.log(error.response)
 			   })

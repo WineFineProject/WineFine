@@ -8,7 +8,8 @@ import com.sist.vo.*;
 
 public interface WineMapper {
 	//���� ��� ���
-	public List<WineVO> wineListData(Map map);
+	public List<WineVO> wineListData2(Map map);
+	public int wineTotalCount(Map map);
 	
 	//���� �˻� ��� ���
 	public List<WineVO> wineFindList(Map map);

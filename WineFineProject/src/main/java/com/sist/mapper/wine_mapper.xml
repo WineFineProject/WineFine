@@ -24,29 +24,62 @@
 		<result property="svo.discount" column="sdiscount" />
 	</resultMap>
 	<!-- 와인 목록 출력 -->
-	<select id="wineListData" resultType="WineVO" parameterType="hashmap">
-		SELECT wno, namekor, nameeng, type, price, poster, num
-		FROM (SELECT wno, namekor, nameeng, type, price, poster, rownum as num
-		FROM (SELECT wno,
-		namekor, nameeng, type, price, poster
-		FROM wine
-		<where>
-			<if test="sugar!=0">AND sugar = #{sugar}</if>
-			<if test="body!=0">AND body = #{body}</if>
-			<if test="acid!=0">AND acid = #{acid}</if>
-			<if test="tannin!=0">AND tannin = #{tannin}</if>
-			<if test="price!='전체'">AND TO_NUMBER(NVL(REPLACE(REPLACE(price, '원', ''), ',', ''), '30000000'))&lt;= TO_NUMBER(#{price})</if>
-			<if test="types!='전체'">
+	
+	<select id="wineListData2" resultMap="wineMap" parameterType="hashmap">
+	SELECT wno, namekor, nameeng, type, price, poster, nickname, num
+		FROM (SELECT wno, namekor, nameeng, type, price, poster, nickname, rownum as num
+		FROM (SELECT w.wno, w.namekor, w.nameeng, w.type, w.price, w.poster, m.nickname
+		FROM wine w JOIN wine_member m ON w.seller=m.userid
+		WHERE namekor LIKE '%'||#{fd}||'%'
+		<if test="acid!=0">AND acid=#{acid} </if>
+		<if test="sugar!=0">AND sugar=#{sugar} </if>
+		<if test="body!=0">AND body=#{body} </if>
+		<if test="tannin!=0">AND tannin=#{tannin} </if>
+		<if test="type!='전체'">
 				AND type IN
-				<foreach item="type" index="index" collection="types.split(',')" open="(" separator="," close=")">
+				<foreach item="type" index="index" collection="type.split(',')" open="(" separator="," close=")">
 					#{type}
 				</foreach>
 			</if>
-		</where>
-		ORDER BY wno ASC))
+		<if test="food!='전체'">
+			<foreach collection="food.split(',')" item="food">
+			AND food LIKE '%'||#{food}||'%' 
+			</foreach>
+		</if>
+		<if test="aroma!='전체'">
+			<foreach collection="aroma.split(',')" item="aroma">
+			AND aroma LIKE '%'||#{aroma}||'%' 
+			</foreach>
+		</if>
+		<if test="price!='전체'">AND TO_NUMBER(NVL(REPLACE(REPLACE(price, '원', ''), ',', ''), '30000000'))&lt;= TO_NUMBER(#{price})</if>
+		ORDER BY wno DESC
+		))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
-
+	<select id="wineTotalCount" parameterType="hashmap" resultType="int">
+	SELECT COUNT(*) FROM wine WHERE namekor LIKE '%'||#{fd}||'%'
+		<if test="acid!=0">AND acid=#{acid} </if>
+		<if test="sugar!=0">AND sugar=#{sugar} </if>
+		<if test="body!=0">AND body=#{body} </if>
+		<if test="tannin!=0">AND tannin=#{tannin} </if>
+		<if test="type!='전체'">
+				AND type IN
+				<foreach item="type" index="index" collection="type.split(',')" open="(" separator="," close=")">
+					#{type}
+				</foreach>
+			</if>
+		<if test="food!='전체'">
+			<foreach collection="food.split(',')" item="food">
+			AND food LIKE '%'||#{food}||'%' 
+			</foreach>
+		</if>
+		<if test="aroma!='전체'">
+			<foreach collection="aroma.split(',')" item="aroma">
+			AND aroma LIKE '%'||#{aroma}||'%' 
+			</foreach>
+		</if>
+		<if test="price!='전체'">AND TO_NUMBER(NVL(REPLACE(REPLACE(price, '원', ''), ',', ''), '30000000'))&lt;= TO_NUMBER(#{price})</if>
+	</select>
 	<!-- 와인 검색 출력 -->
 	<select id="wineFindList" resultMap="wineMap" parameterType="hashmap">
 		SELECT wno, namekor, poster, seller, (SELECT nickname FROM wine_member WHERE wine.seller=wine_member.userid) as nickname FROM wine WHERE namekor LIKE '%'||#{fd}||'%'

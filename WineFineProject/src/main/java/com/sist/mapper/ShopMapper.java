@@ -26,6 +26,44 @@ public interface ShopMapper {
 	        + "FROM wine ORDER BY wno ASC, state DESC)) "
 	        + "WHERE num BETWEEN #{start} AND #{end}")
 	public List<WineVO> wineListData(@Param("start")int start,@Param("end")int end);
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	@Select("<script>"
+	        + "SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, num "
+	        + "FROM ( "
+	        + "    SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, rownum as num "
+	        + "    FROM ( "
+	        + "        SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster "
+	        + "        FROM wine "
+	        + "        WHERE 1=1 "
+	        + "        <if test='filters.type != null'>"
+	        + "            AND type LIKE '%' || #{filters.type} || '%' "
+	        + "        </if>"
+	        + "        <if test='filters.food != null'>"
+	        + "            AND food LIKE '%' || #{filters.food} || '%' "
+	        + "        </if>"
+	        + "        <if test='filters.aroma != null'>"
+	        + "            AND aroma LIKE '%' || #{filters.aroma} || '%' "
+	        + "        </if>"
+	        + "        <if test='filters.sugar != null'>"
+	        + "            AND sugar LIKE '%' || #{filters.sugar} || '%' "
+	        + "        </if>"
+	        + "        <if test='filters.acid != null'>"
+	        + "            AND acid LIKE '%' || #{filters.acid} || '%' "
+	        + "        </if>"
+	        + "        <if test='filters.body != null'>"
+	        + "            AND body LIKE '%' || #{filters.body} || '%' "
+	        + "        </if>"
+	        + "        <if test='filters.tannin != null'>"
+	        + "            AND tannin LIKE '%' || #{filters.tannin} || '%' "
+	        + "        </if>"
+	        + "        ORDER BY wno ASC "
+	        + "    ) "
+	        + ") "
+	        + "WHERE num BETWEEN #{start} AND #{end}"
+	        + "</script>")
+	public List<WineVO> wineFilter(Map map);
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////
 //	珥� �럹�씠吏�
 	@Select("SELECT CEIL(COUNT(*)/12.0) FROM wine")
 	public int shopTotalPage();
@@ -197,7 +235,7 @@ public interface ShopMapper {
 			+ "ON m.userid = w.seller "
 			+ "where w.wno = #{wno} ")
 	public String selectUsername (int wno);
-	
+
 }
 
 

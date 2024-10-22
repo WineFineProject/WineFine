@@ -2,10 +2,14 @@ package com.sist.service;
 
 import java.util.*;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sist.vo.*;
 
 public interface ShopService {
 	public List<WineVO> wineListData(int start,int end);
+	public List<WineVO> wineListData2(Map map);
+	
 	public int shopTotalPage();
 	public List<WineVO> wineFindList(Map map);
 	public WineVO wineDetailData(int wno);
@@ -52,6 +56,8 @@ public interface ShopService {
 	public String selectUsername (int wno);
 	public String getSeller(int wno);
 
-
+//	와인 리스트 + 필터
+	public List<WineVO> wineFilter(Map map);
+	public int wineTotalCount(Map map);
 	
 }

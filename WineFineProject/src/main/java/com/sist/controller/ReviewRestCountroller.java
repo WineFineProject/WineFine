@@ -28,11 +28,13 @@ public class ReviewRestCountroller {
 		try {
 			vo.setUserid(id);
 			vo.setNickname(nickName);
-			
+			wservice.reviewInsert(vo);
 			result = "yes";
 		}catch(Exception ex) {
 			result = ex.getMessage();
 		}
+		System.out.printf(id);
+		System.out.printf(nickName);
 		return result;
 	}
 	
