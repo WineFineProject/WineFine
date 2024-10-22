@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class="row" id="myHomeApp">
-		<table class="table">
+		<table class="table t">
 			<tr>
 				<th width="40%" class="text-center">금일 결제</th>
 				<td width="40%" class="text-center">{{nonePayment}}건</td>

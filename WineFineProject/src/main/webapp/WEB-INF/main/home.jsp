@@ -105,9 +105,9 @@
 		</div>
 		<div class="container-fluid vesitable">
 			<div class="py-5" style="margin-left: 20%; margin-right: 20%">
-				<h1 class="mb-0" style="text-align: center;">추천 와인</h1>
+				<h2 class="mb-0" style="text-align: center;">추천 와인</h2>
 				<!-- Swiper 시작 -->
-				<div class="swiper">
+				<div class="swiper" style="margin-top: 30px">
 					<div class="swiper-wrapper" style="height: 370px;">
 						<div class="swiper-slide" v-for="(vo, index) in bList" @click="promotionDetail(index)">
 							<div class="border border-wine rounded position-relative vesitable-item text-center">
@@ -134,7 +134,7 @@
 				<!-- Swiper 끝 -->
 			</div>
 		</div>
-		<div class="container">
+		<div class="container" style="margin-top:50px">
 			<div class="row">
 				<div class="col-sm-8">
 					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/EnO0yzn91YA?si=3y6-2TgiwlCtEdxR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -151,7 +151,7 @@
 				</div>
 			</div>
 		</div>
-		<div style="height: 50px;"></div>
+		<div style="height: 50px;margin-top:50px"></div>
 		<div class="container">
 			<h2 class="text-center">와인 찾기</h2>
 			<form action="../shop/list.do" method="post">

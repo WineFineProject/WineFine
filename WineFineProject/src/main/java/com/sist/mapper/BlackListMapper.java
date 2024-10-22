@@ -32,4 +32,8 @@ public interface BlackListMapper {
 	    @Insert("INSERT INTO blacklist VALUES(" 
 			    +"(SELECT NVL(MAX(blno)+1, 1) FROM blacklist),#{recvid},#{sendid},#{content},SYSDATE)")
 	    public void blackListInsert(BlackListVO vo);
+	    
+	    //블랙리스트 중복확인
+	    @Select("SELECT COUNT(*) FROM blacklist WHERE recvid=#{recvid} AND sendid=#{sendid}")
+	    public int blackListCheck(Map map);
 }

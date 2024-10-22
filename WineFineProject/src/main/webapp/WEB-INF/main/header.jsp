@@ -138,10 +138,10 @@
 			<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
 				<div class="modal-content" style="height: 455px;">
 					<span class="close" @click="changeModal(false)">&times;</span>
-					<table class="table" style="table-layout: fixed; margin-top: 20px;">
+					<table class="table t" style="table-layout: fixed; margin-top: 25px;">
 						<tr>
 							<th width="20%">제목</th>
-							<td colspan="3" class="scrollable-text">
+							<td colspan="3" class="scrollable-text" style="border: 1px solid #e1e1e1">
 								<p>{{select.subject}}</p>
 							</td>
 						</tr>
@@ -149,7 +149,7 @@
 							<th width="20%">보낸이</th>
 							<td width="30%">{{select.sendid}}</td>
 							<th width="20%">작성일</th>
-							<td width="30%">{{select.dbday}}</td>
+							<td width="30%" style="border: 1px solid #e1e1e1">{{select.dbday}}</td>
 						</tr>
 						<tr>
 							<td colspan="4" class="content-box">

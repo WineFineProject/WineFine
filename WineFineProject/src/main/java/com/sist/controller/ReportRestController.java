@@ -53,15 +53,21 @@ public class ReportRestController {
   public String reportboard(int wreno,int type) throws Exception
   {
 	  Wine_ReportVO vo=new Wine_ReportVO();
-	  if(type==1)
-		  vo=rService.reportBoardData(wreno);
-	  else if(type==2)
-		  vo=rService.reportReplyData(wreno);
-	  else if(type==3)
-		  vo=rService.reportWineData(wreno);
-	  else if(type==4)
-	      vo=rService.reportReviewData(wreno);
-	  
+	  try {
+		  if(type==1)
+			  vo=rService.reportBoardData(wreno);
+		  else if(type==2)
+			  vo=rService.reportReplyData(wreno);
+		  else if(type==3)
+			  vo=rService.reportWineData(wreno);
+		  else if(type==4)
+			  vo=rService.reportReviewData(wreno);
+		  
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	  System.out.println(vo);
 	  ObjectMapper mapper=new ObjectMapper();
 	  String json=mapper.writeValueAsString(vo);
 	  return json;

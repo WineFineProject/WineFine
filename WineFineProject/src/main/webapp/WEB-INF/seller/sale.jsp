@@ -88,7 +88,7 @@
 			</tbody>
 		</table>
 		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
-			<div class="modal-content">
+			<div class="modal-content tt">
 				<span class="close" @click="changeModal(false)">&times;</span>
 				<table class="table" style="margin-top: 10px;">
 				<h4 class="text-center">프로모션 등록</h4>

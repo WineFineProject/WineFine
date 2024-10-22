@@ -22,13 +22,13 @@ th {
     color: white;
     padding: 10px;
     margin-left: 5px;
-    border-radius: 5px 5px;
+    border-radius: 5px;
 }
 
 #tt td {
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 5px 5px;
+    border-radius: 5px;
 }
 
 .btn {

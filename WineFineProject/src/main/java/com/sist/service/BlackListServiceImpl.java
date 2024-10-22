@@ -35,4 +35,10 @@ public class BlackListServiceImpl implements BlackListService{
 		bDao.blackListDelete(vo);
 	}
 
+	@Override
+	public int blackListCheck(Map map) {
+		// TODO Auto-generated method stub
+		return bDao.blackListCheck(map);
+	}
+
 }
