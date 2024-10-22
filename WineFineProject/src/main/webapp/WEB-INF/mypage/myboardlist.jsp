@@ -5,8 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="http://unpkg.com/vue@3"></script>
-<script src="http://unpkg.com/axios/dist/axios.min.js"></script>
 <link rel="stylesheet" href="../tem/css/payment.css">
 </head>
 <body>
