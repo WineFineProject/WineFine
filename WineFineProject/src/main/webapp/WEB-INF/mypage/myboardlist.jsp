@@ -7,17 +7,16 @@
 <title>Insert title here</title>
 <script src="http://unpkg.com/vue@3"></script>
 <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
-<style type="text/css">
-</style>
+<link rel="stylesheet" href="../tem/css/payment.css">
 </head>
 <body>
-	<div class="container-fluid py-5" >
-		<div class="container py-5" >
+	<div class="container-fluid py-5">
+		<div class="container py-5">
 			<div class="row">
 				<div class="col-lg-12">
-				
-					<div class="table-responsive" id="boardListTable" >
-						<table class="table">
+					<div class="table-responsive" id="boardListTable">
+					<h3 class="table-title">작성한 글</h3>
+						<table class="table mp">
 							<thead>
 								<tr>
 								    <th scope="col" width="5%">번호</th>

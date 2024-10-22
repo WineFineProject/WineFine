@@ -1,0 +1,116 @@
+@charset "UTF-8";
+
+#myReserveApp {
+    width: 1500px;
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+}
+
+.table-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.mp {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.mp th, .mp td {
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.mp th {
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.scrollable-text {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.scrollable-text p {
+    display: inline-block;
+    white-space: nowrap;
+    transition: transform 0.5s linear;
+}
+
+.scrollable-text:hover p {
+    transform: translateX(-100%);
+}
+
+.btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-wine {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+}
+
+.btn-wine:hover {
+    background-color: #a93226;
+}
+
+.btn-border-wine {
+    background-color: transparent;
+    border: 1px solid #c0392b;
+    color: #c0392b;
+}
+
+.btn-border-wine:hover {
+    background-color: #c0392b;
+    color: white;
+}
+
+.label {
+    float: left;
+}
+
+.r-box {
+    border: 1px solid #e1e1e1; 
+    padding: 15px; 
+    height: 280px; 
+    overflow-y: auto; 
+    border-radius: 10px; 
+}
+
+.r-boxs {
+    border: 1px solid #e1e1e1; 
+    padding: 15px; 
+    height: 200px; 
+    overflow-y: auto; 
+    border-radius: 10px; 
+}
+
+.scrollable-text {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.scrollable-text p {
+    display: inline-block;
+    white-space: nowrap;
+    transform: translateX(0);
+}
+
+.scrollable-text:hover p {
+    transform: translateX(-100%);
+    transition: transform 5s linear;
+}
+
+.scrollable-text p {
+    transition: none;
+}

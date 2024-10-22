@@ -4,10 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/payment.css">
 </head>
 <body>
 	<div class="row" id="myReserveApp">
-		<table class="table">
+	<h3 class="table-title">예약내역</h3>
+		<table class="table mp">
 			<tr>
 				<th width="5%" class="text-center">번호</th>
 				<th width="30%" class="text-center">이벤트명</th>

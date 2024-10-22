@@ -4,12 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/payment.css">
 <style type="text/css">
-#myReserveApp table tr th {
-	background: lightgray;
-	color: white;
-}
-
 #myReserveApp table tr td table {
 	margin-bottom: 0px;
 }
@@ -37,7 +33,8 @@
 </head>
 <body>
 	<div class="row" id="myReserveApp">
-		<table class="table">
+	<h3 class="table-title">구매내역</h3>
+		<table class="table mp">
 			<tr>
 				<th width="5%" class="text-center">번호</th>
 				<th width="5%" class="text-center"></th>
@@ -51,7 +48,7 @@
 			<template v-for="(vo, index) in list">
 			<tr @click="moreInfo(index)">
 				<td width="5%" class="text-center">{{vo.wpno}}</td>
-				<td width="5%" class="text-center"><img :src="vo.wvo.poster" width="100%"></td>
+				<td width="5%" class="text-center"><img :src="vo.wvo.poster" style="width: 35px;height: 58px"></td>
 				<td width="30%" class="text-center scrollable-text"><p>{{vo.wvo.namekor}}</p></td>
 				<td width="5%" class="text-center">{{vo.account}}</td>
 				<td width="10%" class="text-center">{{vo.payment}}</td>
@@ -63,24 +60,24 @@
 			<!-- 
 			wdno, mcno, psno, type, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount
 			 -->
-				<td colspan="7" style="padding: 0px;">
-					<table class="table">
+				<td colspan="8" style="padding: 0px;">
+					<table class="table mp">
 						<tr>
-						<th width="6%" class="text-center">타입</th>
-						<th width="22%" class="text-center">판매자</th>
+						<th width="8%" class="text-center">타입</th>
+						<th width="20%" class="text-center">판매자</th>
 						<th width="24%" class="text-center">주요품종</th>
 						<th width="24%" class="text-center">생산지</th>
 						<th width="24%" class="text-center">생산자</th>
 						</tr>
-						<tr>
-						<td width="6%" class="text-center">{{vo.wvo.type}}</td>
-						<td width="22%" class="text-center">{{vo.wvo.mvo.nickName}}</td>
+						<tr style="vertical-align: middle;">
+						<td width="8%" class="text-center">{{vo.wvo.type}}</td>
+						<td width="20%" class="text-center">{{vo.wvo.mvo.nickName}}</td>
 						<td width="24%" class="text-center scrollable-text"><p>{{vo.wvo.grape}}</p></td>
 						<td width="24%" class="text-center scrollable-text"><p>{{vo.wvo.nation}}</p></td>
 						<td width="24%" class="text-center">{{vo.wvo.maker}}</td>
 						</tr>
 					</table>
-					<table class="table">
+					<table class="table mp">
 						<tr>
 						<th width="20%" class="text-center">판매가</th>
 						<th width="20%" class="text-center">사용적립금</th>
@@ -96,7 +93,7 @@
 						<td width="20%" class="text-center">{{grade===1?vo.payment*0:grade===2?Math.trunc(vo.payment*0.005):Math.trunc(vo.payment*0.015)}}</td>
 						</tr>
 					</table>
-					<table class="table">
+					<table class="table mp">
 						<tr>
 						<th width="15%" class="text-center">배송지명</th>
 						<th width="10%" class="text-center">우편번호</th>
