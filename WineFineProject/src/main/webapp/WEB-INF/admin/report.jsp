@@ -44,28 +44,137 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
-			<div class="modal-content" >
-				<span class="close" @click="changeModal(false)">&times;</span>
-				<table class="table" style="margin-top: 10px;">
-				<h4 class="text-center">신고 게시물 확인</h4>
-					<tr>
-						<th width="30%">게시물 제목</th>
-						<td width="70%"><input type="text"  style="width: 100%"></td>
-					</tr>
-					<tr>
-						<th width="30%">게시물 내용</th>
-						<td width="70%"><input type="text" style="width: 100%"></td>
-					</tr>
-					<tr style="text-align: right;">
-						<td colspan="2">
-							<button type="button" class="btn btn-sm btn-primary" >등록</button>
-							<button type="button" class="btn btn-sm btn-warning" @click="changeModal(false)">취소</button>
-						</td>
-					</tr>
-				</table>
+		<div class="modal" :class="{show: showModal}" v-if="state===1">
+			<div class="modal-content" style="width: 580px; height: 580px;margin-top: 7%;">
+            <div class="modal-header">
+                <h5 class="modal-title">신고 게시물 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="changeModal(false)"></button>
+            </div>
+            <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="subject" class="label">제목</label>
+                        <input type="text" class="form-control" :value="detail.bvo.subject" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label class="label">내용</label><br>
+                        <div class="r-box" style="text-align: left">{{detail.bvo.content}}</div>
+                    </div>
+                    <div style="float:right">
+                    <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-paper-plane"></i></button>
+                    <button class="btn-lg" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </div>
 			</div>
 		</div>
+		<div class="modal" :class="{show: showModal}" v-if="state===2">
+			<div class="modal-content" style="width: 580px; height: 400px;margin-top: 7%;">
+            <div class="modal-header">
+                <h5 class="modal-title">신고 댓글 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="changeModal(false)"></button>
+            </div>
+            <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="label">내용</label><br>
+                        <div class="r-boxs" style="text-align: left">{{detail.brvo.msg}}</div>
+                    </div>
+                    <div style="float:right">
+                    <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-paper-plane"></i></button>
+                    <button class="btn-lg" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </div>
+			</div>
+		</div>
+		<div class="modal" :class="{show: showModal}" v-if="state===3">
+			<div class="modal-content" style="width: 650px; height: 600px;margin-top: 7%;">
+            <div class="modal-header">
+                <h5 class="modal-title">신고 상품 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="changeModal(false)"></button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+                <div class="col-3">
+                    <img :src="detail.wvo.poster" style="width: 125px; height: 160px;">
+                </div>
+                <div class="col-9">
+                    <div class="mb-3">
+                        <label for="subject" class="label">상품명</label>
+                        <input type="text" class="form-control" :value="detail.wvo.namekor" disabled>
+                    <div class="mb-3">
+                    <table style="width:100%">
+                    <tr>
+                    <td style="text-align: left" width="50%">타입</td>
+                    <td style="text-align: left" width="50%">가격</td>
+                    </tr>
+                    <tr>
+                    <td width="50%"><input type="text" class="form-control" :value="detail.wvo.type" disabled></td>
+                    <td width="50%"><input type="text" class="form-control" :value="detail.wvo.price" disabled></td>
+                    </tr>
+                    </table>
+                    </div>
+                    </div>
+                </div>
+                    <div class="mb-3">
+                    <table style="width:100%">
+                    <tr>
+                    <td style="text-align: left" width="30%">도수</td>
+                    <td style="text-align: left" width="70%">포도품종</td>
+                    </tr>
+                    <tr>
+                    <td width="30%"><input type="text" class="form-control" :value="detail.wvo.alcohol" disabled></td>
+                    <td width="70%"><input type="text" class="form-control" :value="detail.wvo.grape" disabled></td>
+                    </tr>
+                    </table>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="label">생산지</label>
+                        <input type="text" class="form-control" :value="detail.wvo.nation" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="label">생산자</label>
+                        <input type="text" class="form-control" :value="detail.wvo.maker" disabled>
+                    </div>
+                    <div style="text-align:right">
+                       <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-paper-plane"></i></button>
+                       <button class="btn-lg" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+			</div>
+		  </div>
+		</div>
+	   </div>
+	   	<div class="modal" :class="{show: showModal}" v-if="state===4">
+			<div class="modal-content" style="width: 580px; height: 400px;margin-top: 7%;">
+            <div class="modal-header">
+                <h5 class="modal-title">신고 리뷰 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="changeModal(false)"></button>
+            </div>
+            <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="label">내용</label><br>
+                        <div class="r-boxs" style="text-align: left">{{detail.wrvo.content}}</div>
+                    </div>
+                    <div style="text-align:right">
+                       <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-paper-plane"></i></button>
+                       <button class="btn-lg" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </div>
+			</div>
+		</div>
+		
+		<div class="modal" :class="{ show: sModal }">
+			<div class="modal-content" style="width: 400px;height: 320px">
+				<div class="modal-header">
+                <h4 class="modal-title">신고 처리 내용</h4>
+            </div>
+            <div class="mb-3">
+            <div style="margin-top: 10px;">
+                <textarea v-model="message" ref="message"
+					@keyup.enter="sendMessage()" class="r-boxss" style="resize:none"></textarea>
+            </div>
+			</div>
+		</div>
+		</div>
+		
+		
 	   <div class="col-12 text-center">
         <div class="pagination-area d-sm-flex mt-15" style="justify-content: center">
             <nav aria-label="#">
@@ -95,26 +204,58 @@
 				  startPage:0,
 				  endPage:0,
 				  count:0,
-				  report:{}
+				  detail:{},
+				  state:'',
+				  sModal:false,
+                  message:''
     		  }
     	  },
           mounted() {
               this.rList()
           },
           methods:{
+        	  messageInsert(){
+        		  this.sModal=true
+        	  },
+        	  sendMessage(){
+          		if(this.message===''){
+  					this.$refs.message.focus()
+  					return
+  				}
+  				axios.post('../notice/vueAdminNoticeSend.do', null, {
+  					params:{
+  						subject:encodeURIComponent('신고 처리 관련 공지'),
+  						content:encodeURIComponent(this.message),
+  						recvid:this.detail.rid
+  					}
+  				}).then(response=>{
+  					this.sModal=false
+  				})
+  				axios.post('../notice/vueAdminNoticeSend.do',null,{
+  					params:{
+  						recvid:this.detail.userid,
+  						subject:encodeURIComponent('신고 처리 관련 공지'),
+  						content:encodeURIComponent(this.detail.userid+'님 신고하신 내용이 정상 처리되었습니다')
+  					}
+  				}).then(response=>{
+  					this.message=''
+  					this.sModal=false
+  				})
+          	},
         	  changeModal(check){
         		 this.showModal=check
         	  },
         	  search(wreno,type){
-        		  this.changeModal(true)
-        		 /*  axios.get('../admin/reportBoardVue.do',{
+        		 axios.get('../admin/reportBoardVue.do',{
         			  params:{
         				  wreno:wreno,
         				  type:type
         			  }
         		  }).then(response=>{
-        			  this.report=response.data
-        		  }) */
+        		  this.state=type
+        			  this.detail=response.data
+        		  	this.changeModal(true)
+        		  })
         	  },
         	  prev(){
        			 this.curpage=this.startPage-1

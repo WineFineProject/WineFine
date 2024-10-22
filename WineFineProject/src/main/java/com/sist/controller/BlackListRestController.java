@@ -73,4 +73,15 @@ public class BlackListRestController {
 	   vo.setSendid(id);
 	   bService.blackListDelete(vo);
    }
+   
+   @GetMapping(value = "seller/blackListCheck.do", produces = "text/plain;charset=UTF-8")
+   public String blackListCheck(HttpSession session,String recvid)
+   {
+	   String id=(String)session.getAttribute("userId");
+	   Map map=new HashMap();
+	   map.put("sendid", id);
+	   map.put("recvid", recvid);
+	   int count=bService.blackListCheck(map);
+	   return String.valueOf(count);
+   }
 }

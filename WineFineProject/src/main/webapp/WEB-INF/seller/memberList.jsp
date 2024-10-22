@@ -65,11 +65,17 @@
 			</tbody>
 		</table>
 		<div class="modal" :class="{ show: showModal }">
-			<div class="modal-content" style="height: 200px;">
-				<h3 class="text-center">사유 작성</h3>
-				<input type="text" v-model="message" ref="message"
-					@keyup.enter="sendMessage()">
+			<div class="modal-content" style="height: 220px;">
+				<div class="modal-header">
+                <h4 class="modal-title">사유 작성</h4>
+            </div>
+            <div class="mb-3">
+            <div style="margin-top: 10px;">
+                <input type="text" v-model="message" ref="message"
+					@keyup.enter="sendMessage()" class="r-boxs">
+            </div>
 			</div>
+		</div>
 		</div>
 		<div class="col-12 text-center" >
         <div class="pagination-area d-sm-flex mt-15" style="justify-content: center">
@@ -88,7 +94,6 @@
              </nav>
           </div>
        </div>
-	</div>
 	<script>
         let memberListApp=Vue.createApp({
             data() {
@@ -181,8 +186,24 @@
                         })
                 },
                 blackListInsert(id){
-                	this.tmp=id
-                	this.showModal=true
+                	axios.get('../seller/blackListCheck.do',{
+                		params:{
+                			recvid:id
+                		}
+                	}).then(response=>{
+                		let count=response.data
+                		if(count!==0){
+                			alert("이미 블랙리스트에 등록한 회원입니다")
+                			return
+                		}
+                		else{
+                			this.tmp=id
+                        	this.showModal=true
+                		}
+                	}).catch(error=>{
+                		console.log(response.error)
+                	})
+                	
                 }
             }
         }).mount('#list')

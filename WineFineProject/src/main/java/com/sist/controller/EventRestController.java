@@ -167,9 +167,9 @@ public class EventRestController {
   }
   
   @GetMapping(value = "mypage/vueDeleteReserve.do",produces = "text/plain;charset=UTF-8")
-  public void mypageVueDelete(int rno) throws Exception
+  public void mypageVueDelete(int rno)
   {
-  	eService.deleteReserve(rno);
+		  eService.deleteReserve(rno);
   }
   
 }

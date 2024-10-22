@@ -6,4 +6,5 @@ public interface BlackListService {
 	public List<MemberVO> blackList(Map map);
     public int blackListCount(Map map);
     public void blackListDelete(BlackListVO vo);
+    public int blackListCheck(Map map);
 }

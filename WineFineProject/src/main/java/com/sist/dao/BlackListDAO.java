@@ -29,4 +29,9 @@ public class BlackListDAO {
 	{
 		mapper.blackListDelete(vo);
 	}
+	// 블랙리스트 중복확인
+	public int blackListCheck(Map map)
+	{
+		return mapper.blackListCheck(map);
+	}
 }

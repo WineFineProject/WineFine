@@ -83,7 +83,7 @@
                      </tr>
                      </table>   
                     <div style="margin-top: 30px">
-                    <button type="submit" class="btn btn-wine" @click="deleteBtn()">삭제</button>
+                    <button type="submit" class="btn btn-wine" @click="deleteBtn2()">삭제</button>
                     </div>
             </div>
             <div class="modal-body" v-if="state==='1'">
@@ -106,7 +106,7 @@
                      </tr>
                      </table>   
                     <div>
-                    <button type="submit" class="btn btn-wine" @click="deletebtn()">삭제</button>
+                    <button type="submit" class="btn btn-wine" @click="deleteBtn1()">삭제</button>
                     </div>
             </div>
 			</div>
@@ -133,26 +133,28 @@
 		  }
 	  },
 	  methods:{
-		  deletebtn(){
+		  deleteBtn1(){
 			  axios.get('../mypage/vueDeleteReserve.do',{
 				  params:{
 					  rno:this.vo.rno
 				  }
 			  }).then(response=>{
+				  this.state=''
+				  this.sModal=false
 				  this.cList()
 				  this.vo={}
-				  this.cModal(false)
 			  })
 		  },
-		  deleteBtn(){
+		  deleteBtn2(){
 			  axios.get('../mypage/memoDelete.do',{	
 				 params:{
 					 meno:this.vo.meno
 				 }
 		  }).then(response=>{
+			  this.state=''
+			  this.sModal=false
 					 this.cList()
 					 this.vo={}
-					 this.cModal(false)
 				 })
 		  },
 		  submitBtn(){

@@ -213,6 +213,7 @@ table {
 		     					}
 		     				}).then(response=>{
 		     					this.showModal=false
+		     					alert('예약이 완료되었습니다')
 		     				})
                 		 }
                 		 else{
