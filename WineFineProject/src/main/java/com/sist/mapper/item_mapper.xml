@@ -74,4 +74,12 @@
             #{number}
         </foreach>
     </select>
+    <update id="payAcnoUpdate">
+    	UPDATE wine_payment
+    	SET acno = #{acno}
+    	WHERE wpno IN 
+    	<foreach item="wpno" collection="list" open="(" separator="," close=")">
+    		#{wpno}
+    	</foreach>
+    </update>
  </mapper>

@@ -36,4 +36,9 @@ public class ItemController {
 	{
 		return "seller/orderlist";
 	}
+	@GetMapping("seller/accounting.do")
+	public String seller_accounting()
+	{
+		return "seller/accounting";
+	}
 }

@@ -41,8 +41,9 @@
 					<ul class="list-group">
 						<li class="list-group-item"><a href="../seller/register.do">상품등록</a></li>
 						<li class="list-group-item"><a href="../seller/itemlist.do">판매상품목록</a></li>
-						<li class="list-group-item"><a href="../seller/approval.do">상품승인확인</a></li>
+						<li class="list-group-item"><a href="../seller/approval.do">상품승인확인</a></li>	
 						<li class="list-group-item"><a href="../seller/orderlist.do">주문관리</a></li>
+						<li class="list-group-item"><a href="../seller/accounting.do">정산관리</a></li>
 						<li class="list-group-item"><a href="../seller/chart.do">주간통계</a></li>
 					</ul>
 				</div>

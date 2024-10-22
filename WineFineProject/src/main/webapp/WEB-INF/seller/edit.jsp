@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#itemedit{
+#itemEdit{
   width: 1100px;
 }
 .sellretext{
@@ -18,6 +18,8 @@
 	display:inline-block;
 	width:90%;
 	margin: 0 auto;
+	border:none;
+	border-radius: 0px;
 }
 .gList , .mList {
     position: absolute;  
@@ -68,13 +70,12 @@
 	margin-bottom:-1px;
 	padding-top:10px;
 	text-align: left;
-	padding-left: -1px;
 }
 .rsubject{
 	margin-top:10px;
 	margin-bottom:20px;
 	color: black;
-	background-color: #FFCCC7;
+	background-color: #FFE4D8;
 	border: thin solid;
 	border-color: gray;
 	padding-left: 10px;
@@ -88,7 +89,7 @@ form{
 	padding-left:0px;
 }
 td{
-	background-color: #F0F0F0;
+	background-color: #F5F5F5;
 	border: thin solid;
 	border-color: gray;
 }
@@ -98,15 +99,15 @@ td{
 }
 .flavor{
 	font-weight: 500;
-	background-color: #F0F0F0;
+	background-color: #F5F5F5;
 	color:black;
 	text-align: center;
 	border-right: hidden;
-	
+	border-bottom:hidden;
 }
 .flavor2{
     font-weight: 500;
-	background-color: #F0F0F0;
+	background-color: #F5F5F5;
 	color:black;
 	text-align: center;
 	border-right: hidden;
@@ -186,6 +187,17 @@ input[type=range]::-webkit-slider-thumb:hover {
 .glistinput{
 	width: 220px;
 }
+.dbtn{
+ 	display: inline-block; 
+    padding: 8px 16px; 
+    text-decoration: none; 
+    color: #E66E5B; 
+    background-color: white; 
+    border: 2px solid gray; 
+    border-radius: 5px; 
+    font-size:17px;
+    margin-left:3px;
+}
 </style>
 </head>
 <body>
@@ -195,7 +207,7 @@ input[type=range]::-webkit-slider-thumb:hover {
      	<table class="rtable1">
      	<tr>
      		<th colspan="8" class="rheader">
-     		<h4 style="width:100%;"> &emsp; 상품 수정</h4>
+     		<h4 style="width:100%;color:black;"> &emsp; 상품 수정</h4>
      		</th>
      		</tr>
     	<tr>
@@ -229,7 +241,7 @@ input[type=range]::-webkit-slider-thumb:hover {
      		  	<input type="range" class="rrange" v-model="sugar" ref="sugar" min="0" max="5" step="1">
                 <span style="font-weight: bold;">{{ sugar }}</span>
      		  </td>
-     		  <th width="7%" class="rcontent flavor2"> 산도 :</th>
+     		  <th width="7%" class="rcontent flavor2 flavor"> 산도 :</th>
      		  <td width="13%" class="rcontent2"> 
      		  	<input type="range" class="rrange" v-model="acid" ref="acid" min="0" max="5" step="1">
                 <span style="font-weight: bold;">{{ acid }}</span>
@@ -350,9 +362,9 @@ input[type=range]::-webkit-slider-thumb:hover {
      	<table class="rtable4">
      	<tr>
         <td style="text-align: center; padding: 10px; background-color: white">
-          <input type="submit"  class="btn btn-default border-wine" value="등록">
+          <input type="submit"  class="btn btn-default dbtn" value="등록">
           &nbsp;
-          <input type="button"  class="btn btn-default border-wine" value="취소"
+          <input type="button"  class="btn btn-default dbtn" value="취소"
            onclick="javascript:history.back()">
         </td>
       </tr>

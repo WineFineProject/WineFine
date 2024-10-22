@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sist.vo.AccInfoVO;
+import com.sist.vo.AccVO;
 import com.sist.vo.GrapeVO;
 import com.sist.vo.ItemNationVO;
 import com.sist.vo.MakerVO;
@@ -176,6 +178,48 @@ public class ItemServiceImpl implements ItemService{
 	public void ordereturnUpdate(int wpno) {
 		// TODO Auto-generated method stub
 		dao.ordereturnUpdate(wpno);
+	}
+
+	@Override
+	public List<Wine_PaymentVO> accAbleList(String userid, int acno) {
+		// TODO Auto-generated method stub
+		return dao.accAbleList(userid, acno);
+	}
+
+	@Override
+	public MemberVO mgrade(String userid) {
+		// TODO Auto-generated method stub
+		return dao.mgrade(userid);
+	}
+
+	@Override
+	public void accInfoInsert(AccInfoVO vo) {
+		// TODO Auto-generated method stub
+		dao.accInfoInsert(vo);
+	}
+
+	@Override
+	public void accInsert(AccVO vo) {
+		// TODO Auto-generated method stub
+		dao.accInsert(vo);
+	}
+
+	@Override
+	public void payAcnoUpdate(int acno, List<Integer> list) {
+		// TODO Auto-generated method stub
+		dao.payAcnoUpdate(acno, list);
+	}
+
+	@Override
+	public List<AccVO> sellerAccList(String userid) {
+		// TODO Auto-generated method stub
+		return dao.sellerAccList(userid);
+	}
+
+	@Override
+	public List<AccInfoVO> sellerAccInfoList(String userid) {
+		// TODO Auto-generated method stub
+		return dao.sellerAccInfoList(userid);
 	}
 
 }

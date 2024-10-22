@@ -143,4 +143,40 @@ public interface ItemMapper {
 	@Update("UPDATE wine_payment SET state = 9 "
 	        + "WHERE wpno=#{wpno}")
 	public void ordereturnUpdate(int wpno);
+
+	// 정산 신청 
+	// 판매자 별 정산요청/완료된 특정 날짜의 배송 중, 배송 완료 주문 조회(주문번호, 결제금액)
+	@Select("SELECT wpno, payment FROM wine_payment WHERE (state=2 OR state=3) AND acno = 0 AND userid = #{userid} AND acno=#{acno}") 
+	public List<Wine_PaymentVO> accAbleList(@Param("userid") String userid, @Param("acno") int acno);
+	
+	// 판매자 등급 구하기
+	@Select("SELECT grade, point FROM wine_member WHERE userid = #{userid}")
+	public MemberVO mgrade(@Param("userid") String userid);
+	
+	// 정산 정보 입력
+	@SelectKey(keyProperty = "aino", resultType = int.class, before = true, 
+	           statement = "SELECT NVL(MAX(aino) + 1, 1) as aino FROM wine_accinfo")
+	@Insert("INSERT INTO wine_acc (aino, userid, grade, holder, accountnum, fee ) "
+	        + "VALUES (#{aino}, #{userid}, #{grade}, #{holder}, #{accountnum}, #{fee} )")
+	public void accInfoInsert(AccInfoVO vo);
+	
+	// 정산 신청
+	@SelectKey(keyProperty = "acno", resultType = int.class, before = true, 
+	           statement = "SELECT NVL(MAX(acno) + 1, 1) as acno FROM wine_acc")
+	@Insert("INSERT INTO wine_acc (acno, userid, grade, regdate, amount, fee, vat) "
+	        + "VALUES (#{acno}, #{userid}, #{grade}, SYSDATE, #{amount}, #{fee}, #{vat})")
+	public void accInsert(AccVO vo);
+	
+	// 구매내역에 정산정보 업데이트
+	public void payAcnoUpdate(@Param("acno") int acno, @Param("list") List<Integer> list);
+	
+	// 정산 신청/완료 기록 출력
+	@Select("SELECT acno, amount, fee, vat, state, grade, TO_CHAR(regdate,'YYYY-MM-DD') as rdbday, TO_CHAR(enddate,'YYYY-MM-DD') as edbday "
+			+ "FROM wine_acc WHERE userid = #{userid}")
+	public List<AccVO> sellerAccList(@Param("userid") String userid);
+	
+	// 정산 정보 출력
+	@Select("SELECT aino, holder, accountnum, fee "
+			+ "FROM wine_accinfo WHERE userid = #{userid}")
+	public List<AccInfoVO> sellerAccInfoList(@Param("userid") String userid);
 }

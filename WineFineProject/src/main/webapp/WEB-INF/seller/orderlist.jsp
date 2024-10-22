@@ -36,15 +36,62 @@
 .scrollable-text p {
 	transition: none;
 }
+.ordercheck{
+	border-left: hidden;
+	border-right: hidden;
+	border-top: hidden;
+	border-bottom:2px solid #E66E5B;
+	text-align: center;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+.orderchecktd{
+	border-bottom:2px solid #E66E5B;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom:10px;
+	color:black;
+}
+.table111{
+	margin-bottom:15px;
+}
+.orderbtn{
+	border-color: #E66E5B;
+}
+#olistth{
+    background-color: #f8f8f8;
+    color: #333;
+}
 </style>
 </head>
 <body>
 <div class="container" id="orderList">
-  <h3 class="text-center" style="width: 100%; margin-bottom:15px;">
-			&emsp;&emsp; 주문 관리</h3>
 	<div class="row">
+	<h3> 주문 현황 </h3>
+		<table class="table111">
+		<tr id="olistth">
+			<th width="15%" class="ordercheck"> 전체주문 </th>
+			<th width="10%" class="ordercheck"> 결제완료 </th>
+			<th width="15%" class="ordercheck"> 배송준비중 </th>
+			<th width="10%" class="ordercheck"> 배송중 </th>
+			<th width="10%" class="ordercheck"> 배송완료 </th>
+			<th width="10%" class="ordercheck"> 반품요청 </th>
+			<th width="15%" class="ordercheck"> 판매자취소 </th>
+			<th width="15%" class="ordercheck"> 반품완료 </th>
+		</tr>
+		<tr>
+			<td width="15%" class="orderchecktd"> {{totalCount}} </td>
+			<td width="10%" class="orderchecktd"> {{completed}} </td>
+			<td width="15%" class="orderchecktd"> {{preparing}} </td>
+			<td width="10%" class="orderchecktd"> {{delivering}} </td>
+			<td width="10%" class="orderchecktd"> {{delivered}} </td>
+			<td width="10%" class="orderchecktd"> {{returnRequested}} </td>
+			<td width="15%" class="orderchecktd"> {{sellerCancelled}} </td>
+			<td width="15%" class="orderchecktd"> {{returnCompleted}} </td>
+		</tr>
+		</table>
 		<table class="table">
-			<tr>
+			<tr id="olistth">
 				<th width="10%" class="text-center">주문번호</th>
 				<th width="10%" class="text-center">날짜</th>
 				<th width="10%" class="text-center">구매자ID</th>
@@ -64,8 +111,8 @@
 				<td width="5%" class="text-center">{{vo.account}}</td>
 				<td width="12%" class="text-center">{{formatPayment(vo.payment)}}</td>
 				<td width="10%" class="text-center">{{vo.state===0?'결제완료':vo.state===1?'배송준비중':vo.state===2?'배송중':vo.state===3?'배송완료':vo.state===7?'반품요청':vo.state===8?'판매자취소':vo.state===9?'반품완료':'상태없음'}}</td>
-				<td width="9%" class="text-center"><button class="btn btn-sm border-wine" v-if="vo.state===7" @click="orderReturnCheck(vo)">승인</button></td>
-				<td width="9%" class="text-center"><button class="btn btn-sm border-wine" v-if="vo.state!==9" @click="orderCancel(vo)">취소</button></td>
+				<td width="9%" class="text-center"><button class="btn btn-sm orderbtn" v-if="vo.state===7" @click="orderReturnCheck(vo)">승인</button></td>
+				<td width="9%" class="text-center"><button class="btn btn-sm orderbtn" v-if="vo.state<2" @click="orderCancel(vo)">취소</button></td>
 			</tr>
 			<tr v-if="isShow[index]">
 			<td colspan="9" style="padding: 0px;">

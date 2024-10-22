@@ -40,13 +40,28 @@
 .ilisttable
 {	
 	table-layout: fixed;
-	display: table-cell;
+	text-align: center;
+}
+.dbtn{
+ 	display: inline-block; 
+    padding: 2px 4px; 
+    text-decoration: none; 
+    color: gray; 
+    background-color: white; 
+    border: 1px solid  #E66E5B; 
+    border-radius: 5px; 
+    font-size:14px;
+    margin-left:3px;
+}
+#ilistth{
+	background-color: #f8f8f8;
+    color: #333;
 }
 </style>
 </head>
 <body>
 	<div class="container" id="itemList">
-		<h3 class="text-center" style="width: 100%;">&emsp;&emsp;상품 조회</h3>
+		<h3 class="text-center" style="width: 100%; margin-bottom:10px; color:black;">&emsp;판매 상품 조회</h3>
 		<div class="row">
 			<div class="itemlistright">
 				<select v-model="sortOrder" class="itemlisttop">
@@ -58,30 +73,31 @@
 					@click="saveAllChanges">변경 내용 저장</button>
 				<button type="button" class="itemlisttop allitem"
 					@click="deleteSelected()">선택 삭제</button>
-				<span style="width: 15%; float: left;">총 {{iCount}} 개</span>
+				<span style="float: left; font-weight: bold;">총 {{iCount}} 개</span>
 			</div>
 			<table class="table ilisttable">
-				<tr>
+				<tr id="ilistth">
 					<th width="5%">선택</th>
-					<th width="10%">상품번호</th>
-					<th colspan="2" class="text-center" width="25%">상품명</th>
+					<th width="8%">상품번호</th>
+					<th width="5%"></th>
+					<th width="17%" style="border-left:hidden">상품명</th>
 					<th width="10%">정가</th>
 					<th width="5%">재고</th>
-					<th width="10%">배송</th>
-					<th width="5%">조회수</th>
-					<th width="10%">등록일</th>
-					<th width="10%">판매상태</th>
-					<th width="5%">판매자공지</th>
-					<th width="5%">수정/삭제</th>
+					<th width="8%">배송</th>
+					<th width="8%">조회수</th>
+					<th width="9%">등록일</th>
+					<th width="8%">판매상태</th>
+					<th width="9%">판매자공지</th>
+					<th width="8%">수정/삭제</th>
 				</tr>
 				<tr v-for="vo in iList" :key="vo.wno">
 					<td width="5%"><input type="checkbox" v-model="vo.selected"></td>
-					<td width="10%">{{vo.wno}}</td>
+					<td width="8%">{{vo.wno}}</td>
 					<td width="5%">
 					<img :src="vo.poster" style="width: 40px; height: 60px"></td>
-					<td width="20%" class="editable ilistnamekor">
-					<input v-if="vo.isEditingName" v-model="vo.namekor" style="width:360px;"/> 
-					<span v-else @dblclick="vo.isEditingName = true" style="text-align: left;">{{ vo.namekor }}</span>
+					<td width="17%" class="editable ilistnamekor" style="text-align: left;">
+					<input v-if="vo.isEditingName" v-model="vo.namekor"/> 
+					<span v-else @dblclick="vo.isEditingName = true">{{ vo.namekor }}</span>
 					</td>
 					<td width="10%" class="editable">
 					<input v-if="vo.isEditingPrice" v-model="vo.price" style="max-width:80px;"/> 
@@ -92,10 +108,10 @@
 						
 					<span v-else
 						@dblclick="vo.isEditingStack = true">{{ vo.stack }}</span></td>
-					<td width="10%">기본배송</td>
-					<td width="5%">{{vo.hit}}</td>
-					<td width="10%">{{vo.dbday}}</td>
-					<td width="10%" class="editable" @dblclick="enableEditState(vo)">
+					<td width="8%">기본배송</td>
+					<td width="8%">{{vo.hit}}</td>
+					<td width="9%">{{vo.dbday}}</td>
+					<td width="8%" class="editable" @dblclick="enableEditState(vo)">
 					<select v-if="vo.isEditingState" v-model="vo.state" style="max-width:75px;">
 							<option value="1">판매중</option>
 							<option value="2">품절</option>
@@ -103,7 +119,7 @@
 					</select> 
 					<span v-else @dblclick="vo.isEditingState = true">
 							{{getStateLabel(vo.state) }}</span></td>
-					<td width="5%" class="editable" @dblclick="enableEditNbno(vo)">
+					<td width="9%" class="editable" @dblclick="enableEditNbno(vo)">
 					<select v-if="vo.isEditingNbno && getFilteredNList().length > 0"
 						v-model="vo.nbno" style="max-width:80px;">
 							<option v-for="nvo in getFilteredNList()" :key="nvo.nbno"
@@ -112,8 +128,8 @@
 					<span v-else @dblclick="vo.isEditingNbno = true">
 							{{vo.nbno}}</span>
 					</td>
-					<td width="5%"><a :href="'edit.do?wno='+vo.wno" class="dbtn">수정</a>
-						<button type="button" v-on:click="itemDelete(vo)">삭제</button></td>
+					<td width="8%"><a :href="'edit.do?wno='+vo.wno" class="dbtn">수정</a>
+						<button type="button" v-on:click="itemDelete(vo)" class="dbtn">삭제</button></td>
 				</tr>
 				<tr>
 					<td colspan="12" class="text-center">

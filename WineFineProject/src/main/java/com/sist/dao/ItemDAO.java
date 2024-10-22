@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.ItemMapper;
+import com.sist.vo.AccInfoVO;
+import com.sist.vo.AccVO;
 import com.sist.vo.GrapeVO;
 import com.sist.vo.ItemNationVO;
 import com.sist.vo.MakerVO;
@@ -125,5 +127,32 @@ public class ItemDAO {
 	 {
 		 mapper.ordereturnUpdate(wpno);
 	 }
-	 
+	 public List<Wine_PaymentVO> accAbleList(String userid, int acno)
+	 {
+		 return mapper.accAbleList(userid, acno);
+	 }
+	 public MemberVO mgrade(String userid)
+	 {
+		 return mapper.mgrade(userid);
+	 }
+	 public void accInfoInsert(AccInfoVO vo)
+	 {
+		 mapper.accInfoInsert(vo);
+	 }
+	 public void accInsert(AccVO vo)
+	 {
+		 mapper.accInsert(vo);
+	 }
+	 public void payAcnoUpdate(int acno, List<Integer> list)
+	 {
+		 mapper.payAcnoUpdate(acno, list);
+	 }
+	 public List<AccVO> sellerAccList(String userid)
+	 {
+		 return mapper.sellerAccList(userid);
+	 }
+	 public List<AccInfoVO> sellerAccInfoList(String userid)
+	 {
+		 return mapper.sellerAccInfoList(userid);
+	 }
 }

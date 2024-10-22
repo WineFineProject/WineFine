@@ -239,7 +239,7 @@ public class ItemRestController {
 		
 		List<Wine_PaymentVO> oList= iService.orderList(omap);
 		Map<String, BigDecimal> orderCounts = iService.getOrderCounts(id);
-		System.out.println(orderCounts);
+		
 		int totalCount = orderCounts.get("TOTALCOUNT").intValue();
 		int completed = orderCounts.get("COMPLETED").intValue();
 		int preparing = orderCounts.get("PREPARING").intValue();
@@ -290,4 +290,5 @@ public class ItemRestController {
 		result="OK";
 		return result;
 	}
+	
 }

@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.sist.vo.AccInfoVO;
+import com.sist.vo.AccVO;
 import com.sist.vo.GrapeVO;
 import com.sist.vo.ItemNationVO;
 import com.sist.vo.MakerVO;
@@ -39,5 +41,11 @@ public interface ItemService {
 	public Map<String, BigDecimal> getOrderCounts(String userId);
 	public void ordercancelUpdate(int wpno);
 	public void ordereturnUpdate(int wpno);
-	 
+	public List<Wine_PaymentVO> accAbleList(String userid, int acno);
+	public MemberVO mgrade(String userid);
+	public void accInfoInsert(AccInfoVO vo);
+	public void accInsert(AccVO vo);
+	public void payAcnoUpdate(int acno, List<Integer> list);
+	public List<AccVO> sellerAccList(String userid);
+	public List<AccInfoVO> sellerAccInfoList(String userid);
 }
