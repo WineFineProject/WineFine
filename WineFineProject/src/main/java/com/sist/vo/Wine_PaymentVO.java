@@ -19,7 +19,7 @@ import lombok.Data;
 
 @Data
 public class Wine_PaymentVO {
-	private int wpno, wno, account, payment, mipoint, wdno, mcno, psno, state;
+	private int wpno, wno, account, payment, mipoint, wdno, mcno, psno, state ,plpoint;
 	private String userid, dbday;
 	private Date regdate;
 	private WineVO wvo=new WineVO();

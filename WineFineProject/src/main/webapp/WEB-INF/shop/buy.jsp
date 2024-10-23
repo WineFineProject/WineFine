@@ -205,9 +205,10 @@
 
 								<div class="d-flex justify-content-between">
 									<h5 class="mb-0 me-4">진행중인 프로모션</h5>
-									<div class="">
-										<p class="mb-0" v-for="sale in psvo" v-if="!isCoupon">{{sale.discount != 0 ? sale.title +' ('+sale.discount+'%'+')' : '적용안함' }}</p>
-										<p class="mb-0" v-for="sale in psvo" v-if="isCoupon">적용안함</p>
+									<div class="">										
+										<p class="mb-0" v-if="promo === 0 ">없음</p>
+										<p class="mb-0" v-for="sale in psvo" v-if="!isCoupon">{{sale.discount != 0 ? sale.title +' ('+sale.discount+'%'+')' : '없음' }}</p>
+										<p class="mb-0" v-for="sale in psvo" v-if="isCoupon">없음</p>
 									</div>
 								</div>
 
@@ -291,6 +292,7 @@ let buyApp = Vue.createApp({
             point: 0,
             userDeli: [],	// 배송지
             selectAddr: {}, // 선택한 주소에 wdno 가져오기
+            promo: 0,
             isCoupon:false,
             pay:0,
             plus: 0
@@ -301,15 +303,17 @@ let buyApp = Vue.createApp({
             return (this.vo.price * this.quantity).toLocaleString()
         },
         totalPayment() {
-            const selectedCouponDiscount = this.selectedCoupon ? this.selectedCoupon.discount : 0
-            const psvoDiscount = this.psvo.length > 0 ? this.psvo[0].discount : 0
-
+            const selectedCouponDiscount = this.isCoupon ? this.selectedCoupon.discount : 0
+            const psvoDiscount = this.promo != 0  ? this.psvo[0].discount : 0
             if (selectedCouponDiscount > psvoDiscount) {
-                return (this.vo.price * this.quantity * (1 - selectedCouponDiscount / 100) - this.point)
+        		console.log('r1')
+                return (this.vo.price * this.quantity * (1 - selectedCouponDiscount / 100) - this.point)                
             } else if (psvoDiscount > 0) {
+            	console.log('r2')
                 return (this.vo.price * this.quantity * (1 - psvoDiscount / 100) - this.point)
             } else {
-                return this.totalPrice - this.point  // 기본 가격 반환
+            	console.log('r3')
+                return this.vo.price * this.quantity - this.point  // 기본 가격 반환
             }
         },
         
@@ -328,6 +332,9 @@ let buyApp = Vue.createApp({
             this.userDeli = response.data.userDeli             
             this.selectAddr = response.data.userDeli[0]
             this.userGrade = response.data.userGrade
+            this.promo = response.data.promo            
+    		console.log('tpam'+this.totalPayment)
+            console.log('프로모션 유무 0 x 1 o : ' + this.promo) 
             console.log('회원 등급:' + this.userGrade) 
             console.log('총 결제 금액:' + this.totalPayment)
             console.log(typeof this.totalPayment) 
@@ -403,19 +410,12 @@ let buyApp = Vue.createApp({
 						let selCoupon = !this.isCoupon ? 0 : this.selectedCoupon.mcno
 						pay=this.totalPayment
 						plus = this.plpoint
-            console.log("wno:", this.wno)
-            console.log("mipoint:", this.point)
-            console.log("적립금:",this.plpoint())
-            console.log("wdno:", this.selectAddr.wdno)
-            console.log("mcno:", selCoupon)
-            console.log("psno:", this.psvo[0].psno)
-            console.log("account:", this.quantity)
-            console.log("totalpayment:", this.totalPayment)
-            axios.post('../shop/payment_vue.do', null, {
+						consolelog(this.psvo)
+	        axios.post('../shop/payment_vue.do', null, {
                 params: { // 실제 전달하는 데이터
                     wno: this.wno,
                     wdno: this.selectAddr.wdno,
-                    psno: this.isCoupon ? this.psvo[0].psno:0,
+                    psno: this.isCoupon ? this.psvo[0].psno:0 ,
                     account: this.quantity,
                     mcno: selCoupon,
 	                mipoint: this.point,

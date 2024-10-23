@@ -136,6 +136,10 @@ public class ShopDAO {
 		return mapper.wineFilter(map);
 	}
 	
+	public int isPro (Map map) {
+		return mapper.isPro(map);
+	}
+	
 	
 
 

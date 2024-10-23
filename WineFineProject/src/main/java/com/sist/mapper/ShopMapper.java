@@ -201,8 +201,8 @@ public interface ShopMapper {
 	public int wineCartwnoCount(int wno);
 	
 //	援щℓ ���옣
-	@Insert("INSERT INTO wine_payment (wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, regdate) "
-	        + "VALUES (wp_wpno_seq.nextval, #{wno}, #{account}, #{payment}, #{mipoint}, #{wdno}, "
+	@Insert("INSERT INTO wine_payment (wpno, wno, account, payment, mipoint, plpoint, wdno, mcno, psno, state, userid, regdate) "
+	        + "VALUES (wp_wpno_seq.nextval, #{wno}, #{account}, #{payment}, #{mipoint}, #{plpoint}, #{wdno}, "
 	        + "#{mcno}, #{psno}, 0, #{userid}, SYSDATE) ")
 	public void insertPayment(Wine_PaymentVO vo);
 //	援щℓ 異붽�
@@ -235,7 +235,22 @@ public interface ShopMapper {
 			+ "ON m.userid = w.seller "
 			+ "where w.wno = #{wno} ")
 	public String selectUsername (int wno);
-
+	
+	@Select("WITH filtered_promotion_sale AS ( "
+			+ "SELECT count(*) "
+			+ "FROM promotion_sale "
+			+ "WHERE userid = #{seller} "
+			+ "AND sysdate BETWEEN startdate AND enddate "
+			+ "AND state = 1 "
+			+ "AND "
+			+ "(type = 1 OR "
+			+ "(type = 3 AND target = #{wno}) OR "
+			+ "(type = 2 AND target = #{type}))) "
+			+ "SELECT * "
+			+ "FROM filtered_promotion_sale "
+			+ "FETCH FIRST 1 ROWS ONLY ")
+	public int isPro (Map map);
+	
 }
 
 

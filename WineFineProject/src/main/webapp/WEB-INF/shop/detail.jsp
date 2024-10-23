@@ -232,7 +232,7 @@
 										<div class="row g-4">
 											<div class="col-6">
 												<ul class="info-list" style="width: 1230px;">
-													<li><span class="title">· 판매자 정보</span> <span class="content">{{vo.seller!=null ? vo.seller:'정보없음'}}</span></li>
+													<li><span class="title">· 판매자 정보</span> <span class="content">{{vo.seller!=null ? sellerName:'정보없음'}}</span></li>
 													<li><span class="title">· 신고하기</span> <span class="content">WineFine 은 소비자의 보호와 사이트의 안전거래를 위해 신고 센터를 운영하고 있습니다. <br> 안전 거레를 저해하는 경우 신고하여 주시기 바랍니다.
 													</span></li>
 													<li><span class="title"></span> <input type="button" value="신고하기" class="report" @click="changeModal(true)"></li>

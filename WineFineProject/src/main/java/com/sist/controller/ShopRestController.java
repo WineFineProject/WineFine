@@ -196,6 +196,7 @@ public class ShopRestController {
 		String userGrade = sservice.getgrade(id);
 		List<DeliveryVO> userDeli = sservice.getDeli(id);
 
+		
 		Map map = new HashMap();
 		map.put("vo", vo);
 		map.put("cvo", cvo);
@@ -220,9 +221,17 @@ public class ShopRestController {
 			}
 		}
 		map.put("type", typeIndex);
+		
+		int promo = sservice.isPro(map);
+		map.put("promo", promo);
+		
 		List<PromotionSaleVO> psvo = sservice.promotionGetSale(map);
-		map.put("psvo", psvo);
-
+		if(psvo != null ) {
+			map.put("psvo", psvo);			
+		}else {
+			map.put("psvo", promo);
+		}
+		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);
 		return json;
