@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://unpkg.com/vue@3"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <style type="text/css">
 .text-ellipsis {
 	white-space: nowrap;
@@ -70,38 +69,29 @@
 	border-radius: 150px;
 	color: #881824;
 }
-.thispointer{
-	cursor: pointer;
+
+.thispointer {
+	cursor: pointer !important;
 }
+
+.boxPointer {
+	cursor: pointer !important;
+	padding: 3px 6px;
+	width: 120px;
+	text-align: center;
+	margin-bottom: 5px;
+}
+.ahover:hover {
+    box-shadow: 0 4px 8px rgba(136, 24, 36, 0.5); 
+}
+
+
+
+
 </style>
 </head>
 <body>
 	<div class="shopcontainer">
-		<!-- Modal Search Start -->
-		<div class="modal fade" id="searchModal" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-fullscreen">
-				<div class="modal-content rounded-0">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Search by
-							keyword</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body d-flex align-items-center">
-						<div class="input-group w-75 mx-auto d-flex">
-							<input type="search" class="form-control p-3"
-								placeholder="keywords" aria-describedby="search-icon-1">
-							<span id="search-icon-1" class="input-group-text p-3"><i
-								class="fa fa-search"></i></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Modal Search End -->
-
-
 		<!-- Single Page Header start -->
 		<div class="container-fluid page-header py-5">
 			<h1 class="text-center text-white display-6">Shop</h1>
@@ -118,18 +108,16 @@
 						<div class="row g-4" style="margin-bottom: 15px;">
 							<div class="col-xl-3" style="border-bottom: 1px solid;">
 								<h3 class="mb-4">와인 필터</h3>
-									<p style="text-align: right;" @click="resetSelect()" class="thispointer"><small>초기화</small></p>
-									<b>TYPE :</b> <small>{{selectType}}</small><br>
-									<b>FOOD :</b> <small>{{selectFoods}}</small><br>
-									<b>AROMA :</b> <small>{{selectAroma}}</small><br>
+								<p style="text-align: right;" @click="resetSelect()" class="thispointer">
+									<small>초기화&nbsp;<i class="fa-solid fa-rotate-right"></i></small>
+								</p>
+								<b>TYPE :</b> <small>{{selectType}}</small><br> <b>FOOD :</b> <small>{{selectFoods}}</small><br> <b>AROMA :</b> <small>{{selectAroma}}</small><br>
+								<b>PRICE :</b> <small>{{fprice == 1000000 ? '전체' : fprice + '원'}}</small>
 							</div>
 							<div class="col-1" style="width: 32px;"></div>
 							<div class="col-6" style="padding-top: 20px;">
 								<div class="input-group w-100 mx-auto d-flex">
-									<input type="search" class="form-control "
-										placeholder="keywords" aria-describedby="search-icon-1">
-									<span id="search-icon-1" class="input-group-text "><i
-										class="fa fa-search"></i></span>
+									<input type="text" @keyup.enter="sfw()" class="form-control " placeholder="와인 검색" aria-describedby="search-icon-1 " v-model="searchWine"><span id="search-icon-1" class="input-group-text thispointer"><i class="fa fa-search" @click="sfw()"></i></span>
 								</div>
 							</div>
 							<!-- 							<div class="col-xl-1"></div>							 -->
@@ -146,8 +134,7 @@
 									</select>
 								</div> -->
 								<div style="padding: 30px 0px 0px 0px; text-align: left;">
-									<h5 style="text-align: right;">전체 와인
-										({{this.wineTcount.toLocaleString()}})</h5>
+									<h5 style="text-align: right;">전체 와인 ({{this.wineTcount.toLocaleString()}})</h5>
 								</div>
 							</div>
 						</div>
@@ -159,31 +146,13 @@
 										<div class="mb-3">
 											<h4>종류</h4>
 											<div class="mb-2">
-												<ul class="filter-box">
-													<li><label
-														:class="{'item-wine':selectType.includes('레드') }"><input @change="filterChange()"
-															name="type" type="checkbox" v-model="selectType" class="thispointer"
-															style="display: none" value="레드">레드</label></li>
-													<li><label
-														:class="{'item-wine':selectType.includes('화이트') }"><input @change="filterChange()"
-															name="type" type="checkbox" v-model="selectType" class="thispointer"
-															style="display: none" value="화이트"> 화이트</label></li>
-													<li><label
-														:class="{'item-wine':selectType.includes('로제') }"><input @change="filterChange()"
-															name="type" type="checkbox" v-model="selectType" class="thispointer"
-															style="display: none" value="로제"> 로제</label></li>
-													<li><label
-														:class="{'item-wine':selectType.includes('스파클링') }"><input @change="filterChange()"
-															name="type" type="checkbox" v-model="selectType" class="thispointer"
-															style="display: none" value="스파클링"> 스파클링</label></li>
-													<li><label
-														:class="{'item-wine':selectType.includes('주정강화') }"><input @change="filterChange()"
-															name="type" type="checkbox" v-model="selectType" class="thispointer"
-															style="display: none" value="주정강화"> 주정강화</label></li>
-													<li><label
-														:class="{'item-wine':selectType.includes('기타') }"><input @change="filterChange()"
-															name="type" type="checkbox" v-model="selectType" class="thispointer"
-															style="display: none" value="기타"> 기타</label></li>
+												<ul class="filter-box" style="display: flex; flex-wrap: wrap; list-style: none; padding: 0;">
+													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('레드') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="레드">레드</label></li>
+													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('화이트') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="화이트"> 화이트</label></li>
+													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('로제') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="로제"> 로제</label></li>
+													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('스파클링') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="스파클링"> 스파클링</label></li>
+													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('주정강화') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="주정강화"> 주정강화</label></li>
+													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('기타') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="기타"> 기타</label></li>
 												</ul>
 											</div>
 										</div>
@@ -192,22 +161,15 @@
 									<div class="col-lg-12">
 										<div class="mb-3">
 											<h4 class="mb-2">가격</h4>
-											<input type="range" class="form-range w-100" id="rangeInput"
-												name="rangeInput" min="0" max="300000" value="0"
-												oninput="amount.value=rangeInput.value">
-											<output id="amount" name="amount" min-velue="0"
-												max-value="500" for="rangeInput">0</output>
+											<input @change="dataRecv()" type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="10000" max="1000000" value="0" step="30000" v-model="fprice"> <span>{{fprice == 1000000 ? '전체' : fprice}}</span>
 										</div>
 									</div>
 									<div class="col-lg-12">
 										<div class="mb-3">
 											<h4>음식매칭</h4>
 											<div class="mb-2">
-												<ul class="filter-box">
-													<li v-for="food in foodList"><label
-														:class="{'item-wine':selectFoods.includes(food) }"><input @change="filterChange()"
-															name="food" type="checkbox" v-model="selectFoods" class="thispointer"
-															style="display: none" :value="food">{{food}}</label></li>
+												<ul class="filter-box" style="display: flex; flex-wrap: wrap; padding: 0; list-style-type: none;">
+													<li v-for="food in foodList" style="flex: 0 0 50%; box-sizing: border-box;"><label class="boxPointer" :class="{'item-wine':selectFoods.includes(food) }"><input @change="filterChange()" name="food" type="checkbox" v-model="selectFoods" class="thispointer" style="display: none" :value="food">{{food}}</label></li>
 												</ul>
 											</div>
 										</div>
@@ -215,24 +177,20 @@
 									<div class="col-lg-12">
 										<div class="mb-3">
 											<h4>맛</h4>
-																	<ul class="filter-box">
-							<li>
-								당도 <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input @change="filterChange()" type="radio" name="sugarStars" :value="ss" v-model="sugar" style="display: none;"><i :class="{'text-wine':sugar>=ss}" style="margin-right: 2px;" class="fa fa-circle"></i>
-								</label>
-							</li>
-							<li>
-								산도 <label v-for="as in 5" class="no-style" style="cursor: pointer;"> <input @change="filterChange()" type="radio" name="acidStars" :value="as" v-model="acid" style="display: none;"><i :class="{'text-wine':acid>=as}" style="margin-right: 2px;" class="fa fa-circle"></i>
-								</label>
-							</li>
-							<li>
-								바디 <label v-for="bs in 5" class="no-style" style="cursor: pointer;"> <input @change="filterChange()" type="radio" name="bodyStars" :value="bs" v-model="body" style="display: none;"><i :class="{'text-wine':body>=bs}" style="margin-right: 2px;" class="fa fa-circle"></i>
-								</label>
-							</li>
-							<li>
-								탄닌 <label v-for="ts in 5" class="no-style" style="cursor: pointer;"> <input @change="filterChange()" type="radio" name="tanninStars" :value="ts" v-model="tannin" style="display: none;"><i :class="{'text-wine':tannin>=ts}" style="margin-right: 2px;" class="fa fa-circle"></i>
-								</label>
-							</li>
-						</ul>
+											<ul class="filter-box">
+												<li style="text-align: center;">당도 &nbsp;<label v-for="ss in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="sugarStars" :value="ss" v-model="sugar" style="display: none;"><i :class="{'text-wine':sugar>=ss}" style="margin-right: 2px;" class="fa fa-circle"></i>
+												</label>
+												</li>
+												<li style="text-align: center;">산도 &nbsp;<label v-for="as in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="acidStars" :value="as" v-model="acid" style="display: none;"><i :class="{'text-wine':acid>=as}" style="margin-right: 2px;" class="fa fa-circle"></i>
+												</label>
+												</li>
+												<li style="text-align: center;">바디 &nbsp;<label v-for="bs in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="bodyStars" :value="bs" v-model="body" style="display: none;"><i :class="{'text-wine':body>=bs}" style="margin-right: 2px;" class="fa fa-circle"></i>
+												</label>
+												</li>
+												<li style="text-align: center;">탄닌 &nbsp;<label v-for="ts in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="tanninStars" :value="ts" v-model="tannin" style="display: none;"><i :class="{'text-wine':tannin>=ts}" style="margin-right: 2px;" class="fa fa-circle"></i>
+												</label>
+												</li>
+											</ul>
 										</div>
 									</div>
 
@@ -240,11 +198,8 @@
 										<div class="mb-3">
 											<h4>아로마</h4>
 											<div class="mb-2">
-												<ul class="filter-box">
-													<li v-for="ar in aromaList"><label
-														:class="{'item-wine':selectAroma.includes(ar) }"><input @change="filterChange()"
-															name="ar" type="checkbox" v-model="selectAroma"
-															style="display: none" :value="ar">{{ar}}</label></li>
+												<ul class="filter-box" style="display: flex; flex-wrap: wrap; padding: 0; list-style-type: none;">
+													<li v-for="ar in aromaList" style="flex: 0 0 50%; box-sizing: border-box;"><label class="boxPointer" :class="{'item-wine':selectAroma.includes(ar) }"><input @change="filterChange()" name="ar" type="checkbox" v-model="selectAroma" style="display: none" :value="ar">{{ar}}</label></li>
 												</ul>
 											</div>
 										</div>
@@ -253,9 +208,7 @@
 									<div class="col-lg-12">
 										<div class="position-relative">
 											<img src="#" class="img-fluid w-100 rounded" alt="">
-											<div class="position-absolute"
-												style="top: 50%; right: 10px; transform: translateY(-50%);">
-											</div>
+											<div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);"></div>
 										</div>
 									</div>
 
@@ -266,45 +219,25 @@
 								<div class="row g-4 justify-content-center">
 
 									<!-- 상품 list -->
-									<div class="col-md-6 col-lg-6 col-xl-4" v-for="vo in list"
-										style="margin-bottom: 20px; width: 300px;">
+									<div class="col-md-6 col-lg-6 col-xl-4" v-for="vo in list" style="margin-bottom: 20px; width: 300px;">
 										<a :href="'../shop/detailBefore.do?wno=' + vo.wno">
-											<div class="rounded position-relative fruite-item"
-												style="width: 270px;">
+											<div class="rounded position-relative fruite-item" style="width: 270px;">
 												<div class="fruite-img text-center" style="width: 270px;">
-													<img :src="vo.poster"
-														class="img-fluid w-75 h-75 rounded-top" alt=""
-														style="width: 180px !important;">
+													<img :src="vo.poster" class="img-fluid w-75 h-75 rounded-top" alt="" style="width: 180px !important;">
 												</div>
-												<div class="text-white px-3 py-1 rounded position-absolute"
-													:class="vo.type === '화이트' ? 'whitecor' : 'winecor'"
-													style="top: 10px; left: 10px;">{{vo.type}}</div>
-												<div
-													class="p-4 border border-secondary border-top-0 rounded-bottom"
-													style="width: 270px; height: 134px;">
+												<div class="text-white px-3 py-1 rounded position-absolute" :class="vo.type === '화이트' ? 'whitecor' : 'winecor'" style="top: 10px; left: 10px;">{{vo.type}}</div>
+												<div class="p-4 border border-secondary border-top-0 rounded-bottom" style="width: 270px; height: 134px;">
 													<h6 class="text-ellipsis">{{ vo.namekor }}</h6>
 													<h6 class="text-ellipsis fon-cor-gr">{{ vo.nameeng }}</h6>
-													<div
-														class="d-flex justify-content-between flex-lg-wrap text-center"
-														v-if="vo.price!=null">
+													<div class="d-flex justify-content-between flex-lg-wrap text-center" v-if="vo.price!=null">
 														<p class="text-dark fs-5 fw-bold mb-0">
 															{{vo.price}}<br>
 														</p>
-														<a href="#"
-															class="btn border border-secondary rounded-pill px-3 text-primary small-text"><i
-															class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-															cart</a>
-													</div>
-													<div
-														class="d-flex justify-content-between flex-lg-wrap text-center"
-														v-if="vo.price===null">
-														<p class="text-dark fs-5 fw-bold mb-0">
-															가격문의<br>
-														</p>
-														<a href="#"
-															class="btn border border-secondary rounded-pill px-3 text-primary small-text"><i
-															class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-															cart</a>
+														<div>
+															<a href="#" class="btn border border-secondary rounded-pill px-3 small-text ahover" style="margin-right: 5px;"> <i class="fa-solid fa-credit-card " style="color: #881824;"></i>
+															</a> <a href="#" class="btn border border-secondary rounded-pill px-3 small-text ahover"> <i class="fa-solid fa-cart-plus " style="color: #881824;"></i>
+															</a>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -313,23 +246,15 @@
 									<!-- 상품 list end -->
 
 									<div class="col-12 text-center">
-										<div class="pagination-area d-sm-flex mt-15"
-											style="margin-left: 65px;">
+										<div class="pagination-area d-sm-flex mt-15" style="margin-left: 65px;">
 											<nav aria-label="#">
 												<ul class="pagination" style="display: flex;">
-													<li class="page-item"><a class="page-link"
-														@click="prev()"> <i class="fa fa-angle-double-left"
-															aria-hidden="true"></i>
+													<li class="page-item"><a class="page-link" @click="prev()"> <i class="fa fa-angle-double-left" aria-hidden="true"></i>
 													</a></li>
 
-													<li :class="i===curpage?'page-item active':''"
-														v-for="i in range(startPage, endPage)"
-														style="display: inline;"><a class="page-link"
-														@click="pageChange(i)">{{i}}</a></li>
+													<li :class="i===curpage?'page-item active':''" v-for="i in range(startPage, endPage)" style="display: inline;"><a class="page-link" @click="pageChange(i)">{{i}}</a></li>
 
-													<li class="page-item" v-if="endPage<totalpage"><a
-														class="page-link" @click="next()"> <i
-															class="fa fa-angle-double-right" aria-hidden="true"></i>
+													<li class="page-item" v-if="endPage<totalpage"><a class="page-link" @click="next()"> <i class="fa fa-angle-double-right" aria-hidden="true"></i>
 													</a></li>
 												</ul>
 											</nav>
@@ -351,9 +276,7 @@
 
 
 		<!-- Back to Top -->
-		<a href="#"
-			class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
-			class="fa fa-arrow-up"></i></a>
+		<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 	</div>
 	<script>
     	let listApp=Vue.createApp({
@@ -376,10 +299,17 @@
     				selectFoods: [],
     				aromaList:[],
     				selectAroma: [],
-    				selectPrice: '${search.price}'
+    				fprice: 1000000,
+    				selectPrice: '${search.price}',
+    				searchWine: '',
+    				fd:''
     			}
     		},
     		mounted(){
+    			let selectPrice = '${search.price}'
+    			if(selectPrice !== ''){
+   				    this.fprice = parseInt(selectPrice.replace(/,/g, ''), 10) * 10000 
+    			}
     			let typeStr='${search.type}'    
        			if(typeStr!==''){
 	    			typeStr=typeStr.slice(1, typeStr.length-1)
@@ -404,15 +334,20 @@
 				this.dataRecv()
         	},
     		methods:{
+    			sfw(){
+    				this.fd=this.searchWine
+    				this.searchWine = ''
+    				this.dataRecv()
+    			},
     			resetSelect(){
-    				this.sugar=0
-    				this.acid=0
-    				this.body=0
-    				this.tannin=0
-    				this.selectFoods=[]
-    				this.selectAroma=[]
-    				this.selectType=[]
-    				this.selectPrice=''
+    				this.sugar = 0
+    				this.acid = 0
+    				this.body = 0
+    				this.tannin = 0
+    				this.selectFoods = []
+    				this.selectAroma = []
+    				this.selectType = []
+    				this.fprice = 1000000
     				this.dataRecv()
     			},
     			prev(){
@@ -465,6 +400,10 @@
         			if(this.selectAroma.length!==0)
 	        			aromaStr=this.selectAroma.join(',')
 	        		
+	        		let fprice_temp = String(this.fprice)
+					if(this.fprice > 990000)
+					fprice_temp='전체'
+					
         			axios.get('../shop/list_vue.do',{
         				params:{
         					page:this.curpage,
@@ -475,14 +414,11 @@
                 			acid: this.acid,
                 			body: this.body,
                 			tannin: this.tannin,
-                			price:'전체'
+                			price: fprice_temp,
+                			fd:this.fd
         				}
-        			}).then(response=>{
-        				console.log('typeStr'+typeStr)
-        				console.log('foodStr'+foodStr)
-        				console.log('aromaStr'+aromaStr)
-        				
-        				console.log(response.data)
+        			}).then(response=>{        				
+  	     				console.log(response.data)
         				this.list=response.data.list
         				this.curpage=response.data.curpage
         				this.totalpage=response.data.totalpage
@@ -492,7 +428,7 @@
         				this.aromaList = response.data.aromaList
         				this.foodList = response.data.foodList
         				this.selectPrice = response.data.selectPrice
-
+            			console.log('검색값 : ' + this.searchWine)
         			}).catch(error=>{
         				console.log(error.response)
         			})

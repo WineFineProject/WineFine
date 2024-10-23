@@ -111,6 +111,9 @@
 .text-secondary-wine {
 	color: #881824 !important;
 }
+.backcor{
+	background-color: lightgray;	
+}
 </style>
 </head>
 <body>
@@ -419,9 +422,9 @@
 					<table class="table" style="margin-top: 50px;">
 						<tr>
 							<th width="20%" class="text-center">신고대상 ID :</th>
-							<td width="20%" class="text-center">{{sellerName}}</td>
+							<td width="20%" class="text-center backcor"><b>{{sellerName}}</b></td>
 							<th width="20%" class="text-center">상품명 :</th>
-							<td width="40%" class="text-center">{{vo.namekor}}</td>
+							<td width="40%" class="text-center backcor"><b>{{vo.namekor}}</b></td>
 						</tr>
 						<tr>
 							<th width="20%" class="text-center">카테고리 :</th>
@@ -452,9 +455,9 @@
 					<table class="table" style="margin-top: 50px;">
 						<tr>
 							<th width="20%" class="text-center">신고대상 ID :</th>
-							<td width="20%" class="text-center">{{sellerName}}</td>
+							<td width="20%" class="text-center backcor"><b>{{sellerName}}</b></td>
 							<th width="20%" class="text-center">상품명 :</th>
-							<td width="40%" class="text-center">{{vo.namekor}}</td>
+							<td width="40%" class="text-center backcor"><b>{{vo.namekor}}</b></td>
 						</tr>
 						<tr>
 							<th width="20%" class="text-center">카테고리 :</th>
@@ -539,7 +542,6 @@
 	    			}	    			
 	    		}).then(response => {
 	    			console.log(response.data)	    			
-	    			console.log('보내는 값 : ' + this.wno)	    			
 		    		alert('좋아요 추가 완료!')
 	    			this.Lcheck = response.data.Lcheck
 	    			this.dataRecv()
@@ -585,7 +587,9 @@
 	    		}).then(response => {
 	    			console.log(response.data)
 	    			alert('신고가 접수되었습니다')
+	    			this.content = ''
 	    			this.changeModal(false)
+	    			this.dataRecv()
 	    		}).catch(error => {
 	    			console.log(error.response)	    			
 	    			alert('신고 접수 실패' + error)
@@ -606,7 +610,9 @@
 	    		}).then(response => {
 	    			console.log(response.data)
 	    			alert('신고가 접수되었습니다')
+	    			this.content = ''
 	    			this.changeModal2(false)
+	    			this.dataRecv()
 	    		}).catch(error => {
 	    			console.log(error.response)	    			
 	    			alert('신고 접수 실패' + error)
@@ -691,9 +697,7 @@
 						content: this.review
     				}
     			}).then(response=>{
-	   				 console.log(response.data)
-	   				 console.log('내용 : ' + this.review)	 
-	   				 console.log('별점 : ' + this.srating)	 
+	   				 console.log(response.data)	 
 	   				 this.review = ''
 	   				 alert('작성되었습니다')	   				 
 	    			 this.dataRecv()
@@ -709,7 +713,6 @@
 	        	}).then(response => {
 	        		if(response.data === "yes"){
 	        			alert('삭제 완료!')
-	        			console.log('삭제한 리뷰 번호 : ' + this.reviewListData.wrvno)
 	        		}else {
 	        			alert('삭제 실패!')
 	        			console.log(response.data)
@@ -742,7 +745,6 @@
 					 this.otherSeller = response.data.otherSeller
 					 this.reviewListData = response.data.reviewListData
 					 this.count = response.data.count
-		           	 console.log('count : ' + this.count)
 			         this.$nextTick(() => {
 			             this.carousel = $('.owl-carousel').owlCarousel({
 			         	    items: 1, // 한 번에 보여줄 아이템 수
