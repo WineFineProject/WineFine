@@ -266,4 +266,17 @@ public class SellerRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(map);
 	}
+	@GetMapping(value = "seller/vueBannerDelete.do", produces = "text/plain;charset=UTF-8")
+	public void sellerVueBannerDelete(int pbno) {
+		bService.bannerDelete(pbno);
+	}
+	@GetMapping(value = "seller/vueSaleDelete.do", produces = "text/plain;charset=UTF-8")
+	public void sellerVueSaleDelete(int psno) {
+		ssService.saleDelete(psno);
+	}
+	@GetMapping(value = "seller/vueCouponDelete.do", produces = "text/plain;charset=UTF-8")
+	public void sellerVueCouponDelete(int pcno) {
+		cService.couponDelete(pcno);
+	}
+	
 }

@@ -58,4 +58,7 @@ public class CouponDAO {
 	public void promotionCouponEndUpdate() {
 		mapper.promotionCouponEndUpdate();
 	}
+	public void couponDelete(int pcno) {
+		mapper.couponDelete(pcno);
+	}
 }

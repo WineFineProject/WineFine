@@ -40,4 +40,8 @@ public class BannerServiceImpl implements BannerService{
 	public void promotionclick(int pbno) {
 		dao.promotionclick(pbno);
 	}
+	@Override
+	public void bannerDelete(int pbno) {
+		dao.bannerDelete(pbno);
+	}
 }

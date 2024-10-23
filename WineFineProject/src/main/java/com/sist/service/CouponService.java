@@ -16,4 +16,5 @@ public interface CouponService {
 	public List<PromotionCouponVO> sellerPromotionActiveList(String id);
 	public List<PromotionCouponVO> sellerPromotionWaitList(String id);
 	public void promotionCouponEndUpdate();
+	public void couponDelete(int pcno);
 }

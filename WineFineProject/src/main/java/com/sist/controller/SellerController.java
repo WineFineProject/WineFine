@@ -47,6 +47,15 @@ public class SellerController {
 	public String sellerReplyBoard() {
 		return "seller/replyboard";
 	}
+	@GetMapping("seller/replyQuest.do")
+	public String sellerReplyQuest() {
+		return "seller/replyQuest";
+	}
+	@GetMapping("seller/replydetail.do")
+	public String sellerReplyDetail(int wrno, Model model) {
+		model.addAttribute("wrno", wrno);
+		return "seller/replydetail";
+	}
 	@GetMapping("seller/chart.do")
 	public String sellerChart() {
 		return "seller/chart";

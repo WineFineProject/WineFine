@@ -1,5 +1,6 @@
 package com.sist.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Update;
 
@@ -27,4 +28,7 @@ public interface SaleMapper {
 	
 	@Update("UPDATE promotion_sale SET state=9 WHERE trunc(enddate)<trunc(sysdate)")
 	public void promotionSaleEndUpdate();
+	
+	@Delete("DELETE FROM promotion_sale WHERE psno=#{psno}")
+	public void saleDelete(int psno);
 }

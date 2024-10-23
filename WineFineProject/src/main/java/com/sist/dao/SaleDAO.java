@@ -38,4 +38,7 @@ public class SaleDAO {
 	public void promotionSaleEndUpdate() {
 		mapper.promotionSaleEndUpdate();
 	}
+	public void saleDelete(int psno) {
+		mapper.saleDelete(psno);
+	}
 }

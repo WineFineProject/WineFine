@@ -40,4 +40,8 @@ public class SaleServiceImpl implements SaleService{
 	public void promotionSaleEndUpdate() {
 		dao.promotionSaleEndUpdate();
 	}
+	@Override
+	public void saleDelete(int pbno) {
+		dao.saleDelete(pbno);
+	}
 }

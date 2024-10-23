@@ -59,4 +59,8 @@ public class CouponServiceImpl implements CouponService{
 	public void promotionCouponEndUpdate() {
 		dao.promotionCouponEndUpdate();
 	}
+	@Override
+	public void couponDelete(int pcno) {
+		dao.couponDelete(pcno);
+	}
 }

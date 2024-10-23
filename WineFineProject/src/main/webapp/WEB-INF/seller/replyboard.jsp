@@ -13,7 +13,7 @@
 		<table style="margin-bottom: 10px">
 			<tr>
 				<td class="text-right">
-					<a href="../seller/noticeInsert.do" class="btn btn-sm" style="background-color: #FCD500;">글쓰기</a>
+					<a href="../seller/replyQuest.do" class="btn btn-sm" style="background-color: #FCD500;">글쓰기</a>
 				</td>
 			</tr>
 		</table>
@@ -28,7 +28,7 @@
 			</tr>
 			<tr v-for="(vo, index) in list">
 				<td width=10% class="text-center">{{count-index}}</td>
-				<td width=35%>{{vo.subject}}</td>
+				<td width=35%><a :href="'../seller/replydetail.do?wrno='+vo.wrno">{{vo.subject}}</a></td>
 				<td width=12% class="text-center">{{vo.nickname}}</td>
 				<td width=10% class="text-center">{{vo.dbday}}</td>
 				<td width=7% class="text-center">{{vo.hit}}</td>

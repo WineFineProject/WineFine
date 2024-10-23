@@ -77,7 +77,7 @@
 										<td width="10%">{{avo.startDay}}</td>
 										<td width="10%">{{avo.endDay}}</td>
 										<td>
-											<button class="btn btn-sm border-wine rounded-pill text-wine" type="button">X</button>
+											<button @click="deletePromotion(avo.psno)" class="btn btn-sm border-wine rounded-pill text-wine" type="button">X</button>
 										</td>
 									</tr>
 								</tbody>
@@ -207,6 +207,15 @@
 			},
 			findWine_(){
 				findWine(this)
+			},
+			deletePromotion(psno){
+				axios.get('../seller/vueSaleDelete.do', {
+					params:{
+						psno:psno
+					}
+				}).then(response=>{
+					this.saleList()
+				})
 			},
 			changeOption(){
 				if(this.option===2){

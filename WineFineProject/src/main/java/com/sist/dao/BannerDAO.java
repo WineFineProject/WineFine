@@ -45,5 +45,9 @@ public class BannerDAO {
 		if (count == 0)
 			mapper.promotionBannerEnd(pbno);
 	}
+	
+	public void bannerDelete(int pbno) {
+		mapper.bannerDelete(pbno);
+	}
 
 }

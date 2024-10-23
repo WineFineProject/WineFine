@@ -12,4 +12,5 @@ public interface SaleService {
 	public List<PromotionSaleVO> saleActiveList(String id);
 	public List<PromotionSaleVO> sellerSaleActiveList(String id);
 	public void promotionSaleEndUpdate();
+	public void saleDelete(int pbno);
 }

@@ -38,4 +38,7 @@ public interface CouponMapper {
 	
 	@Update("UPDATE promotion_coupon SET state=9 WHERE trunc(enddate)<trunc(sysdate)")
 	public void promotionCouponEndUpdate();
+	
+	@Delete("DELETE FROM promotion_coupon WHERE pcno=#{pcno}")
+	public void couponDelete(int pcno);
 }

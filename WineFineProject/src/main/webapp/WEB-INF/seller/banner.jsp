@@ -71,7 +71,7 @@
 										<td width="10%">{{avo.stack}}회</td>
 										<td width="16%">{{avo.mvo.nickName}}</td>
 										<td width="8%">
-											<button class="btn btn-sm border-wine text-warning" type="button" @click="couponRejection(avo.pcno)">X</button>
+											<button @click="deletePromotion(avo.pbno)" class="btn btn-sm border-wine text-warning" type="button" @click="couponRejection(avo.pcno)">X</button>
 										</td>
 									</tr>
 								</tbody>
@@ -179,6 +179,15 @@
 				this.isFind=false
 				this.fd=this.list[index].namekor
 				this.checkBtn()
+			},
+			deletePromotion(pbno){
+				axios.get('../seller/vueBannerDelete.do', {
+					params:{
+						pbno:pbno
+					}
+				}).then(response=>{
+					this.promotionList()
+				})
 			},
 			checkBtn(){
 				if(this.eventName===''){

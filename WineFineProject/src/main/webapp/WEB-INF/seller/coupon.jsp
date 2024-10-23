@@ -77,7 +77,7 @@
 										<td width="10%">{{avo.startDay}}</td>
 										<td width="10%">{{avo.endDay}}</td>
 										<td>
-											<button class="btn btn-sm border-wine rounded-pill text-wine" type="button">X</button>
+											<button @click="deletePromotion(avo.pcno)" class="btn btn-sm border-wine rounded-pill text-wine" type="button">X</button>
 										</td>
 									</tr>
 								</tbody>
@@ -240,6 +240,15 @@
 					return
 				}
 				this.isBtn=true
+			},
+			deletePromotion(pcno){
+				axios.get('../seller/vueCouponDelete.do', {
+					params:{
+						pcno:pcno
+					}
+				}).then(response=>{
+					this.couponList()
+				})
 			},
 			insertPromotion(){
 				axios.post('../seller/couponInsert.do', null, {
