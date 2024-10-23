@@ -148,7 +148,7 @@ table {
 						<a :href="'../shop/detail.do?wno='+wvo.wno">
 							<table style="width: 100%">
 								<tr>
-									<th width="22%" rowspan="4"><img :src="wvo.poster"
+									<th width="22%" rowspan="4" style="border:none"><img :src="wvo.poster"
 										style="width: 100px; height: 150px; margin-left: 16px; border: 0.5px solid #CFCFCF">
 									</th>
 									<td style="margin-top: 20px"><span class="wine-type"
