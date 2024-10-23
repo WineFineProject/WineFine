@@ -302,7 +302,7 @@
 										<td style="text-align: right;">
 											<button class="btn btn-md rounded-circle" @click="reviewDelete(vw.wrvno)" v-if="vw.userid === sessionId">
 												<i class="fa fa-times text-danger"></i>
-											</button> <img src="../img/Report.png" alt="Report" style="width: 30px; height: auto;" class="img-hover" @click="changeModal2(true)">
+											</button> <img src="../img/Report.png" alt="Report" style="width: 30px; height: auto;" class="img-hover" @click="changeModal2(true, vw.wrvno)">
 										</td>
 									</tr>
 								</table>
@@ -524,7 +524,8 @@
 	            likeCount: 0,
 	            Lcheck: 0,
 	            reviewCheck: 0,
-	            sellerName: ''
+	            sellerName: '',
+	            wrvno:0
 	        }
 	    },
 	    mounted() {
@@ -601,7 +602,7 @@
 					params:{		  
 						userid: this.sessionId,
 		    			type: 4,
-		    			tno: this.wno,
+		    			tno: this.wrvno,
 		    			state: 0,
 		    			rid: this.vo.seller,
 		    			category: this.category2,
@@ -610,13 +611,12 @@
 	    		}).then(response => {
 	    			console.log(response.data)
 	    			alert('신고가 접수되었습니다')
-	    			this.content = ''
 	    			this.changeModal2(false)
-	    			this.dataRecv()
 	    		}).catch(error => {
 	    			console.log(error.response)	    			
 	    			alert('신고 접수 실패' + error)
 	    			this.changeModal2(false)
+	    			this.wrvno=0
 	    		})
 	    	},
 
@@ -629,7 +629,8 @@
 	    		}
 	    		
 	    	},
-	    	changeModal2(check){
+	    	changeModal2(check, wrvno){
+	    		this.wrvno=wrvno
 	    		if(this.sessionId){
 		    		this.showModal2 = check	    			
 	    		}else {

@@ -197,7 +197,7 @@
 				axios.post('../notice/vueRequestSend.do', null, {
 					params:{
 						content:encodeURIComponent(this.message),
-						recvid:this.sel.wvo.mvo.nickName,
+						recvid:this.sel.wvo.seller,
 						subject:encodeURIComponent(this.subject),
 						wpno:this.sel.wpno
 					}

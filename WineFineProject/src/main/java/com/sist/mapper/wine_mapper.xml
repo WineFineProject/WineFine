@@ -19,6 +19,7 @@
 		<result property="wvo.grape" column="grape" />
 		<result property="wvo.nation" column="nation" />
 		<result property="wvo.maker" column="maker" />
+		<result property="wvo.seller" column="seller" />
 		<result property="wvo.mvo.nickName" column="nickname" />
 		<result property="dvo.name" column="name" />
 		<result property="dvo.post" column="post" />
@@ -130,9 +131,9 @@
 	</select>
 	<select id="myPaymentList" parameterType="hashmap" resultMap="payMap">
 		SELECT wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,
-		namekor, poster, price, type, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, maker, grape, nation, nickname, num
+		namekor, poster, price, type, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, maker, grape, nation, nickname, seller, num
 		FROM (SELECT wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, regdate,
-		namekor, poster, price, type, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, maker, grape, nation, nickname, rownum as num
+		namekor, poster, price, type, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, maker, grape, nation, nickname, seller, rownum as num
 		FROM (SELECT wp.wpno, wp.wno, wp.account, wp.payment, wp.mipoint, wp.wdno, wp.mcno, wp.psno, wp.state, wp.userid, wp.regdate,
 		wvo.namekor, wvo.poster, wvo.price, wvo.type, dvo.name, dvo.post, dvo.addr1, dvo.addr2, dvo.msg, mcvo.title as ctitle, mcvo.discount as cdiscount, svo.title as stitle, svo.discount as sdiscount,
 		(SELECT m.namekor FROM maker m WHERE m.no = wvo.maker) AS maker,
@@ -142,7 +143,7 @@
 		(SELECT LISTAGG(n.namekor, ' | ') WITHIN GROUP (ORDER BY n.namekor DESC)
 		FROM (SELECT REGEXP_SUBSTR(wvo.nation, '[^,]+', 1, LEVEL) AS nation_no
 		FROM dual CONNECT BY REGEXP_SUBSTR(wvo.nation, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN nation n ON t.nation_no = n.no) AS nation,
-		(SELECT nickname FROM wine_member wm WHERE wm.userid=wvo.seller) as nickname
+		(SELECT nickname FROM wine_member wm WHERE wm.userid=wvo.seller) as nickname, wvo.seller
 		FROM wine_payment wp JOIN wine wvo ON wp.wno=wvo.wno
 		LEFT JOIN wine_delivery dvo ON wp.wdno=dvo.wdno
 		LEFT JOIN my_coupon mcvo ON wp.mcno=mcvo.mcno
