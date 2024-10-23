@@ -277,6 +277,12 @@ public class ShopServiceImpl implements ShopService{
 	public Map<String, Integer> sellerHomeWineInfo(String userid) {
 		return wDao.sellerHomeWineInfo(userid);
 	}
+	
+	@Override
+	public int isPro(Map map) {
+		// TODO Auto-generated method stub
+		return sdao.isPro(map);
+	}
 }
 
 

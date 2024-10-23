@@ -78,4 +78,7 @@ public interface ShopService {
 	// 셀러 홈
 	public Map<String, Integer> sellerHomeSaleInfo(String userid);
 	public Map<String, Integer> sellerHomeWineInfo(String userid);
+	
+	
+	public int isPro (Map map);
 }

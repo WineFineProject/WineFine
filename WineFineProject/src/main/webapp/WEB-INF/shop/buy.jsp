@@ -410,7 +410,7 @@ let buyApp = Vue.createApp({
 						let selCoupon = !this.isCoupon ? 0 : this.selectedCoupon.mcno
 						pay=this.totalPayment
 						plus = this.plpoint
-						consolelog(this.psvo)
+						console.log(this.psvo[0].psno)
 	        axios.post('../shop/payment_vue.do', null, {
                 params: { // 실제 전달하는 데이터
                     wno: this.wno,
