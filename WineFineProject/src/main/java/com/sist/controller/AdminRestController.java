@@ -175,4 +175,10 @@ public class AdminRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(map);
 	}
+	// 와인 신고 
+	@GetMapping(value = "admin/reportWineUpdate.do", produces = "text/plain;charset=UTF-8")
+	public void reportWineUpdate(int wno) 
+	{
+	    ssService.reportWineUpdate(wno);
+	}
 }

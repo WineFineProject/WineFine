@@ -60,6 +60,8 @@ public interface ShopService {
 	public List<WineVO> wineFilter(Map map);
 	public int wineTotalCount(Map map);
 	
+	// 신고
+	public void reportWineUpdate(int wno);
 	
 	// 구매 업데이트
 	public void paymentStateUpdate1();

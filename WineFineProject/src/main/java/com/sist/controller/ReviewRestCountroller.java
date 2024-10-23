@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sist.service.WineReviewService;
 import com.sist.service.WineReviewServiceImpl;
 import com.sist.vo.WineReviewVO;
 import com.sist.vo.WineVO;
@@ -18,7 +19,7 @@ import java.util.*;
 @RestController
 public class ReviewRestCountroller {
 	@Autowired
-	private WineReviewServiceImpl wservice;
+	private WineReviewService wservice;
 	
 	@PostMapping(value = "shop/review_insert.do",produces = "text/plain;charset=UTF-8")
 	public String review_insert(HttpSession session, int wno, WineReviewVO vo) {

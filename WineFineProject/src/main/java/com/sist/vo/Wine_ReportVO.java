@@ -14,7 +14,7 @@ import java.util.*;
 import lombok.Data;
 @Data
 public class Wine_ReportVO {
-	private int wreno, type, tno, state;
+	private int wreno, type, tno, state, count1, count2, count3, count4;
 	private String userid, rid, category,content, dbday;
 	private Date regdate;
 	private BoardVO bvo=new BoardVO();

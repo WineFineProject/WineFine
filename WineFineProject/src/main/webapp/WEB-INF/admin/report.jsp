@@ -35,7 +35,11 @@
 										<td width="30%">{{vo.content}}</td>
 										<td width="10%">{{vo.userid}}</td>
 										<td width="15%">{{vo.dbday}}</td>
-										<td width="5%"><button type="button" @click="search(vo.wreno,vo.type)" style="border:transparent;background-color: transparent"><i class="fa fa-search"></i></button></td>
+										<td width="5%">
+										<button  @click="messageInsert2(index)" v-if="vo.state===0 && ((vo.count1===0 && vo.type===1) || (vo.count2===0 && vo.type===2) || (vo.count3===0 && vo.type===3) || (vo.count4===0 && vo.type===4))" type="button" style="border:transparent;background-color: transparent"><i class="fa-solid fa-pen-to-square"></i></button>
+										<button v-else-if="vo.state===1" type="button" style="border:transparent;background-color: transparent"><i class="fa-solid fa-user-check"></i></button>
+										<button v-else type="button" @click="search(vo.wreno,vo.type)" style="border:transparent;background-color: transparent"><i class="fa fa-search"></i></button>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -59,9 +63,9 @@
                         <label class="label">내용</label><br>
                         <div class="r-box" style="text-align: left">{{detail.bvo.content}}</div>
                     </div>
-                    <div style="float:right">
-                    <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-paper-plane"></i></button>
-                    <button class="btn-lg" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
+                    <div style="float:right"> 
+                    <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-pen-to-square-plane"></i></button>
+                    <button class="btn-lg" @Click="deleteReport(detail.tno, detail.type)" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </div>
 			</div>
@@ -78,8 +82,8 @@
                         <div class="r-boxs" style="text-align: left">{{detail.brvo.msg}}</div>
                     </div>
                     <div style="float:right">
-                    <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-paper-plane"></i></button>
-                    <button class="btn-lg" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
+                    <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button class="btn-lg" @Click="deleteReport(detail.tno, detail.type)" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </div>
 			</div>
@@ -134,8 +138,8 @@
                         <input type="text" class="form-control" :value="detail.wvo.maker" disabled>
                     </div>
                     <div style="text-align:right">
-                       <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-paper-plane"></i></button>
-                       <button class="btn-lg" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
+                       <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-pen-to-square"></i></button>
+                       <button class="btn-lg" @Click="deleteReport(detail.tno, detail.type)" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
 			</div>
 		  </div>
@@ -153,23 +157,25 @@
                         <div class="r-boxs" style="text-align: left">{{detail.wrvo.content}}</div>
                     </div>
                     <div style="text-align:right">
-                       <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-paper-plane"></i></button>
-                       <button class="btn-lg" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
+                       <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-pen-to-square"></i></button>
+                       <button class="btn-lg" @Click="deleteReport(detail.tno, detail.type)" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </div>
 			</div>
 		</div>
 		
 		<div class="modal" :class="{ show: sModal }">
-			<div class="modal-content" style="width: 400px;height: 320px">
+			<div class="modal-content" style="width: 400px;height: 350px">
 				<div class="modal-header">
                 <h4 class="modal-title">신고 처리 내용</h4>
             </div>
             <div class="mb-3">
-            <div style="margin-top: 10px;">
+            <div style="margin-top:10px;">
                 <textarea v-model="message" ref="message"
-					@keyup.enter="sendMessage()" class="r-boxss" style="resize:none"></textarea>
+					 class="r-boxss" style="resize:none"></textarea>
             </div>
+            <div style="margin-top:15px;text-align:right">
+            <button @click="sendMessage()" style="background-color: transparent"><i class="fa-solid fa-paper-plane"></i></button></div>
 			</div>
 		</div>
 		</div>
@@ -214,6 +220,22 @@
               this.rList()
           },
           methods:{
+        	  deleteReport(tno, type){
+        		  axios.get('../admin/reportDelete.do',{
+        			  params:{
+        				  tno:tno,
+        				  type:type
+        			  }
+        		  }).then(response=>{
+        			  this.messageInsert()
+        		  }).catch(error=>{
+        			  console.log(response.error)
+        		  })
+        	  },
+        	  messageInsert2(index){
+        		  this.detail=this.report[index]
+        		  this.sModal=true
+        	  },
         	  messageInsert(){
         		  this.sModal=true
         	  },
@@ -222,25 +244,34 @@
   					this.$refs.message.focus()
   					return
   				}
-  				axios.post('../notice/vueAdminNoticeSend.do', null, {
+  				axios.get('../admin/reportState.do',{
   					params:{
-  						subject:encodeURIComponent('신고 처리 관련 공지'),
-  						content:encodeURIComponent(this.message),
-  						recvid:this.detail.rid
+  						wreno:this.detail.wreno
   					}
   				}).then(response=>{
-  					this.sModal=false
+  					axios.post('../notice/vueAdminNoticeSend.do',null,{
+  	  					params:{
+  	  						recvid:this.detail.userid,
+  	  						subject:encodeURIComponent('신고 처리 관련 공지'),
+  	  						content:encodeURIComponent(this.detail.userid+'님 신고하신 내용이 정상 처리되었습니다')
+  	  					}
+  	  				}).then(response=>{
+  	  				axios.post('../notice/vueAdminNoticeSend.do', null, {
+  	  					params:{
+  	  						subject:encodeURIComponent('신고 처리 관련 공지'),
+  	  						content:encodeURIComponent(this.message),
+  	  						recvid:this.detail.rid
+  	  					}
+  	  				}).then(response=>{
+  	  					this.sModal=false
+  	  					this.message=''
+  	  					this.showModal=false
+  	  					this.curpage=1
+  	  					this.rList()
+  	  				})
+  	  				})
   				})
-  				axios.post('../notice/vueAdminNoticeSend.do',null,{
-  					params:{
-  						recvid:this.detail.userid,
-  						subject:encodeURIComponent('신고 처리 관련 공지'),
-  						content:encodeURIComponent(this.detail.userid+'님 신고하신 내용이 정상 처리되었습니다')
-  					}
-  				}).then(response=>{
-  					this.message=''
-  					this.sModal=false
-  				})
+  				
           	},
         	  changeModal(check){
         		 this.showModal=check
@@ -252,9 +283,9 @@
         				  type:type
         			  }
         		  }).then(response=>{
-        		  this.state=type
+        		      this.state=type
         			  this.detail=response.data
-        		  	this.changeModal(true)
+        		  	  this.changeModal(true)
         		  })
         	  },
         	  prev(){
@@ -285,6 +316,7 @@
                  		page:this.curpage
                  	}
                  }).then(response=>{
+                	 	console.log(response.data)
                          this.report=response.data.report
                          this.curpage=response.data.curpage
 					     this.totalpage=response.data.totalpage

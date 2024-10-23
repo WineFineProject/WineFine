@@ -36,6 +36,7 @@ public interface BoardService {
 	public void boardRepliesDelete(int brno);
 	public void boardReplyAllDelete(int bno);
 	public void boardReportInsert (Wine_ReportVO vo);
+	public int boardInfo(int brno);
 	
 	public List<BoardVO> noticeboardListData(int start, int end);
 	public List<BoardVO> noticeboardTypeListData(int cno, int start, int end);

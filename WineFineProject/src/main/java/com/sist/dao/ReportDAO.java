@@ -11,9 +11,8 @@ public class ReportDAO {
   @Autowired
   private ReportMapper mapper;
   
-  public List<Wine_ReportVO> reportListData(int start, int end)
-  {
-	  return mapper.reportListData(start, end);
+  public List<Wine_ReportVO> reportListData(Map map){
+	  return mapper.reportListData(map);
   }
   public int reportListCount()
   {
@@ -34,5 +33,9 @@ public class ReportDAO {
   public Wine_ReportVO reportReviewData(int wreno)
   {
 	  return mapper.reportReviewData(wreno);
+  }
+  public void reportState(int wreno)
+  {
+	  mapper.reportState(wreno);
   }
 }

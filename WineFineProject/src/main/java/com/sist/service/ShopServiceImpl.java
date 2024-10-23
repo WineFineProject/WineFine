@@ -283,6 +283,12 @@ public class ShopServiceImpl implements ShopService{
 		// TODO Auto-generated method stub
 		return sdao.isPro(map);
 	}
+	
+	@Override
+	public void reportWineUpdate(int wno) {
+		// TODO Auto-generated method stub
+		wDao.reportWineUpdate(wno);
+	}
 }
 
 

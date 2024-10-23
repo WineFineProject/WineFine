@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.ReportMapper">
+<select id="reportListData" parameterType="hashmap" resultType="Wine_ReportVO">
+SELECT wreno, type, category, content, userid, rid, tno,
+TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, state,
+(SELECT COUNT(*) FROM board WHERE bno=tno) as count1,
+(SELECT COUNT(*) FROM boardreply WHERE brno=tno) as count2,
+(SELECT COUNT(*) FROM wine WHERE wno=tno AND state!=7) as count3,
+(SELECT COUNT(*) FROM wine_review WHERE wrvno=tno) as count4,
+num 
+FROM (SELECT wreno, type, category, content, userid, rid, tno,
+regdate, state, rownum as num 
+FROM (SELECT wreno, type, category, content, userid, rid, tno, regdate, state 
+FROM wine_report ORDER BY wreno DESC)) 
+WHERE num BETWEEN #{start} AND #{end}
+</select>
+</mapper>

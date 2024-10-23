@@ -98,4 +98,8 @@ public class WineDAO {
 	public Map<String, Integer> sellerHomeWineInfo(String userid){
 		return mapper.sellerHomeWineInfo(userid);
 	}
+	public void reportWineUpdate(int wno) {
+		mapper.reportWineUpdate(wno);
+	}
+
 }

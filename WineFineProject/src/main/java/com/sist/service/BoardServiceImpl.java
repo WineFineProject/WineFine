@@ -226,4 +226,10 @@ public class BoardServiceImpl implements BoardService{
 		return dao.noticeboardUpdate(vo);
 	}
 
+	@Override
+	public int boardInfo(int brno) {
+		// TODO Auto-generated method stub
+		return dao.boardInfo(brno);
+	}
+
 }

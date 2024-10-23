@@ -1,6 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,8 @@ public class ReportServiceImpl implements ReportService{
     private ReportDAO dao;
 
 	@Override
-	public List<Wine_ReportVO> reportListData(int start, int end) {
-		// TODO Auto-generated method stub
-		return dao.reportListData(start, end);
+	public List<Wine_ReportVO> reportListData(Map map){
+		return dao.reportListData(map);
 	}
 
 	@Override
@@ -47,5 +47,11 @@ public class ReportServiceImpl implements ReportService{
 	public Wine_ReportVO reportReviewData(int wreno) {
 		// TODO Auto-generated method stub
 		return dao.reportReviewData(wreno);
+	}
+
+	@Override
+	public void reportState(int wreno) {
+		// TODO Auto-generated method stub
+		dao.reportState(wreno);
 	}
 }

@@ -171,6 +171,11 @@ public interface BoardMapper {
 	 		+ "WHERE root = (SELECT root FROM boardreply WHERE brno = #{brno})")
 	 public void boardRepliesDelete(int brno);
 	 
+	 // 댓글 정보
+	 @Select("SELECT depth FROM boardreply "
+			 +"WHERE brno=#{brno}")
+	 public int boardInfo(int brno);
+	 
 	 //게시물의 댓글 전체 삭제
 	 @Delete("DELETE FROM boardreply "
 			 +"WHERE bno=#{bno}")

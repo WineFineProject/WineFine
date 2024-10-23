@@ -17,6 +17,7 @@
 	<typeAlias type="com.sist.vo.VisitVO" alias="VisitVO"/>
 	<typeAlias type="com.sist.vo.ChartVO" alias="ChartVO"/>
 	<typeAlias type="com.sist.vo.LikeVO" alias="LikeVO"/>
+	<typeAlias type="com.sist.vo.Wine_ReportVO" alias="Wine_ReportVO"/>
 	</typeAliases>
 	<mappers>
 	<mapper resource="com/sist/mapper/wine_mapper.xml"/>
@@ -29,5 +30,6 @@
 	<mapper resource="com/sist/mapper/review_mapper.xml"/>
 	<mapper resource="com/sist/mapper/admin_mapper.xml"/>
 	<mapper resource="com/sist/mapper/seller_mapper.xml"/>
+	<mapper resource="com/sist/mapper/report_mapper.xml"/>
 	</mappers>
 </configuration>

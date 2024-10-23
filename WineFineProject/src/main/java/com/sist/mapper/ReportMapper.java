@@ -5,20 +5,17 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 public interface ReportMapper {
-  @Select("SELECT wreno, type, category, content, userid, rid, tno,"
-		  +"TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, state, num "
-		  +"FROM (SELECT wreno, type, category, content, userid, rid, tno,"
-		  +"regdate, state, rownum as num "
-		  +"FROM (SELECT wreno, type, category, content, userid, rid, tno, regdate, state "
-		  +"FROM wine_report ORDER BY wreno DESC)) "
-		  +"WHERE num BETWEEN #{start} AND #{end}")
-  public List<Wine_ReportVO> reportListData(@Param("start") int start,@Param("end") int end);
+  public List<Wine_ReportVO> reportListData(Map map);
   
   @Select("SELECT COUNT(*) FROM wine_report")
   public int reportListCount();
+  
+  @Update("UPDATE wine_report SET state=1 WHERE wreno=#{wreno}")
+  public void reportState(int wreno);
   
   @Results({
 	  @Result(property = "bvo.bno",column = "bno"),

@@ -175,4 +175,11 @@ public class BoardDAO {
 		   mapper.noticeboardUpdate(vo);
 		   return result;
 	   }
+
+     
+	   // 댓글 정보
+	   public int boardInfo(int brno)
+	   {
+		   return mapper.boardInfo(brno);
+	   }
 }
