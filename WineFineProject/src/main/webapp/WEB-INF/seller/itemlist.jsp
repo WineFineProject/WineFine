@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style type="text/css">
 .ipagination {
 	display: inline-flex;
@@ -128,8 +129,9 @@
 					<span v-else @dblclick="vo.isEditingNbno = true">
 							{{vo.nbno}}</span>
 					</td>
-					<td width="8%"><a :href="'edit.do?wno='+vo.wno" class="dbtn">수정</a>
-						<button type="button" v-on:click="itemDelete(vo)" class="dbtn">삭제</button></td>
+					<td width="8%"><a :href="'edit.do?wno='+vo.wno"><i class="fa-duotone fa-solid fa-pen-to-square"></i></a>
+						<button type="button" class="btn-sm" style="border:transparent; background-color: transparent" v-on:click="itemDelete(vo)"><i class="fa-solid fa-trash-can"></i></button>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="12" class="text-center">

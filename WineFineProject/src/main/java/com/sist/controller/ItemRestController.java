@@ -1,9 +1,12 @@
 package com.sist.controller;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -283,6 +286,13 @@ public class ItemRestController {
 		result="OK";
 		return result;
 	}
+	@GetMapping(value = "seller/returnCheck_vue.do", produces = "text/plain;charset=UTF-8")
+	public String returnCheck(int wpno) throws Exception {
+		WineReturnVO vo = iService.returnCheck(wpno);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
 	@PostMapping(value = "seller/orderReturnCheck_vue.do", produces = "text/plain;charset=UTF-8")
 	public String orderReturnCheck(int wpno) {
 		String result="";
@@ -290,5 +300,62 @@ public class ItemRestController {
 		result="OK";
 		return result;
 	}
-	
+	@GetMapping(value = "seller/getinfo_vue.do", produces = "text/plain;charset=UTF-8")
+	public String getsellerinfo(String userid) throws Exception {
+		MemberVO vo = iService.mgrade(userid);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	 @GetMapping(value = "seller/today_vue.do", produces = "text/plain;charset=UTF-8")
+	    public String today() {
+	        
+	        LocalDate today = LocalDate.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd");
+	        String formattedDate = today.format(formatter);
+	        return formattedDate;
+	    }
+	 @PostMapping(value="seller/accSubmit_vue.do",produces = "text/plain;charset=UTF-8")
+		public String accSubmit(@RequestParam String userid,
+                @RequestParam int grade,
+                @RequestParam int amount,
+                @RequestParam int fee,
+                @RequestParam int vat)
+		{
+		    String result = "";
+		 	AccVO accVo = new AccVO();
+		    accVo.setUserid(userid);
+		    accVo.setGrade(grade);
+		    accVo.setAmount(amount);
+		    accVo.setFee(fee);
+		    accVo.setVat(vat);
+		    try {
+		        iService.accInsert(accVo);
+		        iService.pointupdate(userid);
+		        result = "yes";
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        result = "error";
+		    }
+			return result;
+		}
+	 
+	 @PostMapping(value="seller/acnoUpdate_vue.do",produces = "text/plain;charset=UTF-8")
+		public String acno_update()
+		{
+			String result="";
+			iService.payAcnoUpdate();
+			result="yes";
+			return result;
+		}
+	 @GetMapping(value="seller/accList_vue.do", produces = "text/plain;charset=UTF-8")
+		public String acc_list(String userid) throws Exception {
+			
+			List<AccVO> aList;
+			aList = iService.sellerAccList(userid);
+			ObjectMapper mapper = new ObjectMapper();
+			String json = mapper.writeValueAsString(aList);
+			
+			return json;
+		}
 }

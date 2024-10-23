@@ -11,6 +11,7 @@ import com.sist.vo.ItemNationVO;
 import com.sist.vo.MakerVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeBoardVO;
+import com.sist.vo.WineReturnVO;
 import com.sist.vo.WineVO;
 import com.sist.vo.Wine_PaymentVO;
 
@@ -40,12 +41,14 @@ public interface ItemService {
 	public List<Wine_PaymentVO> orderList(Map map);
 	public Map<String, BigDecimal> getOrderCounts(String userId);
 	public void ordercancelUpdate(int wpno);
+	public WineReturnVO returnCheck(int wpno);
 	public void ordereturnUpdate(int wpno);
-	public List<Wine_PaymentVO> accAbleList(String userid, int acno);
+	public List<Wine_PaymentVO> accAbleList(int acno);
 	public MemberVO mgrade(String userid);
 	public void accInfoInsert(AccInfoVO vo);
 	public void accInsert(AccVO vo);
-	public void payAcnoUpdate(int acno, List<Integer> list);
+	public void pointupdate(String userid);
+	public void payAcnoUpdate();
 	public List<AccVO> sellerAccList(String userid);
 	public List<AccInfoVO> sellerAccInfoList(String userid);
 }

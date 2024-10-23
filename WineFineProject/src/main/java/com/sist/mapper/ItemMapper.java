@@ -139,17 +139,23 @@ public interface ItemMapper {
 	        + "WHERE wpno=#{wpno}")
 	public void ordercancelUpdate(int wpno);
 	
+	// 판매자 반품 신청 확인
+	@Select("SELECT reno, sendid, recvid, wpno, content, subject, TO_CHAR(regdate,'YYYY-MM-DD') as dbday "
+			+ "FROM wine_return WHERE wpno=#{wpno}")
+	public WineReturnVO returnCheck(int wpno);
+	
 	// 판매자 반품 승인
 	@Update("UPDATE wine_payment SET state = 9 "
 	        + "WHERE wpno=#{wpno}")
 	public void ordereturnUpdate(int wpno);
-
+	
+	
 	// 정산 신청 
 	// 판매자 별 정산요청/완료된 특정 날짜의 배송 중, 배송 완료 주문 조회(주문번호, 결제금액)
-	@Select("SELECT wpno, payment FROM wine_payment WHERE (state=2 OR state=3) AND acno = 0 AND userid = #{userid} AND acno=#{acno}") 
-	public List<Wine_PaymentVO> accAbleList(@Param("userid") String userid, @Param("acno") int acno);
+	@Select("SELECT wpno, payment, userid FROM wine_payment WHERE acno=#{acno}") 
+	public List<Wine_PaymentVO> accAbleList(@Param("acno") int acno);
 	
-	// 판매자 등급 구하기
+	// 판매자 정보 구하기
 	@Select("SELECT grade, point FROM wine_member WHERE userid = #{userid}")
 	public MemberVO mgrade(@Param("userid") String userid);
 	
@@ -167,8 +173,14 @@ public interface ItemMapper {
 	        + "VALUES (#{acno}, #{userid}, #{grade}, SYSDATE, #{amount}, #{fee}, #{vat})")
 	public void accInsert(AccVO vo);
 	
+	//정산 신청시 포인트 초기화
+	@Update("UPDATE wine_member SET point = 0 WHERE userid = #{userid}")
+	public void pointupdate(@Param("userid") String userid);
+	
 	// 구매내역에 정산정보 업데이트
-	public void payAcnoUpdate(@Param("acno") int acno, @Param("list") List<Integer> list);
+	@Update("UPDATE wine_payment SET acno = (SELECT acno FROM wine_acc WHERE TRUNC(regdate) = TRUNC(SYSDATE)) "
+			+ "WHERE state=2 ")
+	public void payAcnoUpdate();
 	
 	// 정산 신청/완료 기록 출력
 	@Select("SELECT acno, amount, fee, vat, state, grade, TO_CHAR(regdate,'YYYY-MM-DD') as rdbday, TO_CHAR(enddate,'YYYY-MM-DD') as edbday "

@@ -14,6 +14,7 @@ import com.sist.vo.ItemNationVO;
 import com.sist.vo.MakerVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeBoardVO;
+import com.sist.vo.WineReturnVO;
 import com.sist.vo.WineVO;
 import com.sist.vo.Wine_PaymentVO;
 import com.sist.dao.*;
@@ -175,15 +176,21 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
+	public WineReturnVO returnCheck(int wpno) {
+		// TODO Auto-generated method stub
+		return dao.returnCheck(wpno);
+	}
+	
+	@Override
 	public void ordereturnUpdate(int wpno) {
 		// TODO Auto-generated method stub
 		dao.ordereturnUpdate(wpno);
 	}
 
 	@Override
-	public List<Wine_PaymentVO> accAbleList(String userid, int acno) {
+	public List<Wine_PaymentVO> accAbleList(int acno) {
 		// TODO Auto-generated method stub
-		return dao.accAbleList(userid, acno);
+		return dao.accAbleList(acno);
 	}
 
 	@Override
@@ -205,9 +212,9 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public void payAcnoUpdate(int acno, List<Integer> list) {
+	public void payAcnoUpdate() {
 		// TODO Auto-generated method stub
-		dao.payAcnoUpdate(acno, list);
+		dao.payAcnoUpdate();
 	}
 
 	@Override
@@ -220,6 +227,12 @@ public class ItemServiceImpl implements ItemService{
 	public List<AccInfoVO> sellerAccInfoList(String userid) {
 		// TODO Auto-generated method stub
 		return dao.sellerAccInfoList(userid);
+	}
+
+	@Override
+	public void pointupdate(String userid) {
+		// TODO Auto-generated method stub
+		  dao.pointupdate(userid);
 	}
 
 }

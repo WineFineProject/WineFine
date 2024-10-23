@@ -15,6 +15,7 @@ import com.sist.vo.ItemNationVO;
 import com.sist.vo.MakerVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeBoardVO;
+import com.sist.vo.WineReturnVO;
 import com.sist.vo.WineVO;
 import com.sist.vo.Wine_PaymentVO;
 
@@ -123,13 +124,17 @@ public class ItemDAO {
 	 {
 		 mapper.ordercancelUpdate(wpno);
 	 }
+	 public WineReturnVO returnCheck(int wpno)
+	 {
+		 return mapper.returnCheck(wpno);
+	 }
 	 public void ordereturnUpdate(int wpno)
 	 {
 		 mapper.ordereturnUpdate(wpno);
 	 }
-	 public List<Wine_PaymentVO> accAbleList(String userid, int acno)
+	 public List<Wine_PaymentVO> accAbleList(int acno)
 	 {
-		 return mapper.accAbleList(userid, acno);
+		 return mapper.accAbleList(acno);
 	 }
 	 public MemberVO mgrade(String userid)
 	 {
@@ -143,9 +148,9 @@ public class ItemDAO {
 	 {
 		 mapper.accInsert(vo);
 	 }
-	 public void payAcnoUpdate(int acno, List<Integer> list)
+	 public void payAcnoUpdate()
 	 {
-		 mapper.payAcnoUpdate(acno, list);
+		 mapper.payAcnoUpdate();
 	 }
 	 public List<AccVO> sellerAccList(String userid)
 	 {
@@ -154,5 +159,9 @@ public class ItemDAO {
 	 public List<AccInfoVO> sellerAccInfoList(String userid)
 	 {
 		 return mapper.sellerAccInfoList(userid);
+	 }
+	 public void pointupdate(String userid)
+	 {
+		 mapper.pointupdate(userid);
 	 }
 }

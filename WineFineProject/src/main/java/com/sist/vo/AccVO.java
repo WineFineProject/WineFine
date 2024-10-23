@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class AccVO {
-	private int acno, amount, fee, vat, state;
-	private String userid, grade, rdbday, edbday;
+	private int acno, amount, fee, vat, grade, state;
+	private String userid, rdbday, edbday;
 	private Date regdate, enddate;
 }

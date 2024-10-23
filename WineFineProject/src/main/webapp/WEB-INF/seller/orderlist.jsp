@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
 #orderList{
 	width: 1120px;
@@ -56,11 +57,15 @@
 	margin-bottom:15px;
 }
 .orderbtn{
-	border-color: #E66E5B;
+	font-size:18px;
 }
 #olistth{
     background-color: #f8f8f8;
     color: #333;
+}
+.rmbtn{
+	text-align:center;
+	margin-right:8px;
 }
 </style>
 </head>
@@ -93,26 +98,27 @@
 		<table class="table">
 			<tr id="olistth">
 				<th width="10%" class="text-center">주문번호</th>
-				<th width="10%" class="text-center">날짜</th>
+				<th width="12%" class="text-center">날짜</th>
 				<th width="10%" class="text-center">구매자ID</th>
-				<th width="25%" class="text-center">품목</th>
+				<th width="22%" class="text-center">품목</th>
 				<th width="5%" class="text-center">수량</th>
 				<th width="12%" class="text-center">결제금액</th>
-				<th width="10%" class="text-center">주문상태</th>
+				<th width="12%" class="text-center">주문상태</th>
 				<th width="9%" class="text-center">반품요청</th>
-				<th width="9%" class="text-center">주문취소</th>
+				<th width="8%" class="text-center">주문취소</th>
 			</tr>
 			<template v-for="(vo, index) in oList">
 			<tr @click="moreInfo(index)">
 				<td width="10%" class="text-center">{{vo.wpno}}</td>
-				<td width="10%" class="text-center">{{vo.dbday}}</td>
+				<td width="12%" class="text-center">{{vo.dbday}}</td>
 				<td width="10%" class="text-center">{{vo.userid}}</td>
-				<td width="25%" class="text-center scrollable-text"><p>{{vo.wvo.namekor}}</p></td>
+				<td width="22%" class="text-center scrollable-text"><p>{{vo.wvo.namekor}}</p></td>
 				<td width="5%" class="text-center">{{vo.account}}</td>
 				<td width="12%" class="text-center">{{formatPayment(vo.payment)}}</td>
-				<td width="10%" class="text-center">{{vo.state===0?'결제완료':vo.state===1?'배송준비중':vo.state===2?'배송중':vo.state===3?'배송완료':vo.state===7?'반품요청':vo.state===8?'판매자취소':vo.state===9?'반품완료':'상태없음'}}</td>
-				<td width="9%" class="text-center"><button class="btn btn-sm orderbtn" v-if="vo.state===7" @click="orderReturnCheck(vo)">승인</button></td>
-				<td width="9%" class="text-center"><button class="btn btn-sm orderbtn" v-if="vo.state<2" @click="orderCancel(vo)">취소</button></td>
+				<td width="12%" class="text-center">{{vo.state===0?'결제완료':vo.state===1?'배송준비중':vo.state===2?'배송중':vo.state===3?'배송완료':vo.state===7?'반품요청':vo.state===8?'판매자취소':vo.state===9?'반품완료':'상태없음'}}</td>
+				<td width="9%" class="text-center">
+				<button class="btn btn-sm orderbtn" v-if="vo.state===7" @click="changeModal(true, vo)"><i class="fa-regular fa-file-lines"></i></button></td> 
+				<td width="8%" class="text-center"><button class="btn btn-sm orderbtn" v-if="vo.state<2" @click="orderCancel(vo)"><i class="fa-duotone fa-solid fa-rectangle-xmark"></i></button></td>
 			</tr>
 			<tr v-if="isShow[index]">
 			<td colspan="9" style="padding: 0px;">
@@ -163,6 +169,35 @@
 				</tr>	
 		</table>
 	</div>
+	 <div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
+			<div class="modal-content">
+				<span class="close" @click="changeModal(false)">&times;</span>
+				<table class="table" style="margin-top: 50px; border: 1px solid lightgray;">
+					<tr>
+						<th width="30%">반품 신청 ID : </th>
+						<td width="70%">{{sendid}}</td>
+					</tr>
+					<tr>
+						<th width="30%">반품 신청일 : </th>
+						<td width="70%">{{dbday}}</td>
+					</tr>
+					<tr>
+						<th width="30%">반품 신청 사유:</th>
+						<td width="70%">{{subject}}</td>
+					</tr>
+					<tr>
+						<th width="30%">상세 사유:</th>
+						<td width="70%"><span style="width: 300px; height:400px;">{{content}}</span>
+					</tr>
+					<tr>
+						<td colspan="2" class="rmbtn">
+							<button type="button" class="rmbtn btn-sm btn-danger" @click="orderReturnCheck(wpno)">승인</button>
+							<button type="button" class="rmbtn btn-sm btn-secondary" @click="changeModal(false)">취소</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
 </div>
 <script>
  let orderListApp=Vue.createApp({
@@ -181,7 +216,15 @@
     			returnRequested:0,
     			sellerCancelled:0,
     			returnCompleted:0,
+    			showModal:false,
     			isShow:Array(10).fill(false),
+    			reno:0,
+    			sendid:'',
+    			recvid:'',
+    			wpno:0,
+    			content:'',
+    			subject:'',
+    			dbday:'',
     			id:'${sessionScope.userId}'
     		}
     	},  
@@ -213,7 +256,30 @@
     			}).catch(error=>{
     				console.log(error.response)
     			})
-    		},    		
+    		},  
+    		changeModal(check, order=null){
+    			this.showModal=check
+    			if (order) {
+    		        this.getReturnCheck(order);
+    		    }
+    		},
+    		getReturnCheck(vo){
+    			axios.get('../seller/returnCheck_vue.do',{
+    				params:{
+    					wpno:vo.wpno
+    				}
+    			}).then(response=>{
+    				this.reno=response.data.reno
+    				this.sendid=response.data.sendid
+    				this.recvid=response.data.recvid
+    				this.wpno=response.data.wpno
+    				this.content=response.data.content
+    				this.subject=response.data.subject
+    				this.dbday=response.data.dbday
+    			}).catch(error=>{
+    				console.log(error.response)
+    			})
+    		},
             orderCancel(vo) {
             	if (confirm("정말로 이 주문을 취소하시겠습니까?")) {
                     axios.post('../seller/orderCancel_vue.do', null, {
@@ -231,12 +297,13 @@
                         })
                 	}
                 },
-            orderReturnCheck(vo) {
+            orderReturnCheck(wpno) {
             	if (confirm("정말로 이 반품요청을 승인하시겠습니까?")) {
                     axios.post('../seller/orderReturnCheck_vue.do', null, {
-                        params: { wpno: vo.wpno } 
+                        params: { wpno: wpno } 
                     }).then(response => {
                             if (response.data === "OK") {
+                            	this.showModal=false
                               	this.dataRecv()
                                 alert("반품요청이 승인되었습니다.")
                             } else {
