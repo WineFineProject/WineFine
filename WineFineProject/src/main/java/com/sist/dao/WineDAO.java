@@ -92,4 +92,10 @@ public class WineDAO {
 	public void likeDelete(int rno) {
 		mapper.likeDelete(rno);
 	}
+	public Map<String, Integer> sellerHomeSaleInfo(String userid){
+		return mapper.sellerHomeSaleInfo(userid);
+	}
+	public Map<String, Integer> sellerHomeWineInfo(String userid){
+		return mapper.sellerHomeWineInfo(userid);
+	}
 }

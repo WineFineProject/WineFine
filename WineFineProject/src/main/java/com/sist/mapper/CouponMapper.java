@@ -36,6 +36,6 @@ public interface CouponMapper {
 	
 	public List<PromotionCouponVO> sellerPromotionActiveList(String id);
 	
-	@Update("UPDATE promotion_coupon SET state=9 WHERE enddate<sysdate")
+	@Update("UPDATE promotion_coupon SET state=9 WHERE trunc(enddate)<trunc(sysdate)")
 	public void promotionCouponEndUpdate();
 }

@@ -1,6 +1,7 @@
 package com.sist.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
 
@@ -13,4 +14,8 @@ public interface SellerMapper {
 	public List<ChartVO> sellerSellTypePrice(String userid);
 	public List<ChartVO> sellerSellTypeAccount(String userid);
 	public List<ChartVO> sellerAddrPrice(String userid);
+	@Select("SELECT point FROM wine_member WHERE userid=#{userid}")
+	public int sellerGetAccPoint(String userid);
+	public Map<String, Integer> sellerMoreInfoCount(String userid);
+	public Map<String, Integer> sellerPaymentInfoCount(String userid);
 }

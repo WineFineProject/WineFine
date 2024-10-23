@@ -33,8 +33,34 @@
 		end
 	</select>
 	<select id="sellerAddrPrice" parameterType="String" resultType="ChartVO">
-<!-- 		SELECT CASE WHEN INSTR(addrEng, '-') > 0 THEN SUBSTR(addrEng, 1, INSTR(addrEng, '-') - 1)
-		ELSE addrEng END AS addr, sum(payment) as price FROM wine_payment w JOIN wine_delivery wd ON w.wdno=wd.wdno JOIN wine ON w.wno=wine.wno WHERE wine.seller=#{userid} AND trunc(sysdate) BETWEEN trunc(sysdate-6) AND trunc(sysdate) GROUP BY addrEng -->
-		SELECT addrISO AS addr, sum(payment) as price FROM wine_payment w JOIN wine_delivery wd ON w.wdno=wd.wdno JOIN wine ON w.wno=wine.wno WHERE wine.seller=#{userid} AND trunc(sysdate) BETWEEN trunc(sysdate-6) AND trunc(sysdate) GROUP BY addrISO
+		SELECT CASE WHEN INSTR(addrEng, '-') > 0 THEN SUBSTR(addrEng, 1, INSTR(addrEng, '-') - 1)
+		ELSE addrEng END AS addr, sum(payment) as price FROM wine_payment w JOIN wine_delivery wd ON w.wdno=wd.wdno JOIN wine ON w.wno=wine.wno WHERE wine.seller=#{userid} AND trunc(sysdate) BETWEEN trunc(sysdate-6) AND trunc(sysdate) GROUP BY addrEng
+	</select>
+	<select id="sellerMoreInfoCount" parameterType="String" resultType="java.util.Map">
+		SELECT
+		SUM(CASE WHEN type = 'sale' THEN count ELSE 0 END) AS sale,
+		SUM(CASE WHEN type = 'coupon' THEN count ELSE 0 END) AS coupon,
+		SUM(CASE WHEN type = 'banner' THEN count ELSE 0 END) AS banner,
+		SUM(CASE WHEN type = 'noanswer' THEN count ELSE 0 END) AS noanswer
+		FROM(
+		SELECT COUNT(*) AS count, 'sale' AS type FROM promotion_sale WHERE userid='ping3' AND state=1
+		UNION ALL
+		SELECT COUNT(*) AS count, 'coupon' AS type FROM promotion_coupon WHERE userid='ping3' AND state=1
+		UNION ALL
+		SELECT COUNT(*) AS count, 'banner' AS type FROM promotion_banner WHERE userid='ping3' AND state=1
+		UNION ALL
+		SELECT COUNT(*) as count, 'noanswer' as type FROM wine_replyboard WHERE recvid='ping3' AND type=1 AND group_step=0 AND isreply=0)
+	</select>
+	<select id="sellerPaymentInfoCount" parameterType="String" resultType="java.util.Map">
+		SELECT
+		COUNT(case when wp.state=0 then 1 end) as payend,
+		COUNT(case when wp.state=1 then 1 end) as delwait,
+		COUNT(case when wp.state=2 then 1 end) as delactive,
+		COUNT(case when wp.state=3 then 1 end) as delend,
+		COUNT(case when wp.state=7 then 1 end) as returnrequest,
+		COUNT(case when wp.state=8 then 1 end) as sellercancel,
+		COUNT(case when wp.state=9 then 1 end) as returnend
+		FROM wine_payment wp JOIN wine w ON wp.wno=w.wno
+		WHERE w.seller=#{userid} AND trunc(wp.regdate) BETWEEN trunc(sysdate-6) AND trunc(SYSDATE)
 	</select>
 </mapper>

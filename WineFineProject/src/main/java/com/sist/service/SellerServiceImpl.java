@@ -1,6 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +10,10 @@ import com.sist.dao.SellerDAO;
 import com.sist.vo.ChartVO;
 
 @Service
-public class SellerServiceImpl implements SellerService{
+public class SellerServiceImpl implements SellerService {
 	@Autowired
 	private SellerDAO dao;
-	
+
 	@Override
 	public List<Integer> sellerVisitWeeks(String pageid) {
 		return dao.sellerVisitWeeks(pageid);
@@ -36,5 +37,20 @@ public class SellerServiceImpl implements SellerService{
 	@Override
 	public List<ChartVO> sellerAddrPrice(String userid) {
 		return dao.sellerAddrPrice(userid);
+	}
+
+	@Override
+	public int sellerGetAccPoint(String userid) {
+		return dao.sellerGetAccPoint(userid);
+	}
+
+	@Override
+	public Map<String, Integer> sellerMoreInfoCount(String userid) {
+		return dao.sellerMoreInfoCount(userid);
+	}
+
+	@Override
+	public Map<String, Integer> sellerPaymentInfoCount(String userid) {
+		return dao.sellerPaymentInfoCount(userid);
 	}
 }

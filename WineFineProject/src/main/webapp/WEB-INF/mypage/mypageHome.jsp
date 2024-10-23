@@ -1,114 +1,116 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang='en'>
 <head>
 <link rel="stylesheet" href="../tem/css/calendarstyle.css">
 <meta charset='utf-8' />
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'>
 </script>
 </head>
 <body>
 	<div class="MyCalendar">
 		<div id='calendar' class="cal"></div>
 		<div class="modal" :class="{show: showModal}">
-			<div class="modal-content" style="width: 400px; height: 580px;margin-top: 7%;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addEventModalLabel">일정 추가</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="changeModal(false)"></button>
-            </div>
-            <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="subject" class="label">제목</label>
-                        <input type="text" class="form-control" v-model="subject">
-                    </div>
-                    <div class="mb-3">
-                        <label for="title" class="label">내용</label>
-                        <input type="text" class="form-control" v-model="content">
-                    </div>
-                    <div class="mb-3">
-                        <label for="start" class="label">시작 일자</label>
-                        <input type="date" class="form-control" v-model="startday">
-                    </div>
-                    <div class="mb-3">
-                        <label for="end" class="label">종료 일자</label>
-                        <input type="date" class="form-control" v-model="endday">
-                    </div>
-                    <div class="mb-3">
-                    <table style="width:100%">
-                    <tr>
-                    <td width="20%"></td>
-                    <td width="30%">배경색</td>
-                    <td width="30%">글자색</td>
-                    <td width="20%"></td>
-                    </tr>
-                    <tr>
-                    <td width="20%"></td>
-                    <td width="30%"><input type="color" v-model="bcolor" required></td>
-                    <td width="30%"><input type="color" v-model="fcolor" required></td>
-                    <td width="20%"></td>
-                    </tr>
-                    </table>
-                    </div>
-                    <div>
-                    <button type="submit" class="btn btn-warning" @click="submitBtn()">저장</button>
-                    </div>
-            </div>
+			<div class="modal-content" style="width: 400px; height: 580px; margin-top: 7%;">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addEventModalLabel">일정 추가</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="changeModal(false)"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="subject" class="label">제목</label>
+						<input type="text" class="form-control" v-model="subject">
+					</div>
+					<div class="mb-3">
+						<label for="title" class="label">내용</label>
+						<input type="text" class="form-control" v-model="content">
+					</div>
+					<div class="mb-3">
+						<label for="start" class="label">시작 일자</label>
+						<input type="date" class="form-control" v-model="startday">
+					</div>
+					<div class="mb-3">
+						<label for="end" class="label">종료 일자</label>
+						<input type="date" class="form-control" v-model="endday">
+					</div>
+					<div class="mb-3">
+						<table style="width: 100%">
+							<tr>
+								<td width="20%"></td>
+								<td width="30%">배경색</td>
+								<td width="30%">글자색</td>
+								<td width="20%"></td>
+							</tr>
+							<tr>
+								<td width="20%"></td>
+								<td width="30%">
+									<input type="color" v-model="bcolor" required>
+								</td>
+								<td width="30%">
+									<input type="color" v-model="fcolor" required>
+								</td>
+								<td width="20%"></td>
+							</tr>
+						</table>
+					</div>
+					<div>
+						<button type="submit" class="btn btn-warning" @click="submitBtn()">저장</button>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="modal" :class="{show:sModal}">
-			<div class="modal-content" style="width: 420px; height: 420px;margin-top: 7%;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addEventModalLabel">{{state==='1'?'예약보기':'일정보기'}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="cModal(false)"></button>
-            </div>
-            <div class="modal-body" v-if="state==='2'">
-                    <table class="table" id="coupon-table">
-                     <tr>
-                        <th width="30%">제목</th>
-                        <td width="70%">{{vo.subject}}</td>
-                     </tr>   
-                     <tr>
-                        <th>내용</th>
-                        <td>{{vo.content}}</td>
-                     </tr>
-                     <tr>   
-                        <th>시작 일자</th>
-                        <td>{{vo.startday}}</td>
-                     </tr>
-                     <tr>   
-                        <th>종료 일자</th>
-                        <td>{{vo.endday}}</td>
-                     </tr>
-                     </table>   
-                    <div style="margin-top: 30px">
-                    <button type="submit" class="btn btn-wine" @click="deleteBtn2()">삭제</button>
-                    </div>
-            </div>
-            <div class="modal-body" v-if="state==='1'">
-                    <table class="table" id="coupon-table">
-                     <tr>
-                        <th width="30%">제목</th>
-                        <td width="70%">{{vo.evo.title}}</td>
-                     </tr>   
-                     <tr>
-                        <th>예약일</th>
-                        <td>{{vo.evo.eday}}</td>
-                     </tr>
-                     <tr>   
-                        <th>예약 인원</th>
-                        <td>{{vo.person}}명</td>
-                     </tr>
-                     <tr>   
-                        <th>주소</th>
-                        <td>{{vo.evo.address}}</td>
-                     </tr>
-                     </table>   
-                    <div>
-                    <button type="submit" class="btn btn-wine" @click="deleteBtn1()">삭제</button>
-                    </div>
-            </div>
+			<div class="modal-content" style="width: 420px; height: 420px; margin-top: 7%;">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addEventModalLabel">{{state==='1'?'예약보기':'일정보기'}}</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="cModal(false)"></button>
+				</div>
+				<div class="modal-body" v-if="state==='2'">
+					<table class="table" id="coupon-table">
+						<tr>
+							<th width="30%">제목</th>
+							<td width="70%">{{vo.subject}}</td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td>{{vo.content}}</td>
+						</tr>
+						<tr>
+							<th>시작 일자</th>
+							<td>{{vo.startday}}</td>
+						</tr>
+						<tr>
+							<th>종료 일자</th>
+							<td>{{vo.endday}}</td>
+						</tr>
+					</table>
+					<div style="margin-top: 30px">
+						<button type="submit" class="btn btn-wine" @click="deleteBtn2()">삭제</button>
+					</div>
+				</div>
+				<div class="modal-body" v-if="state==='1'">
+					<table class="table" id="coupon-table">
+						<tr>
+							<th width="30%">제목</th>
+							<td width="70%">{{vo.evo.title}}</td>
+						</tr>
+						<tr>
+							<th>예약일</th>
+							<td>{{vo.evo.eday}}</td>
+						</tr>
+						<tr>
+							<th>예약 인원</th>
+							<td>{{vo.person}}명</td>
+						</tr>
+						<tr>
+							<th>주소</th>
+							<td>{{vo.evo.address}}</td>
+						</tr>
+					</table>
+					<div>
+						<button type="submit" class="btn btn-wine" @click="deleteBtn1()">삭제</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

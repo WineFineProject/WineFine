@@ -1,6 +1,7 @@
 package com.sist.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,15 @@ public class SellerDAO {
 	
 	public List<ChartVO> sellerAddrPrice(String userid){
 		return mapper.sellerAddrPrice(userid);
+	}
+	
+	public int sellerGetAccPoint(String userid) {
+		return mapper.sellerGetAccPoint(userid);
+	}
+	public Map<String, Integer> sellerMoreInfoCount(String userid){
+		return mapper.sellerMoreInfoCount(userid);
+	}
+	public Map<String, Integer> sellerPaymentInfoCount(String userid){
+		return mapper.sellerPaymentInfoCount(userid);
 	}
 }

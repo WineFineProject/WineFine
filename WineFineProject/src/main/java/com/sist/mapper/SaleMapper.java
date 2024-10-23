@@ -25,6 +25,6 @@ public interface SaleMapper {
 	
 	public List<PromotionSaleVO> sellerSaleActiveList(String id);	
 	
-	@Update("UPDATE promotion_sale SET state=9 WHERE enddate<sysdate")
+	@Update("UPDATE promotion_sale SET state=9 WHERE trunc(enddate)<trunc(sysdate)")
 	public void promotionSaleEndUpdate();
 }

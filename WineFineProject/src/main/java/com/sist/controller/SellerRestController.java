@@ -225,9 +225,10 @@ public class SellerRestController {
 		
 		List<Integer> dates=sellerService.sellerVisitWeeks(id);
 		int maxVisit=sellerService.sellerVisitMax(id);
-		
+		int accPoint=sellerService.sellerGetAccPoint(id);
 		map.put("dates", dates);
 		map.put("maxVisit", maxVisit);
+		map.put("accPoint", accPoint);
 		
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(map);
@@ -249,4 +250,20 @@ public class SellerRestController {
 		return mapper.writeValueAsString(map);
 	}
 	
+	@GetMapping(value = "seller/vueSellerSaleInfo.do", produces = "text/plain;charset=UTF-8")
+	public String sellerVueSaleInfo(HttpSession session) throws Exception{
+		Map map=new HashMap();
+		String id=(String)session.getAttribute("userId");
+		Map<String, Integer> statemap=sService.sellerHomeSaleInfo(id);
+		Map<String, Integer> typemap=sService.sellerHomeWineInfo(id);
+		Map<String, Integer> paymap=sellerService.sellerPaymentInfoCount(id);
+		Map<String, Integer> etcmap=sellerService.sellerMoreInfoCount(id);
+		System.out.println(typemap);
+		map.put("state", statemap);
+		map.put("type", typemap);
+		map.put("pay", paymap);
+		map.put("etc", etcmap);
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(map);
+	}
 }

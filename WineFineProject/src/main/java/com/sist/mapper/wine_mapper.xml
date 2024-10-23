@@ -160,4 +160,25 @@
 	WHERE id=#{userid})) 
 	WHERE NUM BETWEEN #{start} AND #{end} 
 	</select>
+	<select id="sellerHomeSaleInfo" parameterType="String" resultType="java.util.Map">
+	SELECT
+    COUNT(case when state=1 then 1 end) as active,
+    COUNT(case when state=2 then 1 end) as soldout,
+    COUNT(case when state=3 then 1 end) as salestop,
+    COUNT(case when state=8 then 1 end) as rejection,
+    COUNT(case when state=9 then 1 end) as wait
+    FROM wine
+    WHERE seller=#{userid}
+	</select>
+	<select id="sellerHomeWineInfo" parameterType="String" resultType="java.util.Map">
+	SELECT
+    COUNT(case when type='레드' then 1 end) as red,
+    COUNT(case when type='화이트' then 1 end) as white,
+    COUNT(case when type='스파클링' then 1 end) as spark,
+    COUNT(case when type='로제' then 1 end) as rose,
+    COUNT(case when type='주정강화' then 1 end) as alcohol,
+    COUNT(case when type='기타' then 1 end) as etc
+    FROM wine
+    WHERE seller=#{userid} AND state!=7
+	</select>
 </mapper>

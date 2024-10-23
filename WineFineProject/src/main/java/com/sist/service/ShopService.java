@@ -73,4 +73,9 @@ public interface ShopService {
 	public List<LikeVO> myLikeList(Map map);
 	public int myLikeTotalPage(Map map);
 	public void likeDelete(int rno);
+	
+	
+	// 셀러 홈
+	public Map<String, Integer> sellerHomeSaleInfo(String userid);
+	public Map<String, Integer> sellerHomeWineInfo(String userid);
 }

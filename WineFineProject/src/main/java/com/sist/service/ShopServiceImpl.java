@@ -267,6 +267,16 @@ public class ShopServiceImpl implements ShopService{
 	public void likeDelete(int rno) {
 		wDao.likeDelete(rno);
 	}
+	
+	@Override
+	public Map<String, Integer> sellerHomeSaleInfo(String userid) {
+		return wDao.sellerHomeSaleInfo(userid);
+	}
+	
+	@Override
+	public Map<String, Integer> sellerHomeWineInfo(String userid) {
+		return wDao.sellerHomeWineInfo(userid);
+	}
 }
 
 

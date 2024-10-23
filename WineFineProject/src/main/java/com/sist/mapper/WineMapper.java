@@ -62,4 +62,7 @@ public interface WineMapper {
 	
 	@Delete("DELETE FROM winelike WHERE lno=#{lno}")
 	public void likeDelete(int rno);
+	
+	public Map<String, Integer> sellerHomeSaleInfo(String userid);
+	public Map<String, Integer> sellerHomeWineInfo(String userid);
 }
