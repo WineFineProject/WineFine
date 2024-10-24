@@ -60,6 +60,10 @@ public class SellerController {
 	public String sellerChart() {
 		return "seller/chart";
 	}
+	@GetMapping("seller/chart2.do")
+	public String sellerChart2() {
+		return "seller/chart2";
+	}
 	@GetMapping("seller/replyInsert.do")
 	public String sellerReplyBoardInsert(int wrno, Model model) {
 		model.addAttribute("wrno", wrno);

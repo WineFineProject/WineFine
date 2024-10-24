@@ -93,6 +93,7 @@
 </head>
 <body>
 	<div id="mainApp">
+	<%System.out.print(application.getRealPath("/")); %>
 		<div class="container-fluid fruite py-5" id="fruite">
 			<div class="row text-center" style="margin: 0px auto; width: 1320px;">
 				<div class="position-relative mx-auto">
