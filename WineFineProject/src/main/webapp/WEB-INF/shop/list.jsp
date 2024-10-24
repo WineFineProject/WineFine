@@ -112,6 +112,10 @@
 	padding-right: 0.5rem !important;
 	padding-left: 0.5rem !important;
 }
+.paginav{
+	background-color: #881824 !important;
+	color: white !important;
+}
 </style>
 </head>
 <body>
@@ -220,7 +224,7 @@
 								<div class="row g-4 justify-content-center">
 
 									<!-- 상품 list -->
-									<div class="col-md-6 col-lg-6 col-xl-3" v-for="vo in list" style="margin-bottom: 20px; width: 25%;">
+									<div class="col-md-6 col-lg-6 col-xl-3" v-for="(vo,index) in list" style="margin-bottom: 20px; width: 25%;">
 										<a :href="'../shop/detailBefore.do?wno=' + vo.wno">
 											<div class="rounded position-relative fruite-item">
 												<div class="text-center" style="height: 180px; display: flex; justify-content: center; align-items: center;">
@@ -236,8 +240,8 @@
 															{{vo.price}}<br>
 														</p>
 														<div style="display: inline-flex;">
-															<a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="width: 60px; display: flex; justify-content: center; align-items: center; margin-right: 10px; margin-left: 10px;"> <i class="fa-solid fa-cart-plus " style="color: #881824;"></i>
-															</a> <a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="width: 60px; display: flex; justify-content: center; align-items: center;"> <i class="fa-solid fa-credit-card " style="color: #881824;"></i>
+															<a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="width: 60px; display: flex; justify-content: center; align-items: center; margin-right: 10px; margin-left: 10px;" @click="handleAddToCart(index)"> <i class="fa-solid fa-cart-plus " style="color: #881824;"></i>
+															</a> <a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="width: 60px; display: flex; justify-content: center; align-items: center;" @click="handleBuyNow(index)"> <i class="fa-solid fa-credit-card " style="color: #881824;"></i>
 															</a>
 														</div>
 													</div>
@@ -246,7 +250,6 @@
 										</a>
 									</div>
 									<!-- 상품 list end -->
-
 									<div class="col-12 text-center">
 										<div class="pagination-area d-sm-flex mt-15" style="margin-left: 15%; margin-top: 20px">
 											<nav aria-label="#">
@@ -254,9 +257,12 @@
 													<li class="page-item"><a class="page-link" @click="prev()"> <i class="fa fa-angle-double-left" aria-hidden="true"></i>
 													</a></li>
 
-													<li :class="i===curpage?'page-item active':''" v-for="i in range(startPage, endPage)" style="display: inline;"><a class="page-link" @click="pageChange(i)">{{i}}</a></li>
+													<li :class="i === curpage ? 'paginav active':''" v-for="i in range(startPage, endPage)" style="display: inline;">
+													<a class="page-link" @click="pageChange(i)">{{i}}</a>
+													</li>
 
-													<li class="page-item" v-if="endPage<totalpage"><a class="page-link" @click="next()"> <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+													<li class="page-item" v-if="endPage<totalpage">
+													<a class="page-link" @click="next()" style="margin-left: 4px;"> <i class="fa fa-angle-double-right" aria-hidden="true"></i>
 													</a></li>
 												</ul>
 											</nav>
@@ -272,13 +278,7 @@
 				</div>
 			</div>
 		</div>
-
 		<!-- Fruits Shop End-->
-
-
-
-		<!-- Back to Top -->
-		<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 	</div>
 	<script>
     	let listApp=Vue.createApp({
@@ -304,7 +304,8 @@
     				fprice: 1000000,
     				selectPrice: '${search.price}',
     				searchWine: '',
-    				fd:''
+    				fd:'',
+    				sessionId: '${sessionid}'
     			}
     		},
     		mounted(){
@@ -336,6 +337,37 @@
 				this.dataRecv()
         	},
     		methods:{
+    	        handleBuyNow(SelectIndex) {
+    	        	let wno = this.list[SelectIndex].wno
+    	            if (this.sessionId) {
+    	                window.location.href = '../shop/buy.do?wno=' + wno;
+    	            } else {
+    	                alert('로그인 후 사용이 가능합니다.');
+    	                window.location.href = '../member/login.do'; 
+    	            }
+    	        },
+    	        handleAddToCart(SelectIndex) {
+    	            if (this.sessionId) {	                
+    	                this.addToCart(SelectIndex)
+    	            } else {
+    	                alert('로그인 후 사용이 가능합니다.')
+    	                window.location.href = '../member/login.do'
+    	            }
+    	        },
+    	        addToCart(SelectIndex){
+    	        	let wno = this.list[SelectIndex].wno
+    	        	axios.post('../shop/cart_insert.do',null,{
+    	        		params:{
+    	        			wno: wno,
+    	        			account: 1
+    	        		}        		
+    	        	}).then(response=>{
+    	        		console.log(response.data)
+    	        		alert("장바구니에 추가되었습니다.")
+    	        	}).catch(error=>{
+    	        		console.log(error.response)
+    	        	})
+    	        },
     		    wineClass(type) {
       		      switch (type) {
       		        case '레드':

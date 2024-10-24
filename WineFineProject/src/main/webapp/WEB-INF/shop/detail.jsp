@@ -36,17 +36,38 @@
 	border-bottom: none !important; /* 아래쪽 테두리 제거 */
 	color: black !important;
 }
-
+/* /////////////////////////////////////////////////////////// */
 .winecor {
-	background-color: #881824;
-	color: white;
+	background-color: #881824 !important;
+	color: white !important;
+}
+
+.rose {
+	background-color: #eb9ba6 !important;
+	color: white !important;
+}
+
+.Fortified {
+	background-color: #efb76f !important;
+	color: white !important;
+}
+
+.sparkling {
+	background-color: #cdd381 !important;
+	color: white !important;
+}
+
+.atherwine {
+	background-color: #75528b !important;
+	color: white !important;
 }
 
 .whitecor {
-	background-color: white;
-	color: #881824 !important;
-	border: solid 1px #881824;
+	background-color: white !important;
+	color: black !important;
+	border: solid 1px black !important;
 }
+/* ///////////////////////////////////////////////////////////// */
 
 .image-margin {
 	width: 15px;
@@ -128,17 +149,17 @@
 			<div class="row g-4 mb-5" style="width: 1600px;">
 				<div class="col-xl-10">
 					<div class="row g-4">
-						<div class="col-lg-5">
-							<div class="border rounded" style="width: 400px; border-color: #881824 !important;">
-								<img :src="vo.poster" class="img-fluid rounded" alt="Image">
+<div class="col-lg-5">
+    <div class="border rounded d-flex justify-content-center align-items-center" style="width: 400px; height: 600px; border-color: #881824 !important;">
+        <img :src="vo.poster" class="img-fluid rounded" alt="Image" style="max-width: 100%; max-height: 100%;">
+    </div>
+</div>
 
-							</div>
-						</div>
 
 						<div class="col-lg-7">
 							<h4 class="fw-bold mb-3"></h4>
 							<p class="mb-3 d-flex align-items-center">
-								<span :class="vo.type === '화이트' ? 'whitecor' : 'winecor'">{{vo.type}} </span> | <span v-for="(nvo,index) in nname">{{index === 0 ?'':'&nbsp;|&nbsp;'}}<a>{{nvo}}</a>
+								<span :class="wineClass(vo.type)">{{vo.type}} </span> | <span v-for="(nvo,index) in nname">{{index === 0 ?'':'&nbsp;|&nbsp;'}}<a>{{nvo}}</a>
 								</span> <span class="img-margin"> <span> <img src="../img/like_off.png" @click="likeOn()" class="img-size img-hover" v-if="Lcheck === 0 || sessionId ==='' "> <img src="../img/like_on.png" @click="likeOff()" class="img-size img-hover" v-if="Lcheck !== 0 && sessionId !=='' "> <span class="img-text"><b>{{likeCount}}</b></span>
 								</span> <img src="../img/eye.png" class="img-size "> <span class="img-text"><b>{{vo.hit}}</b></span> <span @click="copyLink()" class="img-hover"> <img src="../img/share.png" class="img-size "> <span> </span>
 								</span>
@@ -242,21 +263,21 @@
 															<thead style="background-color: #efefef;">
 																<tr class="text-center">																
 																	<th width="10%">번호</th>
-																	<th width="10%">상태</th>
 																	<th width="40%">제목</th>
 																	<th width="13%">작성자</th>
+																	<th width="17%">작성일</th>
 																	<th width="10%">조회수</th>
-																	<th width="17%">등록일</th>
+																	<th width="10%">상태</th>
 																</tr>
 															</thead>
 															<tbody>
 																<tr>
 																	<td class="text-center">인덱스처리</td>
-																	<td class="text-center">답변완료</td>
-																	<td>테스트 입니다</td>
+																	<td>[타입(관련)]테스트 입니다</td>
 																	<td class="text-center">ping</td>
-																	<td class="text-center">123</td>
 																	<td class="text-center">2024-10-21</td>
+																	<td class="text-center">123</td>
+																	<td class="text-center">답변완료</td>
 																</tr>
 															</tbody>
 														</table>
@@ -362,7 +383,7 @@
 											<div style="width: 250px; height: 250px;">
 												<img :src="mk.poster" class="img-fluid rounded-top" alt="" style="width: 250px; height: 267px; padding: 24px 24px 0;">
 											</div>
-											<div class="px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;" :class="mk.type === '화이트' ? 'whitecor' : 'winecor'">{{mk.type}}</div>
+											<div class="px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;" :class="wineClass(mk.type)">{{mk.type}}</div>
 											<div class="p-4 pb-0 rounded-bottom" style="width: 250px; height: 140px;">
 												<h4 style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; line-height: 1.2; max-height: 2.4em; width: 200px;">{{mk.namekor}}</h4>
 												<div class="d-flex justify-content-between flex-lg-wrap">
@@ -389,7 +410,7 @@
 											<div style="width: 250px; height: 250px;">
 												<img :src="sl.poster" class="img-fluid rounded-top" alt="" style="width: 250px; height: 267px; padding: 24px 24px 0;">
 											</div>
-											<div class="px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;" :class="sl.type === '화이트' ? 'whitecor' : 'winecor'">{{sl.type}}</div>
+											<div class="px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;" :class="wineClass(sl.type)">{{sl.type}}</div>
 											<div class="p-4 pb-0 rounded-bottom" style="width: 250px; height: 140px;">
 												<h4 style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; line-height: 1.2; max-height: 2.4em; width: 200px;">{{sl.namekor}}</h4>
 												<div class="d-flex justify-content-between flex-lg-wrap">
@@ -476,11 +497,6 @@
 		</div>
 	</div>
 	<!-- Single Product End -->
-
-
-	<!-- Back to Top -->
-	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"> <i class="fa fa-arrow-up"></i>
-	</a>
 	<script>
 	let detailApp = Vue.createApp({
 	    data() {
@@ -522,6 +538,22 @@
 	        this.dataRecv()
 	    },
 	    methods: {
+		    wineClass(type) {
+    		      switch (type) {
+    		        case '레드':
+    		          return 'winecor'
+    		        case '화이트':
+    		          return 'whitecor'
+    		        case '로제':
+    		          return 'rose'
+    		        case '스파클링':
+    		          return 'sparkling'
+    		        case '주정강화':
+    		          return 'Fortified'
+    		        default:
+    		          return 'atherwine'
+    		      }
+    		    },
 	    	likeOn(){
 	    		if(this.sessionId == ''){
 	    			alert('로그인 후 사용이 가능합니다')
