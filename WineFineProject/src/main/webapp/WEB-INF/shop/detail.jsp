@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://unpkg.com/vue@3"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
 <style type="text/css">
@@ -114,6 +114,10 @@
 .backcor{
 	background-color: lightgray;	
 }
+.aorb:hover{
+	border: 1px solid #881824 !important;
+	color: #881824;
+}
 </style>
 </head>
 <body>
@@ -191,8 +195,9 @@
 								<!-- 									</div> -->
 								<!-- 								</div> -->
 
-								<a class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary" @click="handleAddToCart()"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-								</a> <a class="btn border border-secondary rounded-pill px-4 py-2 ms-3 text-primary" @click="handleBuyNow()"> <i class="fa fa-shopping-bag me-2 text-primary"></i> Buy Now
+								<a class="btn border rounded-pill px-4 py-2 ms-3 aorb" @click="handleAddToCart()"> <i class="fa-solid fa-cart-plus " style="color: #881824;"></i> Add to cart
+								</a> 
+								<a class="btn border rounded-pill px-4 py-2 ms-3 aorb" @click="handleBuyNow()"> <i class="fa-solid fa-credit-card " style="color: #881824;"></i> Buy Now
 								</a>
 							</div>
 							<div style="text-align: right;">
@@ -496,8 +501,8 @@
 	    data() {
 	        return {
 	            vo: {}, // 와인 상세 정보
-	            wno: '${wno}', // 와인 번호 (문자열로 처리)
-	            sessionId: '${session}', // 사용자 세션 ID (문자열로 처리)
+	            wno: '${wno}', 
+	            sessionId: '${session}',
 	            list: [],
 	            msg: '',
 	            isUps: false,

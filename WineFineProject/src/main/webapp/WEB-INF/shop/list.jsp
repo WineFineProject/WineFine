@@ -223,7 +223,7 @@
 										<a :href="'../shop/detailBefore.do?wno=' + vo.wno">
 											<div class="rounded position-relative fruite-item" style="width: 270px;">
 												<div class="fruite-img text-center" style="width: 270px;">
-													<img :src="vo.poster" class="img-fluid w-75 h-75 rounded-top" alt="" style="width: 180px !important;">
+													<img :src="vo.poster" class="img-fluid w-75 h-75 rounded-top" alt="" style="width: 180px !important; height: 220px !important; margin-top: 10px;">
 												</div>
 												<div class="text-white px-3 py-1 rounded position-absolute" :class="vo.type === '화이트' ? 'whitecor' : 'winecor'" style="top: 10px; left: 10px;">{{vo.type}}</div>
 												<div class="p-4 border border-secondary border-top-0 rounded-bottom" style="width: 270px; height: 134px;">
@@ -234,8 +234,11 @@
 															{{vo.price}}<br>
 														</p>
 														<div>
-															<a href="#" class="btn border border-secondary rounded-pill px-3 small-text ahover" style="margin-right: 5px;"> <i class="fa-solid fa-credit-card " style="color: #881824;"></i>
-															</a> <a href="#" class="btn border border-secondary rounded-pill px-3 small-text ahover"> <i class="fa-solid fa-cart-plus " style="color: #881824;"></i>
+															<a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="margin-right: 5px;"> 
+															<i class="fa-solid fa-credit-card " style="color: #881824;"></i>
+															</a> 
+															<a class="btn border border-secondary rounded-pill px-3 small-text ahover"> 
+															<i class="fa-solid fa-cart-plus " style="color: #881824;"></i>
 															</a>
 														</div>
 													</div>
