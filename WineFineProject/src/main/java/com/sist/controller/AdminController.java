@@ -60,4 +60,8 @@ public class AdminController {
 	public String adminWineAccept() {
 		return "admin/wineAccept";
 	}
+	@GetMapping("admin/accCheck.do")
+	public String adminaccCheck() {
+		return "admin/accCheck";
+	}
 }

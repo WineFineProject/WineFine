@@ -100,25 +100,25 @@
 				<th width="10%" class="text-center">주문번호</th>
 				<th width="12%" class="text-center">날짜</th>
 				<th width="10%" class="text-center">구매자ID</th>
-				<th width="22%" class="text-center">품목</th>
+				<th width="21%" class="text-center">품목</th>
 				<th width="5%" class="text-center">수량</th>
 				<th width="12%" class="text-center">결제금액</th>
 				<th width="12%" class="text-center">주문상태</th>
 				<th width="9%" class="text-center">반품요청</th>
-				<th width="8%" class="text-center">주문취소</th>
+				<th width="9%" class="text-center">주문취소</th>
 			</tr>
 			<template v-for="(vo, index) in oList">
 			<tr @click="moreInfo(index)">
 				<td width="10%" class="text-center">{{vo.wpno}}</td>
 				<td width="12%" class="text-center">{{vo.dbday}}</td>
 				<td width="10%" class="text-center">{{vo.userid}}</td>
-				<td width="22%" class="text-center scrollable-text"><p>{{vo.wvo.namekor}}</p></td>
+				<td width="21%" class="text-center scrollable-text"><p>{{vo.wvo.namekor}}</p></td>
 				<td width="5%" class="text-center">{{vo.account}}</td>
 				<td width="12%" class="text-center">{{formatPayment(vo.payment)}}</td>
 				<td width="12%" class="text-center">{{vo.state===0?'결제완료':vo.state===1?'배송준비중':vo.state===2?'배송중':vo.state===3?'배송완료':vo.state===7?'반품요청':vo.state===8?'판매자취소':vo.state===9?'반품완료':'상태없음'}}</td>
 				<td width="9%" class="text-center">
-				<button class="btn btn-sm orderbtn" v-if="vo.state===7" @click="changeModal(true, vo)"><i class="fa-regular fa-file-lines"></i></button></td> 
-				<td width="8%" class="text-center"><button class="btn btn-sm orderbtn" v-if="vo.state<2" @click="orderCancel(vo)"><i class="fa-duotone fa-solid fa-rectangle-xmark"></i></button></td>
+				<button class="btn btn-sm orderbtn" v-if="vo.state===7" @click="changeModal(true, vo)"><i class="fa-regular fa-file-lines fa-lg"></i></button></td> 
+				<td width="9%" class="text-center"><button class="btn btn-sm orderbtn" v-if="vo.state<2" @click="orderCancel(vo)"><i class="fa-solid fa-square-xmark fa-lg"></i></button></td>
 			</tr>
 			<tr v-if="isShow[index]">
 			<td colspan="9" style="padding: 0px;">
@@ -198,7 +198,7 @@
 				</table>
 			</div>
 		</div>
-</div>
+	</div>
 <script>
  let orderListApp=Vue.createApp({
     	data(){

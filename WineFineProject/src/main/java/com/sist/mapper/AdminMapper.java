@@ -2,7 +2,11 @@ package com.sist.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import com.sist.vo.AccVO;
 
 
 public interface AdminMapper {
@@ -23,4 +27,13 @@ public interface AdminMapper {
 	public int noneAnswer();
 	@Select("SELECT COUNT(*) FROM wine_payment WHERE trunc(sysdate)=trunc(regdate)")
 	public int nonePayment();
+	@Select("SELECT acno, userid, amount, fee, vat, state, grade, TO_CHAR(regdate,'YYYY-MM-DD') as rdbday, "
+			+ "CASE "
+			+ "		WHEN enddate IS NULL THEN '-' "
+			+ "		ELSE TO_CHAR(enddate, 'YYYY-MM-DD') "
+			+ "END as edbday "
+			+ "FROM wine_acc WHERE state = 0 ")
+	public List<AccVO> accList();
+	@Update("UPDATE wine_acc SET state=#{state}, enddate=sysdate WHERE acno=#{acno}")
+	public void accUpdate(@Param("state") int state, @Param("acno") int acno);
 }

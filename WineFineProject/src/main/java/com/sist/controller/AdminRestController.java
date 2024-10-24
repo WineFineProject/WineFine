@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -181,4 +183,23 @@ public class AdminRestController {
 	{
 	    ssService.reportWineUpdate(wno);
 	}
+	
+	// 정산 신청 내역
+	@GetMapping(value = "admin/acclist_vue.do", produces = "text/plain;charset=UTF-8")
+	public String acclist() throws Exception {
+		List<AccVO> accList = aService.accList();
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(accList);
+		return json;
+	}
+	// 정산 승인/반려 업데이트
+	@PostMapping(value="admin/accUpdate_vue.do",produces = "text/plain;charset=UTF-8")
+	public String acc_update(@RequestParam int state, @RequestParam int acno)
+	{
+		String result="";
+		aService.accUpdate(state, acno);
+		result="yes";
+		return result;
+	}
+	
 }

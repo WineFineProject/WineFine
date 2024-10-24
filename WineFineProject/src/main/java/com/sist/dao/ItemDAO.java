@@ -156,12 +156,18 @@ public class ItemDAO {
 	 {
 		 return mapper.sellerAccList(userid);
 	 }
-	 public List<AccInfoVO> sellerAccInfoList(String userid)
+	 public AccInfoVO sellerAccInfo(String userid)
 	 {
-		 return mapper.sellerAccInfoList(userid);
+		 return mapper.sellerAccInfo(userid);
 	 }
 	 public void pointupdate(String userid)
 	 {
 		 mapper.pointupdate(userid);
+	 }
+	 public void accInfoUpdate(int grade, String holder, String accountnum, 
+			 int feerate, String userid)
+	 {
+		  mapper.accInfoUpdate(grade, holder, accountnum, 
+			 feerate, userid);
 	 }
 }

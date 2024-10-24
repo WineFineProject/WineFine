@@ -224,9 +224,9 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public List<AccInfoVO> sellerAccInfoList(String userid) {
+	public AccInfoVO sellerAccInfo(String userid) {
 		// TODO Auto-generated method stub
-		return dao.sellerAccInfoList(userid);
+		return dao.sellerAccInfo(userid);
 	}
 
 	@Override
@@ -234,5 +234,13 @@ public class ItemServiceImpl implements ItemService{
 		// TODO Auto-generated method stub
 		  dao.pointupdate(userid);
 	}
+
+	@Override
+	public void accInfoUpdate(int grade, String holder, String accountnum, int feerate, String userid) {
+		// TODO Auto-generated method stub
+		dao.accInfoUpdate(grade, holder, accountnum, feerate, userid);
+	}
+
+	
 
 }

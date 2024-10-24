@@ -162,10 +162,15 @@ public interface ItemMapper {
 	// 정산 정보 입력
 	@SelectKey(keyProperty = "aino", resultType = int.class, before = true, 
 	           statement = "SELECT NVL(MAX(aino) + 1, 1) as aino FROM wine_accinfo")
-	@Insert("INSERT INTO wine_acc (aino, userid, grade, holder, accountnum, fee ) "
-	        + "VALUES (#{aino}, #{userid}, #{grade}, #{holder}, #{accountnum}, #{fee} )")
+	@Insert("INSERT INTO wine_accinfo (aino, userid, grade, holder, accountnum, feerate ) "
+	        + "VALUES (#{aino}, #{userid}, #{grade}, #{holder}, #{accountnum}, #{feerate} )")
 	public void accInfoInsert(AccInfoVO vo);
-	
+	// 정산 정보 수정
+	@Update("UPDATE wine_accinfo SET grade=#{grade}, holder=#{holder}, accountnum=#{accountnum}, feerate=#{feerate} "
+			+ "WHERE userid = #{userid} ")
+	public void accInfoUpdate(@Param("grade") int grade, @Param("holder") String holder, 
+            					@Param("accountnum") String accountnum, @Param("feerate") int feerate, 
+            					@Param("userid") String userid);
 	// 정산 신청
 	@SelectKey(keyProperty = "acno", resultType = int.class, before = true, 
 	           statement = "SELECT NVL(MAX(acno) + 1, 1) as acno FROM wine_acc")
@@ -178,17 +183,21 @@ public interface ItemMapper {
 	public void pointupdate(@Param("userid") String userid);
 	
 	// 구매내역에 정산정보 업데이트
-	@Update("UPDATE wine_payment SET acno = (SELECT acno FROM wine_acc WHERE TRUNC(regdate) = TRUNC(SYSDATE)) "
-			+ "WHERE state=2 ")
+	@Update("UPDATE wine_payment SET acno = (SELECT MAX(acno) FROM wine_acc WHERE TRUNC(regdate) = TRUNC(SYSDATE)) "
+			+ "WHERE state=2 AND acno=0 ")
 	public void payAcnoUpdate();
 	
 	// 정산 신청/완료 기록 출력
-	@Select("SELECT acno, amount, fee, vat, state, grade, TO_CHAR(regdate,'YYYY-MM-DD') as rdbday, TO_CHAR(enddate,'YYYY-MM-DD') as edbday "
+	@Select("SELECT acno, amount, fee, vat, state, grade, TO_CHAR(regdate,'YYYY-MM-DD') as rdbday, "
+			+ "CASE "
+			+ "		WHEN enddate IS NULL THEN '-' "
+			+ "		ELSE TO_CHAR(enddate, 'YYYY-MM-DD') "
+			+ "END as edbday "
 			+ "FROM wine_acc WHERE userid = #{userid}")
 	public List<AccVO> sellerAccList(@Param("userid") String userid);
 	
 	// 정산 정보 출력
-	@Select("SELECT aino, holder, accountnum, fee "
+	@Select("SELECT aino, holder, accountnum "
 			+ "FROM wine_accinfo WHERE userid = #{userid}")
-	public List<AccInfoVO> sellerAccInfoList(@Param("userid") String userid);
+	public AccInfoVO sellerAccInfo(@Param("userid") String userid);
 }

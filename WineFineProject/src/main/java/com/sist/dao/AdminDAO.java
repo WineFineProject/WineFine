@@ -2,11 +2,11 @@ package com.sist.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.AdminMapper;
+import com.sist.vo.AccVO;
 
 @Repository
 public class AdminDAO {
@@ -38,5 +38,13 @@ public class AdminDAO {
 	}
 	public int nonePayment() {
 		return mapper.nonePayment();
+	}
+	public List<AccVO> accList()
+	{
+		return mapper.accList();
+	}
+	public void accUpdate(int state, int acno)
+	{
+		mapper.accUpdate(state, acno);
 	}
 }

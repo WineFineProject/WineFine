@@ -1,6 +1,7 @@
 package com.sist.controller;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -357,5 +358,49 @@ public class ItemRestController {
 			String json = mapper.writeValueAsString(aList);
 			
 			return json;
+		}
+	 @GetMapping(value="seller/getaccinfo_vue.do", produces = "text/plain;charset=UTF-8")
+	 public String getaccinfo(String userid) throws Exception {
+		 
+		 AccInfoVO aivo = new AccInfoVO();
+		 aivo = iService.sellerAccInfo(userid);
+		 ObjectMapper mapper = new ObjectMapper();
+		 String json = mapper.writeValueAsString(aivo);
+		 return json;
+	 }
+	 @PostMapping(value="seller/accinfoinsert_vue.do",produces = "text/plain;charset=UTF-8")
+		public String accinfoInsert(@RequestParam String userid,
+             @RequestParam int grade,
+             @RequestParam String holder,
+             @RequestParam String accountnum,
+             @RequestParam int feerate)
+		{
+		    String result = "";
+		 	AccInfoVO aivo = new AccInfoVO();
+		    aivo.setUserid(userid);
+		    aivo.setGrade(grade);
+		    aivo.setHolder(holder);
+		    aivo.setAccountnum(accountnum);
+		    aivo.setFeerate(feerate);
+		    try {
+		        iService.accInfoInsert(aivo);
+		        result = "yes";
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        result = "error";
+		    }
+			return result;
+		}
+	 @PostMapping(value="seller/accinfoupdate_vue.do",produces = "text/plain;charset=UTF-8")
+		public String accinfo_update(@RequestParam String userid,
+	             @RequestParam int grade,
+	             @RequestParam String holder,
+	             @RequestParam String accountnum,
+	             @RequestParam int feerate)
+		{
+			String result="";
+			iService.accInfoUpdate(grade, holder, accountnum, feerate, userid);
+			result="yes";
+			return result;
 		}
 }

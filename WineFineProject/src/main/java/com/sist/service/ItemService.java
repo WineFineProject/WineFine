@@ -50,5 +50,7 @@ public interface ItemService {
 	public void pointupdate(String userid);
 	public void payAcnoUpdate();
 	public List<AccVO> sellerAccList(String userid);
-	public List<AccInfoVO> sellerAccInfoList(String userid);
+	public AccInfoVO sellerAccInfo(String userid);
+	 public void accInfoUpdate(int grade, String holder, String accountnum, 
+			 int feerate, String userid);
 }

@@ -46,6 +46,10 @@
 	vertical-align: bottom;
 	margin-top: 70px;
 }
+.rmbtn{
+	text-align:center;
+	margin-right:8px;
+}
 </style>
 </head>
 <body>
@@ -67,12 +71,14 @@
 			<button class="btn-lg acctopbtn" @click="accSubmit()"><i class="fa-duotone fa-solid fa-wallet"></i></button>
 			</td>
 			<td class="accchecktd">
-			<button class="btn-lg acctopbtn"><i class="fa-solid fa-circle-info"></i></button>
+			<button class="btn-lg acctopbtn" @click="changeModal(true)"><i class="fa-solid fa-circle-info"></i></button>
 			</td>
 			</tr>
 			</table>
 			<span style="width:40%;">&nbsp;</span>
+			<!--  
 			<button class="btn-sm acheckbtn" @click="dataRecv()" style="width:10%;">정산내역 조회</button>
+			-->
 			</div>
 			<table class="table" id="coupon-table" width="60%">
 				<tr id="atlistth">
@@ -88,12 +94,51 @@
 				  <td width="15%">{{vo.acno}}</td>
 				  <td width="15%">{{vo.rdbday}}</td>
 				  <td width="15%">{{vo.edbday}}</td>
-				  <td width="10%">{{vo.state}}</td>
-				  <td width="15%">{{vo.amount}}</td>
-				  <td width="15%">{{vo.fee}}</td>
-				  <td width="10%">{{vo.vat}}</td>
+				  <td width="10%">
+				  {{ vo.state === 0 ? '정산 신청' : vo.state === 1 ? '정산 완료' : vo.state === 2 ? '정산 반려' : ' ' }}</td>
+				  <td width="15%">{{formatPoint(vo.amount)}}</td>
+				  <td width="15%">{{formatPoint(vo.fee)}}</td>
+				  <td width="10%">{{formatPoint(vo.vat)}}</td>
 				</tr>
 			</table>
+		</div>
+		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
+			<div class="modal-content">
+				<span class="close" @click="changeModal(false)">&times;</span>
+				<table class="table" style="margin-top: 50px; border: 1px solid lightgray;">
+					<tr>
+						<th width="30%">정산 신청 ID : </th>
+						<td width="70%">{{id}}</td>
+					</tr>
+					<tr>
+						<th width="30%">판매자등급 : </th>
+						<td width="70%">{{grade}}</td>
+					</tr>
+					<tr>
+						<th width="30%">수수료(%) : </th>
+						<td width="70%">{{rate}}% </td>
+					</tr>
+					<tr>
+						<th width="30%">예금주 : </th>
+						<td width="70%">
+						<input type="text" style="width: 300px; height:30px;" v-model="iholder">
+						</td>
+					</tr>
+					<tr>
+						<th width="30%">계좌번호:</th>
+						
+						<td width="70%">
+						<input type="text" style="width: 300px; height:30px;" v-model="iaccountnum" placeholder="숫자만 입력해주세요">
+					</tr>
+					<tr>
+						<td colspan="2" class="rmbtn">
+							<button type="button" class="rmbtn btn-sm btn-danger" @click="accinfoinsert()" v-if="holder=='' && accountnum==''">추가</button>
+							<button type="button" class="rmbtn btn-sm btn-danger" @click="accinfoupdate()" v-else>저장</button>
+							<button type="button" class="rmbtn btn-sm btn-secondary" @click="changeModal(false)">취소</button>
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 <script>
@@ -101,13 +146,20 @@ let accountinglistApp=Vue.createApp({
 	data(){
 		return {
 			aList:[],
-			pList:[],
+			acList:[],
 			grade:0,
 			point:0,
 			today:'',
 			fee:0,
 			vat:0,
 			finalpoint:0,
+			iholder:'',
+			holder:'',
+			iaccountnum:'',
+			accountnum:'',
+			rate:0,
+			prate:0,
+			showModal:false,
 			nickname:'${sessionScope.nickName}',
 			id:'${sessionScope.userId}'
 		}
@@ -115,26 +167,34 @@ let accountinglistApp=Vue.createApp({
 	mounted(){
 		this.getinfo()
 		this.getToday()
+		this.dataRecv()
 	},
 	methods:{
 		dataRecv(){
 			axios.get('../seller/accList_vue.do',{
 				params:{
-					id:this.id,
+					userid:this.id,
 				}
 			}).then(response=>{
-			     this.aList = response.data		
+				if (!response.data || response.data.length === 0) {
+		            return
+		        }
+		        this.aList = response.data	
 			}).catch(error=>{
 				console.log(error.response)
 			})
 		},  
+		changeModal(check, order=null){
+			this.showModal=check
+			this.getaccinfo()
+		},
 		getinfo(){
 				axios.get('../seller/getinfo_vue.do', {
 					params: { userid:this.id }
 				}).then(response => {
 					this.grade = response.data.grade
 					this.point = response.data.point
-					
+					this.getrate()
 				}).catch(error => {
 					console.error(error)
 				})
@@ -151,32 +211,43 @@ let accountinglistApp=Vue.createApp({
 		calculateFees(){
 			const grade=this.grade
 			const point=this.point
-			let commissionRate
+			const rate=this.rate
 			
-			switch (grade) {
-            case 1:
-                commissionRate = 0.07
-                break;
-            case 2:
-                commissionRate = 0.05
-                break;
-            case 3:
-                commissionRate = 0.03
-                break;
-            default:
-                commissionRate = 0.0
-                break;
-             }
-			const fee = Math.floor(point * commissionRate)
+			const fee = Math.floor(point * rate * 0.01)
 			const vat = Math.floor(fee * 0.10)
 			const finalpoint = point - fee - vat
 			
-		        this.fee = fee
-		        this.vat = vat
-		        this.finalpoint = finalpoint
-		     
+		    this.fee = fee
+		    this.vat = vat
+		    this.finalpoint = finalpoint
+		},
+		getrate()
+		{
+			const grade=this.grade
+			let prate
+			switch (grade) {
+            case 1:
+                prate = 7
+                break;
+            case 2:
+                prate = 5
+                break;
+            case 3:
+                prate = 3
+                break;
+            default:
+                prate = 0
+                break;
+             }
+				this.rate=prate
 		},
 		accSubmit(){
+			  this.calculateFees()
+			  if(this.point==0)
+				  {
+				  	alert("정산 신청이 불가능합니다.")
+				  	return
+				  }
 			 axios.post('../seller/accSubmit_vue.do', null, {
                  params: { userid: this.id,
                 	 	   grade: this.grade,
@@ -198,6 +269,52 @@ let accountinglistApp=Vue.createApp({
            	 if (response.data === "yes") {          	 
                     alert("정산이 요청되었습니다.")
                   	 this.dataRecv()
+           	 }
+            }).catch(error => {
+           	 console.error(error)
+            })
+		},
+		getaccinfo(){
+			axios.get('../seller/getaccinfo_vue.do', {
+				params: { userid:this.id }
+			}).then(response => {
+				this.iholder=response.data.holder
+				this.holder=response.data.holder
+				this.iaccountnum=response.data.accountnum
+				this.accountnum=response.data.accountnum
+			}).catch(error => {
+				console.error(error)
+			})
+		},
+		accinfoinsert(){
+			axios.post('../seller/accinfoinsert_vue.do', null, {
+				params: {userid:this.id,
+						 grade:this.grade,
+						 holder:this.iholder,
+						 accountnum:this.iaccountnum,
+						 feerate:this.rate
+				}
+            }).then(response => {
+           	 if (response.data === "yes") {          	 
+                    alert("정산정보가 추가되었습니다.")
+                  	 this.showModal=false
+           	 }
+            }).catch(error => {
+           	 console.error(error)
+            })
+		},
+		accinfoupdate(){
+			axios.post('../seller/accinfoupdate_vue.do', null, {
+				params: {userid:this.id,
+						 grade:this.grade,
+						 holder:this.iholder,
+						 accountnum:this.iaccountnum,
+						 feerate:this.rate
+				}
+            }).then(response => {
+           	 if (response.data === "yes") {          	 
+                    alert("정산정보가 저장되었습니다.")
+                  	 this.showModal=false
            	 }
             }).catch(error => {
            	 console.error(error)
