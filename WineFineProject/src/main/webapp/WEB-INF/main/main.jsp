@@ -35,6 +35,7 @@
 	<tiles:insertAttribute name="head" />
 	<tiles:insertAttribute name="home" />
 	<div style="height: 30px;"></div>
+	<tiles:insertAttribute name="chat" />
 	<tiles:insertAttribute name="footer" />
 	<script src="../tem/lib/easing/easing.min.js"></script>
 	<script src="../tem/lib/waypoints/waypoints.min.js"></script>

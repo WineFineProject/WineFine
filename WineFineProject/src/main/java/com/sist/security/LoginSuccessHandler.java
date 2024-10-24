@@ -28,6 +28,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		MemberVO vo = mService.memberSessionData(authentication.getName());
 		mService.memberLastLogin(authentication.getName());
 		HttpSession session = request.getSession();
+		String autho=vo.getAuthority();
+		autho=autho.substring(autho.indexOf("_")+1);
+		System.out.println(autho);
 		session.setAttribute("userId", vo.getUserId());
 		session.setAttribute("userName", vo.getUserName());
 		session.setAttribute("sex", vo.getSex());
@@ -35,6 +38,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		session.setAttribute("phone", vo.getPhone());
 		session.setAttribute("email", vo.getEmail());
 		session.setAttribute("nickName", vo.getNickName());
+		session.setAttribute("admin", autho);
 		response.sendRedirect("../main/main.do");
 	}
 

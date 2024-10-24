@@ -43,13 +43,13 @@
 		SUM(CASE WHEN type = 'banner' THEN count ELSE 0 END) AS banner,
 		SUM(CASE WHEN type = 'noanswer' THEN count ELSE 0 END) AS noanswer
 		FROM(
-		SELECT COUNT(*) AS count, 'sale' AS type FROM promotion_sale WHERE userid='ping3' AND state=1
+		SELECT COUNT(*) AS count, 'sale' AS type FROM promotion_sale WHERE userid=#{userid} AND state=1
 		UNION ALL
-		SELECT COUNT(*) AS count, 'coupon' AS type FROM promotion_coupon WHERE userid='ping3' AND state=1
+		SELECT COUNT(*) AS count, 'coupon' AS type FROM promotion_coupon WHERE userid=#{userid} AND state=1
 		UNION ALL
-		SELECT COUNT(*) AS count, 'banner' AS type FROM promotion_banner WHERE userid='ping3' AND state=1
+		SELECT COUNT(*) AS count, 'banner' AS type FROM promotion_banner WHERE userid=#{userid} AND state=1
 		UNION ALL
-		SELECT COUNT(*) as count, 'noanswer' as type FROM wine_replyboard WHERE recvid='ping3' AND type=1 AND group_step=0 AND isreply=0)
+		SELECT COUNT(*) as count, 'noanswer' as type FROM wine_replyboard WHERE recvid=#{userid} AND type=1 AND group_step=0 AND isreply=0)
 	</select>
 	<select id="sellerPaymentInfoCount" parameterType="String" resultType="java.util.Map">
 		SELECT

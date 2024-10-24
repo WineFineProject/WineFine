@@ -68,7 +68,7 @@
 }
 
 .notice_list tr:hover, .note_list tr:hover {
-	background-color: #f7f7f7; 
+	background-color: #f7f7f7;
 }
 
 .mc tr:hover {
@@ -76,8 +76,8 @@
 }
 
 .notice_list h4 {
-	color: #5E3A47; 
-	margin: 0 0 1rem; 
+	color: #5E3A47;
+	margin: 0 0 1rem;
 }
 
 .mc th {
@@ -85,18 +85,79 @@
 	color: #616161;
 }
 
-.mc td, th{
-	border: 1px solid #e1e1e1; 
+.mc td, th {
+	border: 1px solid #e1e1e1;
 }
+
 .content-box {
-    border: 1px solid #e1e1e1; 
-    padding: 15px; 
-    background-color: white; 
-    height: 260px; 
+	border: 1px solid #e1e1e1;
+	padding: 15px;
+	background-color: white;
+	height: 260px;
 }
+
 .t {
-    border: 1px solid #e1e1e1; 
-    padding: 15px; 
-    background-color: white; 
-    height: 260px; 
+	border: 1px solid #e1e1e1;
+	padding: 15px;
+	background-color: white;
+	height: 260px;
+}
+
+.chat_list {
+	position: fixed;
+	right: 95px;
+	bottom: 155px;
+	width: 200px;
+	height: 300px;
+	min-width: 10rem;
+	padding: .5rem 0;
+	margin: 0;
+	font-size: 1rem;
+	color: #747d88;
+	text-align: left;
+	list-style: none;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid rgba(0, 0, 0, .15);
+	border-radius: 10px;
+	min-width: 10rem;
+	overflow-y: auto;
+	color: #333;
+	bottom: 155px;
+}
+
+.chat_list::before {
+	content: "";
+	position: fixed; /* 고정 위치 설정 */
+	bottom: 142px;
+	right: 117px;
+	border-width: 13px 13px 0;
+	border-style: solid;
+	border-color: rgba(0, 0, 0, 0.15) transparent transparent transparent;
+	right: 117px;
+	border-width: 13px 13px 0;
+	/* 오른쪽 아래로 향하는 색상 */
+}
+
+.chat_list::after {
+	content: "";
+	position: fixed; /* 고정 위치 설정 */
+	bottom: 144px; /* 대화상자의 아래쪽에 조금 더 위치 */
+	right: 118px; /* 대화상자와의 간격 */
+	border-width: 12px 12px 0; /* 아래쪽을 위한 너비 조정 */
+	border-style: solid;
+	border-color: #fff transparent transparent transparent; /* 흰색 삼각형 */
+}
+
+.note_list p, .notice_list p {
+	margin: 0px;
+}
+
+.notice_list tr:hover, .note_list tr:hover {
+	background-color: #f7f7f7;
+}
+
+.notice_list h4 {
+	color: #5E3A47;
+	margin: 0 0 1rem;
 }

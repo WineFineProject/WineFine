@@ -40,7 +40,7 @@ public class MyPageRestController {
 	private ShopService sService;
 	
 	// 회원정보 수정
-	@GetMapping(value = "my_edit2_member_vue.do", produces = "text/plain;charset=UTF-8")
+	@GetMapping(value = "mypage/my_edit2_member_vue.do", produces = "text/plain;charset=UTF-8")
 	public String myInfo(@SessionAttribute("userId") String userId) throws Exception
 	{	
 		
@@ -63,39 +63,21 @@ public class MyPageRestController {
 	 * mapper.writeValueAsString(updateMember); return json; }
 	 */
 	@PostMapping(value = "mypage/edit2_ok_vue_do", produces = "application/json")
-	public String myInfo_ok(HttpSession session,@RequestBody MemberVO updatedInfo) throws Exception
+	public String myInfo_ok(MemberVO vo) throws Exception
 	{
-		String id = (String)session.getAttribute("userId");
-		
-		session.setAttribute("userId", id);
-	
-		MemberVO currentInfo = mService.getMyId(id);
-	    
-	    // 업데이트할 정보 설정
-	    currentInfo.setNickName(updatedInfo.getNickName());
-	    currentInfo.setPost(updatedInfo.getPost());
-	    currentInfo.setAddr1(updatedInfo.getAddr1());
-	    currentInfo.setAddr2(updatedInfo.getAddr2());
-	    currentInfo.setPhone(updatedInfo.getPhone());
-	    currentInfo.setEmail(updatedInfo.getEmail());
-	    
-	    mService.updateMyInfo(currentInfo);
-	    
-	    // 업데이트된 정보 다시 조회
-	    MemberVO updatedMember = mService.getMyId(id);
-	    
-	    // 세션 업데이트
-	    session.setAttribute("nickName", updatedMember.getNickName());
-	    session.setAttribute("post", updatedMember.getPost());
-	    session.setAttribute("addr1", updatedMember.getAddr1());
-	    session.setAttribute("addr2", updatedMember.getAddr2());
-	    session.setAttribute("phone", updatedMember.getPhone());
-	    session.setAttribute("email", updatedMember.getEmail());
-	    	    
-	    ObjectMapper mapper = new ObjectMapper(); 
-	    Map map = new HashMap();
-	    map.put("updatedInfo", updatedMember);
-	    return mapper.writeValueAsString(map); 
+		String result="";
+	   try
+	   {
+		   
+		   mService.updateMyInfo(vo);
+		   result="yes";
+		   
+	   }catch(Exception ex)
+	   {
+		   result=ex.getMessage();   
+	   }
+	   return result;
+
 	    
 	}
 	
