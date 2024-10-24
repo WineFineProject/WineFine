@@ -16,7 +16,6 @@ public interface BoardService {
 	public BoardVO boardUpdateData(int bno);
 	public String boardUpdate(BoardVO vo);
 	public String boardDelete(int bno);
-	public BoardVO boardFileInfoData(int bno);
 	public List<BoardVO> boardfindnListData(String find, int start, int end);
 	public List<BoardVO> boardfindTypenListData(int type, String find, int start, int end);
 	public List<BoardVO> boardfindsListData(String find, int start, int end);

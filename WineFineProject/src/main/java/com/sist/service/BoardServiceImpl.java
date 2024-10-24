@@ -66,12 +66,6 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return dao.boardDelete(bno);
 	}
-
-	@Override
-	public BoardVO boardFileInfoData(int bno) {
-		// TODO Auto-generated method stub
-		return dao.boardFileInfoData(bno);
-	}
 	
 	@Override
 	public List<BoardVO> boardfindnListData(String find, int start, int end) {

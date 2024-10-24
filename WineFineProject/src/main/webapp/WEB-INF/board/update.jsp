@@ -44,15 +44,6 @@
        </td>
       </tr>
       <tr>
-        <th width="20%" class="text-center">첨부파일</th>
-        <td width="80%">
-         <input type="file" class="form-control" ref="upfiles" class="input-sm" 
-           multiple="multiple"
-           accept="upload/*"
-         />
-        </td>
-      </tr>
-      <tr>
         <td colspan="2" class="text-center" style="border: none;">
            <input type="submit"  class="btn btn-danger" value="등록">
           &nbsp;
@@ -73,9 +64,8 @@
     			subject:'',
     			content:'',
     			id:'${sessionScope.id}',
-    			nickname:'${sessionScope.nickName}',
-    			upfiles:''
-    			
+    			nickname:'${sessionScope.nickName}'
+ 
     		}
     	},
 		mounted(){
@@ -116,16 +106,6 @@
     			formData.append("content",this.$refs.content.value)
     			formData.append("bno",this.bno)
     			
-    			let len=this.$refs.upfiles.files.length
-    			
-    			if(len>0) // 업로드 파일이 있는 경우 
-    			{
-    				for(let i=0;i<len;i++)
-    				{
-    					console.log(this.$refs.upfiles.files[i])
-    					formData.append("files["+i+"]",this.$refs.upfiles.files[i]);
-    				}
-    			}
     			for (const x of formData) {
    				 console.log(x);
    				}

@@ -41,15 +41,13 @@ public interface BoardMapper {
 	// 추가(글쓰기)
 	 @SelectKey(keyProperty = "bno",resultType = int.class,before = true,
 			  statement = "SELECT NVL(MAX(bno)+1,1) as bno FROM board")
-	 @Insert("INSERT INTO board(bno,cno,id,nickname,subject,content, "
-			 +"filename,filesize,filecount) VALUES("
-			 +"#{bno},#{cno},#{id},#{nickname},#{subject},#{content}, "
-			 +"#{filename},#{filesize},#{filecount})")
+	 @Insert("INSERT INTO board(bno,cno,id,nickname,subject,content ) VALUES( "
+			 +"#{bno},#{cno},#{id},#{nickname},#{subject},#{content} )")
 	  public void boardInsert(BoardVO vo);
 	 
 	// 내용보기(번호, 타입, 아이디, 제목, 닉네임, 작성일, 내용, 조회수, 사진 파일명, 사진 용량, 사진개수) 
 	 @Select("SELECT bno,cno,id,nickname,subject,content,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday, "
-			 +"hit,filename,filesize,filecount "
+			 +"hit "
 			 +"FROM board "
 			 +"WHERE bno=#{bno}")
 	  public BoardVO boardDetailData(int bno);
@@ -61,8 +59,7 @@ public interface BoardMapper {
 	
 	// 수정하기 
 	 @Update("UPDATE board SET "
-			 +"cno=#{cno},subject=#{subject},content=#{content},regdate=SYSDATE, "
-			 + "filename=#{filename},filesize=#{filesize},filecount=#{filecount} "
+			 +"cno=#{cno},subject=#{subject},content=#{content},regdate=SYSDATE "
 			 +"WHERE bno=#{bno}")
 	  public void boardUpdate(BoardVO vo);
 	 
@@ -70,10 +67,6 @@ public interface BoardMapper {
 	 @Delete("DELETE FROM board "
 			  +"WHERE bno=#{bno}")
 	  public void boardDelete(int bno);
-	// 첨부파일 정보
-	 @Select("SELECT filename,filecount FROM board "
-			  +"WHERE bno=#{bno}")
-	  public BoardVO boardFileInfoData(int bno);
 	 
 	// 게시글 검색(작성자-닉네임)
 	// 전체 게시글 목록

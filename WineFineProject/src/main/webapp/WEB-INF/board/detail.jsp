@@ -9,7 +9,8 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
 #bDetail{
-   margin: 0px auto;
+   margin-top: 20px;
+   margin-bottom: 100px;
    width: 1080px;
 }
 .content-box, .detail-box{
@@ -32,8 +33,21 @@
 }
 .breport{
 background-color: white;
-border: none; 
+border: hidden; 
 font-family: 'OpenSans', sans-serif;
+}
+.rtable22 td, .rtable22 th, .brreport{
+background-color: #F5F5F5;
+border:hidden;
+font-family: 'OpenSans', sans-serif;
+}
+.rtable22 pre{
+	color:black;
+	font-size:16px;
+	font-family: 'OpenSans', sans-serif;
+}
+.brrreport{
+	text-align: right !important;
 }
 </style>
 </head>
@@ -51,10 +65,6 @@ font-family: 'OpenSans', sans-serif;
            <span class="post-date">{{vo.dbday}}</span>
            <span class="meta-separator">|</span>
            <span class="view-count"><i class="fas fa-eye"></i>&nbsp;{{vo.hit}}</span>
-        <div v-show="vo.filecount!==0">
-          <span class="author-name"> 첨부파일 : </span>
-          <span class="author-name"> {{vo.filename}} </span>
-       	</div>
           <div class="content-box">{{vo.content}}</div>
        <div class="button-group">
             <a :href="'update.do?bno='+vo.bno" v-if="id === vo.id" class="btn btn-primary">수정</a>
@@ -66,47 +76,49 @@ font-family: 'OpenSans', sans-serif;
       <!-- 댓글 출력 -->
       <p v-if="reply_list.count === 0 || rcount===0" style="color:black;">댓글이 없습니다.</p>
       <p v-else class="text-left" style="color:black; font-weight: bold;">댓글 수: &nbsp;{{rcount}}&nbsp;</p>
-      <div v-if="id!==''">
-     	    <textarea rows="4" cols="62" ref="msg" v-model="msg" class= "form-control" style="width: 70%; float: left; resize: none; display:inline-block;"></textarea>
-            <button class= "form-control" style="float: left;background-color:#57102F; color:white; width: 100px; height: 110px; display:inline-block;" @click="replyWrite()">댓글쓰기</button>
+      <div v-if="id!==''" style="margin-bottom:20px">
+     	    <textarea rows="4" cols="62" ref="msg" v-model="msg" class= "form-control" style="width: 90%; float: left; resize: none; display:inline-block; margin-bottom:20px;"></textarea>
+            <button class= "form-control" style="float: left;background-color:#57102F; color:white; width: 100px; height: 110px; display:inline-block; margin-left:7px; margin-bottom:20px;" @click="replyWrite()">댓글쓰기</button>
          </div>
-      <div v-if="id===''">
+      <div v-if="id===''" style="margin-bottom:20px">
     		<p>로그인 후 댓글을 작성할 수 있습니다.</p>
       </div>
-      <table class="table" v-for="rvo in reply_list">
-      <tr style="border-bottom-color: white;">
+      <table class="table rtable22" v-for="rvo in reply_list" style="margin-bottom:0px;">
+      <!--  
+      <tr style="width:100%;">
       <td> <h6 class="text-center" style="font-size: 5px; display: none;">{{rvo.bno}}</h6></td>
       </tr>
-     	<tr class="text-left" style="border-bottom-color: white; border-top-color: white;">
+      -->
+     	<tr class="text-left">
      		<td colspan="2" v-if="rvo.depth===1" style="color:black; font-weight: bold; ">{{rvo.nickname}}</td>
-     		<td v-if="rvo.depth===1 && id!==''">
-     		<button v-if="id!==''" @click="changeModal(true, rvo, 2)" type="button" class="breport">신고</button>
+     		<td rowspan="4" v-if="rvo.depth===1 && id!==''">
+     		<button v-if="id!==''" @click="changeModal(true, rvo, 2)" type="button" class="brreport">신고</button>
      	</td>
      		<td colspan="2" v-if="rvo.depth===2" style="color:black; font-weight: bold; margin-left: 15px;">⤷&nbsp;{{rvo.nickname}}</td>
-     		<td v-if="rvo.depth===2 && id!==''">
-     		<button v-if="id!==''" @click="changeModal(true, rvo, 2)" type="button" class="breport">신고</button>
+     		<td rowspan="4" v-if="rvo.depth===2 && id!==''">
+     		<button v-if="id!==''" @click="changeModal(true, rvo, 2)" type="button" class="brreport">신고</button>
      		</td>
      	</tr>
-     	<tr class="text-left" style="border-color: white;">
-            <td colspan="3" v-if="rvo.depth===1"><pre style="white-space: pre-wrap;background-color: white;border: none; font-family: 'OpenSans', sans-serif;">{{rvo.msg}}</pre></td>
-            <td colspan="3" v-if="rvo.depth===2"><pre style="margin-left: 15px; white-space: pre-wrap;background-color: white;border: none; font-family: 'OpenSans', sans-serif;">{{rvo.msg}}</pre></td>
+     	<tr class="text-left">
+            <td colspan="3" v-if="rvo.depth===1"><pre style="white-space: pre-wrap;">{{rvo.msg}}</pre></td>
+            <td colspan="3" v-if="rvo.depth===2"><pre style="margin-left: 15px; white-space: pre-wrap;">{{rvo.msg}}</pre></td>
         </tr>
         <tr class="text-left" style="border-color: white;">   
-            <td colspan="3" v-if="rvo.depth===1"><pre style="font-family: 'OpenSans', sans-serif;">{{rvo.dbday}}</pre></td>
-            <td colspan="3" v-if="rvo.depth===2"><pre style="margin-left: 15px; font-family: 'OpenSans', sans-serif;">{{rvo.dbday}}</pre></td>
+            <td colspan="3" v-if="rvo.depth===1"><span>{{rvo.dbday}}</span></td>
+            <td colspan="3" v-if="rvo.depth===2"><span style="margin-left: 15px;">{{rvo.dbday}}</span></td>
         </tr>
         <tr class="text-left">
             <td width="20%" v-if="rvo.depth===1">
-            <button class="brbtn form-control" style="float: left; " @click="toggleReplyInput(rvo)">답글</button>
+            <button class="brbtn form-control" style="float: left;" @click="toggleReplyInput(rvo)">답글</button>
             </td>
             <td width="20%" v-if="rvo.depth===2">
             <h5> </h5>
             </td>
             <td width="60%" v-if="id===rvo.id">
-            <button class="brbtn form-control" style="float: right;  " @click="replyDelete(rvo.brno, rvo.depth)">삭제</button>
-            <button class="brbtn form-control" style="float: right; margin-right: 5px;" class="brupbtn ups" :id="'up'+rvo.brno" @click="replyUpdateForm(rvo.brno)">수정</button>
+            <button class="brbtn form-control" style="float: right;" @click="replyDelete(rvo.brno, rvo.depth)">삭제</button>
+            <button class="brbtn form-control brupbtn ups" style="float: right; margin-right: 5px;" :id="'up'+rvo.brno" @click="replyUpdateForm(rvo.brno)">수정</button>
             </td>
-            <td width="20%"> </td>
+            <td width="60%" v-else></td>
         </tr>
           <tr v-if="rvo.showReplyInput && id!==''">
 		    <td colspan="6">
@@ -179,8 +191,6 @@ font-family: 'OpenSans', sans-serif;
     			nickname:'${sessionScope.nickName}',
     			root:'',
     			isEditing:false,
-    			filename:[],
-    			filesize:[],
     			showModal:false,
     			selectedreply:{},
     			brrcontent:'',
@@ -196,12 +206,6 @@ font-family: 'OpenSans', sans-serif;
     			}
     		}).then(response=>{
     			this.vo=response.data
-    			let count=response.data.filecount
-    			if(count>0)
-    			{
-    				this.filename=response.data.filename.split(",")
-    				this.filesize=response.data.filesize.split(",")
-    			}
     		}).catch(error=>{
     			console.log(error.response)
     		})
@@ -374,8 +378,9 @@ font-family: 'OpenSans', sans-serif;
     					bno:this.bno
     				}
     			}).then(response=>{
-    					alert("게시물 삭제가 완료되었습니다")
-    					location.href="list.do"
+    					if(response.data==="yes")
+    					{alert("게시물 삭제가 완료되었습니다")
+    					location.href="list.do"}
     			}).catch(error=>{
     				console.log(error.response)
     			})

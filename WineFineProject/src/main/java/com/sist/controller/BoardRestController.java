@@ -169,48 +169,6 @@ public class BoardRestController {
 		String result="";
 		try
 		{
-			String path=request.getSession().getServletContext().getRealPath("/")+"upload\\";
-			File dir=new File(path);
-			if(!dir.exists())
-			{
-				dir.mkdir();
-			}
-			path=path.replace("\\", File.separator);
-			String fileUrlBase = "http://localhost:8080/WineFineProject/upload/";
-
-			System.out.println(path);
-
-			List<MultipartFile> list=vo.getFiles();
-			if(list==null || list.isEmpty()) // 업로드가 없는 경우
-			{
-				vo.setFilename("");
-				vo.setFilesize("");
-				vo.setFilecount(0);
-			}
-			else // 업로드가 있는 상태 
-			{
-				String filename="";
-				String filesize="";
-				StringBuilder contentWithImages = new StringBuilder(vo.getContent()); // 기존 콘텐츠 저장
-				for(MultipartFile mf:list)
-				{
-					String name=mf.getOriginalFilename();
-					File file=new File(path+name);
-					mf.transferTo(file); // 업로드 
-					// 이미지 URL 추가
-					String imageUrl = fileUrlBase + name; // 저장된 파일의 경로
-					contentWithImages.append("<img src='").append(imageUrl).append("' alt='Uploaded Image' />"); // 이미지 태그 추가
-					filename+=name+",";
-					filesize+=file.length()+",";
-				}
-
-				filename=filename.substring(0,filename.lastIndexOf(","));
-				filesize=filesize.substring(0,filesize.lastIndexOf(","));
-				vo.setFilecount(list.size());
-				vo.setFilename(filename);
-				vo.setFilesize(filesize);
-				vo.setContent(contentWithImages.toString()); // 수정된 콘텐츠 설정
-			}
 			bService.boardInsert(vo);
 			result="yes";  
 		}catch(Exception ex)
@@ -219,36 +177,7 @@ public class BoardRestController {
 		}
 		return result;
 	}
-	@GetMapping(value="board/download.do",produces = "text/plain;charset=UTF-8")
-	public void databoard_download(String fn,HttpServletResponse response,
-			HttpServletRequest request)
-	{
-		try
-		{
-			String path=request.getSession().getServletContext().getRealPath("/")+"upload\\";
-			path=path.replace("\\", File.separator);
-			File file=new File(path+fn);
-
-			response.setHeader("Content-Disposition", "attachment;filename="
-					+URLEncoder.encode(fn, "UTF-8"));
-			response.setContentLength((int)file.length());
-
-			BufferedInputStream bis=
-					new BufferedInputStream(new FileInputStream(file));
-
-			BufferedOutputStream bos=
-					new BufferedOutputStream(response.getOutputStream());
-
-			int i=0;
-			byte[] buffer=new byte[1024];
-			while((i=bis.read(buffer, 0, 1024))!=-1)
-			{
-				bos.write(buffer, 0, i);
-			}
-			bis.close();
-			bos.close();
-		}catch(Exception ex) {}
-	}
+	
 	@GetMapping(value="board/update_vue.do",produces = "text/plain;charset=UTF-8")
 	public String board_update(Integer bno) throws Exception
 	{
@@ -263,52 +192,6 @@ public class BoardRestController {
 		String result="";
 		try
 		{
-			// 수정전에 파일 정보 읽기 
-			BoardVO fvo=bService.boardFileInfoData(vo.getBno());
-			String path=request.getSession().getServletContext().getRealPath("/")+"upload\\";
-			path=path.replace("\\", File.separator);
-			String fileUrlBase = "http://localhost:8080/WineFineProject/upload/";
-			if(fvo.getFilecount()>0)
-			{
-				StringTokenizer st=new StringTokenizer(fvo.getFilename(),",");
-				while(st.hasMoreTokens())
-				{
-					File file=new File(path+st.nextToken());
-					file.delete();
-				}
-			}
-			List<MultipartFile> list=vo.getFiles();
-			if(list==null || list.isEmpty())
-			{
-				vo.setFilename("");
-				vo.setFilesize("");
-				vo.setFilecount(0);
-			}
-			else
-			{
-				StringBuilder filenames = new StringBuilder();
-				StringBuilder filesizes = new StringBuilder();
-				StringBuilder contentWithImages = new StringBuilder(vo.getContent());
-				for(MultipartFile mf:list)
-				{
-					String name=mf.getOriginalFilename();
-					File file=new File(path+name);
-					mf.transferTo(file);// 파일 업로드 
-					// 이미지 URL 추가
-					String imageUrl = fileUrlBase + name; // 저장된 파일의 경로
-					contentWithImages.append("<img src='").append(imageUrl).append("' alt='Uploaded Image' />"); // 이미지 태그 추가
-
-					filenames.append(name).append(",");
-					filesizes.append(file.length()).append(",");
-				}
-
-				filenames.setLength(filenames.length() - 1);
-				filesizes.setLength(filesizes.length() - 1);
-				vo.setFilename(filenames.toString());
-				vo.setFilesize(filesizes.toString());
-				vo.setFilecount(list.size());
-				vo.setContent(contentWithImages.toString()); // 수정된 콘텐츠 설정
-			}
 			result=bService.boardUpdate(vo);
 		}catch(Exception ex) {ex.printStackTrace();}
 		return result;
@@ -316,28 +199,14 @@ public class BoardRestController {
 	@GetMapping(value="board/delete_vue.do",produces = "text/plain;charset=UTF-8")
 	public String board_delete(int bno,HttpServletRequest request)
 	{
-		BoardVO vo=bService.boardFileInfoData(bno);
 		int count = bService.boardReplyCount(bno);
 		if(count>0)
 		{
 			bService.boardReplyAllDelete(bno);
 		}
-		String result=bService.boardDelete(bno);
-		// 파일삭제 
-		if(result.equals("yes"))
-		{
-			String path=request.getSession().getServletContext().getRealPath("/")+"upload\\";
-			path=path.replace("\\", File.separator);
-			if(vo.getFilecount()>0)// 파일이 존재시 
-			{
-				StringTokenizer st=new StringTokenizer(vo.getFilename(),",");
-				while(st.hasMoreTokens())// 파일명 만큼 
-				{
-					File file=new File(path+st.nextToken());
-					file.delete();// 파일 삭제 
-				}
-			}
-		}
+		String result="";
+		bService.boardDelete(bno);
+		result="yes";
 		return result;
 	}
 	// 댓글

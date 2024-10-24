@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+#bList{
+   margin-top: 20px;
+   margin-bottom: 100px;
+   width: 1080px;
+}
 .page-item{
 	cursor: pointer;
 }
@@ -85,11 +90,10 @@
          	<span v-if="vo.cno==2">[정보]</span>
          	<span v-if="vo.cno==3">[질문]</span>
          </td>
-         <td width="40%" v-if="vo.filecount>0" class="blistsub"><a :href="'detail.do?bno='+vo.bno">&#127748; {{vo.subject}}&nbsp;({{vo.replycount}})</a></td>
-         <td width="40%" v-else class="blistsub"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.replycount}})</a></td>
+         <td width="45%" class="blistsub"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.replycount}})</a></td>
          <td width="15%" class="text-center">{{vo.nickname}}</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
-         <td width="15%" class="text-center">{{vo.hit}}</td>
+         <td width="10%" class="text-center">{{vo.hit}}</td>
         </tr>
        </tbody>
        <tbody v-else>
@@ -100,8 +104,7 @@
          	<span v-if="vo.cno==2">[정보]</span>
          	<span v-if="vo.cno==3">[질문]</span>
          </td>
-         <td width="40%" v-if="vo.filecount>0" class="blistsub"><a :href="'detail.do?bno='+vo.bno">&#127748; {{vo.subject}}&nbsp;({{vo.creplycount}})</a></td>
-         <td width="45%" v-else class="blistsub"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.creplycount}})</a></td>
+         <td width="45%" class="blistsub"><a :href="'detail.do?bno='+vo.bno">{{vo.subject}}&nbsp;({{vo.creplycount}})</a></td>
          <td width="15%" class="text-center">{{vo.nickname}}</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
          <td width="10%" class="text-center">{{vo.hit}}</td>

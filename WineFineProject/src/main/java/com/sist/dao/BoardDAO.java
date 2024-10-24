@@ -59,10 +59,6 @@ public class BoardDAO {
 		 mapper.boardDelete(bno);
 		 return result;
 	 }
-	 public BoardVO boardFileInfoData(int bno)
-	 {
-		 return mapper.boardFileInfoData(bno);
-	 }
 	 
 	 public List<BoardVO> boardfindnListData(String find, int start, int end)
 	 {
