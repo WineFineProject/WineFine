@@ -27,7 +27,9 @@ public class ShopController {
 	}
 	
 	@RequestMapping("shop/list.do")
-	public String wine_list(FilterVO vo, Model model) {
+	public String wine_list(FilterVO vo, Model model, HttpSession session) {
+		String id = (String)session.getAttribute("userId");
+		model.addAttribute("sessionid",id);
 		model.addAttribute("search", vo);
 		return "shop/list";
 	}

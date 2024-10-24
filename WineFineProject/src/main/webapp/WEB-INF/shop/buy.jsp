@@ -40,6 +40,10 @@
 .selectAd:hover {
 	background-color: #e0e0e0; /* hover 시 배경색 */
 }
+.noborder{
+	border: none;
+	border-bottom: 2px solid #881824;
+}
 </style>
 </head>
 <body>
@@ -78,43 +82,31 @@
 					<table class="table col-11">
 						<thead>
 							<tr>
-								<th scope="col"></th>
-								<th scope="col">상품명</th>
-								<th scope="col">가격</th>
-								<th scope="col">수량</th>
-								<th scope="col">총 금액</th>
-								<th scope="col"></th>
+								<th width="7%" class="noborder"></th>
+								<th width="43%" class="noborder text-center">주문상품</th>
+								<th width="15%" class="noborder text-center">가격</th>
+								<th width="15%" class="noborder text-center">수량</th>
+								<th width="20%" class="noborder text-center">총 금액</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<th scope="row" class="align-middle"><img :src="vo.poster" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt=""></th>
-								<td class="align-middle">
-									<p class="mb-0">{{ vo.namekor }}</p>
+								<th scope="row" class="align-middle"><img :src="vo.poster" class="img-fluid me-5" style="width: 80px; height: 80px;" alt=""></th>
+								<td class="align-middle text-center" >
+									<p class="mb-0"><b>{{ vo.namekor }}</b></p>
 								</td>
-								<td class="align-middle">
+								<td class="align-middle text-center">
 									<p class="mb-0">{{ vo.price }} 원</p>
-								</td>
-								<td class="align-middle">
-									<div class="input-group quantity" style="width: 100px;">
-										<!--          -버튼               <button class="btn btn-sm  rounded-circle bg-light border" @click="decreaseQuantity">
-                            <i class="fa fa-minus"></i>
-                        </button> -->
-										<input type="number" class="form-control form-control-sm text-center border-0" v-model.number="quantity" min="1" />
-
-										<!--          +버튼               <button class="btn btn-sm  rounded-circle bg-light border" @click="increaseQuantity">
-                            <i class="fa fa-plus"></i>
-                        </button> -->
+								</td>								
+								<td class="align-middle text-center">
+									<div class="input-group quantity" style="width: 100px;margin: 0 auto;">
+										<input type="number" class="form-control form-control-sm text-center border-0" v-model.number="quantity" min="1" style="text-align: center;" />
 									</div>
 								</td>
-								<td class="align-middle">
+								<td class="align-middle text-center">
 									<p class="mb-0">{{ (vo.price * quantity).toLocaleString() }} 원</p>
 								</td>
-								<td class="align-middle">
-									<button class="btn btn-md rounded-circle bg-light border">
-										<i class="fa fa-times text-danger"></i>
-									</button>
-								</td>
+
 							</tr>
 						</tbody>
 					</table>
@@ -126,12 +118,12 @@
 						<h3>배송지선택</h3>
 						<br>
 						<table v-for="(user, index) in userDeli" :class="['coupondiv', 'selectAd', {'selected': selectAddr.wdno === user.wdno}]" 
-						style="width: 290px; height: 150px; margin-bottom: 10px; border-radius: 0px">
-							<thead>
-								<tr>
-									<th style="border-bottom: none;"></th>
-								</tr>
-							</thead>
+						style="width: 290px; height: 150px; margin-bottom: 10px; border-radius: 0px;">
+<!-- 							<thead> -->
+<!-- 								<tr> -->
+<!-- 									<th style="border-bottom: none;"></th> -->
+<!-- 								</tr> -->
+<!-- 							</thead> -->
 							<tbody>
 								<tr>
 									<td>
@@ -273,9 +265,6 @@
 		</div>
 	</div>
 	<!-- Copyright End -->
-
-	<!-- Back to Top -->
-	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 	<script>	
 let buyApp = Vue.createApp({
     data() {
