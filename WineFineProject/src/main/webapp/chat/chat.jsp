@@ -42,7 +42,7 @@
 			},
 			connection(){
 				// 서버 연결 
-				websocket=new WebSocket("ws://localhost:8080/controller/chat/chat-ws")
+				websocket=new WebSocket("ws://192.168.0.127:8080/controller/chat/chat-ws")
 				websocket.onopen=this.onOpen
 				websocket.onmessage=this.onMessage
 				this.getChatList()

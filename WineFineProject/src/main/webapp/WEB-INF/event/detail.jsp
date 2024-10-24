@@ -131,7 +131,7 @@ table {
 		                <img :src="img" v-for="img in pList" style="width: 80%">
 		            </div>
 				 <div class="button-container" style="margin-bottom: 500px"> 
-		           <input type="button" class="reserveBtn" @click="changeModal(true)" value="예약하기">
+		           <input type="button" class="reserveBtn" @click="isLoggedIn ? changeModal(true) : showAlert('로그인 후 예약할 수 있습니다.')" value="예약하기">
 		           <input type="button" class="listBtn" @click="List" value="목록">
 		         </div>
 		         <div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
@@ -173,13 +173,17 @@ table {
                 	 pList:[],
                 	 weno:${weno},
                 	 showModal:false,
-                	 person:1
+                	 person:1,
+                	 isLoggedIn: <%= session.getAttribute("isLoggedIn") != null ? "true" : "false" %>
                  }
              },
              mounted() {
                  this.dataRecv()
              },
              methods: {
+            	 showAlert(message) {
+            	        alert(message)
+            	    },
                  dataRecv() {
                      axios.get('../event/detailVue.do',{
                     	 params:{

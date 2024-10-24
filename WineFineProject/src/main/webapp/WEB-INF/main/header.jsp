@@ -54,7 +54,7 @@
 							<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">와인샵</a>
 							<div class="dropdown-menu m-0 bg-light rounded-0">
 								<a href="../shop/list.do" class="dropdown-item">일반판매</a>
-								<a href="../replyboard/list.do" class="dropdown-item">예약판매</a>
+								<a href="../wine/quickfind.do" class="dropdown-item">빠른검색</a>
 							</div>
 						</div>
 						<div class="nav-item dropdown">

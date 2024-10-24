@@ -1,5 +1,10 @@
 package com.sist.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.*;
 
 import javax.servlet.http.HttpSession;
@@ -338,4 +343,29 @@ public class ShopRestController {
 		sservice.paymentReturnReques(wpno);
 	}
 
+	@GetMapping(value = "wine/quickfindVue.do", produces = "text/plain;charset=UTF-8")
+	  public String wine_find(String namekor) throws Exception
+	  {
+		  
+		  String strUrl="http://localhost:9200/wine/_search?q=namekor="
+				  +URLEncoder.encode(namekor,"UTF-8");
+		  URL url=new URL(strUrl);
+		  
+		  HttpURLConnection conn=(HttpURLConnection)url.openConnection();
+		  StringBuffer sb=new StringBuffer();
+		  if(conn!=null)
+		  {
+			  BufferedReader in=
+					  new BufferedReader(
+							  new InputStreamReader(conn.getInputStream(),"UTF-8"));
+			  while(true)
+			  {
+				  String data=in.readLine();
+				  if(data==null) break;
+				  sb.append(data);
+			  }
+			  in.close();
+		  }
+		  return sb.toString();
+	  }
 }

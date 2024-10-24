@@ -57,4 +57,11 @@ public class ShopController {
 		return "shop/buy";
 	}
 	
+	@GetMapping("wine/quickfind.do")
+	public String wine_find(Model model)
+	{
+		model.addAttribute("msg","빠른검색");
+		return "wine/quickfind";
+	}
+	
 }
