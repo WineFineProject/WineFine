@@ -14,4 +14,5 @@ public interface SellerService {
 	public int sellerGetAccPoint(String userid);
 	public Map<String, Integer> sellerMoreInfoCount(String userid);
 	public Map<String, Integer> sellerPaymentInfoCount(String userid);
+	public List<ChartVO> sellerWeekChart(String userid);
 }

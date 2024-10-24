@@ -41,4 +41,7 @@ public class SellerDAO {
 	public Map<String, Integer> sellerPaymentInfoCount(String userid){
 		return mapper.sellerPaymentInfoCount(userid);
 	}
+	public List<ChartVO> sellerWeekChart(String userid){
+		return mapper.sellerWeekChart(userid);
+	}
 }

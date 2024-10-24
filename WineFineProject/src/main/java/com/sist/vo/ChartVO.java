@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ChartVO {
-	int price, account;
-	String type, addr;
+	int price, account, payment;
+	String type, addr, dbday;
 }

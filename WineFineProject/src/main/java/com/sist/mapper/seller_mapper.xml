@@ -63,4 +63,15 @@
 		FROM wine_payment wp JOIN wine w ON wp.wno=w.wno
 		WHERE w.seller=#{userid} AND trunc(wp.regdate) BETWEEN trunc(sysdate-6) AND trunc(SYSDATE)
 	</select>
+	<select id="sellerWeekChart" parameterType="String" resultType="ChartVO">
+		WITH dates AS (
+		SELECT TRUNC(SYSDATE) - LEVEL + 1 AS datess
+		FROM dual
+		CONNECT BY LEVEL &lt;= 7)
+		SELECT to_char(d.datess, 'MM-DD') as dbday, NVL(SUM(wp.payment), 0) AS payment, NVL(SUM(wp.account), 0) as account
+		FROM dates d LEFT JOIN wine_payment wp ON d.datess = TRUNC(wp.regdate) AND wp.state &lt; 7
+		LEFT JOIN wine w ON wp.wno = w.wno AND w.seller = #{userid}
+		GROUP BY d.datess
+		ORDER BY d.datess DESC
+	</select>
 </mapper>

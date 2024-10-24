@@ -32,7 +32,6 @@ public class MainRestController {
 	@Autowired
 	private InformationService iService;
 
-	private String[] keyword= {"와인", "레드와인", "화이트와인"};
 	@GetMapping(value = "main/list.do", produces = "text/plain;charset=UTF-8")
 	public String mainList(int page, @RequestParam Map params) {
 		String json = "";
@@ -90,7 +89,7 @@ public class MainRestController {
 	@GetMapping(value = "main/vueMain.do", produces = "text/plain;charset=UTF-8")
 	public String mainVue() throws Exception{
 		List<PromotionBannerVO> list=bService.promotionBannerList();
-		List<NewsVO> nList=nnm.newsFind(keyword[(int) (Math.random() * 3)]);
+		List<NewsVO> nList=nnm.newsFind("");
 		
 		ObjectMapper mapper=new ObjectMapper();
 		Map map=new HashMap();

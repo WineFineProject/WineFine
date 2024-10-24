@@ -11,8 +11,8 @@
 		<div class="chat_list" :class="{hide:!isShow, active:isShow}">
 			<h4 class="text-center">채팅 가능 목록</h4>
 			<table class="table">
-				<tr>
-					<th></th>
+				<tr v-for="vo in list">
+					<th>{{vo.userId}}</th>
 				</tr>
 			</table>
 		</div>
@@ -24,13 +24,19 @@
 		let websocket
 		let name
 		let chatApp=Vue.createApp({
-		let list=${sessionScope.chatList}
 		data(){
 			return{
-				isShow:false
+				isShow:false,
+				list:[]
 			}
 		},
 		methods:{
+			getChatList(){
+				axios.get('../chat/vueChatList.do').then(response=>{
+					console.log(response.data)
+					this.list=response.data
+				})
+			},
 			changeShow(){
 				this.isShow=!this.isShow
 			},
@@ -39,13 +45,13 @@
 				websocket=new WebSocket("ws://localhost:8080/controller/chat/chat-ws")
 				websocket.onopen=this.onOpen
 				websocket.onmessage=this.onMessage
+				this.getChatList()
 			},
 			disConnection(){
 				if(websocket)
 					websocket.close()
 			},
 			onOpen(event){
-				 alert("채팅서버에 연결되었습니다!!")
 			},
 			onClose(event){
 				 alert("채팅서버가 연결을 종료하였습니다!!")

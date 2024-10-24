@@ -46,7 +46,6 @@ public class NaverNewsManager {
 			JSONObject root = (JSONObject) jp.parse(responseBody);
 			JSONArray arr = (JSONArray) root.get("items");
 			int j=0;
-			System.out.println(fd);
 			for (int i = 0; i<arr.size(); i++) {
 				JSONObject obj = (JSONObject) arr.get(i);
 				String title = (String) obj.get("title");

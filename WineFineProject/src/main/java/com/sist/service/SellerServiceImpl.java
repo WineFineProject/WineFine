@@ -53,4 +53,9 @@ public class SellerServiceImpl implements SellerService {
 	public Map<String, Integer> sellerPaymentInfoCount(String userid) {
 		return dao.sellerPaymentInfoCount(userid);
 	}
+	
+	@Override
+	public List<ChartVO> sellerWeekChart(String userid) {
+		return dao.sellerWeekChart(userid);
+	}
 }
