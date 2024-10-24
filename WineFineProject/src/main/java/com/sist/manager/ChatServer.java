@@ -24,14 +24,14 @@ public class ChatServer {
 		Iterator<Session> it=users.keySet().iterator();
 		while(it.hasNext()) {
 			Session ss=it.next();
-			ChatVO cvo=users.get(ss.getId());
+			ChatVO cvo=users.get(ss);
 			System.out.println(cvo);
+			userList.add(cvo);
 			if(ss.getId()!=session.getId()) {
-				userList.add(cvo);
 				ss.getBasicRemote().sendText("msg:[알림 =>]"+vo.getUserName());
 			}
 		}
-		System.out.println(userList);
+		hs.setAttribute("chatList", userList);
 		System.out.println("클라이언트 접속 : " + vo.getUserId()+", "+vo.getUserName()+", "+vo.getSession());
 	}
 	

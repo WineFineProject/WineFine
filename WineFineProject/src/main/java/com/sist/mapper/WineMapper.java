@@ -46,7 +46,7 @@ public interface WineMapper {
 	@Results({
 		@Result(property = "wvo.seller", column = "seller")
 	})
-	@Select("SELECT wp.wno, wp.account, wp.payment, w.seller FROM wine_payment wp JOIN wine w ON wp.wno=w.wno WHERE trunc(wp.regdate)+2=trunc(sysdate) AND wp.state!=2")
+	@Select("SELECT wp.wno, wp.account, wp.payment, w.seller FROM wine_payment wp JOIN wine w ON wp.wno=w.wno WHERE trunc(wp.regdate)+2=trunc(sysdate) AND wp.state!=2 AND wp.state!=7")
 	public List<Wine_PaymentVO> paymentGetAccount();
 	@Update("UPDATE wine SET stack=stack-#{account} WHERE wno=#{wno}")
 	public void wineStackUpdate(Wine_PaymentVO vo);

@@ -21,10 +21,10 @@
 		</button>
 		</div>
 		<script>
-	let websocket
-	let name
-	let chatApp=Vue.createApp({
-		
+		let websocket
+		let name
+		let chatApp=Vue.createApp({
+		let list=${sessionScope.chatList}
 		data(){
 			return{
 				isShow:false
