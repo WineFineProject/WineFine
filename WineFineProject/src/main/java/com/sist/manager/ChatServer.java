@@ -11,62 +11,53 @@ import com.sist.vo.ChatVO;
 @ServerEndpoint(value = "/chat/chat-ws", configurator = WebSocketSessionConfigurator.class)
 public class ChatServer {
 	// 접속자 저장
-	private static Map<Session, ChatVO> users = Collections.synchronizedMap(new HashMap<Session, ChatVO>());
-
+	private static Map<Session, ChatVO> users=Collections.synchronizedMap(new HashMap<Session, ChatVO>());
 	@OnOpen
-	public void onOpen(Session session, EndpointConfig config) throws Exception {
-		ChatVO vo = new ChatVO();
-		HttpSession hs = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
-		if ((String) hs.getAttribute("userId") != null) {
-			vo.setUserId((String) hs.getAttribute("admin") + "_" + (String) hs.getAttribute("userId"));
-			vo.setUserName((String) hs.getAttribute("nickName"));
-			vo.setSession(session);
-			List<ChatVO> userList = new ArrayList<ChatVO>();
-			users.put(session, vo);
-			Iterator<Session> it = users.keySet().iterator();
-			while (it.hasNext()) {
-				Session ss = it.next();
-				ChatVO cvo = users.get(ss);
-				ChatVO tvo = new ChatVO();
-				tvo.setUserId(cvo.getUserId());
-				tvo.setUserName(cvo.getUserName());
-				if (hs.getAttribute("nickName").equals(vo.getUserName())) {
-					ss.getBasicRemote().sendText("msg:[알림 =>]" + vo.getUserName());
-				}
-				if(!tvo.getUserId().startsWith("USER"))
-					userList.add(tvo);
+	public void onOpen(Session session, EndpointConfig config) throws Exception{
+		ChatVO vo=new ChatVO();
+		HttpSession hs=(HttpSession)config.getUserProperties().get(HttpSession.class.getName());
+		vo.setUserId((String)hs.getAttribute("admin")+"_"+(String)hs.getAttribute("userId"));
+		vo.setUserName((String)hs.getAttribute("userName"));
+		vo.setSession(session);
+		users.put(session, vo);
+		
+		Iterator<Session> it=users.keySet().iterator();
+		while(it.hasNext()) {
+			Session ss=it.next();
+			if(ss.getId()!=session.getId()) {
+				ss.getBasicRemote().sendText("msg:[알림 =>]"+vo.getUserName());
 			}
-			hs.setAttribute("chatList", userList);
-			System.out.println("클라이언트 접속 : " + vo.getUserId() + ", " + vo.getUserName() + ", " + vo.getSession());
 		}
+		System.out.println(users);
+		System.out.println("클라이언트 접속 : " + vo.getUserId()+", "+vo.getUserName()+", "+vo.getSession());
 	}
-
+	
 	@OnMessage
-	public void onMessage(String message, Session session) throws Exception {
-		System.out.println("수신된 메세지 : " + message + ", 보낸사람 : " + session.getId());
-		Iterator<Session> it = users.keySet().iterator();
-		while (it.hasNext()) {
-			Session ss = it.next();
-			ChatVO vo = users.get(session);
-			if (ss.getId() != session.getId()) {
-				ss.getBasicRemote().sendText("msg:[" + vo.getUserName() + "]" + message);
-			} else {
-				ss.getBasicRemote().sendText("my:[" + vo.getUserName() + "]" + message);
+	public void onMessage(String message, Session session) throws Exception{
+		System.out.println("수신된 메세지 : "+message+ ", 보낸사람 : "+session.getId());
+		Iterator<Session> it=users.keySet().iterator();
+		while(it.hasNext()) {
+			Session ss=it.next();
+			ChatVO vo=users.get(session);
+			if(ss.getId()!=session.getId()) {
+				ss.getBasicRemote().sendText("msg:["+vo.getUserName()+"]"+message);
+			}
+			else {
+				ss.getBasicRemote().sendText("my:["+vo.getUserName()+"]"+message);
 			}
 		}
 	}
-
 	@OnClose
-	public void onClose(Session session) throws Exception {
-		Iterator<Session> it = users.keySet().iterator();
-		while (it.hasNext()) {
-			Session ss = it.next();
-			ChatVO vo = users.get(session);
-			if (ss.getId() != session.getId()) {
-				ss.getBasicRemote().sendText("msg:[퇴장 =>]" + vo.getUserName());
+	public void onClose(Session session) throws Exception{
+		Iterator<Session> it=users.keySet().iterator();
+		while(it.hasNext()) {
+			Session ss=it.next();
+			ChatVO vo=users.get(session);
+			if(ss.getId()!=session.getId()) {
+				ss.getBasicRemote().sendText("msg:[퇴장 =>]"+vo.getUserName());
 			}
 		}
-		System.out.println("클라이언트 퇴장 : " + users.get(session).getUserName());
+		System.out.println("클라이언트 퇴장 : "+users.get(session).getUserName());
 		users.remove(session);
 	}
 }

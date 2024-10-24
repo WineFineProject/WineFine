@@ -27,7 +27,7 @@ public class NaverNewsManager {
 
 		String text = null;
 		try {
-			text = URLEncoder.encode(fd, "UTF-8");
+			text = URLEncoder.encode("와인", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException("검색어 인코딩 실패", e);
 		}

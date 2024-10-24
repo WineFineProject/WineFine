@@ -22,7 +22,8 @@ public class MainController {
 	@Autowired
 	private MemberService mService;
 	@GetMapping("main/main.do")
-	public String mainHome() {
+	public String mainHome(Model model) {
+		model.addAttribute("msg", "상품목록");
 		return "main";
 	}
 	@GetMapping("main/find.do")
