@@ -26,6 +26,10 @@
     vertical-align: middle;
 }
 
+.tt th, .tt td {
+    border: 1px solid #ddd;
+}
+
 .mp th {
     background-color: #f8f8f8;
     color: #333;

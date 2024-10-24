@@ -123,45 +123,48 @@ public class MyPageRestController {
 		cService.getCoupon(vo);
 	}
 	
-	
-	
-	// 작성 게시글 리스트 mypage/myboardlist.do
-	
+	  // 작성 게시글 리스트 
 	  @GetMapping(value="mypage/myboardlist_vue.do",produces ="text/plain;charset=UTF-8") 
-	  public String mypage_boardList(HttpSession session) throws Exception 
+	  public String mypage_boardList(HttpSession session,int page,int type) throws Exception 
 	  { 
-		  String nickname=(String)session.getAttribute("nickName");
-		  
-//		  int rowSize = 10;
-//		  int start = (rowSize*page)-(rowSize-1);
-//		  int end = rowSize*page;
-		  
-		  Map map = new HashMap();
-//		  map.put("start", start);
-//		  map.put("end", end);
-		  
-		  List<BoardVO> list=mService.myBoardListData(nickname);
-		  
-//		  int totalpage = mService.myPageBoardTotalPage(map);
-		  
-//		  final int BLOCK = 10;
-//		  int startpage=((page-1)/BLOCK*BLOCK)+1;
-//		  int endpage=((page-1)/BLOCK*BLOCK)+BLOCK;
-//		  int count = mService.myPageBoardTotalPage(map);
-//		  count = count-((page*rowSize)-rowSize);
-		  //int totalpage=(int)(Math.ceil(count/(double)rowSize));		  
-		  //map=new HashMap();		  
-		  map.put("list", list);
-		  map.put("nickname", nickname);
-//		  map.put("count", count);
-//		  map.put("curpage", page);
-//		  map.put("startpage", startpage);
-//		  map.put("endpage", endpage);
-//		  map.put("totalpage", totalpage);		  
-		  
-		  ObjectMapper mapper=new ObjectMapper(); 
-		  String json=mapper.writeValueAsString(map);
-		  return json; 
+			int rowSize = 10;
+			int start = (rowSize * page) - (rowSize - 1);
+			int end = rowSize * page;
+
+			String userid = (String)session.getAttribute("userId");
+			Map map = new HashMap();
+			
+			map.put("userid", userid);
+			map.put("start", start);
+			map.put("end", end);
+
+			List<BoardVO> boardList = mService.myBoardListData(map);
+			List<ReplyBoardVO> replyList = mService.myReplyListData(map);
+			List<BoardReplyVO> boardReplyList = mService.myboardReplyListData(map);
+			
+			
+			int totalpage=0;
+			
+			switch (type) {
+			case 1:
+				totalpage=mService.myPageBoardTotalPage(map);
+				map.put("list", boardList);
+				break;
+			case 2:
+				totalpage=mService.myReplyTotalPage(map);
+				map.put("list", replyList);
+				break;
+			case 3:
+				totalpage=mService.myboardReplyTotalPage(map);
+				map.put("list", boardReplyList);
+				break;
+			}
+
+			map.put("totalpage", totalpage);
+			map.put("curpage", page);
+			ObjectMapper mapper = new ObjectMapper();
+			String json = mapper.writeValueAsString(map);
+			return json;
 	  }
 	 
 	  @GetMapping(value="mypage/vueLikeList.do",produces ="text/plain;charset=UTF-8")
@@ -194,5 +197,6 @@ public class MyPageRestController {
 	  public void mypageVueLikeDelete(int lno) {
 	  	sService.likeDelete(lno);
 	  }
+	  
 
 }

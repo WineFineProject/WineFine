@@ -1,111 +1,108 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../tem/css/payment.css">
+<link rel="stylesheet" href="../tem/css/coupon.css">
 </head>
 <body>
-	<div class="container-fluid py-5">
-		<div class="container py-5">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="table-responsive" id="boardListTable">
-					<h3 class="table-title">작성한 글</h3>
-						<table class="table mp">
-							<thead>
-								<tr>
-								    <th scope="col" width="5%">번호</th>
-								    <!-- <th scope="col" width="10%">분류</th> -->
-								    <th scope="col" width="40%">제목</th>
-								    <!-- <th scope="col" width="10%">첨부파일</th> -->
-								    <th scope="col" width="12%">작성자</th>
-								    <th scope="col" width="15%">작성일</th>
-								    <th scope="col" width="8%">조회수</th>
-								</tr>
-							</thead>
-							
-							<tbody>
-						        <tr v-for="vo in list" :key="vo.bno" @click="goToDetail(vo.bno)" style="cursor: pointer;" >
-						         <td width="5%" class="text-center">{{vo.bno}}</td>
-						         <!-- <td width="10%" class="text-center">
-						         	<span v-if="vo.cno==1">[자유]</span>
-						         	<span v-if="vo.cno==2">[정보]</span>
-						         	<span v-if="vo.cno==3">[질문]</span>
-						         </td> -->
-						         <!-- <td width="40%"><a :href="'../board/detail.do?bno='+vo.bno">{{vo.subject}}</a></td> -->
-						         <td width="40%"><a :href="'../board/detail.do?bno='+vo.bno">{{vo.subject}}</a></td>
-						         <td width="15%" class="text-center">{{vo.nickname}}</td>
-						         <td width="15%" class="text-center">{{vo.dbday}}</td>
-						         <td width="15%" class="text-center">{{vo.hit}}</td>
-						        </tr>
-						       <!--  <tr v-else>
-						        	<td colspan="5">데이터 없음</td>
-						        </tr>
-						       </tbody> -->
-
-						     
-						       <%-- <tfoot>
-						       	<tr>
-						          <td colspan="7" class="text-center">
-						            <input type=button value="<" class="btn-sm btn-danger" @click="prev()">
-						                &nbsp;
-						                <span v-for="i in range(startpage,endpage)"
-						                :class="{'page-item active': i === curpage, 'page-item': i !== curpage}" 
-						                @click="pageChange(i)"> &nbsp; {{i}} &nbsp; </span>
-						                &nbsp; 
-						            <input type=button value=">" class="btn-sm btn-danger" @click="next()">
-						          </td>
-						          </tr>
-						       </tfoot> --%>
-						       
-							<!-- <tbody>
-								<tr v-for="vo in cList" :key="wine.wno">
-									<td>
-										<p class="mb-0 mt-4">{{vo.bno}}</p>										
-									</td>
-									<td>
-										<p class="mb-0 mt-4" v-if="vo.cno===1">[자유]</p>
-         								<p class="mb-0 mt-4" v-if="vo.cno===2">[정보]</p>
-         								<p class="mb-0 mt-4" v-if="vo.cno===3">[질문]</p>
-									</td>
-									<td>
-										<p class="mb-0 mt-4">{{vo.subject}}</p>
-									</td>
-									<td>
-										<p class="mb-0 mt-4">{{vo.nickname}}</p>
-									</td>
-									<td>
-										<p class="mb-0 mt-4">{{vo.dbday}}</p>
-									</td>
-									<td>
-										<p class="mb-0 mt-4">{{vo.hit}}</p>
-									</td>
-								</tr>
-							</tbody> -->
-							
-							
-						</table>
-					</div>
-					
+	<div class="promotion_table myboard">
+	<input type="radio" value="1" name="type" v-model="type" @change="dataRecv()">
+	<input type="radio" value="2"  name="type" v-model="type" @change="dataRecv()">
+	<input type="radio" value="3"  name="type" v-model="type" @change="dataRecv()">
+		<h3 class="table-title">작성한 글</h3>
+		<table v-if="type==='1'" class="table" id="coupon-table">
+			<thead>
+				<tr>
+					<th width="5%">번호</th>
+					<th width="40%">제목</th>
+					<th width="12%">작성자</th>
+					<th width="15%">작성일</th>
+					<th width="8%">조회수</th>
+				</tr>
+			</thead>
+			  <tr v-for="vo in list" style="cursor: pointer;">
+			   <td colspan="5" id="tmp" style="border:none">
+				<div>
+				 <table class="table" id="inner-table" style="margin: 0px">
+				  <tbody>
+				   <tr>
+					<td width="5%" class="text-center">{{vo.bno}}</td>
+					<td width="40%"><a :href="'../board/detail.do?bno='+vo.bno">{{vo.subject}}</a></td>
+					<td width="12%" class="text-center">{{vo.nickname}}</td>
+					<td width="15%" class="text-center">{{vo.dbday}}</td>
+					<td width="8%" class="text-center">{{vo.hit}}</td>
+				   </tr>
+				  </tbody>
+				 </table>  	
 				</div>
-			</div>
-		</div>
+			   </td>	
+			  </tr>
+		</table>
+		<table v-if="type==='2'" class="table" id="coupon-table">
+			<thead>
+				<tr>
+					<th width="5%">번호</th>
+					<th width="40%">제목</th>
+					<th width="12%">작성자</th>
+					<th width="15%">작성일</th>
+					<th width="8%">조회수</th>
+				</tr>
+			</thead>
+			  <tr v-for="vo in list" style="cursor: pointer;">
+			   <td colspan="5" id="tmp" style="border:none">
+				<div>
+				 <table class="table" id="inner-table" style="margin: 0px">
+				  <tbody>
+				   <tr>
+					<td width="5%" class="text-center">{{vo.wrno}}</td>
+					<td width="40%"><a :href="'../replyboard/detail.do?wrno='+vo.bno">{{vo.subject}}</a></td>
+					<td width="12%" class="text-center">{{vo.nickname}}</td>
+					<td width="15%" class="text-center">{{vo.dbday}}</td>
+					<td width="8%" class="text-center">{{vo.hit}}</td>
+				   </tr>
+				  </tbody>
+				 </table>  	
+				</div>
+			   </td>	
+			  </tr>
+		</table>
+		<table v-if="type==='3'" class="table" id="coupon-table">
+			<thead>
+				<tr>
+					<th width="8%">번호</th>
+					<th width="45%">내용</th>
+					<th width="12%">작성자</th>
+					<th width="15%">작성일</th>
+				</tr>
+			</thead>
+			  <tr v-for="vo in list" style="cursor: pointer;">
+			   <td colspan="5" id="tmp" style="border:none">
+				<div>
+				 <table class="table" id="inner-table" style="margin: 0px">
+				  <tbody>
+				   <tr>
+					<td width="8%" class="text-center">{{vo.brno}}</td>
+					<td width="45%"><a :href="'../board/detail.do?bno='+vo.bno">{{vo.msg}}</a></td>
+					<td width="12%" class="text-center">{{vo.nickname}}</td>
+					<td width="15%" class="text-center">{{vo.dbday}}</td>
+				   </tr>
+				  </tbody>
+				 </table>  	
+				</div>
+			   </td>	
+			  </tr>
+		</table>
 	</div>
-
 	<script>
 		let listApp=Vue.createApp({
 			data(){
 				return{
 					list:[],
-					loading: true,
-	    			/* curpage:1,
-	    			startpage:0,
-	    			endpage:0, 
-	    			id:'${sessionScope.userId}',*/
-	    			nickname:'${sessionScope.nickName}',
+	    			totalpage:0,
+	    			curpage:1,
+	    			type:'1'
 	    		}
 			},
 		mounted(){
@@ -113,51 +110,23 @@
 			},
 		methods:{
 			dataRecv(){				
-				axios.get("../mypage/myboardlist_vue.do",{
+				axios.get('../mypage/myboardlist_vue.do',{
 					params:{
-						/* page:this.curpage, */
-						nickname: this.nickname							
+						page:this.curpage,
+						type:this.type
 					}
 				}).then(response=>{
-					 console.log("mbl서버 응답:", response.data)
+					console.log(response.data)
     				this.list=response.data.list
-    				this.loading=false
-    				/* this.curpage=response.data.page
-    				this.startpage=response.data.start
-    				this.endpage=response.data.end */
-    				
+    				this.totalpage=response.data.totalpage
+    				this.curpage=response.data.curpage
     			}).catch(error=>{
     				console.log(error.response)
-    				this.loading=false
     			})
-			},/*  goToDetail(bno) {
-			    window.location.href = `../board/detail.do?bno=this.bno`;
-			  }, */
-    	  /*  prev(){
- 			   this.curpage=this.curpage>1?this.curpage-1:this.curpage
- 			   this.dataRecv()
- 		   },
- 		   next(){
- 			   this.curpage=this.curpage<this.endpage?this.curpage+1:this.curpage
- 			   this.dataRecv()
- 		   },
- 		  	pageChange(page){
- 			   	 this.curpage=page
- 	 			 this.dataRecv()
- 	 		},
- 	 		 range(start,end){
- 	 			 let arr=[]
- 	 			 let len=end-start
- 	 			 for(let i=0;i<=len;i++)
- 	 			 {
- 	 				 arr[i]=start
- 	 				 start++;
- 	 			 }
- 	 			 return arr
- 	 		 } */
+			}
 			
 		}
-	}).mount('#boardListTable')
+	}).mount('.myboard')
   </script>
 </body>
 </html>
