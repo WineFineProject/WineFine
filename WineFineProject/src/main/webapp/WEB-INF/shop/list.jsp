@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Wine List</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style type="text/css">
@@ -26,18 +26,38 @@
 .pagination {
 	cursor: pointer;
 }
-
+/* /////////////////////////////////////////////////////////// */
 .winecor {
 	background-color: #881824 !important;
 	color: white !important;
 }
 
-.whitecor {
-	background-color: white !important;
-	color: #881824 !important;
-	border: solid 1px #881824 !important;
+.rose {
+	background-color: #eb9ba6 !important;
+	color: white !important;
 }
 
+.Fortified {
+	background-color: #efb76f !important;
+	color: white !important;
+}
+
+.sparkling {
+	background-color: #cdd381 !important;
+	color: white !important;
+}
+
+.atherwine {
+	background-color: #75528b !important;
+	color: white !important;
+}
+
+.whitecor {
+	background-color: white !important;
+	color: black !important;
+	border: solid 1px black !important;
+}
+/* ///////////////////////////////////////////////////////////// */
 .page-link {
 	position: relative;
 	display: block;
@@ -81,24 +101,21 @@
 	text-align: center;
 	margin-bottom: 5px;
 }
+
 .ahover:hover {
-    box-shadow: 0 4px 8px rgba(136, 24, 36, 0.5); 
+	box-shadow: 0 4px 8px rgba(136, 24, 36, 0.5);
 }
 
-
-
-
+.typeSize {
+	padding-top: .15rem !important;
+	padding-bottom: .15rem !important;
+	padding-right: 0.5rem !important;
+	padding-left: 0.5rem !important;
+}
 </style>
 </head>
 <body>
 	<div class="shopcontainer">
-		<!-- Single Page Header start -->
-		<div class="container-fluid page-header py-5">
-			<h1 class="text-center text-white display-6">Shop</h1>
-		</div>
-		<!-- Single Page Header End -->
-
-
 		<!-- Fruits Shop Start-->
 		<div class="container-fluid fruite py-5">
 			<div class="container py-5">
@@ -107,12 +124,14 @@
 					<div class="col-lg-12">
 						<div class="row g-4" style="margin-bottom: 15px;">
 							<div class="col-xl-3" style="border-bottom: 1px solid;">
-								<h3 class="mb-4">와인 필터</h3>
-								<p style="text-align: right;" @click="resetSelect()" class="thispointer">
-									<small>초기화&nbsp;<i class="fa-solid fa-rotate-right"></i></small>
-								</p>
-								<b>TYPE :</b> <small>{{selectType}}</small><br> <b>FOOD :</b> <small>{{selectFoods}}</small><br> <b>AROMA :</b> <small>{{selectAroma}}</small><br>
-								<b>PRICE :</b> <small>{{fprice == 1000000 ? '전체' : fprice + '원'}}</small>
+								<div class="filter-header" style="display: flex; justify-content: space-between; align-items: center;">
+									<h3 class="mb-4">와인 필터</h3>
+									<p style="cursor: pointer;" @click="resetSelect()" class="thispointer">
+										<small>초기화&nbsp;<i class="fa-solid fa-rotate-right"></i></small>
+									</p>
+								</div>
+
+								<b>TYPE :</b> <small>{{selectType}}</small><br> <b>FOOD :</b> <small>{{selectFoods}}</small><br> <b>AROMA :</b> <small>{{selectAroma}}</small><br> <b>PRICE :</b> <small>{{fprice == 1000000 ? '전체' : fprice + '원'}}</small>
 							</div>
 							<div class="col-1" style="width: 32px;"></div>
 							<div class="col-6" style="padding-top: 20px;">
@@ -122,17 +141,6 @@
 							</div>
 							<!-- 							<div class="col-xl-1"></div>							 -->
 							<div class="col-2">
-								<!-- 								<div
-									class="py-3 rounded d-flex justify-content-between mb-4">
-									<label for="fruits">Default Sorting:</label> 
-									<select id="fruits" name="fruitlist"
-										class="border-0 form-select-sm bg-light me-3" form="fruitform">
-										<option value="volvo">최신등록순</option>
-										<option value="saab">가격낮은순</option>
-										<option value="opel">가격높은순</option>
-										<option value="audi">평점순</option>
-									</select>
-								</div> -->
 								<div style="padding: 30px 0px 0px 0px; text-align: left;">
 									<h5 style="text-align: right;">전체 와인 ({{this.wineTcount.toLocaleString()}})</h5>
 								</div>
@@ -205,13 +213,6 @@
 										</div>
 									</div>
 
-									<div class="col-lg-12">
-										<div class="position-relative">
-											<img src="#" class="img-fluid w-100 rounded" alt="">
-											<div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);"></div>
-										</div>
-									</div>
-
 								</div>
 							</div>
 
@@ -219,26 +220,24 @@
 								<div class="row g-4 justify-content-center">
 
 									<!-- 상품 list -->
-									<div class="col-md-6 col-lg-6 col-xl-4" v-for="vo in list" style="margin-bottom: 20px; width: 300px;">
+									<div class="col-md-6 col-lg-6 col-xl-3" v-for="vo in list" style="margin-bottom: 20px; width: 25%;">
 										<a :href="'../shop/detailBefore.do?wno=' + vo.wno">
-											<div class="rounded position-relative fruite-item" style="width: 270px;">
-												<div class="fruite-img text-center" style="width: 270px;">
-													<img :src="vo.poster" class="img-fluid w-75 h-75 rounded-top" alt="" style="width: 180px !important; height: 220px !important; margin-top: 10px;">
+											<div class="rounded position-relative fruite-item">
+												<div class="text-center" style="height: 180px; display: flex; justify-content: center; align-items: center;">
+													<img :src="vo.poster" class="img-fluid w-75" style="width: 60% !important; margin-top: 3px;">
 												</div>
-												<div class="text-white px-3 py-1 rounded position-absolute" :class="vo.type === '화이트' ? 'whitecor' : 'winecor'" style="top: 10px; left: 10px;">{{vo.type}}</div>
-												<div class="p-4 border border-secondary border-top-0 rounded-bottom" style="width: 270px; height: 134px;">
-													<h6 class="text-ellipsis">{{ vo.namekor }}</h6>
-													<h6 class="text-ellipsis fon-cor-gr">{{ vo.nameeng }}</h6>
+
+												<div class="text-white typeSize rounded position-absolute" :class="wineClass(vo.type)" style="top: 10px; left: 10px;">{{vo.type}}</div>
+												<div class="p-4 border-top-0 rounded-bottom" style="height: 134px;">
+													<h6 class="text-ellipsis" style="margin-bottom: 0px;">{{ vo.namekor }}</h6>
+													<h6 class="text-ellipsis fon-cor-gr" style="margin-bottom: 0px;">{{ vo.nameeng }}</h6>
 													<div class="d-flex justify-content-between flex-lg-wrap text-center" v-if="vo.price!=null">
 														<p class="text-dark fs-5 fw-bold mb-0">
 															{{vo.price}}<br>
 														</p>
-														<div>
-															<a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="margin-right: 5px;"> 
-															<i class="fa-solid fa-credit-card " style="color: #881824;"></i>
-															</a> 
-															<a class="btn border border-secondary rounded-pill px-3 small-text ahover"> 
-															<i class="fa-solid fa-cart-plus " style="color: #881824;"></i>
+														<div style="display: inline-flex;">
+															<a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="width: 60px; display: flex; justify-content: center; align-items: center; margin-right: 10px; margin-left: 10px;"> <i class="fa-solid fa-cart-plus " style="color: #881824;"></i>
+															</a> <a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="width: 60px; display: flex; justify-content: center; align-items: center;"> <i class="fa-solid fa-credit-card " style="color: #881824;"></i>
 															</a>
 														</div>
 													</div>
@@ -249,7 +248,7 @@
 									<!-- 상품 list end -->
 
 									<div class="col-12 text-center">
-										<div class="pagination-area d-sm-flex mt-15" style="margin-left: 65px;">
+										<div class="pagination-area d-sm-flex mt-15" style="margin-left: 15%; margin-top: 20px">
 											<nav aria-label="#">
 												<ul class="pagination" style="display: flex;">
 													<li class="page-item"><a class="page-link" @click="prev()"> <i class="fa fa-angle-double-left" aria-hidden="true"></i>
@@ -337,6 +336,22 @@
 				this.dataRecv()
         	},
     		methods:{
+    		    wineClass(type) {
+      		      switch (type) {
+      		        case '레드':
+      		          return 'winecor'
+      		        case '화이트':
+      		          return 'whitecor'
+      		        case '로제':
+      		          return 'rose'
+      		        case '스파클링':
+      		          return 'sparkling'
+      		        case '주정강화':
+      		          return 'Fortified'
+      		        default:
+      		          return 'atherwine'
+      		      }
+      		    },
     			sfw(){
     				this.fd=this.searchWine
     				this.searchWine = ''

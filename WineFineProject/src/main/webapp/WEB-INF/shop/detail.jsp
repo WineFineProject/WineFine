@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Wine Detail</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -121,12 +121,6 @@
 </style>
 </head>
 <body>
-	<!-- Single Page Header start -->
-	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">Shop Detail</h1>
-	</div>
-	<!-- Single Page Header End -->
-
 
 	<!-- Single Product Start -->
 	<div class="container-fluid py-5 mt-5 shopcontainer" v-for="vo in list">
@@ -181,19 +175,6 @@
 							</div>
 
 							<div class="d-flex align-items-center mb-5">
-								<!-- 								<div class="input-group quantity" style="width: 100px;"> -->
-								<!-- 									<div class="input-group-btn"> -->
-								<!-- 										<button class="btn btn-sm btn-minus rounded-circle bg-light border"> -->
-								<!-- 											<i class="fa fa-minus"></i> -->
-								<!-- 										</button> -->
-								<!-- 									</div> -->
-								<!-- 									<input type="text" class="form-control form-control-sm text-center border-0" value="1"> -->
-								<!-- 									<div class="input-group-btn"> -->
-								<!-- 										<button class="btn btn-sm btn-plus rounded-circle bg-light border"> -->
-								<!-- 											<i class="fa fa-plus"></i> -->
-								<!-- 										</button> -->
-								<!-- 									</div> -->
-								<!-- 								</div> -->
 
 								<a class="btn border rounded-pill px-4 py-2 ms-3 aorb" @click="handleAddToCart()"> <i class="fa-solid fa-cart-plus " style="color: #881824;"></i> Add to cart
 								</a> 
@@ -259,18 +240,22 @@
 													<li>
 														<table class="table">
 															<thead style="background-color: #efefef;">
-																<tr class="text-center">
-																	<th width="15%">상태</th>
-																	<th width="45%">제목</th>
-																	<th width="20%">작성자</th>
-																	<th width="20%">등록일</th>
+																<tr class="text-center">																
+																	<th width="10%">번호</th>
+																	<th width="10%">상태</th>
+																	<th width="40%">제목</th>
+																	<th width="13%">작성자</th>
+																	<th width="10%">조회수</th>
+																	<th width="17%">등록일</th>
 																</tr>
 															</thead>
 															<tbody>
 																<tr>
+																	<td class="text-center">인덱스처리</td>
 																	<td class="text-center">답변완료</td>
 																	<td>테스트 입니다</td>
 																	<td class="text-center">ping</td>
+																	<td class="text-center">123</td>
 																	<td class="text-center">2024-10-21</td>
 																</tr>
 															</tbody>
