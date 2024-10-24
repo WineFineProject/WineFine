@@ -19,4 +19,7 @@ public interface SellerMapper {
 	public Map<String, Integer> sellerMoreInfoCount(String userid);
 	public Map<String, Integer> sellerPaymentInfoCount(String userid);
 	public List<ChartVO> sellerWeekChart(String userid);
+	public List<ChartVO> sellerSalePromotionChart(int psno);
+	public List<ChartVO> sellerCouponPromotionChart(int pcno);
+	public List<ChartVO> sellerBannerPromotionChart(int pbno);
 }

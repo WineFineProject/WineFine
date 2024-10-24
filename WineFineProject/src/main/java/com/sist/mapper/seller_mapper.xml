@@ -117,16 +117,26 @@
 		(w.type = '주정강화' AND ps.target = 5) OR
 		(w.type = '기타' AND ps.target = 6)
 		)) OR
-		(ps.type = 3 AND wp.wno = ps.target)) THEN 1 ELSE NULL END) AS salecount
+		(ps.type = 3 AND wp.wno = ps.target)) THEN 1 ELSE NULL END) AS salecount,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(ps.startdate) - drange - 1 AND trunc(ps.startdate) - 1) AND (ps.type = 1 OR
+		(ps.type = 2 AND (
+		(w.type = '레드' AND ps.target = 1) OR
+		(w.type = '화이트' AND ps.target = 2) OR
+		(w.type = '로제' AND ps.target = 3) OR
+		(w.type = '스파클링' AND ps.target = 4) OR
+		(w.type = '주정강화' AND ps.target = 5) OR
+		(w.type = '기타' AND ps.target = 6)
+		)) OR
+		(ps.type = 3 AND wp.wno = ps.target)) THEN wp.account ELSE 0 END) AS saleaccount
 		FROM wine_payment wp
 		JOIN wine w ON w.wno = wp.wno
-		JOIN promotion_coupon pc ON ps.userid = w.seller AND ps.psno = #{psno}
+		JOIN promotion_sale ps ON ps.userid = w.seller AND ps.psno = #{psno}
 		JOIN daterange ON 1 = 1
 
 		UNION ALL
 
 		SELECT
-		'now' AS period, 2 as sortnum,
+		'event' AS period, 2 as sortnum,
 		SUM(CASE WHEN trunc(wp.regdate) BETWEEN trunc(ps.startdate) AND trunc(ps.enddate) THEN wp.payment ELSE 0 END) AS price,
 		COUNT(CASE WHEN trunc(wp.regdate) BETWEEN trunc(ps.startdate) AND trunc(ps.enddate) THEN 1 ELSE NULL END) AS count,
 		SUM(CASE WHEN trunc(wp.regdate) BETWEEN trunc(ps.startdate)
@@ -150,10 +160,20 @@
 		(w.type = '주정강화' AND ps.target = 5) OR
 		(w.type = '기타' AND ps.target = 6)
 		)) OR
-		(ps.type = 3 AND wp.wno = ps.target)) THEN 1 ELSE NULL END) AS salecount
+		(ps.type = 3 AND wp.wno = ps.target)) THEN 1 ELSE NULL END) AS salecount,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(ps.startdate) AND trunc(ps.enddate)) AND (ps.type = 1 OR
+		(ps.type = 2 AND (
+		(w.type = '레드' AND ps.target = 1) OR
+		(w.type = '화이트' AND ps.target = 2) OR
+		(w.type = '로제' AND ps.target = 3) OR
+		(w.type = '스파클링' AND ps.target = 4) OR
+		(w.type = '주정강화' AND ps.target = 5) OR
+		(w.type = '기타' AND ps.target = 6)
+		)) OR
+		(ps.type = 3 AND wp.wno = ps.target)) THEN wp.account ELSE 0 END) AS saleaccount
 		FROM wine_payment wp
 		JOIN wine w ON w.wno = wp.wno
-		JOIN promotion_coupon pc ON ps.userid = w.seller
+		JOIN promotion_sale ps ON ps.userid = w.seller
 		AND ps.psno = #{psno}
 		JOIN daterange ON 1 = 1
 
@@ -184,14 +204,24 @@
 		(w.type = '주정강화' AND ps.target = 5) OR
 		(w.type = '기타' AND ps.target = 6)
 		)) OR
-		(ps.type = 3 AND wp.wno = ps.target)) THEN 1 ELSE NULL END) AS salecount
+		(ps.type = 3 AND wp.wno = ps.target)) THEN 1 ELSE NULL END) AS salecount,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(ps.enddate) + 1 AND trunc(ps.enddate) + 1 + drange) AND (ps.type = 1 OR
+		(ps.type = 2 AND (
+		(w.type = '레드' AND ps.target = 1) OR
+		(w.type = '화이트' AND ps.target = 2) OR
+		(w.type = '로제' AND ps.target = 3) OR
+		(w.type = '스파클링' AND ps.target = 4) OR
+		(w.type = '주정강화' AND ps.target = 5) OR
+		(w.type = '기타' AND ps.target = 6)
+		)) OR
+		(ps.type = 3 AND wp.wno = ps.target)) THEN wp.account ELSE 0 END) AS saleaccount
 		FROM wine_payment wp
 		JOIN wine w ON w.wno = wp.wno
-		JOIN promotion_coupon pc ON ps.userid = w.seller AND ps.psno = #{psno}
+		JOIN promotion_sale ps ON ps.userid = w.seller AND ps.psno = #{psno}
 		JOIN daterange ON 1 = 1
 		order by sortnum
 	</select>
-	<select id="sellerCouponPromotionChart" parameterType="hashmap" resultType="ChartVO">
+	<select id="sellerCouponPromotionChart" parameterType="int" resultType="ChartVO">
 		WITH daterange AS (
 		SELECT trunc(enddate) - trunc(startdate) AS drange
 		FROM promotion_coupon
@@ -222,7 +252,18 @@
 		(w.type = '주정강화' AND pc.target = 5) OR
 		(w.type = '기타' AND pc.target = 6)
 		)) OR
-		(pc.type = 3 AND wp.wno = pc.target)) THEN 1 ELSE NULL END) AS salecount
+		(pc.type = 3 AND wp.wno = pc.target)) THEN 1 ELSE NULL END) AS salecount,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pc.startdate) - drange - 1 AND trunc(pc.startdate) - 1) AND (pc.type = 1 OR
+		(pc.type = 2 AND (
+		(w.type = '레드' AND pc.target = 1) OR
+		(w.type = '화이트' AND pc.target = 2) OR
+		(w.type = '로제' AND pc.target = 3) OR
+		(w.type = '스파클링' AND pc.target = 4) OR
+		(w.type = '주정강화' AND pc.target = 5) OR
+		(w.type = '기타' AND pc.target = 6)
+		))
+		OR
+		(pc.type = 3 AND wp.wno = pc.target)) THEN wp.account ELSE 0 END) AS saleaccount
 		FROM wine_payment wp
 		JOIN wine w ON w.wno = wp.wno
 		JOIN promotion_coupon pc ON pc.userid = w.seller AND pc.pcno = #{pcno}
@@ -231,7 +272,7 @@
 		UNION ALL
 
 		SELECT
-		'now' AS period, 2 as sortnum,
+		'event' AS period, 2 as sortnum,
 		SUM(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pc.startdate) AND trunc(pc.enddate) THEN wp.payment ELSE 0 END) AS price,
 		COUNT(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pc.startdate) AND trunc(pc.enddate) THEN 1 ELSE NULL END) AS count,
 		SUM(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pc.startdate)
@@ -255,7 +296,18 @@
 		(w.type = '주정강화' AND pc.target = 5) OR
 		(w.type = '기타' AND pc.target = 6)
 		)) OR
-		(pc.type = 3 AND wp.wno = pc.target)) THEN 1 ELSE NULL END) AS salecount
+		(pc.type = 3 AND wp.wno = pc.target)) THEN 1 ELSE NULL END) AS salecount,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pc.startdate) AND trunc(pc.enddate)) AND (pc.type = 1 OR
+		(pc.type = 2 AND (
+		(w.type = '레드' AND pc.target = 1) OR
+		(w.type = '화이트' AND pc.target = 2) OR
+		(w.type = '로제' AND pc.target = 3) OR
+		(w.type = '스파클링' AND pc.target = 4) OR
+		(w.type = '주정강화' AND pc.target = 5) OR
+		(w.type = '기타' AND pc.target = 6)
+		))
+		OR
+		(pc.type = 3 AND wp.wno = pc.target)) THEN wp.account ELSE 0 END) AS saleaccount
 		FROM wine_payment wp
 		JOIN wine w ON w.wno = wp.wno
 		JOIN promotion_coupon pc ON pc.userid = w.seller
@@ -279,8 +331,7 @@
 		(w.type = '기타' AND pc.target = 6)
 		)) OR
 		(pc.type = 3 AND wp.wno = pc.target)) THEN wp.payment ELSE 0 END) AS saleprice,
-		COUNT(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pc.enddate) + 1 AND
-		trunc(pc.enddate) + 1 + drange) AND (pc.type = 1 OR
+		COUNT(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pc.enddate) + 1 AND trunc(pc.enddate) + 1 + drange) AND (pc.type = 1 OR
 		(pc.type = 2 AND (
 		(w.type = '레드' AND pc.target = 1) OR
 		(w.type = '화이트' AND pc.target = 2) OR
@@ -289,33 +340,74 @@
 		(w.type = '주정강화' AND pc.target = 5) OR
 		(w.type = '기타' AND pc.target = 6)
 		)) OR
-		(pc.type = 3 AND wp.wno = pc.target)) THEN 1 ELSE NULL END) AS salecount
+		(pc.type = 3 AND wp.wno = pc.target)) THEN 1 ELSE NULL END) AS salecount,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pc.enddate) + 1 AND trunc(pc.enddate) + 1 + drange) AND (pc.type = 1 OR
+		(pc.type = 2 AND (
+		(w.type = '레드' AND pc.target = 1) OR
+		(w.type = '화이트' AND pc.target = 2) OR
+		(w.type = '로제' AND pc.target = 3) OR
+		(w.type = '스파클링' AND pc.target = 4) OR
+		(w.type = '주정강화' AND pc.target = 5) OR
+		(w.type = '기타' AND pc.target = 6)
+		))
+		OR
+		(pc.type = 3 AND wp.wno = pc.target)) THEN wp.account ELSE 0 END) AS saleaccount
 		FROM wine_payment wp
 		JOIN wine w ON w.wno = wp.wno
 		JOIN promotion_coupon pc ON pc.userid = w.seller AND pc.pcno = #{pcno}
 		JOIN daterange ON 1 = 1
-		order by sortnum;
+		order by sortnum
 	</select>
-	<select id="sellerBannerPromotionChart" parameterType="hashmap" resultType="ChartVO">
+	<select id="sellerBannerPromotionChart" parameterType="int" resultType="ChartVO">
 		WITH daterange AS (
-		SELECT trunc(enddate) - trunc(startdate) AS dater, psno, startdate, enddate
-		FROM promotion_sale
-		WHERE psno = #{psno}
-		),
-		date_ranges AS (
-		SELECT TRUNC(startdate) - 1 - d.dater AS range_start,TRUNC(startdate) - 1 AS range_end, 'before' AS range, 1 AS order_col
-		FROM daterange d
+		SELECT trunc(enddate) - trunc(startdate) AS drange
+		FROM promotion_banner
+		WHERE pbno = #{pbno}
+		)
+		SELECT
+		'before' AS period, 1 as sortnum,
+		SUM(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pb.startdate) - drange - 1 AND trunc(pb.startdate) - 1 THEN wp.payment ELSE 0 END) AS price,
+		COUNT(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pb.startdate) - drange - 1 AND trunc(pb.startdate) - 1 THEN 1 ELSE NULL END) AS count,
+		SUM(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pb.startdate) - drange - 1 AND trunc(pb.startdate) - 1 THEN wp.account ELSE 0 END) AS account,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pb.startdate) - drange - 1 AND trunc(pb.startdate) - 1) AND w.wno=pb.wno THEN wp.payment ELSE 0 END) AS saleprice,
+		COUNT(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pb.startdate) - drange - 1 AND trunc(pb.startdate) - 1) AND w.wno=pb.wno THEN 1 ELSE NULL END) AS salecount,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pb.startdate) - drange - 1 AND trunc(pb.startdate) - 1) AND w.wno=pb.wno THEN wp.account ELSE 0 END) AS saleaccount
+		FROM wine_payment wp
+		JOIN wine w ON w.wno = wp.wno
+		JOIN promotion_banner pb ON pb.userid = w.seller AND pb.pbno = #{pbno}
+		JOIN daterange ON 1 = 1
+
 		UNION ALL
-		SELECT TRUNC(startdate) AS range_start,TRUNC(enddate) AS range_end, 'now' AS range, 2 AS order_col
-		FROM daterange d
+
+		SELECT
+		'event' AS period, 2 as sortnum,
+		SUM(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pb.startdate) AND trunc(pb.enddate) THEN wp.payment ELSE 0 END) AS price,
+		COUNT(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pb.startdate) AND trunc(pb.enddate) THEN 1 ELSE NULL END) AS count,
+		SUM(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pb.startdate)
+		AND trunc(pb.enddate) THEN wp.account ELSE 0 END) AS account,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pb.startdate) AND trunc(pb.enddate)) AND w.wno=pb.wno THEN wp.payment ELSE 0 END) AS saleprice,
+		COUNT(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pb.startdate) AND trunc(pb.enddate)) AND w.wno=pb.wno THEN 1 ELSE NULL END) AS salecount,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pb.startdate) AND trunc(pb.enddate)) AND w.wno=pb.wno THEN wp.account ELSE 0 END) AS saleaccount
+		FROM wine_payment wp
+		JOIN wine w ON w.wno = wp.wno
+		JOIN promotion_banner pb ON pb.userid = w.seller
+		AND pb.pbno = #{pbno}
+		JOIN daterange ON 1 = 1
+
 		UNION ALL
-		SELECT TRUNC(enddate) + 1 AS range_start, TRUNC(enddate) + 1 + NVL(d.dater, 0) AS range_end, 'after' AS range, 3 AS order_col
-		FROM daterange d)
-		SELECT dr.date_range, NVL(SUM(wp.payment), 0) AS payment, NVL(SUM(wp.account), 0) AS account, COUNT(wp.wno) AS count
-		FROM date_ranges dr
-		LEFT JOIN wine_payment wp ON trunc(wp.regdate) BETWEEN trunc(dr.range_start) AND trunc(dr.range_end)
-		LEFT JOIN wine w ON wp.wno = w.wno
-		WHERE w.seller = #{userid} OR w.wno IS NULL GROUP BY dr.date_range, order_col ORDER
-		BY order_col
+
+		SELECT
+		'after' AS period, 3 as sortnum,
+		SUM(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pb.enddate) + 1 AND trunc(pb.enddate) + 1 + drange THEN wp.payment ELSE 0 END) AS price,
+		COUNT(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pb.enddate) + 1 AND trunc(pb.enddate) + 1 + drange THEN 1 ELSE NULL END) AS count,
+		SUM(CASE WHEN trunc(wp.regdate) BETWEEN trunc(pb.enddate) + 1 AND trunc(pb.enddate) + 1 + drange THEN wp.account ELSE 0 END) AS account,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pb.enddate) + 1 AND trunc(pb.enddate) + 1 + drange) AND w.wno=pb.wno THEN wp.payment ELSE 0 END) AS saleprice,
+		COUNT(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pb.enddate) + 1 AND trunc(pb.enddate) + 1 + drange) AND w.wno=pb.wno THEN 1 ELSE NULL END) AS salecount,
+		SUM(CASE WHEN (trunc(wp.regdate) BETWEEN trunc(pb.enddate) + 1 AND trunc(pb.enddate) + 1 + drange) AND w.wno=pb.wno THEN wp.account ELSE 0 END) AS saleaccount
+		FROM wine_payment wp
+		JOIN wine w ON w.wno = wp.wno
+		JOIN promotion_banner pb ON pb.userid = w.seller AND pb.pbno = #{pbno}
+		JOIN daterange ON 1 = 1
+		order by sortnum
 	</select>
 </mapper>

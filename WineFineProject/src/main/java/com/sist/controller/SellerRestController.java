@@ -14,6 +14,8 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.sist.service.*;
 import com.sist.vo.*;
 
+import oracle.net.aso.l;
+
 @RestController
 public class SellerRestController {
 	String[] types = { "", "레드", "화이트", "스파클링", "로제", "주정강화", "기타" };
@@ -277,6 +279,24 @@ public class SellerRestController {
 	@GetMapping(value = "seller/vueCouponDelete.do", produces = "text/plain;charset=UTF-8")
 	public void sellerVueCouponDelete(int pcno) {
 		cService.couponDelete(pcno);
+	}
+	@GetMapping(value = "seller/vueSellerPromotionChart.do", produces = "text/plain;charset=UTF-8")
+	public String sellerVuePromotionChart(int no, int type) throws Exception{
+		Map map=new HashMap();
+		if(type==1) {
+			List<ChartVO> list=sellerService.sellerSalePromotionChart(no);
+			map.put("list", list);
+		}
+		else if(type==2) {
+			List<ChartVO> list=sellerService.sellerCouponPromotionChart(no);
+			map.put("list", list);
+		}
+		else if(type==3) {
+			List<ChartVO> list=sellerService.sellerBannerPromotionChart(no);
+			map.put("list", list);
+		}
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(map);
 	}
 	
 }

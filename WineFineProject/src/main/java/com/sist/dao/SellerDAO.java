@@ -44,4 +44,13 @@ public class SellerDAO {
 	public List<ChartVO> sellerWeekChart(String userid){
 		return mapper.sellerWeekChart(userid);
 	}
+	public List<ChartVO> sellerSalePromotionChart(int psno){
+		return mapper.sellerSalePromotionChart(psno);
+	}
+	public List<ChartVO> sellerCouponPromotionChart(int pcno){
+		return mapper.sellerCouponPromotionChart(pcno);
+	}
+	public List<ChartVO> sellerBannerPromotionChart(int pbno){
+		return mapper.sellerBannerPromotionChart(pbno);
+	}
 }

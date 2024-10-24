@@ -17,29 +17,7 @@
 		<div class="col-sm-4">
 			<div id="accountChart"></div>
 		</div>
-		<div>
-			<div id="regionChart">
-				<ul class="korea-map-font-v1">
-					<li class="강원">a</li>
-					<li class="경기">b</li>
-					<li class="경남">c</li>
-					<li class="경북">d</li>
-					<li class="광주">e</li>
-					<li class="대구">f</li>
-					<li class="대전">g</li>
-					<li class="부산">h</li>
-					<li class="서울">i</li>
-					<li class="세종">j</li>
-					<li class="울산">k</li>
-					<li class="인천">l</li>
-					<li class="전남">m</li>
-					<li class="전북">n</li>
-					<li class="제주">o</li>
-					<li class="충남">p</li>
-					<li class="충북">q</li>
-				</ul>
-			</div>
-		</div>
+		<div id="promotionChart"></div>
 	</div>
 	<script>
 let chartApp=Vue.createApp({
@@ -49,33 +27,29 @@ let chartApp=Vue.createApp({
 			aList:[],
 			rList:[],
 			pieOptions:{
-				    backgroundColor: 'transparent',
-				    pieHole: 0.25,
-				    tooltip:{
-				    	trigger:'selection'
-				    },
-				    colors: [ "#bb2d3b", 
-				              "#aaaaaa", 
-				              "#b4c5fe", 
-				              "#ffc1e0", 
-				              "#8dc7c7", 
-				              "#8dc7c7"],
-				    fontName: 'Open Sans',
-				    pieSliceText:'value',
-				    chartArea: {
-				      width: '95%',
-				      height: '94%'
-				    },
-				    legend: {
-				      textStyle: {
-				        fontSize: 13
-				      }
-				    }
-				  },
-		regionOptions:{
-			region:'KR',
-			colorAxis: {colors: ['#f0f8ff', '#003399']}
-		}
+			    backgroundColor: 'transparent',
+			    pieHole: 0.25,
+			    tooltip:{
+			    	trigger:'selection'
+			    },
+			    colors: [ "#bb2d3b", 
+			              "#aaaaaa", 
+			              "#b4c5fe", 
+			              "#ffc1e0", 
+			              "#8dc7c7", 
+			              "#8dc7c7"],
+			    fontName: 'Open Sans',
+			    pieSliceText:'value',
+			    chartArea: {
+			      width: '95%',
+			      height: '94%'
+			    },
+			    legend: {
+			      textStyle: {
+			        fontSize: 13
+			      }
+			    }
+			  }
 		}
 	},
 	methods:{
@@ -90,6 +64,20 @@ let chartApp=Vue.createApp({
 				});
 			})
 		},
+		promotionChart(no, type){
+			axios.get('../seller/vueSellerPromotionChart.do', {
+				params:{
+					no:no,
+					type:type
+				}
+			}).then(response=>{
+				this.proList=response.data.list
+				google.charts.load('current', {'packages':['corechart']})
+				google.charts.setOnLoadCallback(()=>{
+					this.drawPromotionCharts()
+				})
+			})
+		},
 		drawTypeCharts(){
 			var pieData1 = google.visualization.arrayToDataTable(this.priceType())
 			var pieData2 = google.visualization.arrayToDataTable(this.accountType())
@@ -99,6 +87,35 @@ let chartApp=Vue.createApp({
 		  
 		  pieChart1.draw(pieData1, this.pieOptions);
 		  pieChart2.draw(pieData2, this.pieOptions);
+		},
+		drawPromotionCharts(){
+			let barData=google.visualization.arrayToDataTable(this.promotionList())
+			let max1=Math.max(...barData.getDistinctValues(2))
+			let max2=Math.max(...barData.getDistinctValues(4))
+			let max3=Math.max(...barData.getDistinctValues(3))
+			let max4=Math.max(...barData.getDistinctValues(5))
+			
+			let maxdate=Math.max(max1, max2, max3, max4)
+			
+			console.log(barData)
+			let barOption={
+				title:'test',
+				series:{
+					0: {targetAxisIndex:0},
+					1:{targetAxisIndex:0},
+					2:{targetAxisIndex:1},
+					3:{targetAxisIndex:1},
+					4:{targetAxisIndex:1},
+					5:{targetAxisIndex:1}
+				},
+				vAxes:{
+					0:{title:'price', format:'###,###,###'},
+					1:{title:'count', viewWindow:{max:maxdate*2}, gridlines: { count: 0 }, minorGridlines:{count:0}}
+				},
+				height:800
+			}
+			let barChart = new google.visualization.ColumnChart(document.getElementById('promotionChart'))
+			barChart.draw(barData, barOption)
 		},
 		priceType(){
 			list=[['type', 'price']]
@@ -125,14 +142,19 @@ let chartApp=Vue.createApp({
 			}
 			return list
 		},
-		drawRegionCharts(){
-			var regionData = google.visualization.arrayToDataTable(this.priceRegion())
-			var regionChart = new google.visualization.GeoChart(document.getElementById('regionChart'))
-			regionChart.draw(regionData, this.regionOptions)
+		promotionList(){
+			console.log(this.proList)
+			list=[['stack', 'price', 'saleprice', 'count', 'salecount', 'account', 'saleaccount']]
+			for(let data of this.proList){
+				l=[data.PERIOD, data.PRICE, data.SALEPRICE, data.COUNT, data.SALECOUNT, data.ACCOUNT, data.SALEACCOUNT]
+				list.push(l)
+			}
+			return list
 		}
 	},
 	mounted(){
 		this.typeChart()
+		this.promotionChart(5, 1)
 	}
 }).mount('#chartApp')
 </script>

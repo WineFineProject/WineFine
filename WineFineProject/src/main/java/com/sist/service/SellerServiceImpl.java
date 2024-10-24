@@ -58,4 +58,19 @@ public class SellerServiceImpl implements SellerService {
 	public List<ChartVO> sellerWeekChart(String userid) {
 		return dao.sellerWeekChart(userid);
 	}
+
+	@Override
+	public List<ChartVO> sellerSalePromotionChart(int psno) {
+		return dao.sellerSalePromotionChart(psno);
+	}
+
+	@Override
+	public List<ChartVO> sellerCouponPromotionChart(int pcno) {
+		return dao.sellerCouponPromotionChart(pcno);
+	}
+
+	@Override
+	public List<ChartVO> sellerBannerPromotionChart(int pbno) {
+		return dao.sellerBannerPromotionChart(pbno);
+	}
 }

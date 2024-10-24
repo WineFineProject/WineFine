@@ -163,6 +163,7 @@
 							state:state
 						}
 					}).then(response=>{
+						this.changeModal(false)
 						this.deliveryList()
 					})
 				}
