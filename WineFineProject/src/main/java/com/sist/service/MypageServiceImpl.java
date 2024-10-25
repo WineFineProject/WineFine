@@ -65,6 +65,66 @@ public class MypageServiceImpl implements MypageService {
 		return dao.myboardReplyTotalPage(map);
 	}
 
+	@Override
+	public int myreservecount(String userid) {
+		// TODO Auto-generated method stub
+		return dao.myreservecount(userid);
+	}
+
+	@Override
+	public void bchangenick(String userid) {
+		// TODO Auto-generated method stub
+		dao.bchangenick(userid);
+	}
+
+	@Override
+	public void brchangenick(String userid) {
+		// TODO Auto-generated method stub
+		dao.brchangenick(userid);
+	}
+
+	@Override
+	public void reviewdelete(String userid) {
+		// TODO Auto-generated method stub
+		dao.reviewdelete(userid);
+	}
+
+	@Override
+	public void likedelete(String userid) {
+		// TODO Auto-generated method stub
+		dao.likedelete(userid);
+	}
+
+	@Override
+	public void reservedelete(String userid) {
+		// TODO Auto-generated method stub
+		dao.reservedelete(userid);
+	}
+
+	@Override
+	public String pwdCheck(String userid) {
+		// TODO Auto-generated method stub
+		return dao.pwdCheck(userid);
+	}
+
+	@Override
+	public void pwdcancel(String userid) {
+		// TODO Auto-generated method stub
+		dao.pwdcancel(userid);
+	}
+
+	@Override
+	public int ingpaycount(String userid) {
+		// TODO Auto-generated method stub
+		return dao.ingpaycount(userid);
+	}
+
+	@Override
+	public void Authorityupdate(String userid) {
+		// TODO Auto-generated method stub
+		dao.Authorityupdate(userid);
+	}
+
 	
 
 	

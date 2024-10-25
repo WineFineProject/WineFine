@@ -65,9 +65,9 @@ public interface MypageMapper {
 	public int myreservecount(String userid);
 	
 	//게시판 닉네임 바꾸기(게시글, 댓글)
-	@Update("UPDATE board SET nickname='탈퇴한 사용자' WHERE userid=#{userid} ")
+	@Update("UPDATE board SET nickname='탈퇴회원' WHERE id=#{userid} ")
 	public void bchangenick(String userid);
-	@Update("UPDATE boardreply SET nickname='탈퇴한 사용자' WHERE userid=#{userid} ")
+	@Update("UPDATE boardreply SET nickname='탈퇴회원' WHERE id=#{userid} ")
 	public void brchangenick(String userid);
 	
 	//리뷰 삭제 
@@ -75,16 +75,23 @@ public interface MypageMapper {
 	public void reviewdelete(String userid);
 	
 	//좋아요 삭제
-	@Delete("DELETE FROM winelike WHERE userid=#{userid} ")
+	@Delete("DELETE FROM winelike WHERE id=#{userid} ")
 	public void likedelete(String userid);
 	
 	//예약 내역 삭제
 	@Delete("DELETE FROM wine_reserve WHERE userid=#{userid} ")
 	public void reservedelete(String userid);
 	
-	//비밀번호 변경
+	//비밀번호 확인용 원래 비밀번호
+	@Select("SELECT userpwd FROM wine_member WHERE userid=#{userid} ")
+	public String pwdCheck(String userid);
 	
-	
+	//비밀번호 및 회원정보 초기화
+	@Update("UPDATE wine_member SET userpwd='cancel', username='탈퇴회원', nickname='탈퇴회원', sex='-', "
+			+ "enabled=0, birthday=sysdate, email='-', post='-', addr1='-', addr2='-', "
+			+ " phone='-', photo='-', point=0 "
+			+ " WHERE userId=#{userId}")
+	public void pwdcancel(String userid);
 	
 	//진행중인 주문 수 확인
 	@Select("SELECT COUNT(*) FROM wine_payment WHERE userid=#{userid} AND state < 3 ")

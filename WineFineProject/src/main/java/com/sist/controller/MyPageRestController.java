@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.sist.service.*;
@@ -38,6 +40,9 @@ public class MyPageRestController {
 	
 	@Autowired
 	private ShopService sService;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	// 회원정보 수정
 	@GetMapping(value = "mypage/my_edit2_member_vue.do", produces = "text/plain;charset=UTF-8")
@@ -196,6 +201,58 @@ public class MyPageRestController {
 	  @GetMapping(value="mypage/vueLikeDelete.do",produces ="text/plain;charset=UTF-8")
 	  public void mypageVueLikeDelete(int lno) {
 	  	sService.likeDelete(lno);
+	  }
+	  
+	  @GetMapping(value="mypage/getinfo_vue.do",produces ="text/plain;charset=UTF-8")
+	  public String exit_getinfo(String userid) throws Exception {
+		 int pCount = mService.ingpaycount(userid);
+		 int rCount = mService.myreservecount(userid);
+		 String json="";
+		 
+		 Map map = new HashMap();
+		 map.put("pCount", pCount);
+		 map.put("rCount", rCount);
+		 
+		 ObjectMapper mapper=new ObjectMapper();
+		 json=mapper.writeValueAsString(map);
+		 
+		 return json;
+	  }
+	  
+	  @GetMapping(value="mypage/pwdCheck_vue.do",produces ="text/plain;charset=UTF-8")
+	  public String exit_pwdCheck(String userid, String inputpwd) throws Exception {
+		 
+		 String result="";
+		 String pwd = mService.pwdCheck(userid);
+		 if (encoder.matches(inputpwd, pwd)) {
+		        result = "yes"; 
+		    } else {
+		        result = "no"; 
+		    }
+		 
+		 return result;
+	  }
+	  
+	  @GetMapping(value="mypage/memberExit_vue.do",produces ="text/plain;charset=UTF-8")
+	  public String memberExit(String userid, int rCount, HttpSession session) throws Exception {
+		 
+		 String result="";
+//		 if(rCount>0)
+//		 {
+//			 mService.reservedelete(userid);
+//		 }
+		 mService.reservedelete(userid);
+		 mService.bchangenick(userid);
+		 mService.brchangenick(userid);
+		 mService.reviewdelete(userid);
+		 mService.likedelete(userid);
+		 mService.Authorityupdate(userid);
+		 mService.pwdcancel(userid);
+		 
+		 session.invalidate();
+		 result="yes";
+		 
+		 return result;
 	  }
 	  
 

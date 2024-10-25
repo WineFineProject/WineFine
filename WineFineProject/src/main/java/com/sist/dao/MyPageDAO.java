@@ -53,8 +53,45 @@ public class MyPageDAO {
 	{
 		return mapper.myboardReplyListData(map);
 	}
-
-	
-	
-
+	//회원 탈퇴
+	public int myreservecount(String userid)
+	{
+		return mapper.myreservecount(userid);
+	}
+	public void bchangenick(String userid)
+	{
+		mapper.bchangenick(userid);
+	}
+	public void brchangenick(String userid)
+	{
+		mapper.brchangenick(userid);
+	}
+	public void reviewdelete(String userid)
+	{
+		mapper.reviewdelete(userid);
+	}
+	public void likedelete(String userid)
+	{
+		mapper.likedelete(userid);
+	}
+	public void reservedelete(String userid)
+	{
+		mapper.reservedelete(userid);
+	}
+	public String pwdCheck(String userid)
+	{
+		return mapper.pwdCheck(userid);
+	}
+	public void pwdcancel(String userid)
+	{
+		mapper.pwdcancel(userid);
+	}
+	public int ingpaycount(String userid)
+	{
+		return mapper.ingpaycount(userid);
+	}
+	public void Authorityupdate(String userid)
+	{
+		mapper.Authorityupdate(userid);
+	}
 }

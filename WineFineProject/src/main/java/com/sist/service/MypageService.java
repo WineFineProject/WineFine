@@ -17,5 +17,14 @@ public interface MypageService {
 	public int myPageBoardTotalPage(Map map);
 	public int myReplyTotalPage(Map map);
 	public int myboardReplyTotalPage(Map map);
-
+	public int myreservecount(String userid);
+	public void bchangenick(String userid);
+	public void brchangenick(String userid);
+	public void reviewdelete(String userid);
+	public void likedelete(String userid);
+	public void reservedelete(String userid);
+	public String pwdCheck(String userid);
+	public void pwdcancel(String userid);
+	public int ingpaycount(String userid);
+	public void Authorityupdate(String userid);
 }
