@@ -9,22 +9,23 @@
 </head>
 <body>
 	<div class="row" id="itemListApp">
-		<div style="text-align: left;margin-bottom: 10px;">
-			<label><input type="checkbox" :value="1" name="filter"
-				v-model="filter" @change="showInfo()">판매중</label> <label><input
-				type="checkbox" :value="2" name="filter" v-model="filter"
-				@change="showInfo()">품절</label> <label><input
-				type="checkbox" :value="3" name="filter" v-model="filter"
-				@change="showInfo()">판매중단</label> <label><input
-				type="checkbox" :value="7" name="filter" v-model="filter"
-				@change="showInfo()">판매제한</label>
+	  <h3 class="table-title">상품 목록</h3>
+		<div style="text-align: left;margin-bottom: 10px;padding: 0px">
+			<input type="checkbox" :value="1" name="filter" v-model="filter" @change="showInfo()">
+			<label style="margin: 0 10px 0 5px;">판매중</label> 
+			<input type="checkbox" :value="2" name="filter" v-model="filter" @change="showInfo()">
+			<label style="margin: 0 10px 0 5px;">품절</label> 
+			<input type="checkbox" :value="3" name="filter" v-model="filter" @change="showInfo()">
+			<label style="margin: 0 10px 0 5px;">판매중단</label> 
+			<input type="checkbox" :value="7" name="filter" v-model="filter" @change="showInfo()">
+			<label style="margin: 0 10px 0 5px;">판매제한</label> 
 		</div>
 		<table class="table mp">
 			<tr>
-				<th width="5%" class="text-center">번호</th>
+				<th width="5%" class="text-center">품번</th>
 				<th width="5%" class="text-center"></th>
 				<th width="30%" class="text-center">제품명</th>
-				<th width="5%" class="text-center">제고</th>
+				<th width="5%" class="text-center">재고</th>
 				<th width="10%" class="text-center">판매액</th>
 				<th width="10%" class="text-center">타입</th>
 				<th width="10%" class="text-center">상태</th>
@@ -35,7 +36,7 @@
 				<tr @click="moreInfo(index)">
 					<td width="5%" class="text-center">{{vo.wno}}</td>
 					<td width="5%" class="text-center"><img :src="vo.poster"
-						style="width: 35px; height: 58px"></td>
+						style="width: 35px; height: 55px"></td>
 					<td width="30%" class="text-center scrollable-text">
 						<p style="margin-bottom: 0px;">{{vo.namekor}}</p>
 					</td>
@@ -45,7 +46,7 @@
 					<td width="10%" class="text-center">{{vo.state===1?'판매중':vo.state===2?'품절':vo.state===3?'판매중단':'판매제한'}}</td>
 					<td width="15%" class="text-center">{{vo.dbday}}</td>
 					<td width="10%" class="text-center">
-						<button class="btn btn-sm border-wine" v-if="vo.state!=7"
+						<button class="btn btn-sm btn-border-wine" v-if="vo.state!=7"
 							@click="wineCancel(index)">판매제한</button>
 					</td>
 				</tr>
@@ -64,7 +65,7 @@
 							<tr style="vertical-align: middle;">
 								<td width="20%" class="text-center">{{vo.mvo.nickName}}</td>
 								<td width="30%" class="text-center scrollable-text">
-									<p>{{vo.nameeng}}</p>
+									<p style="margin-bottom: 0px;">{{vo.nameeng}}</p>
 								</td>
 								<td width="10%" class="text-center">{{vo.vol}}</td>
 								<td width="10%" class="text-center">{{vo.sugar}}</td>
@@ -103,10 +104,10 @@
 							<td width="8%" class="text-center">{{vo.type}}</td>
 							<td width="20%" class="text-center">{{vo.mvo.nickName}}</td>
 							<td width="24%" class="text-center scrollable-text">
-								<p>{{vo.grape}}</p>
+								<p style="margin-bottom: 0px;">{{vo.grape}}</p>
 							</td>
 							<td width="24%" class="text-center scrollable-text">
-								<p>{{vo.nation}}</p>
+								<p style="margin-bottom: 0px;">{{vo.nation}}</p>
 							</td>
 							<td width="24%" class="text-center">{{vo.maker}}</td>
 						</tr>

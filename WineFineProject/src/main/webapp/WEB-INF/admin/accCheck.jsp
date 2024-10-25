@@ -5,23 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../tem/css/coupon.css">
-<style>
-#accCheckList{
-	width: 1120px;
-	margin-left: 10px;
-}
-.abtn{
-	text-align:center;
-	margin-right:5px;
-}
-.abtn1{
-	color:#3F8F27;
-}
-.abtn2{
-	color:darkred;
-}
-</style>
+<link rel="stylesheet" href="../tem/css/payment.css">
 </head>
 <body>
 	<div class="container" id="accCheckList">
@@ -35,7 +19,7 @@
 			</tr>
 			</table>
 			<h4 class="text-center table-title">정산 승인 대기 목록</h4>
-			<table class="table" id="coupon-table">
+			<table class="table mp">
 				<tr>
 					<th width="10%">정산번호</th>
 					<th width="10%">판매자 ID</th>
@@ -46,7 +30,7 @@
 					<th width="10%">VAT</th>
 					<th width="15%">승인/반려</th>
 				</tr>
-				<tr v-for="vo in aList" :key="vo.acno" id="inner-table">
+				<tr v-for="vo in aList" :key="vo.acno" class="mp">
 				  <td width="10%">{{vo.acno}}</td>
 				  <td width="10%">{{vo.userid}}</td>
 				  <td width="15%">{{vo.rdbday}}</td>

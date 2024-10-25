@@ -5,36 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<style type="text/css">
-#anbUpdate{
-   margin-top: 20px;
-   margin-bottom: 100px;
-   width: 960px;
-   margin-left: 15px;
-}
-.bitable{
-	border-top: 1px solid #E0E0E0;
-	border-right: 1px solid #E0E0E0;
-}
-#btntd{
-	border-right:hidden;
-	border-left:hidden;
-	border-bottom:hidden;
-}
-</style>
+<link rel="stylesheet" href="../tem/css/replyinsert.css">
 </head>
 <body>
 <div class="container" id="anbUpdate">
-   <h3 class="text-center">공지사항 관리</h3>
- 
+   <h3 class="table-title text-center">공지사항 수정</h3>
    <div class="row">
    <form @submit.prevent="submitForm">
      <h6 class="text-center" hidden>{{bno}}</h6>
      <h6 class="text-center" hidden>{{id}}</h6>
-     <table class="table bitable">
+     <table class="table trb">
       <tr>
-       <th width="20%" class="text-center">카테고리 </th>
+       <th width="20%" class="text-center" style="vertical-align: middle">카테고리</th>
        <td width="80%">
          <select id="bCategory" class="form-control" v-model="cno" ref="cno">
                     <option value="" disabled selected>카테고리 선택</option>
@@ -45,7 +27,7 @@
        </td>
       </tr>
       <tr>
-       <th width="20%" class="text-center">제목</th>
+       <th width="20%" class="text-center" style="vertical-align: middle">제목</th>
        <td width="80%">
         <input type=text size=50 v-model="subject" ref="subject" class="form-control">
        </td>
@@ -56,15 +38,11 @@
         <textarea rows="10" cols="52" class="form-control" v-model="content" ref="content" style="resize: none;"></textarea>
        </td>
       </tr>
-      <tr>
-        <td colspan="2" class="text-center" id="btntd">
-          <input type="submit" class="btn btn-danger" value="등록">
-          &nbsp;
-          <input type="button" class="btn btn-secondary" value="취소"
-           onclick="javascript:history.back()">
-        </td>
-      </tr>
      </table>
+     <div class="button-group">
+		<input type="submit" class="btn btn-primary" value="등록">
+		<input type="button" class="btn btn-danger" value="취소" onclick="javascript:history.back()">
+	</div>
      </form>
    </div>
   </div>

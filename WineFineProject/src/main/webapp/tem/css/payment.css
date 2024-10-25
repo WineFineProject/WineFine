@@ -8,6 +8,27 @@
     padding: 20px;
 }
 
+#adminItemApp {
+    width: 1500px;
+    max-width: 1120px;
+    margin: auto;
+    background: #fff;
+}
+
+#accCheckList {
+    width: 1500px;
+    max-width: 1120px;
+    margin: auto;
+    background: #fff;
+}
+
+#itemListApp {
+    width: 1500px;
+    max-width: 1120px;
+    margin: auto;
+    background: #fff;
+}
+
 #myLikeApp {
 	width: 1500px;
     max-width: 1200px;
@@ -64,6 +85,17 @@
 
 .scrollable-text:hover p {
     transform: translateX(-100%);
+}
+
+.abtn{
+	text-align:center;
+	margin-right:5px;
+}
+.abtn1{
+	color:#3F8F27;
+}
+.abtn2{
+	color:darkred;
 }
 
 .btn {
@@ -132,4 +164,23 @@
 
 .scrollable-text p {
     transition: none;
+}
+
+.pagination {
+	cursor: pointer;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #881824; 
+    color: white; 
+    border: solid 1px #881824 !important;
+}
+
+.pagination .page-item .page-link {
+    color: #881824; 
+    border: solid 1px #881824 !important;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #f1f1f1; 
 }

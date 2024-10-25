@@ -4,55 +4,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-#adminItemApp table tr th {
-	background: lightgray;
-	color: white;
-}
-
-#adminItemApp table tr td table {
-	margin-bottom: 0px;
-}
-
-#coupon-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-bottom: 30px;
-}
-.img-size {
-	width: 20px;
-	margin-right: 4px;
-}
-
-.img-margin {
-	margin-left: auto;
-}
-
-.img-text {
-	color: black;
-	margin-left: 3px;
-	margin-right: 6px;
-}
-</style>
+<link rel="stylesheet" href="../tem/css/payment.css">
 </head>
 <body>
 	<div class="row" id="adminItemApp">
-		<table class="table">
+	 <h3 class="table-title">상품 등록/수정 대기</h3>
+		<table class="table mp">
 			<tr>
-				<th width="7%" class="text-center">번호</th>
+				<th width="7%" class="text-center">품번</th>
 				<th width="7%" class="text-center"></th>
 				<th width="30%" class="text-center">이름</th>
 				<th width="15%" class="text-center">판매자</th>
 				<th width="10%" class="text-center">타입</th>
 				<th width="10%" class="text-center">가격</th>
 				<th width="10%" class="text-center">신청일</th>
-				<th width="21%" class="text-center"></th>
+				<th width="21%" class="text-center">승인/반려</th>
 			</tr>
 			<template v-for="(vo, index) in list">
 				<tr @click="checkInfo(index)">
 					<td width="7%" class="text-center">{{vo.wno}}</td>
 					<td width="7%" class="text-center">
-						<img :src="vo.poster" width="55px" style="max-height: 60px;">
+						<img :src="vo.poster" width="35px" style="max-height: 55px;">
 					</td>
 					<td width="30%" class="text-center">{{vo.namekor}}</td>
 					<td width="15%" class="text-center">{{vo.mvo.nickName}}</td>
@@ -60,13 +32,13 @@
 					<td width="10%" class="text-center">{{vo.price}}</td>
 					<td width="10%" class="text-center">{{vo.dbday}}</td>
 					<td width="21%" class="text-center">
-						<button class="btn btn-sm border-wine" @click="wineAccept(vo.wno)">승인</button>
-						<button class="btn btn-sm border-wine" @click="wineRejection(vo.wno)">반려</button>
+						<button class="btn abtn abtn1" @click="wineAccept(vo.wno)"><i class="fa-solid fa-square-check fa-lg"></i></button>
+						<button class="btn abtn abtn2" @click="wineRejection(vo.wno)"><i class="fa-solid fa-square-xmark fa-lg"></i></button>
 					</td>
 				</tr>
 				<tr v-if="isShow[index]">
 					<td colspan="7" style="padding: 0px;">
-						<table class="table">
+						<table class="table mp" style="margin-bottom: 0;">
 							<tr>
 								<th width="30%" class="text-center">영문명</th>
 								<th width="7%" class="text-center">용량</th>
@@ -84,7 +56,7 @@
 								<td width="14%" class="text-center">{{vo.maker}}</td>
 							</tr>
 						</table>
-						<table class="table">
+						<table class="table mp" style="margin-bottom: 0;">
 							<tr>
 								<th width="26%" class="text-center">향</th>
 								<th width="26%" class="text-center">음식매칭</th>

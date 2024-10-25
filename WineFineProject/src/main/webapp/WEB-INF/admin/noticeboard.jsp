@@ -7,58 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-#anbList{
-   margin-top: 20px;
-   margin-bottom: 100px;
-   width: 1080px;
-}
-.page-item{
-	cursor: pointer;
-}
-.page-item.active{
-	background-color: #FFCC52;
-	display:inline-block !important;
-}
-.ctbtn{
-	width: 15%; 
-	display: inline-block; 
-	margin-left: 5px;
-	margin-bottom: 10px;
-	background-color: #C91C40 !important; 
-	border-color: white;
-	color: white;
-	float: left;
-}
-.table-fixed {
-    width: 100%; 
-    table-layout: fixed; 
-}
-.blistsub{
-	white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width:400px !important;
-}
-
-.asd th, .asd td {
-    border: 1px solid #ddd;
-}
-
-.btableth {
-    margin-bottom: 15px;
-    color: #333;
-    background-color: #f8f8f8;
-}
-.ectbtn{
-	width:18% !important;
-}
-.table-title {
-    font-size: 24px;
-    margin-bottom: 15px;
-    color: #333;
-}
-</style>
+<link rel="stylesheet" href="../tem/css/replydetail.css">
 </head>
 <body>
   <div class="container" id="anbList">
@@ -77,9 +26,9 @@
     	 </td>
         </tr>
       </table>
-      <table class="table table-fixed asd">
+      <table class="table trb">
        <thead>
-        <tr class="btableth">
+        <tr>
          <th width="5%" class="text-center">번호</th>
          <th width="10%" class="text-center">분류</th>
          <th width="40%" class="text-center">제목</th>
@@ -126,15 +75,11 @@
                 </div>
              </c:if>
       </div>
-       <div class="text-center">
-            <input type=button value="<" class="btn btn-sm btn-danger" @click="prev()">
-                &nbsp;
-                <span v-for="i in range(startPage,endPage)"
-                :class="{'page-item active': i === curpage, 'page-item': i !== curpage}" 
-                @click="pageChange(i)"> &nbsp; {{i}} &nbsp; </span>
-                &nbsp; 
-            <input type=button value=">" class="btn btn-sm btn-danger" @click="next()">
-      </div>
+       <div class="text-center" style="margin-top: 50px">
+           <input type="button" class="btn btn-sm btn-primary" value="이전" @click="prev()">
+             {{curpage}} page / {{totalpage}} pages
+           <input type="button" class="btn btn-sm btn-primary" value="다음" @click="next()">
+          </div>
     </div>
   </div>
   <script>
@@ -145,8 +90,6 @@
     			cList:[],
     			curpage:1,
     			totalpage:0,
-    			startPage:0,
-    			endPage:0,
     			admin:0,
     			id:'',
     			type:0
@@ -156,6 +99,14 @@
     		this.dataRecv()
     	},
     	methods:{
+    		prev(){
+    			this.curpage=this.curpage>1?this.curpage-1:this.curpage
+    			this.dataRecv()
+    		},
+    		next(){
+    			this.curpage=this.curpage<this.totalpage?this.curpage+1:this.curpage
+    	    	this.dataRecv()
+    		},
     		dataRecv(){
     			axios.get('../noticeboard/list_vue.do',{
     				params:{

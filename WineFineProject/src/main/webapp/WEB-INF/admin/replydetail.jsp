@@ -10,11 +10,16 @@
 	<div id="replyDetail" style="margin-top: 50px">
 		<div class="detail-box">
 			<td width="35%">
-				<span v-if="vo.type===2">{{cnos[vo.cno]}}&nbsp;</span> <span v-if="vo.type===3">{{cno[vo.cno]}}&nbsp;</span>
+				<span v-if="vo.type===2">{{cnos[vo.cno]}}&nbsp;</span> 
+				<span v-if="vo.type===3">{{cno[vo.cno]}}&nbsp;</span>
 			</td>
 			<h2 class="post-title">{{vo.subject}}</h2>
 			<div class="post-meta">
-				<span class="author-name">{{vo.nickname}}</span> <span class="meta-separator">|</span> <span class="post-date">{{vo.dbday}}</span> <span class="meta-separator">|</span> <span class="view-count"><i class="fas fa-eye"></i>&nbsp;{{vo.hit}}</span>
+				<span class="author-name">{{vo.nickname}}</span> 
+				<span class="meta-separator">|</span> 
+				<span class="post-date">{{vo.dbday}}</span> 
+				<span class="meta-separator">|</span> 
+				<span class="view-count"><i class="fas fa-eye"></i>&nbsp;{{vo.hit}}</span>
 			</div>
 			<div class="content-box">{{vo.content}}</div>
 			<div class="button-group">

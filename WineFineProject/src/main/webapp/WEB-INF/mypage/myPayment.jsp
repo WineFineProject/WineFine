@@ -49,8 +49,8 @@
 			<template v-for="(vo, index) in list">
 				<tr @click="moreInfo(index)">
 					<td width="5%" class="text-center">{{vo.wpno}}</td>
-					<td width="5%" class="text-center"><img :src="vo.wvo.poster" style="width: 35px; height: 58px"></td>
-					<td width="30%" class="text-center scrollable-text"><p>{{vo.wvo.namekor}}</p></td>
+					<td width="5%" class="text-center"><img :src="vo.wvo.poster" style="width: 35px; height: 55px"></td>
+					<td width="30%" class="text-center scrollable-text"><p style="margin-bottom: 0px;">{{vo.wvo.namekor}}</p></td>
 					<td width="5%" class="text-center">{{vo.account}}</td>
 					<td width="10%" class="text-center">{{vo.payment.toLocaleString()}}원</td>
 					<td width="15%" class="text-center">{{vo.state===0?'결제완료':vo.state===1?'배송준비중':vo.state===2?'배송중':vo.state===7?'반품요청':vo.state===9?'반품':vo.state===8?'구매취소':'배송완료'}}</td>
@@ -73,8 +73,8 @@
 							<tr style="vertical-align: middle;">
 								<td width="8%" class="text-center">{{vo.wvo.type}}</td>
 								<td width="20%" class="text-center">{{vo.wvo.mvo.nickName}}</td>
-								<td width="24%" class="text-center scrollable-text"><p>{{vo.wvo.grape}}</p></td>
-								<td width="24%" class="text-center scrollable-text"><p>{{vo.wvo.nation}}</p></td>
+								<td width="24%" class="text-center scrollable-text"><p style="margin-bottom: 0px;">{{vo.wvo.grape}}</p></td>
+								<td width="24%" class="text-center scrollable-text"><p style="margin-bottom: 0px;">{{vo.wvo.nation}}</p></td>
 								<td width="24%" class="text-center">{{vo.wvo.maker}}</td>
 							</tr>
 						</table>
@@ -104,7 +104,7 @@
 							<tr>
 								<td width="15%" class="text-center">{{vo.dvo.name}}</td>
 								<td width="10%" class="text-center">{{vo.dvo.post}}</td>
-								<td width="40%" class="text-center scrollable-text"><p>{{vo.dvo.addr1+' '+vo.dvo.addr2}}</p></td>
+								<td width="40%" class="text-center scrollable-text"><p style="margin-bottom: 0px;">{{vo.dvo.addr1+' '+vo.dvo.addr2}}</p></td>
 								<td width="35%" class="text-center">{{vo.dvo.msg}}</td>
 							</tr>
 						</table>

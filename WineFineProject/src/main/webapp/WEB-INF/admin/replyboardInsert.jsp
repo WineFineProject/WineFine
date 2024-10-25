@@ -8,33 +8,33 @@
 </head>
 <body>
 	<div class="row" id="replyInsertApp">
-		<h3 class="text-center">답변 작성</h3>
+		<h3 class="table-title text-center">답변 작성</h3>
 		<div class="form-group" style="margin-top: 10px;">
-			<table class="table">
+			<table class="table trb">
 				<tr>
-					<th width="10%" class="text-center">질문 카테고리</th>
-					<td width="90%"><span class="form-control">{{detail.type===2?cnos1[detail.cno]:cnos2[detail.cno]}}</span></td>
+					<th width="20%" class="text-center">질문 카테고리</th>
+					<td width="80%"><span class="f-control">{{detail.type===2?cnos1[detail.cno]:cnos2[detail.cno]}}</span></td>
 				</tr>
 				<tr>
-					<th width="10%" class="text-center">질문 제목</th>
-					<td width="90%"><span class="form-control">{{detail.subject}}</span></td>
+					<th width="20%" class="text-center">질문 제목</th>
+					<td width="80%"><span class="f-control">{{detail.subject}}</span></td>
 				</tr>
 				<tr>
-					<th width="10%" class="text-center">질문 내용</th>
-					<td width="90%"><span class="form-control">{{detail.content}}</span></td>
+					<th width="20%" class="text-center">질문 내용</th>
+					<td width="80%"><span class="f-control">{{detail.content}}</span></td>
 				</tr>
 			</table>
-			<div class="form-group" style="margin-top: 10px;">
+			<div class="form-group" style="margin-top: 30px;text-align:left">
 				<label for="subject">제목</label> <input type="text" class="form-control" ref="subject" v-model="subject" id="subject" placeholder="제목을 입력하세요">
 			</div>
-			<div class="form-group" style="margin-top: 10px;">
+			<div class="form-group" style="margin-top: 30px;text-align:left">
 				<label for="content">내용</label>
-				<textarea class="form-control" ref="content" v-model="content" id="content" rows="5" style="resize: none;" placeholder="공지 내용을 입력하세요"></textarea>
+				<textarea class="form-control" ref="content" v-model="content" id="content" rows="5" style="resize: none;" placeholder="답변 내용을 입력하세요"></textarea>
 			</div>
-			<div style="margin-top: 10px;"></div>
-			<div class="text-center">
+			<div style="margin-top: 50px;"></div>
+			<div class="button-group">
 				<button type="button" class="btn btn-primary" @click="replyInsert">등록</button>
-				<input type="button" class="btn btn-secondary" value="취소" onclick="javascript:history.back()">
+				<input type="button" class="btn btn-danger" value="취소" onclick="javascript:history.back()">
 			</div>
 		</div>
 	</div>

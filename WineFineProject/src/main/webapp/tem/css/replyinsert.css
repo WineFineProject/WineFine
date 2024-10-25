@@ -7,6 +7,14 @@
     border-radius: 5px;
     margin-top: 5px;
 }
+#replyInsertApp{
+	max-width: 900px; 
+    margin: 0 auto;
+}
+#anbUpdate{
+	max-width: 900px; 
+    margin: 0 auto;
+}
 .result-item {
     display: flex; 
     align-items: center; 
@@ -21,4 +29,43 @@
 }
 .result-item:hover {
     background-color: #f5f5f5;
+}
+.f-control {
+	display: flex;
+	margin-left: 5px;
+}
+.table-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+.trb th, .trb td {
+    border: 1px solid #ddd;
+}
+
+.trb th {
+    background-color: #f8f8f8;
+    color: #333;
+}
+.button-group .btn-primary {
+    background-color: #6F2C3E; 
+    color: white; 
+}
+
+.button-group .btn-danger {
+    background-color: #c82333; 
+    color: white; 
+}
+
+.button-group .btn-secondary {
+    background-color: #6c757d; 
+    color: white; 
+}
+.button-group .btn {
+    padding: 10px 15px; 
+    border: none; 
+    cursor: pointer; 
+    margin-left: 5px; 
+    transition: background-color 0.3s; 
+    font-size: 14px; 
 }
