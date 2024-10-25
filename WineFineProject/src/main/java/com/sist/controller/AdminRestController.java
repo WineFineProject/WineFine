@@ -202,4 +202,32 @@ public class AdminRestController {
 		return result;
 	}
 	
+	@GetMapping(value="admin/allWineList.do",produces = "text/plain;charset=UTF-8")
+	public String adminAllWineList(int page, String filter) throws Exception{
+		Map map=new HashMap();
+		int start=(page-1)*10+1;
+		int end=start+10-1;
+		map.put("filter", filter);
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<WineVO> list=ssService.adminAllWineList(map);
+		int count=ssService.adminWinetotalCount(map);
+		int totalPage=(int)(Math.ceil(count)/10.0);
+		map=new HashMap();
+		System.out.println(list);
+		int startPage=(page-1)/10*10+1;
+		int endPage=startPage+10-1;
+		if(endPage>totalPage)
+			endPage=totalPage;
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("count", count);
+		map.put("totalPage", totalPage);
+		map.put("curPage", page);
+		map.put("list", list);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(map);
+	}
 }

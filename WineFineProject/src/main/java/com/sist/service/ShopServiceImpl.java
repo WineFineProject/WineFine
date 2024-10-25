@@ -294,6 +294,11 @@ public class ShopServiceImpl implements ShopService{
 	public List<WineVO> adminAllWineList(Map map) {
 		return wDao.adminAllWineList(map);
 	}
+	
+	@Override
+	public int adminWinetotalCount(Map map) {
+		return wDao.adminWinetotalCount(map);
+	}
 }
 
 
