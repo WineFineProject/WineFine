@@ -294,6 +294,12 @@ public class ShopServiceImpl implements ShopService{
 	public List<WineVO> adminAllWineList(Map map) {
 		return wDao.adminAllWineList(map);
 	}
+	
+	@Override
+	public int findBuyer(int wno, String userid) {
+		// TODO Auto-generated method stub
+		return sdao.findBuyer(wno, userid);
+	}
 }
 
 

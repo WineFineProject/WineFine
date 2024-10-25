@@ -340,15 +340,10 @@
 							<h4>로그인 후 작성이 가능합니다</h4>
 						</div>
 						<template v-if="sessionId != ''">
-							<div class="d-flex align-items-center">
+							<div class="d-flex align-items-center" style="margin-bottom: 10px; margin-left: 10px;">
 								<table>
 									<tr>
-										<th style="width: 130px; border: none;" class="text-center">
-											<h5>
-												<b>{{sessionId}}</b>
-											</h5>
-										</th>
-										<td style="width: 150px;">별점 : <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="srating" style="display: none;"> <i :class="{'text-wine':srating>=ss}" style="margin-right: 2px;" class="fa fa-star"></i>
+										<td style="width: 150px;" ><b>별점</b>  <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="srating" style="display: none;"> <i :class="{'text-wine':srating>=ss}" style="margin-right: 2px;" class="fa fa-star"></i>
 										</label>
 										</td>
 									</tr>
@@ -546,7 +541,8 @@
     			curpage: 1,
     			totalpage: 0,
     			startPage: 0,
-    			endPage: 0
+    			endPage: 0,
+    			buyer: 0
 	        }
 	    },
 	    mounted() {
@@ -750,6 +746,11 @@
 	            }
 	        },
 	        reviewInsert(){
+	        	if(this.buyer === 0){
+	        		alert('상품을 구매한 사람만 작성이 가능합니다')
+	        		this.review = ''
+	        		return
+	        	}
     			if(this.reviewCheck !== 0){
     				alert('리뷰는 한 번만 작성 가능합니다')
     				this.review = ''
@@ -854,6 +855,7 @@
 			          this.likeCount = response.data.likeCount
 			          this.sellerName = response.data.sellerName
 			          this.reviewCheck = response.data.reviewCheck
+			          this.buyer = response.data.buyer
 		        }).catch(error => {
 		            console.error('데이터 로드 오류:', error.response)
 		        })
