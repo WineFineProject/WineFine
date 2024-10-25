@@ -64,7 +64,7 @@
 					<!-- 사이드바 메뉴목록2 -->
 					<ul class="list-group">
 						<li class="list-group-item">
-							<a href="../mypage/my_reserve.do">상품 목록</a>
+							<a href="../admin/itemList.do">상품 목록</a>
 						</li>
 						<li class="list-group-item">
 							<a href="../admin/wineAccept.do">상품등록/수정 대기</a>

@@ -29,6 +29,7 @@ public class NoticeRestController {
 	@PostMapping(value = "notice/vueAdminNoticeSend.do", produces = "text/plain;charset=UTF-8")
 	public void noticeVueAdminNoticeSend(NoticeVO vo) {
 		vo.setSendid("admin");
+		System.out.println(vo);
 		String deSub=URLDecoder.decode(vo.getSubject(), StandardCharsets.UTF_8);
 		String deCont=URLDecoder.decode(vo.getContent(), StandardCharsets.UTF_8);
 		vo.setSubject(deSub);

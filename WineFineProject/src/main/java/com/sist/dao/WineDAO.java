@@ -104,4 +104,7 @@ public class WineDAO {
 	public List<WineVO> adminAllWineList(Map map){
 		return mapper.adminAllWineList(map);
 	}
+	public int adminWinetotalCount(Map map) {
+		return mapper.adminWinetotalCount(map);
+	}
 }
