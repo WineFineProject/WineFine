@@ -58,16 +58,20 @@
 	border: solid 1px black !important;
 }
 /* ///////////////////////////////////////////////////////////// */
-.page-link {
-	position: relative;
-	display: block;
-	color: #881824 !important;
-	background-color: #fff;
-	border: 1px solid #881824 !important;
-	transition: color .15s ease-in-out, background-color .15s ease-in-out,
-		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+.pagination .page-item.active .page-link {
+    background-color: #881824; 
+    color: white; 
+    border: solid 1px #881824 !important;
 }
 
+.pagination .page-item .page-link {
+    color: #881824; 
+    border: solid 1px #881824 !important;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #f1f1f1; 
+}
 .border-secondary {
 	border-color: #881824 !important;
 }
@@ -250,24 +254,24 @@
 										</a>
 									</div>
 									<!-- 상품 list end -->
-									<div class="col-12 text-center">
-										<div class="pagination-area d-sm-flex mt-15" style="margin-left: 15%; margin-top: 20px">
-											<nav aria-label="#">
-												<ul class="pagination" style="display: flex;">
-													<li class="page-item"><a class="page-link" @click="prev()"> <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-													</a></li>
-
-													<li :class="i === curpage ? 'paginav active':''" v-for="i in range(startPage, endPage)" style="display: inline;">
-													<a class="page-link" @click="pageChange(i)">{{i}}</a>
-													</li>
-
-													<li class="page-item" v-if="endPage<totalpage">
-													<a class="page-link" @click="next()" style="margin-left: 4px;"> <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-													</a></li>
-												</ul>
-											</nav>
-										</div>
-									</div>
+									<div class="col-12 text-center" >
+							        <div class="pagination-area d-sm-flex mt-15" style="justify-content: center">
+							            <nav aria-label="#">
+							               <ul class="pagination" style="display: flex;">
+							                   <li class="page-item" v-if="startPage>1">
+							                     <a class="page-link" @click="prev()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> 이전</a>
+							                    </li>
+							                     <li :class="{'page-item active': i === curpage, 'page-item': i !== curpage}"
+								                    v-for="i in range(startPage, endPage)">
+								                    <a class="page-link" @click="pageChange(i)">{{ i }}</a>
+								                </li>
+							                     <li class="page-item" v-if="endPage<totalpage">
+							                      <a class="page-link" @click="next()" style="margin-left: 4px;">다음 <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+							                     </li>
+							                 </ul>
+							             </nav>
+							          </div>
+							       </div>
 
 
 

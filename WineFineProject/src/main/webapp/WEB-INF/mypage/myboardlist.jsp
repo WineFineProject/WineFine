@@ -8,10 +8,10 @@
 </head>
 <body>
 	<div class="promotion_table myboard">
-	<input type="radio" value="1" name="type" v-model="type" @change="dataRecv()">
-	<input type="radio" value="2"  name="type" v-model="type" @change="dataRecv()">
-	<input type="radio" value="3"  name="type" v-model="type" @change="dataRecv()">
 		<h3 class="table-title">작성한 글</h3>
+		<input type="radio" value="1" name="type" v-model="type" @change="dataRecv()">
+	    <input type="radio" value="2"  name="type" v-model="type" @change="dataRecv()">
+	    <input type="radio" value="3"  name="type" v-model="type" @change="dataRecv()">
 		<table v-if="type==='1'" class="table" id="coupon-table">
 			<thead>
 				<tr>
@@ -22,13 +22,13 @@
 					<th width="8%">조회수</th>
 				</tr>
 			</thead>
-			  <tr v-for="vo in list" style="cursor: pointer;">
+			  <tr v-for="(vo,index) in list" style="cursor: pointer;">
 			   <td colspan="5" id="tmp" style="border:none">
 				<div>
 				 <table class="table" id="inner-table" style="margin: 0px">
 				  <tbody>
 				   <tr>
-					<td width="5%" class="text-center">{{vo.bno}}</td>
+					<td width="5%" class="text-center">{{list.length*curpage-index}}</td>
 					<td width="40%"><a :href="'../board/detail.do?bno='+vo.bno">{{vo.subject}}</a></td>
 					<td width="12%" class="text-center">{{vo.nickname}}</td>
 					<td width="15%" class="text-center">{{vo.dbday}}</td>
@@ -50,13 +50,13 @@
 					<th width="8%">조회수</th>
 				</tr>
 			</thead>
-			  <tr v-for="vo in list" style="cursor: pointer;">
+			  <tr v-for="(vo,index) in list" style="cursor: pointer;">
 			   <td colspan="5" id="tmp" style="border:none">
 				<div>
 				 <table class="table" id="inner-table" style="margin: 0px">
 				  <tbody>
 				   <tr>
-					<td width="5%" class="text-center">{{vo.wrno}}</td>
+					<td width="5%" class="text-center">{{list.length*curpage-index}}</td>
 					<td width="40%"><a :href="'../replyboard/detail.do?wrno='+vo.bno">{{vo.subject}}</a></td>
 					<td width="12%" class="text-center">{{vo.nickname}}</td>
 					<td width="15%" class="text-center">{{vo.dbday}}</td>
@@ -77,13 +77,13 @@
 					<th width="15%">작성일</th>
 				</tr>
 			</thead>
-			  <tr v-for="vo in list" style="cursor: pointer;">
+			  <tr v-for="(vo,index) in list" style="cursor: pointer;">
 			   <td colspan="5" id="tmp" style="border:none">
 				<div>
 				 <table class="table" id="inner-table" style="margin: 0px">
 				  <tbody>
 				   <tr>
-					<td width="8%" class="text-center">{{vo.brno}}</td>
+					<td width="8%" class="text-center">{{list.length*curpage-index}}</td>
 					<td width="45%"><a :href="'../board/detail.do?bno='+vo.bno">{{vo.msg}}</a></td>
 					<td width="12%" class="text-center">{{vo.nickname}}</td>
 					<td width="15%" class="text-center">{{vo.dbday}}</td>
