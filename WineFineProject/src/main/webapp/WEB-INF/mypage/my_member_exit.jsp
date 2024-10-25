@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../tem/css/payment.css">
+<link rel="stylesheet" href="../tem/css/calendarstyle.css">
 <style>
 .exitcontent{
     width: 90%;
@@ -26,6 +27,23 @@
     background: #fff;
     padding: 20px;
 }
+.exitbtn{
+	width: 150px;
+	height: 40px;
+	text-align:center;
+	margin: 0px auto;
+	color:#333;
+	border-color: darkred;
+	border-radius: 25px;
+	background-color: white;
+	font-weight: bold;
+}
+.rmbtn{
+	margin-left:5px;
+}
+.exittable th, .exittable td{
+	border:hidden !important;"
+}
 </style>
 </head>
 <body>
@@ -37,24 +55,26 @@
 			<ul>
 				<li>탈퇴 시, 해당 아이디로 재가입이 불가능합니다. </li>
 				<li> 계정의 모든 개인정보는 삭제되며 재가입 시에도 복구되지 않습니다. </li>
-				<li>배송 완료 되지 않은 주문 내역이 있는 경우 탈퇴가 불가능합니다.</li>
-				<li>탈퇴 시, 작성 리뷰와 좋아요 내역, 예약내역은 즉시 삭제되며, 작성한 글과 댓글의 내용은 삭제되지 않습니다. </li>
+				<li>배송 완료되지 않은 주문 내역이 있는 경우 탈퇴가 불가능합니다.</li>
+				<li>탈퇴 시, 작성 리뷰와 좋아요 내역, 예약 내역은 즉시 삭제되며, 작성한 글과 댓글의 내용은 삭제되지 않습니다. </li>
 			</ul>
 		</div>
-				<button class="exitbtn" @click="openModal()">회원 탈퇴</button>
+				<button class="exitbtn" @click="openModal()" >회원 탈퇴</button>
 		</div>
 		<div class="modal" :class="{ show: showModal }" @click.self="closeModal()">
-			<div class="modal-content">
+			<div class="modal-content" style="width: 420px; height: 300px; padding-bottom:10px; padding-top:70px;">
 				<span class="close" @click="closeModal()">&times;</span>
-				<table class="table" style="margin-top: 50px; border: 1px solid lightgray;">
+				<table class="table exittable" id="coupon-table">
 					<tr>
-						<th width="30%">비밀번호 확인 : </th>
-						<td width="70%">
-						 <input type="password" v-model="inputpwd">
+						<th style="padding-top: 15px;"><h4>비밀번호 확인</h4> </th>
+					</tr>
+					<tr>
+						<td>
+						 <input type="password" v-model="inputpwd" style="border: 2px inset gray;">
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" class="rmbtn">
+						<td colspan="2">
 							<button type="button" class="rmbtn btn-sm btn-danger" @click="pwdCheck()">확인</button>
 							<button type="button" class="rmbtn btn-sm btn-secondary" @click="closeModal()">취소</button>
 						</td>

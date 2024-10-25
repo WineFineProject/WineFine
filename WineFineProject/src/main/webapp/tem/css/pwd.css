@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+#myPwdApp {
+	width: 1500px;
+	max-width: 1200px;
+	margin: auto;
+	background: #fff;
+	padding: 20px;
+}
+
+.table-title {
+	font-size: 24px;
+	margin-bottom: 20px;
+	color: #333;
+}
+
+.round {
+	border: 2px solid #ccc;
+	max-width: 700px;
+	margin: 0 auto;
+	padding: 30px;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-field {
+	margin-bottom: 15px;
+	display: flex;
+	align-items: center;
+	width: 630px;
+}
+
+.input-field label {
+	width: 120px;
+	margin-right: 20px;
+	font-weight: bold;
+	color: #555;
+}
+
+.input-field input {
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+.requirements {
+	font-size: 12px;
+	color: #888;
+	margin-top: 5px;
+	margin-left: 50px;
+}
+
+.sub-btn {
+	background-color: #f39a58;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 100%;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+.sub-btn:hover {
+	background-color: #f4c079;
+}
+
+.confirm-btn {
+	background-color: #007BFF;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 15px;
+	cursor: pointer;
+	margin-left: 10px;
+	transition: background-color 0.3s;
+}
+
+.confirm-btn:hover {
+	background-color: #0056b3;
+}
+
+.input-field {
+    position: relative; /* 위치 설정을 위한 속성 */
+}
+
+.error-message {
+    position: absolute; /* 절대 위치 설정 */
+    color: red;
+    font-size: 12px;
+    right: 10px; /* 입력창 내부 왼쪽에 위치 */
+    display: inline-block; /* 블록 형태로 표시 */
+}
+
+.font_green {
+	color: #00a200!important;
+}

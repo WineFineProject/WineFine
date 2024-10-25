@@ -27,4 +27,5 @@ public interface MypageService {
 	public void pwdcancel(String userid);
 	public int ingpaycount(String userid);
 	public void Authorityupdate(String userid);
+	public void updatePwd(String userid,String userpwd);
 }

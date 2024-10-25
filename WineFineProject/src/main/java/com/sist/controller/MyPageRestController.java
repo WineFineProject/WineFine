@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,18 +56,6 @@ public class MyPageRestController {
 		return json;
 	}
 	
-	/*
-	 * @PostMapping(value = "mypage/edit2_ok_vue_do",produces =
-	 * "text/plain;charset=UTF-8") public String myInfo_ok(@RequestBody MemberVO vo,
-	 * 
-	 * @SessionAttribute("userId") String userId) throws Exception {
-	 * vo.setUserId(userId);
-	 * 
-	 * MemberVO updateMember = mService.updateMyInfo(vo);
-	 * 
-	 * ObjectMapper mapper = new ObjectMapper(); String json =
-	 * mapper.writeValueAsString(updateMember); return json; }
-	 */
 	@PostMapping(value = "mypage/edit2_ok_vue_do", produces = "application/json")
 	public String myInfo_ok(MemberVO vo) throws Exception
 	{
@@ -82,10 +71,8 @@ public class MyPageRestController {
 		   result=ex.getMessage();   
 	   }
 	   return result;
-
 	    
 	}
-	
 	
 	@GetMapping(value = "mypage/vueCouponList.do", produces = "text/plain;charset=UTF-8")
 	public String mypageVueCouponList(HttpSession session) throws Exception{
@@ -237,10 +224,6 @@ public class MyPageRestController {
 	  public String memberExit(String userid, int rCount, HttpSession session) throws Exception {
 		 
 		 String result="";
-//		 if(rCount>0)
-//		 {
-//			 mService.reservedelete(userid);
-//		 }
 		 mService.reservedelete(userid);
 		 mService.bchangenick(userid);
 		 mService.brchangenick(userid);
@@ -255,5 +238,10 @@ public class MyPageRestController {
 		 return result;
 	  }
 	  
-
+		@GetMapping(value = "mypage/updatePwd.do", produces = "text/plain;charset=UTF-8")
+		public void updatePwd(HttpSession session,String userpwd) throws Exception {
+			String id = (String) session.getAttribute("userId");
+			userpwd=encoder.encode(userpwd);
+			mService.updatePwd(id, userpwd);
+		}
 }

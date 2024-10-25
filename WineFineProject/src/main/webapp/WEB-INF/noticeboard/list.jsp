@@ -8,20 +8,30 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+#nbList{
+   margin-top: 20px;
+   margin-bottom: 100px;
+   width: 1080px;
+}
 .page-item{
 	cursor: pointer;
 }
 .page-item.active{
-	background-color: #FFF7B3;
+	background-color: #FFCC52;
 	display:inline-block !important;
 }
 .ctbtn{
-width: 15%; 
-display: inline-block; 
-margin-left:5px;
-background-color: #C91C40 !important; 
-border-color: white;
-color: white;
+	width: 15%; 
+	display: inline-block; 
+	margin-left:5px;
+	background-color: #C91C40 !important; 
+	border-color: white;
+	color: white;
+	text-align: center;
+	margin-bottom:10px;
+}
+.ectbtn{
+	width:18% !important;
 }
 .table-fixed {
     width: 100%; 
@@ -33,18 +43,24 @@ color: white;
     text-overflow: ellipsis;
     width:400px !important;
 }
+.btableth {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+    background-color: #f8f8f8;
+}
 </style>
 </head>
 <body>
   <div class="container" id="nbList">
-    <h3 class="text-center">공지사항</h3>
+    <h3 class="text-center" style="color: #333;">공지사항</h3>
     <div class="row">
       <table class="cTable">
         <tr>
         <td width="40%">
          <input type="button" value="전체" class="ctbtn form-control"  @click="typeChange(0)">
      	 <input type="button" value="일반" class="ctbtn form-control"  @click="typeChange(4)">
-     	 <input type="button" value="이벤트" class="ctbtn form-control" @click="typeChange(5)">
+     	 <input type="button" value="이벤트" class="ctbtn ectbtn form-control" @click="typeChange(5)">
     	 <input type="button" value="상품" class="ctbtn form-control"  @click="typeChange(6)">
     	 </td>
     	 <td width="60%" class="text-right">
@@ -54,7 +70,7 @@ color: white;
       </table>
       <table class="table table-fixed">
        <thead>
-        <tr>
+        <tr class="btableth">
          <th width="5%" class="text-center">번호</th>
          <th width="10%" class="text-center">분류</th>
          <th width="40%" class="text-center">제목</th>
@@ -98,7 +114,7 @@ color: white;
           <c:if test="${sessionScope.userId!=null }">
                 <div class="login">
                   <sec:authorize access="hasRole('ROLE_ADMIN')">         
-            		<a href="../noticeboard/insert.do" class="btn btn-sm" style="background-color: #FFF7B3; color:gray;">공지글쓰기</a>   
+            		<a href="../noticeboard/insert.do" class="btn btn-sm" style="background-color: #FFCC52; color:#333;">공지글쓰기</a>   
                   </sec:authorize>
                 </div>
              </c:if>

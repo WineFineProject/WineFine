@@ -50,12 +50,15 @@
 	text-align:center;
 	margin-right:8px;
 }
+.acctable{
+    text-align:center;
+}
 </style>
 </head>
 <body>
 	<div class="container" id="accountingList">
 		<div class="row">
-			<h4 class="text-center table-title">정산 관리</h4>
+			<h3 class="text-center table-title" style="color: #333;" >정산 관리</h3>
 			<div class="row">
 			<table class="table" id="table222" style="width:50%;">
 			<tr id="atlistth">
@@ -80,7 +83,7 @@
 			<button class="btn-sm acheckbtn" @click="dataRecv()" style="width:10%;">정산내역 조회</button>
 			-->
 			</div>
-			<table class="table" id="coupon-table" width="60%">
+			<table class="table acctable" id="coupon-table" width="60%">
 				<tr id="atlistth">
 					<th width="15%">정산번호</th>
 					<th width="15%">정산신청일</th>
@@ -256,7 +259,7 @@ let accountinglistApp=Vue.createApp({
                 	 	   vat: this.vat} 
              }).then(response => {
             	 if (response.data === "yes") {
-            		 this.acnoUpdate()            	 
+            		 this.acnoUpdate()
             	 }
              }).catch(error => {
             	 console.error(error)
@@ -269,6 +272,7 @@ let accountinglistApp=Vue.createApp({
            	 if (response.data === "yes") {          	 
                     alert("정산이 요청되었습니다.")
                   	 this.dataRecv()
+                  	 this.getinfo()
            	 }
             }).catch(error => {
            	 console.error(error)

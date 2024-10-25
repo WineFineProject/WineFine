@@ -6,7 +6,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-
+#nbInsert{
+   margin-top: 20px;
+   margin-bottom: 100px;
+   width: 960px;
+}
+.bitable{
+	border-top: 1px solid #E0E0E0;
+	border-right: 1px solid #E0E0E0;
+}
+#btntd{
+	border-right:hidden;
+	border-left:hidden;
+	border-bottom:hidden;
+}
 </style>
 </head>
 <body>
@@ -16,7 +29,7 @@
    <div class="row">
    <form @submit.prevent="submitForm">
      <h6 class="text-center" hidden>{{id}}</h6>
-     <table class="table">
+     <table class="table bitable">
       <tr>
        <th width="20%" class="text-center">카테고리 </th>
        <td width="80%">
@@ -41,7 +54,7 @@
        </td>
       </tr>
       <tr>
-        <td colspan="2" class="text-center" style="border: none;">
+        <td colspan="2" class="text-center" id="btntd">
           <input type="submit" class="btn btn-danger" value="등록">
           &nbsp;
           <input type="button" class="btn btn-secondary" value="취소"

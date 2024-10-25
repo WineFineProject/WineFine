@@ -12,13 +12,15 @@ import com.sist.vo.BoardReplyVO;
 import com.sist.vo.BoardVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.ReplyBoardVO;
+import com.sist.mapper.MemberMapper;
 import com.sist.mapper.MypageMapper;
 
 @Repository
 public class MyPageDAO {
 	@Autowired
 	private MypageMapper mapper;
-	
+	@Autowired
+	private MemberMapper Mmapper;
 	// 개인 정보 수정
 	public MemberVO getMyId(String userId) {
 		return mapper.getMyId(userId);
@@ -93,5 +95,10 @@ public class MyPageDAO {
 	public void Authorityupdate(String userid)
 	{
 		mapper.Authorityupdate(userid);
+	}
+	// 비밀번호 변경
+	public void updatePwd(String userid,String userpwd)
+	{
+		Mmapper.updatePwd(userid, userpwd);
 	}
 }

@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="../tem/css/payment.css">
 <style>
 #orderList{
 	width: 1120px;
@@ -56,8 +57,16 @@
 .table111{
 	margin-bottom:15px;
 }
+.table1111{
+	margin-bottom:0px;
+}
+.table1111 th, .table11111 th
+{
+	background-color: #f8f9fa;
+}
 .orderbtn{
 	font-size:18px;
+	color: darkred;
 }
 #olistth{
     background-color: #f8f8f8;
@@ -67,12 +76,13 @@
 	text-align:center;
 	margin-right:8px;
 }
+
 </style>
 </head>
 <body>
 <div class="container" id="orderList">
 	<div class="row">
-	<h3> 주문 현황 </h3>
+	<h3 class="text-center" style="color: #333;"> 주문 현황 </h3>
 		<table class="table111">
 		<tr id="olistth">
 			<th width="15%" class="ordercheck"> 전체주문 </th>
@@ -122,7 +132,7 @@
 			</tr>
 			<tr v-if="isShow[index]">
 			<td colspan="9" style="padding: 0px;">
-				<table class="table">
+				<table class="table table1111">
 						<tr>
 						<th width="15%" class="text-center">정가</th>
 						<th width="25%" class="text-center">{{vo.mcno!==0?'적용쿠폰':'적용할인'}}</th>
@@ -135,10 +145,10 @@
 						<td width="25%" class="text-center">{{vo.mcno!==0?vo.mcvo.title:vo.psno!==0?vo.svo.title:'할인적용 안함'}}</td>
 						<td width="20%" class="text-center">{{vo.mcno!==0?vo.mcvo.discount+'%':vo.psno!==0?vo.svo.discount+'%':'할인적용 안함'}}</td>
 						<td width="20%" class="text-center">{{vo.mipoint}}</td>
-						<td width="20%" class="text-center">{{}}</td>
+						<td width="20%" class="text-center">{{vo.plpoint}}</td>
 						</tr>
 					</table>
-					<table class="table">
+					<table class="table table11111">
 						<tr>
 						<th width="15%" class="text-center">배송지명</th>
 						<th width="10%" class="text-center">우편번호</th>

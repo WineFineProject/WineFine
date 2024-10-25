@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style type="text/css">
 #bList{
    margin-top: 20px;
@@ -18,7 +19,6 @@
 	background-color: #FFCC52;
 	display:inline-block !important;
 }
-
 .ctbtn{
 	width: 15%; 
 	display: inline-block; 
@@ -36,20 +36,20 @@
 .table-fixed {
     width: 100%; 
     table-layout: fixed; 
-}
-
-.table-fixed {
-    width: 100%; 
-    table-layout: fixed; 
     border-collapse: collapse;
     margin-top: 10px;
 }
-
+.btableth {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+    background-color: #f8f8f8;
+}
 </style>
 </head>
 <body>
   <div class="container" id="bList">
-    <h3 class="text-center">자유게시판</h3>
+    <h3 class="text-center" style="color: #333;">자유게시판</h3>
     <div class="row">
       <table class="cTable">
         <tr>
@@ -73,7 +73,7 @@
       </table>
       <table class="table table-fixed">
        <thead>
-        <tr>
+        <tr class="btableth">
          <th width="5%" class="text-center">번호</th>
          <th width="10%" class="text-center">분류</th>
          <th width="45%" class="text-center">제목</th>

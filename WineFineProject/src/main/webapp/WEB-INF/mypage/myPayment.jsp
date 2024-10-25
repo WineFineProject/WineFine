@@ -44,7 +44,7 @@
 				<th width="10%" class="text-center">결제금</th>
 				<th width="15%" class="text-center">상태</th>
 				<th width="20%" class="text-center">구매일</th>
-				<th width="10%" class="text-center"></th>
+				<th width="10%" class="text-center">반품신청</th>
 			</tr>
 			<template v-for="(vo, index) in list">
 				<tr @click="moreInfo(index)">

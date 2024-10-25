@@ -8,22 +8,27 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+#anbList{
+   margin-top: 20px;
+   margin-bottom: 100px;
+   width: 1080px;
+}
 .page-item{
 	cursor: pointer;
 }
 .page-item.active{
-	background-color: #FFF7B3;
+	background-color: #FFCC52;
 	display:inline-block !important;
 }
 .ctbtn{
-width: 15%; 
-display: inline-block; 
-margin-left: 5px;
-margin-bottom: 10px;
-background-color: #C91C40 !important; 
-border-color: white;
-color: white;
-float: left;
+	width: 15%; 
+	display: inline-block; 
+	margin-left: 5px;
+	margin-bottom: 10px;
+	background-color: #C91C40 !important; 
+	border-color: white;
+	color: white;
+	float: left;
 }
 .table-fixed {
     width: 100%; 
@@ -35,18 +40,27 @@ float: left;
     text-overflow: ellipsis;
     width:400px !important;
 }
+.btableth {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+    background-color: #f8f8f8;
+}
+.ectbtn{
+	width:18% !important;
+}
 </style>
 </head>
 <body>
   <div class="container" id="anbList">
-    <h3 class="text-center">공지사항 관리</h3>
+    <h3 class="text-center" style="color: #333;">공지사항 관리</h3>
     <div class="row">
       <table class="cTable">
         <tr>
         <td width="40%">
          <input type="button" value="전체" class="ctbtn form-control"  @click="typeChange(0)">
      	 <input type="button" value="일반" class="ctbtn form-control"  @click="typeChange(4)">
-     	 <input type="button" value="이벤트" class="ctbtn form-control" @click="typeChange(5)">
+     	 <input type="button" value="이벤트" class="ctbtn ectbtn form-control" @click="typeChange(5)">
     	 <input type="button" value="상품" class="ctbtn form-control"  @click="typeChange(6)">
     	 </td>
     	 <td width="60%" class="text-right">
@@ -56,7 +70,7 @@ float: left;
       </table>
       <table class="table table-fixed">
        <thead>
-        <tr>
+        <tr class="btableth">
          <th width="5%" class="text-center">번호</th>
          <th width="10%" class="text-center">분류</th>
          <th width="40%" class="text-center">제목</th>
@@ -100,7 +114,7 @@ float: left;
           <c:if test="${sessionScope.userId!=null }">
                 <div class="login">
                   <sec:authorize access="hasRole('ROLE_ADMIN')">         
-            		<a href="../admin/noticeinsert.do" class="btn btn-sm" style="background-color: #FFF7B3; color:gray; float:left;">공지글쓰기</a>   
+            		<a href="../admin/noticeinsert.do" class="btn btn-sm" style="background-color: #FFF7B3; color:#333; float:left;">공지글쓰기</a>   
                   </sec:authorize>
                 </div>
              </c:if>

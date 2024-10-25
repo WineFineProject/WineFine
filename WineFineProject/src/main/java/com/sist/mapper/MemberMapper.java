@@ -19,9 +19,9 @@ public interface MemberMapper {
 	@Select("SELECT COUNT(*) FROM wine_member WHERE userId=#{userId}")
 	public int memberIdCheck(String userId);
 
-	// �쉶�썝 鍮꾨�踰덊샇 李얘린
-	@Select("SELECT pwd FROM member WHERE id=#{id}")
-	public String memberGetPwd(String id);
+	// 비밀번호 확인
+	@Select("SELECT userpwd FROM wine_member WHERE userId=#{userId}")
+	public String memberGetPwd(String userId);
 
 	// �쉶�썝 �땳�꽕�엫 以묐났泥댄겕
 	@Select("SELECT COUNT(*) FROM wine_member WHERE nickname=#{nickName}")
@@ -113,6 +113,10 @@ public interface MemberMapper {
 			+ "WHERE m.userId=#{userId}")
 	public MemberVO memberSessionData(String userId);
 
+	// 비밀번호 변경
+	@Update("UPDATE wine_member SET userpwd=#{userpwd} WHERE userId=#{userid}")
+	public void updatePwd(@Param("userid") String userid,@Param("userpwd") String userpwd);
+	
 	// 최근 로그인
 	@Update("UPDATE wine_member SET lastlogin=sysdate WHERE userId=#{userId}")
 	public void memberLastLogin(String userId);
