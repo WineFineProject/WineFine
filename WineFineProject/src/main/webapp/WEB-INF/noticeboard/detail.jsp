@@ -12,8 +12,8 @@
 	text-align: left !important;
 }
 #nbDetail{
-max-width: 800px;
-margin: 0 auto;
+width: 960px;
+margin-top: 20px;
 }
 .content-box{
  margin-top: 10px;

@@ -15,6 +15,12 @@
 	text-align:center;
 	margin-right:5px;
 }
+.abtn1{
+	color:#3F8F27;
+}
+.abtn2{
+	color:darkred;
+}
 </style>
 </head>
 <body>
@@ -49,8 +55,8 @@
 				  <td width="15%">{{formatPoint(vo.fee)}}</td>
 				  <td width="10%">{{formatPoint(vo.vat)}}</td>
 				  <td width="15%">
-				  <button class="btn abtn" @click="accUpdate(vo.acno, 1)"><i class="fa-solid fa-square-check fa-lg"></i></button>
-				  <button class="btn abtn" @click="accUpdate(vo.acno, 2)"><i class="fa-solid fa-square-xmark fa-lg"></i></button>
+				  <button class="btn abtn abtn1" @click="accUpdate(vo.acno, 1)"><i class="fa-solid fa-square-check fa-lg"></i></button>
+				  <button class="btn abtn abtn2" @click="accUpdate(vo.acno, 2)"><i class="fa-solid fa-square-xmark fa-lg"></i></button>
 				  </td>
 				</tr>
 			</table>

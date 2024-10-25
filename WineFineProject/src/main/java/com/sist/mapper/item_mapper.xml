@@ -18,11 +18,11 @@
 
 	<!-- 판매자 주문 조회 -->
 	<select id="orderList" parameterType="hashmap" resultMap="payMap">
-		SELECT wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,
+		SELECT wpno, wno, account, payment, mipoint, plpoint, wdno, mcno, psno, state, userid, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,
 		namekor, price, seller, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, num
-		FROM (SELECT wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, regdate,
+		FROM (SELECT wpno, wno, account, payment, mipoint, plpoint, wdno, mcno, psno, state, userid, regdate,
 		namekor, price, seller, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, rownum as num
-		FROM (SELECT wp.wpno, wp.wno, wp.account, wp.payment, wp.mipoint, wp.wdno, wp.mcno, wp.psno, wp.state, wp.userid, wp.regdate,
+		FROM (SELECT wp.wpno, wp.wno, wp.account, wp.payment, wp.mipoint, wp.plpoint, wp.wdno, wp.mcno, wp.psno, wp.state, wp.userid, wp.regdate,
 		wvo.namekor, wvo.price, wvo.seller, dvo.name, dvo.post, dvo.addr1, dvo.addr2, dvo.msg, mcvo.title as ctitle, mcvo.discount as cdiscount, svo.title as stitle, svo.discount as sdiscount  
 		FROM wine_payment wp JOIN wine wvo ON wp.wno=wvo.wno
 		JOIN wine_delivery dvo ON wp.wdno=dvo.wdno
