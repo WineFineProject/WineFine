@@ -2781,6 +2781,24 @@ textarea.form-control-lg {
 	border-color: darkred;
 }
 
+.btn-myb {
+	color: black;
+	background-color: #ffffff;
+	border-color: #99D9EA;
+}
+
+.btn-myb:hover {
+	color: black;
+	background-color: #99D9EA;
+	border-color: #99D9EA;
+}
+
+.btn-myb.active {
+	color: black;
+	background-color: #99D9EA;
+	border-color: #99D9EA;
+}
+
 .btn-reserve {
 	color: black;
 	background-color: #99D9EA;

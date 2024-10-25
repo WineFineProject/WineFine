@@ -8,6 +8,21 @@
     padding: 20px;
 }
 
+#myLikeApp {
+	width: 1500px;
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+}
+
+#myReviewApp{
+	width: 1500px;
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+}
 .table-title {
     font-size: 24px;
     margin-bottom: 15px;

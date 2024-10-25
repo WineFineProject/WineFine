@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div id="deliveryApp">
-		<h3>배송지 관리</h3>
+		<h3 class="table-title">배송지 관리</h3>
 		<div style="text-align: right;">
 			<button type="button" class="btn btn-sm btn-warning" @click="changeModal(true)" style="margin-bottom: 10px">등록</button>
 		</div>

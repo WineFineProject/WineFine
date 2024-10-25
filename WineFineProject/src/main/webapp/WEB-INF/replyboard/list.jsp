@@ -44,9 +44,9 @@
          </tr>
      </table>
           <div class="text-center" style="margin-top: 50px">
-           <a href="#" class="btn btn-sm btn-primary">이전</a>
+           <input type="button" class="btn btn-sm btn-primary" value="이전" @click="prev()">
              {{curpage}} page / {{totalpage}} pages
-           <a href="#" class="btn btn-sm btn-primary">다음</a>
+           <input type="button" class="btn btn-sm btn-primary" value="다음" @click="next()">
           </div>
      </div>
    </div>
@@ -68,6 +68,14 @@
     		this.dataRecv()
     	},
     	methods:{
+    		prev(){
+    			this.curpage=this.curpage>1?this.curpage-1:this.curpage
+    			this.dataRecv()
+    		},
+    		next(){
+    			this.curpage=this.curpage<this.totalpage?this.curpage+1:this.curpage
+    	    	this.dataRecv()
+    		},
     		dataRecv(){
     			axios.get('../replyboard/listvue.do',{
     				params:{

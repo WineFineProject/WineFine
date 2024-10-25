@@ -174,10 +174,13 @@ table {
                 	 weno:${weno},
                 	 showModal:false,
                 	 person:1,
-                	 isLoggedIn: <%= session.getAttribute("isLoggedIn") != null ? "true" : "false" %>
+                	 isLoggedIn: false,
+                	 sessionId:'${sessionScope.userId}'
                  }
              },
              mounted() {
+            	 if(this.sessionId!=='')
+            		 this.isLoggedIn=true
                  this.dataRecv()
              },
              methods: {
@@ -204,6 +207,14 @@ table {
                 	 this.showModal=check
                  },
                  reserveInsert(weno){
+                	 let today = new Date(); 
+                	 let eventDate = new Date(this.vo.eday);
+                	 
+                	 if (eventDate < today) {
+                	        alert('이미 종료된 이벤트입니다');
+                	        this.showModal=false
+                	        return;
+                	    }
                 	 axios.get('../event/reservePerson.do', {
                 		 params:{
                 			 weno:weno

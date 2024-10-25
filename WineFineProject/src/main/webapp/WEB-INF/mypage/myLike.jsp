@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/payment.css">
 </head>
 <body>
 <div class="row" id="myLikeApp">
@@ -16,17 +17,17 @@
 				<th width="35%" class="text-center">제품명</th>
 				<th width="25%" class="text-center">업체명</th>
 				<th width="10%" class="text-center">타입</th>
-				<th width="15%" class="text-center">가격</th>
-				<th width="50%" class="text-center"></th>
+				<th width="10%" class="text-center">가격</th>
+				<th width="10%" class="text-center"></th>
 			</tr>
 			<tr v-for="vo in list">
 				<td width="5%" class="text-center">{{vo.lno}}</td>
-				<td width="5%" class="text-center"><img :src="vo.wvo.poster" width="100%"></td>
+				<td width="5%" class="text-center"><img :src="vo.wvo.poster" style="width:40px;height: 58px"></td>
 				<td width="35%" class="text-center"><a :href="'../shop/detailBefore.do?wno='+vo.wno">{{vo.wvo.namekor}}</a></td>
 				<td width="25%" class="text-center">{{vo.wvo.mvo.nickName}}</td>
 				<td width="10%" class="text-center">{{vo.wvo.type}}</td>
-				<td width="15%" class="text-center">{{vo.wvo.price}}</td>
-				<td width="5%" class="text-center"><button class="btn btn-sm border-wine" @click="deleteLike(vo.lno)">취소</button></td>
+				<td width="10%" class="text-center">{{vo.wvo.price}}</td>
+				<td width="10%" class="text-center"><button class="btn btn-sm border-wine" @click="deleteLike(vo.lno)">취소</button></td>
 			</tr>
 		</table>
 		<div style="height: 10px;"></div>

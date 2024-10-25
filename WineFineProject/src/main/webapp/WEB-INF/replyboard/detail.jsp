@@ -24,8 +24,8 @@
             </div>
             <div class="content-box">{{vo.content}}</div>
             <div class="button-group">
-                <a  v-if="vo.nickname === nickname":href="'../replyboard/update.do?wrno='+vo.wrno" class="btn btn-primary">수정</a>
-                <button  v-if="vo.nickname === nickname"type="button" class="btn btn-danger" @click="cancelBtn">삭제</button>
+                <a v-if="vo.nickname === nickname" :href="'../replyboard/update.do?wrno='+vo.wrno" class="btn btn-primary">수정</a>
+                <button v-if="vo.nickname === nickname" type="button" class="btn btn-danger" @click="cancelBtn">삭제</button>
                 <button type="button" class="btn btn-secondary" onclick="javascript:history.back()">목록</button>
             </div>
         </div>
