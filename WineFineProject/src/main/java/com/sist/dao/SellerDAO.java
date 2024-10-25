@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.SellerMapper;
 import com.sist.vo.ChartVO;
+import com.sist.vo.PromotionBannerVO;
+import com.sist.vo.PromotionCouponVO;
+import com.sist.vo.PromotionSaleVO;
 
 @Repository
 public class SellerDAO {
@@ -52,5 +55,18 @@ public class SellerDAO {
 	}
 	public List<ChartVO> sellerBannerPromotionChart(int pbno){
 		return mapper.sellerBannerPromotionChart(pbno);
+	}
+	public ChartVO sellerVisitChart(String userid) {
+		return mapper.sellerVisitChart(userid);
+	}
+	
+	public List<PromotionCouponVO> chartCouponList(String userid){
+		return mapper.chartCouponList(userid);
+	}
+	public List<PromotionBannerVO> chartBannerList(String userid){
+		return mapper.chartBannerList(userid);
+	}
+	public List<PromotionSaleVO> chartSaleList(String userid){
+		return mapper.chartSaleList(userid);
 	}
 }

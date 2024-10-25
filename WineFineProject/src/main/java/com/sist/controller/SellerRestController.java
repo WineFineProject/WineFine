@@ -241,11 +241,13 @@ public class SellerRestController {
 		Map map=new HashMap();
 		List<ChartVO> pList=sellerService.sellerSellTypePrice(id);
 		List<ChartVO> aList=sellerService.sellerSellTypeAccount(id);
-		List<ChartVO> rList=sellerService.sellerAddrPrice(id);
+		ChartVO vList=sellerService.sellerVisitChart(id);
+		List<ChartVO> wList=sellerService.sellerWeekChart(id);
 		
 		map.put("pList", pList);
 		map.put("aList", aList);
-		map.put("rList", rList);
+		map.put("vList", vList);
+		map.put("wList", wList);
 		
 		
 		ObjectMapper mapper=new ObjectMapper();
@@ -280,6 +282,22 @@ public class SellerRestController {
 	public void sellerVueCouponDelete(int pcno) {
 		cService.couponDelete(pcno);
 	}
+	@GetMapping(value = "seller/vuePromotionChartList.do", produces = "text/plain;charset=UTF-8")
+	public String sellerPromotionList(HttpSession session) throws Exception{
+		String id=(String)session.getAttribute("userId");
+		Map map=new HashMap();
+		
+		List<PromotionBannerVO> bList=sellerService.chartBannerList(id);
+		List<PromotionCouponVO> cList=sellerService.chartCouponList(id);
+		List<PromotionSaleVO> sList=sellerService.chartSaleList(id);
+		
+		map.put("bannerList", bList);
+		map.put("couponList", cList);
+		map.put("saleList", sList);
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(map);
+	}
+	
 	@GetMapping(value = "seller/vueSellerPromotionChart.do", produces = "text/plain;charset=UTF-8")
 	public String sellerVuePromotionChart(int no, int type) throws Exception{
 		Map map=new HashMap();

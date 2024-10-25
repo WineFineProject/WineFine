@@ -6,6 +6,10 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Select;
 
 import com.sist.vo.ChartVO;
+import com.sist.vo.MyCouponVO;
+import com.sist.vo.PromotionBannerVO;
+import com.sist.vo.PromotionCouponVO;
+import com.sist.vo.PromotionSaleVO;
 
 public interface SellerMapper {
 	public List<Integer> sellerVisitWeeks(String pageid);
@@ -22,4 +26,8 @@ public interface SellerMapper {
 	public List<ChartVO> sellerSalePromotionChart(int psno);
 	public List<ChartVO> sellerCouponPromotionChart(int pcno);
 	public List<ChartVO> sellerBannerPromotionChart(int pbno);
+	public ChartVO sellerVisitChart(String userid);
+	public List<PromotionCouponVO> chartCouponList(String userid);
+	public List<PromotionBannerVO> chartBannerList(String userid);
+	public List<PromotionSaleVO> chartSaleList(String userid);
 }

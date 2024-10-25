@@ -30,6 +30,11 @@ public class AdminController {
 	public String adminReplyBoard() {
 		return "admin/replyboard";
 	}
+	@GetMapping("admin/replydetail.do")
+	public String adminReplyBoard(int wrno, Model model) {
+		model.addAttribute("wrno", wrno);
+		return "admin/replydetail";
+	}
 	@GetMapping("admin/replyInsert.do")
 	public String adminReplyBoardInsert(int wrno, Model model) {
 		model.addAttribute("wrno", wrno);

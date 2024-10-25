@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.sist.dao.SellerDAO;
 import com.sist.vo.ChartVO;
+import com.sist.vo.PromotionBannerVO;
+import com.sist.vo.PromotionCouponVO;
+import com.sist.vo.PromotionSaleVO;
 
 @Service
 public class SellerServiceImpl implements SellerService {
@@ -72,5 +75,25 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public List<ChartVO> sellerBannerPromotionChart(int pbno) {
 		return dao.sellerBannerPromotionChart(pbno);
+	}
+	
+	@Override
+	public ChartVO sellerVisitChart(String userid) {
+		return dao.sellerVisitChart(userid);
+	}
+
+	@Override
+	public List<PromotionCouponVO> chartCouponList(String userid) {
+		return dao.chartCouponList(userid);
+	}
+
+	@Override
+	public List<PromotionBannerVO> chartBannerList(String userid) {
+		return dao.chartBannerList(userid);
+	}
+
+	@Override
+	public List<PromotionSaleVO> chartSaleList(String userid) {
+		return dao.chartSaleList(userid);
 	}
 }
