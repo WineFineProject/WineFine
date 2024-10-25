@@ -284,14 +284,12 @@
 														</table>
 													</li>
 												</ul>
+											</div>
 												<div class="col-12 text-center">
 													<div style="text-align: center;" v-if="bocount < boTocount">
-														<button @click="viewMore2()">
-															<h5>더보기</h5>
-														</button>
+								<button class="form-control" style="background-color: #57102F; color: white; width: 100px; height: 110px;" @click="viewMore2()">더보기</button>
 													</div>
 												</div>
-											</div>
 
 										</div>
 									</div>
@@ -343,9 +341,8 @@
 							<div class="d-flex align-items-center" style="margin-bottom: 10px; margin-left: 10px;">
 								<table>
 									<tr>
-										<td style="width: 150px;" ><b>별점</b>  <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="srating" style="display: none;"> <i :class="{'text-wine':srating>=ss}" style="margin-right: 2px;" class="fa fa-star"></i>
-										</label>
-										</td>
+										<td style="width: 150px;"><b>별점</b> <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="srating" style="display: none;"> <i :class="{'text-wine':srating>=ss}" style="margin-right: 2px;" class="fa fa-star"></i>
+										</label></td>
 									</tr>
 								</table>
 							</div>

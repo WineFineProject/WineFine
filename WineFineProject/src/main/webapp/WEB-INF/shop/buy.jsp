@@ -231,9 +231,10 @@
 
 						</div>
 					</div>
-					<div style="text-align: center !important; margin-bottom: -40px; margin-top: 110px;">
-						<button class="btn btn-default winecor" style="width: 150px; color: white;" onclick="history.back();">취소</button>
-					</div>
+<div style="display: flex; justify-content: center; margin-top: 110px;">
+    <button class="btn btn-default winecor" style="width: 150px; color: white; margin-right: 10px;" @click="payment">결제하기</button>
+    <button class="btn btn-default winecor" style="width: 150px; color: white;" onclick="history.back();">취소</button>
+</div>
 
 
 
