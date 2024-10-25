@@ -83,4 +83,6 @@ public interface ShopService {
 	
 	
 	public int isPro (Map map);
+	
+	public List<WineVO> adminAllWineList(Map map);
 }

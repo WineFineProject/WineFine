@@ -66,7 +66,7 @@ public interface WineMapper {
 	// 신고페이지 와인 삭제
 	@Update("UPDATE wine SET state=7 WHERE wno=#{wno}")
 	public void reportWineUpdate(int wno);
-		
+	public List<WineVO> adminAllWineList(Map map);
 	public Map<String, Integer> sellerHomeSaleInfo(String userid);
 	public Map<String, Integer> sellerHomeWineInfo(String userid);
 }

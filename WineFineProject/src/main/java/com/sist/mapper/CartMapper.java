@@ -31,7 +31,7 @@ public interface CartMapper {
   		+ "FROM (SELECT cno, wno, userid, account, regdate, namekor, poster, price, nickname, rownum as num "
   		+ "FROM (SELECT c.cno, c.wno, c.userid, c.account, c.regdate, w.namekor, w.poster, w.price, m.nickname "
   		+ "FROM wine_cart c JOIN wine w ON c.wno=w.wno "
-  		+ "JOIN wine_member m ON c.userId=m.userid "
+  		+ "JOIN wine_member m ON w.seller=m.userid "
   		+ "WHERE c.userid=#{userid} "
   		+ "ORDER BY c.regdate DESC)) "
   		+ "WHERE num BETWEEN #{start} AND #{end}")

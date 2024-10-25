@@ -289,6 +289,11 @@ public class ShopServiceImpl implements ShopService{
 		// TODO Auto-generated method stub
 		wDao.reportWineUpdate(wno);
 	}
+	
+	@Override
+	public List<WineVO> adminAllWineList(Map map) {
+		return wDao.adminAllWineList(map);
+	}
 }
 
 

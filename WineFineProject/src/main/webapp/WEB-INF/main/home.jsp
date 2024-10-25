@@ -10,11 +10,19 @@
 	opacity: 0.4;
 	margin-top: 20px;
 }
-
+.content {
+	font-size: 16px; 
+	display: -webkit-box; 
+	-webkit-box-orient: vertical; 
+	-webkit-line-clamp: 2;
+	overflow: hidden; 
+	text-overflow: ellipsis; 
+	max-width: 100%; 
+}
 .swiper-slide-active {
-	height: 330px !important;
+	height: 340px !important;
 	opacity: 1 !important;
-	margin-top: 10px !important;
+	margin-top: 0px !important;
 }
 
 .swiper-slide-active>div {
@@ -81,7 +89,13 @@
 	border-radius: 150px;
 	color: darkred;
 }
-
+.vesitable-img{
+margin-top: 20px;
+}
+.wine-content{
+padding: 0px 4px !important;
+margin-top: 5px;
+}
 .filter-box li label.no-style {
 	padding: 0;
 	color: inherit;
@@ -115,11 +129,11 @@
 									<img :src="vo.wvo.poster" class="rounded-top" style="width: 50%; margin: auto;" alt="">
 								</div>
 								<div class="text-white bg-wine px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">{{vo.wvo.type}}</div>
-								<div class="p-4 rounded-bottom">
-									<span><b>{{vo.wvo.namekor}}</b></span>
-									<p>{{vo.mvo.nickName}}</p>
-									<div class="d-flex justify-content-between flex-lg-wrap">
-										<p class="text-dark fs-5 fw-bold mb-0" style="text-align: right;">{{vo.wvo.price}}</p>
+								<div class="p-4 rounded-bottom wine-content">
+									<span><b class="content">{{vo.wvo.namekor}}</b></span>
+									<p style="margin-bottom: 2px !important;">{{vo.mvo.nickName}}</p>
+									<div class="justify-content-between flex-lg-wrap">
+										<p class="text-dark fs-5 fw-bold mb-0 text-center">{{vo.wvo.price}}</p>
 									</div>
 								</div>
 							</div>

@@ -152,6 +152,25 @@
 		ORDER BY wpno DESC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
+	<select id="adminAllWineList" parameterType="hashmap" resultMap="wineMap">
+		SELECT wno, namekor, nameeng, type, price, vol, sugar, acid, body, tannin, aroma, food,
+		(SELECT m.namekor FROM maker m WHERE m.no = maker) AS maker,
+		(SELECT LISTAGG(g.namekor, ', ') WITHIN GROUP (ORDER BY g.namekor DESC)
+		FROM (SELECT REGEXP_SUBSTR(grape, '[^,]+', 1, LEVEL) AS grape_no
+		FROM dual CONNECT BY REGEXP_SUBSTR(grape, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN grape g ON t.grape_no = g.no) AS grape,
+		(SELECT LISTAGG(n.namekor, ' | ') WITHIN GROUP (ORDER BY n.namekor DESC)
+		FROM (SELECT REGEXP_SUBSTR(nation, '[^,]+', 1, LEVEL) AS nation_no
+		FROM dual CONNECT BY REGEXP_SUBSTR(nation, '[^,]+', 1, LEVEL) IS NOT NULL) t JOIN nation n ON t.nation_no = n.no) AS nation,
+		 alcohol, seller, nickname, stack, score, hit, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, 
+		likecount, poster, state, num
+		FROM (SELECT wno, namekor, nameeng, type, price, vol, sugar, acid, body, tannin, aroma, food, 
+		alcohol, nickname, score, hit, regdate, seller, stack,
+		maker, grape, nation, likecount, poster, state, rownum as num 
+		FROM (SELECT w.wno, w.namekor, w.nameeng, w.type, w.price, w.vol, w.sugar, w.acid, w.body, w.tannin, w.aroma, w.food, 
+		w.maker, w.grape, w.nation, w.alcohol, w.seller, mem.nickname, w.stack, w.score, w.hit, w.regdate, w.likecount, w.poster, w.state
+		FROM wine w JOIN wine_member mem ON w.seller=mem.userid ORDER BY wno DESC))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
 	<select id="myLikeList" resultMap="likeMap" parameterType="hashmap">
 	SELECT lno, wno, namekor, type, poster, price, nickname, num 
 	FROM (SELECT lno, wno, namekor, type, poster, price, nickname, rownum as num 

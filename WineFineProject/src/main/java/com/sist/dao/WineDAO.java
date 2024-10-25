@@ -101,5 +101,7 @@ public class WineDAO {
 	public void reportWineUpdate(int wno) {
 		mapper.reportWineUpdate(wno);
 	}
-
+	public List<WineVO> adminAllWineList(Map map){
+		return mapper.adminAllWineList(map);
+	}
 }

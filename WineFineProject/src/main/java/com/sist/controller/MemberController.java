@@ -1,5 +1,6 @@
 package com.sist.controller;
 
+import com.sist.service.DeliveryService;
 import com.sist.service.MemberService;
 import com.sist.vo.*;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,9 @@ public class MemberController {
 	@Autowired
 	private MemberService mService;
 
+	@Autowired
+	private DeliveryService dService;
+	
 	@RequestMapping("member/login.do")
 	public String memberLogin() {
 		return "login";
@@ -73,7 +77,7 @@ public class MemberController {
 	}
 
 	@PostMapping("member/joinOk.do")
-	public String memberJoinOk(MemberVO vo) {
+	public String memberJoinOk(MemberVO vo, String addrEng) {
 		System.out.println(vo);
 		String enPwd=encoder.encode(vo.getUserPwd());
 		vo.setUserPwd(enPwd);
@@ -83,6 +87,16 @@ public class MemberController {
 		else {
 			vo.setPhone("");
 		}
+		DeliveryVO dvo=new DeliveryVO();
+		dvo.setAddrEng(addrEng);
+		dvo.setUserId(vo.getUserId());
+		dvo.setPost(vo.getPost());
+		dvo.setAddr1(vo.getAddr1());
+		dvo.setAddr2(vo.getAddr2()!=null?vo.getAddr2():"");
+		dvo.setState(1);
+		dvo.setMsg("");
+		dvo.setName("최초 배송지");
+		dService.myDeliveryInsert(dvo);
 		mService.insertMember(vo);
 		mService.insertAuthority(vo.getUserId());
 		return "redirect:../main/main.do";

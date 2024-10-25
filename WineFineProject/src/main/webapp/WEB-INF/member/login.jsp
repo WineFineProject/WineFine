@@ -74,6 +74,7 @@ $('#sign-up').click(function() {
 				<div class="login__create" id="login-up" v-show="showLogin">
 					<form action="../member/joinOk.do" method="post" @submit.prevent="insertMember()" id="signupForm">
 						<h1 class="login__title">Create Account</h1>
+						<input type="hidden" v-model="addrEng" name="addrEng">
 						<div class="login__box">
 							<label><input type="radio" class="login__input" value="0" name="state" v-model="isSeller">일반사용자</label>
 							<label><input type="radio" class="login__input" value="1" name="state" v-model="isSeller">판매자</label>
@@ -285,7 +286,8 @@ $('#sign-up').click(function() {
 				isPwdCheck:false,
 				isPwdValid:false,
 				showLogin:false,
-				isSeller:0
+				isSeller:0,
+				addrEng:''
 			}
 		},
 		methods:{
@@ -375,6 +377,7 @@ $('#sign-up').click(function() {
 					oncomplete:function(data){
 						 _this.post=data.zonecode
 						 _this.addr1=data.address
+						 _this.addrEng=data.sidoEnglish
 					}
 				}).open()
 			},
