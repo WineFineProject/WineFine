@@ -160,7 +160,7 @@
 
 									<tr>
 										<td style="border-bottom: none; display: flex;">
-										<input type="number" style="width: 290px;" class="text-center form-control" @keyup="checkPoint()" v-model="point" min="0" :max="userPoint">
+										<input type="number" style="width: 290px;" class="text-center form-control" @keyup="checkPoint()" v-model="point" min="0" :max="vo.price">
 
 											<button class="btn btn-md  bg-light  " style="margin-left: 5px;" @click="allPoint()">전액사용</button></td>
 									</tr>
@@ -287,13 +287,10 @@ let buyApp = Vue.createApp({
             const selectedCouponDiscount = this.isCoupon ? this.selectedCoupon.discount : 0
             const psvoDiscount = this.promo != 0  ? this.psvo[0].discount : 0
             if (selectedCouponDiscount > psvoDiscount) {
-        		console.log('r1')
                 return (this.vo.price * this.quantity * (1 - selectedCouponDiscount / 100) - this.point)                
             } else if (psvoDiscount > 0) {
-            	console.log('r2')
                 return (this.vo.price * this.quantity * (1 - psvoDiscount / 100) - this.point)
             } else {
-            	console.log('r3')
                 return this.vo.price * this.quantity - this.point  // 기본 가격 반환
             }
         },
@@ -373,13 +370,25 @@ let buyApp = Vue.createApp({
             	this.isVisible = false
             }
         },				
-        checkPoint() {
-            if (this.point >= this.userPoint) {
-                this.point = this.userPoint
+        checkPoint() {        	
+            if (this.point >= this.userPoint) {                
+            	this.point = this.userPoint
+            	if(this.point > parseInt(this.vo.price)){
+            		this.point = this.vo.price
+            	}
             }
+            
         },
         allPoint() {
-            this.point = this.userPoint
+            console.log('test' + this.vo.price) 
+            if (this.userPoint > parseInt(this.vo.price)){
+            	this.point = this.vo.price
+            } else{
+                console.log('typeof point :' +typeof this.point) 
+                console.log('typeof userPoint :' +typeof this.userPoint) 
+                console.log('typeof vo.price :' +typeof this.vo.price) 
+	            this.point = this.userPoint          	
+            }                        
         },
         selectAddress(index) {
             this.selectAddr = this.userDeli[index] // 선택한 배송지 정보를 selectAddr에 저장

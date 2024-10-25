@@ -251,6 +251,8 @@ public interface ShopMapper {
 			+ "FETCH FIRST 1 ROWS ONLY ")
 	public int isPro (Map map);
 	
+
+	
 }
 
 
