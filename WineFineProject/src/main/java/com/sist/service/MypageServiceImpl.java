@@ -125,6 +125,12 @@ public class MypageServiceImpl implements MypageService {
 		dao.Authorityupdate(userid);
 	}
 
+	@Override
+	public void updatePwd(String userid,String userpwd) {
+		// TODO Auto-generated method stub
+		dao.updatePwd(userid, userpwd);
+	}
+
 	
 
 	

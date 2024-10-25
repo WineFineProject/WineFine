@@ -40,13 +40,13 @@ public class MyPageController {
 	 model.addAttribute("today", today);
 	 return "mypage/myReserve";
  }
- //작성한글
+ //작성한 글
  @GetMapping("mypage/myboardlist.do")
  public String mypageBoardList(String nickName){
 	 
 	 return "mypage/myboardlist"; 
  } 
- //작성리뷰
+ //작성 리뷰
  @GetMapping("mypage/myReview.do")
 	public String mypageReview() {
 		return "mypage/myReview";
@@ -70,5 +70,10 @@ public class MyPageController {
  @GetMapping("mypage/my_member_exit.do")
  public String mypagememberexit() {
 	 return "mypage/my_member_exit";
+ }
+ //비밀번호 변경
+ @GetMapping("mypage/mypwd.do")
+ public String myPwd() {
+	 return "mypage/mypwd";
  }
 }

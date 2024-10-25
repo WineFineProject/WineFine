@@ -39,7 +39,7 @@
 					<!-- 사이드바 메뉴목록1 -->
 					<ul class="list-group">
 						<li class="list-group-item"><a href="../mypage/my_edit_member.do">회원수정</a></li>
-						<li class="list-group-item"><a href="../mypage/my_change_pwd.do">비밀번호 변경</a></li>
+						<li class="list-group-item"><a href="../mypage/mypwd.do">비밀번호 변경</a></li>
 						<li class="list-group-item"><a href="../mypage/my_member_exit.do">회원탈퇴</a></li>
 						<li class="list-group-item"><a href="../mypage/delivery.do">배송주소</a></li>
 					</ul>
