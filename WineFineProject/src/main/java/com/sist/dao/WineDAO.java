@@ -18,93 +18,116 @@ import java.util.*;
 public class WineDAO {
 	@Autowired
 	private WineMapper mapper;
-	
-	public List<WineVO> wineListData2(Map map){
+
+	public List<WineVO> wineListData2(Map map) {
 		return mapper.wineListData2(map);
 	}
-	
+
 	public int wineTotalCount(Map map) {
 		return mapper.wineTotalCount(map);
 	}
-	
+
 	public int wineTotalPage() {
 		return mapper.wineTotalPage();
 	}
-	
-	public List<WineVO> wineFindList(Map map){
+
+	public List<WineVO> wineFindList(Map map) {
 		return mapper.wineFindList(map);
 	}
-	
-	public List<WineVO> wineFindData(String fd){
+
+	public List<WineVO> wineFindData(String fd) {
 		return mapper.wineFindData(fd);
 	}
-	
+
 	public int wineFindCount(String fd) {
 		return mapper.wineFindCount(fd);
 	}
-	
-	public List<WineVO> adminWineList(Map map){
+
+	public List<WineVO> adminWineList(Map map) {
 		return mapper.adminWineList(map);
 	}
+
 	public int adminWinePage() {
 		return mapper.adminWinePage();
 	}
-	
-	public List<Wine_PaymentVO> myPaymentList(Map map){
+
+	public List<Wine_PaymentVO> myPaymentList(Map map) {
 		return mapper.myPaymentList(map);
 	}
-	
-	public int myPaymentTotalPage(Map map){
+
+	public int myPaymentTotalPage(Map map) {
 		return mapper.myPaymentTotalPage(map);
 	}
-	
+
 	public String getSeller(int wno) {
 		return mapper.getSeller(wno);
 	}
-	
+
 	public void paymentStateUpdate1() {
 		mapper.paymentStateUpdate1();
 	}
+
 	public void paymentStateUpdate2() {
 		mapper.paymentStateUpdate2();
 	}
+
 	public void paymentStateUpdate3() {
 		mapper.paymentStateUpdate3();
 	}
-	public List<Wine_PaymentVO> paymentGetAccount(){
+
+	public List<Wine_PaymentVO> paymentGetAccount() {
 		return mapper.paymentGetAccount();
 	}
+
 	public void wineStackUpdate(Wine_PaymentVO vo) {
 		mapper.wineStackUpdate(vo);
 	}
+
 	public void sellerAccUpdate(Wine_PaymentVO vo) {
 		mapper.sellerAccUpdate(vo);
 	}
+
 	public void paymentReturnReques(int wpno) {
 		mapper.paymentReturnReques(wpno);
 	}
+
 	public int myLikeTotalPage(Map map) {
 		return mapper.myLikeTotalPage(map);
 	}
-	public List<LikeVO> myLikeList(Map map){
+
+	public List<LikeVO> myLikeList(Map map) {
 		return mapper.myLikeList(map);
 	}
+
 	public void likeDelete(int rno) {
 		mapper.likeDelete(rno);
 	}
-	public Map<String, Integer> sellerHomeSaleInfo(String userid){
+
+	public Map<String, Integer> sellerHomeSaleInfo(String userid) {
 		return mapper.sellerHomeSaleInfo(userid);
 	}
-	public Map<String, Integer> sellerHomeWineInfo(String userid){
+
+	public Map<String, Integer> sellerHomeWineInfo(String userid) {
 		return mapper.sellerHomeWineInfo(userid);
 	}
+
 	public void reportWineUpdate(int wno) {
 		mapper.reportWineUpdate(wno);
 	}
-	public List<WineVO> adminAllWineList(Map map){
+
+	public List<WineVO> adminAllWineList(Map map) {
 		return mapper.adminAllWineList(map);
 	}
+
 	public int adminWinetotalCount(Map map) {
 		return mapper.adminWinetotalCount(map);
+	}
+
+	public void wineAccept(int wno) {
+		mapper.wineAccept(wno);
+	}
+
+	public void wineRejection(int wno) {
+		mapper.wineRejection(wno);
 	}
 }

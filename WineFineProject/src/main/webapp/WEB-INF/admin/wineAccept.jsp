@@ -5,17 +5,33 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#adminItemApp table tr th{
-background: lightgray;
-color: white;
+#adminItemApp table tr th {
+	background: lightgray;
+	color: white;
 }
-#adminItemApp table tr td table{
-margin-bottom: 0px;
+
+#adminItemApp table tr td table {
+	margin-bottom: 0px;
 }
+
 #coupon-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 30px;
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 30px;
+}
+.img-size {
+	width: 20px;
+	margin-right: 4px;
+}
+
+.img-margin {
+	margin-left: auto;
+}
+
+.img-text {
+	color: black;
+	margin-left: 3px;
+	margin-right: 6px;
 }
 </style>
 </head>
@@ -35,15 +51,17 @@ margin-bottom: 0px;
 			<template v-for="(vo, index) in list">
 				<tr @click="checkInfo(index)">
 					<td width="7%" class="text-center">{{vo.wno}}</td>
-					<td width="7%" class="text-center"><img :src="vo.poster" width="55px" style="max-height: 60px;"></td>
+					<td width="7%" class="text-center">
+						<img :src="vo.poster" width="55px" style="max-height: 60px;">
+					</td>
 					<td width="30%" class="text-center">{{vo.namekor}}</td>
 					<td width="15%" class="text-center">{{vo.mvo.nickName}}</td>
 					<td width="10%" class="text-center">{{vo.type}}</td>
 					<td width="10%" class="text-center">{{vo.price}}</td>
 					<td width="10%" class="text-center">{{vo.dbday}}</td>
 					<td width="21%" class="text-center">
-						<button class="btn btn-sm border-wine">승인</button>
-						<button class="btn btn-sm border-wine">반려</button>
+						<button class="btn btn-sm border-wine" @click="wineAccept(vo.wno)">승인</button>
+						<button class="btn btn-sm border-wine" @click="wineRejection(vo.wno)">반려</button>
 					</td>
 				</tr>
 				<tr v-if="isShow[index]">
@@ -85,7 +103,9 @@ margin-bottom: 0px;
 							</tr>
 						</table>
 					</td>
-					<td><button class="btn btn-sm border-wine">미리보기</button></td>
+					<td>
+						<a class="btn btn-sm border-wine" :href="'../shop/detail.do?wno='+vo.wno" target="_blank">미리보기</a>
+					</td>
 				</tr>
 			</template>
 		</table>
@@ -103,11 +123,12 @@ margin-bottom: 0px;
 				list:[],
 				curPage:1,
 				totalPage:0,
-				isShow:Array(10).fill(false)
+				isShow:Array(10).fill(false),
 			}
 		},
 		methods:{
 			wList(page){
+				this.isShow=Array(10).fill(false)
 				axios.get('../admin/vueWineList.do', {
 					params:{
 						page:page
@@ -126,6 +147,24 @@ margin-bottom: 0px;
 				else{
 					this.isShow[index]=false
 				}
+			},
+			wineAccept(wno){
+				axios.get('../admin/vueWineAccept.do', {
+					params:{
+						wno:wno
+					}
+				}).then(response=>{
+					this.wList(1)
+				})
+			},
+			wineRejection(wno){
+				axios.get('../admin/vueWineRejection.do', {
+					params:{
+						wno:wno
+					}
+				}).then(response=>{
+					this.wList(1)
+				})
 			}
 		},
 		mounted(){

@@ -70,4 +70,10 @@ public interface WineMapper {
 	public int adminWinetotalCount(Map map);
 	public Map<String, Integer> sellerHomeSaleInfo(String userid);
 	public Map<String, Integer> sellerHomeWineInfo(String userid);
+	
+	@Update("UPDATE wine SET state=1 WHERE wno=#{wno}")
+	public void wineAccept(int wno);
+	
+	@Update("UPDATE wine SET state=8 WHERE wno=#{wno}")
+	public void wineRejection(int wno);
 }

@@ -3,6 +3,7 @@ package com.sist.service;
 import java.util.*;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 
@@ -90,4 +91,8 @@ public interface ShopService {
 	public int findBuyer (int wno, String userid);
 //	블랙 대상 찾기
 	public int blackList (String userid,String seller);
+	public WineVO wineDetail(int wno);
+	
+	public void wineAccept(int wno);
+	public void wineRejection(int wno);
 }

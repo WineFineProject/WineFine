@@ -87,7 +87,7 @@ public interface ShopMapper {
 	@Select("SELECT w.wno, w.vol, w.type, w.tannin, w.sugar, w.state, w.stack, "
 	        + "w.seller, w.score, w.regdate, w.price, w.poster, w.nation, "
 	        + "w.namekor, w.nameeng, w.maker, w.likecount, w.hit, w.grape, "
-	        + "w.food, w.body, w.aroma, w.alcohol, w.acid, "
+	        + "w.food, w.body, w.aroma, w.alcohol, w.acid, w.nbno, "
 	        + "m.namekor AS makerkor, m.nameeng AS makereng "
 	        + "FROM wine w "
 	        + "LEFT JOIN maker m ON TO_NUMBER(w.maker) = m.no "

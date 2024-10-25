@@ -311,6 +311,21 @@ public class ShopServiceImpl implements ShopService{
 		// TODO Auto-generated method stub
 		return sdao.blackList(userid, seller);
 	}
+	
+	@Override
+	public WineVO wineDetail(int wno) {
+		return sdao.wineDetail(wno);
+	}
+
+	@Override
+	public void wineAccept(int wno) {
+	wDao.wineAccept(wno);
+	}
+
+	@Override
+	public void wineRejection(int wno) {
+		wDao.wineRejection(wno);
+	}
 }
 
 

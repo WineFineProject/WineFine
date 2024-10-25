@@ -5,8 +5,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.time.LocalTime;
 import java.util.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.map.HashedMap;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.LikeService;
 import com.sist.service.MemberService;
+import com.sist.service.NoticeBoardService;
 import com.sist.service.ShopService;
 import com.sist.service.WineReviewService;
 import com.sist.vo.*;
@@ -36,12 +41,13 @@ public class ShopRestController {
 	private ShopService sservice;
 	private MemberService mService;
 	private LikeService lservice;
-
+	private NoticeBoardService nService;
 	@Autowired
-	public ShopRestController(ShopService sservice, MemberService mService, LikeService lservice) {
+	public ShopRestController(ShopService sservice, MemberService mService, LikeService lservice, NoticeBoardService nService) {
 		this.sservice = sservice;
 		this.mService = mService;
 		this.lservice = lservice;
+		this.nService=nService;
 	}
 
 	@Autowired
@@ -115,10 +121,23 @@ public class ShopRestController {
 	}
 
 	@GetMapping(value = "shop/detail_vue.do", produces = "text/plain;charset=UTF-8")
-	public String wine_detail(int wno, int count, HttpSession session) throws Exception {
+	public String wine_detail(int wno, int count, HttpSession session, HttpServletRequest request) throws Exception {
 		String id = (String)session.getAttribute("userId");
+		String idtem=id;
+		if(idtem==null)
+			idtem="guest";
+		int cookieCheck=0;
+		Cookie[] cookies=request.getCookies();
+		if(cookies!=null) {
+			for(int i=cookies.length-1;i>=0;i--) {
+				if(cookies[i].getName().startsWith("page_"+idtem)){
+					if(cookies[i].getValue().equals(String.valueOf(wno)))
+					cookieCheck=1;
+				}
+			}
+		}
 		
-		WineVO vo = sservice.wineDetailData(wno);
+		WineVO vo = sservice.wineDetail(wno);
 		List<String> gname = sservice.grapeName(wno);
 		List<String> nname = sservice.nationName(wno);
 		List<WineVO> otherSeller = sservice.otherWine_seller(wno);
@@ -127,7 +146,7 @@ public class ShopRestController {
 		int reviewCount = wservice.reviewTotalCount(wno);
 		int likeCount = lservice.wineLikeCount(wno);
 		String sellerName = sservice.selectUsername (wno);		
-		
+		NoticeBoardVO nvo=nService.noticeDetailData(vo.getNbno());
 		String[] gnolink = {};
 		if (vo.getGrape() != null) {
 			gnolink = vo.getGrape().split(",");
@@ -149,7 +168,8 @@ public class ShopRestController {
 		map.put("reviewCount", reviewCount);
 		map.put("likeCount", likeCount);
 		map.put("sellerName", sellerName);
-		
+		map.put("nvo", nvo);
+		map.put("cookieCheck", cookieCheck);
 		int reviewCheck = 0;
 		if(id != null) {	
 			reviewCheck =  wservice.reviewCheck(wno, id);
@@ -377,4 +397,29 @@ public class ShopRestController {
 		  }
 		  return sb.toString();
 	  }
+	
+	@GetMapping(value = "shop/wineDetailInfo.do", produces = "text/plain;charset=UTF-8")
+	public String shopWineDetailInfo(int wno)throws Exception{
+		WineVO vo=sservice.wineDetail(wno);
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(vo);
+	}
+	@GetMapping(value = "shop/cookieClose.do", produces = "text/plain;charset=UTF-8")
+	public void shopCookieClose(int wno, HttpServletResponse response, HttpSession session) {
+		LocalTime now = LocalTime.now();
+
+    int hoursInSeconds = now.getHour() * 3600;
+    int minutesInSeconds = now.getMinute() * 60;
+    int seconds = now.getSecond();
+
+    int totalSeconds = hoursInSeconds + minutesInSeconds + seconds;
+
+    System.out.println("현재 시간을 초로 환산한 값: " + totalSeconds);
+		String id=(String)session.getAttribute("userId");
+		if(id==null)
+			id="guest";
+		Cookie cookie=new Cookie("page_"+id+"_"+wno, String.valueOf(wno));
+		cookie.setMaxAge(24*60*60-totalSeconds);
+		response.addCookie(cookie);
+	}
 }

@@ -230,4 +230,13 @@ public class AdminRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(map);
 	}
+
+	@GetMapping(value="admin/vueWineAccept.do",produces = "text/plain;charset=UTF-8")
+	public void adminWineAccept(int wno) {
+		ssService.wineAccept(wno);
+	}
+	@GetMapping(value="admin/vueWineRejection.do",produces = "text/plain;charset=UTF-8")
+	public void adminWineRejection(int wno) {
+		ssService.wineRejection(wno);
+	}
 }

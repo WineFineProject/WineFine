@@ -148,7 +148,9 @@ public class ShopDAO {
 		return mapper.blackList(userid, seller);
 	}
 
-
+	public WineVO wineDetail(int wno) {
+		return mapper.wineDetailData(wno);
+	}
 
 
 

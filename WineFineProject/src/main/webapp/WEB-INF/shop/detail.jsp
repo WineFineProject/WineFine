@@ -9,6 +9,45 @@
 
 
 <style type="text/css">
+.layer-popup-bg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 9998;
+	display: none;
+}
+
+.layer-popup {
+	border: 1px solid black;
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 400px;
+	background-color: white;
+	padding: 20px;
+	z-index: 9999;
+	display: none;
+}
+
+.layer-popup-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.layer-popup-header h2 {
+	margin: 0;
+}
+
+.layer-popup-close {
+	cursor: pointer;
+}
+
 .info-list {
 	list-style-type: none;
 	padding: 0;
@@ -117,7 +156,9 @@
 	width: 202px;
 	text-overflow: ellipsis;
 }
-
+.active {
+	display: block !important;
+}
 .vegetable-carousel {
 	display: flex !important; /* 가로로 배치 */
 	overflow-x: hidden;
@@ -160,10 +201,28 @@
 						<div class="col-lg-7">
 							<h4 class="fw-bold mb-3"></h4>
 							<p class="mb-3 d-flex align-items-center">
-								<span :class="wineClass(vo.type)">{{vo.type}} </span> | <span v-for="(nvo,index) in nname">{{index === 0 ?'':'&nbsp;|&nbsp;'}}<a>{{nvo}}</a>
-								</span> <span class="img-margin"> <span> <img src="../img/like_off.png" @click="likeOn()" class="img-size img-hover" v-if="Lcheck === 0 || sessionId ==='' "> <img src="../img/like_on.png" @click="likeOff()" class="img-size img-hover" v-if="Lcheck !== 0 && sessionId !=='' "> <span class="img-text"><b>{{likeCount}}</b></span>
-								</span> <img src="../img/eye.png" class="img-size "> <span class="img-text"><b>{{vo.hit}}</b></span> <span @click="copyLink()" class="img-hover"> <img src="../img/share.png" class="img-size "> <span> </span>
+								<span :class="wineClass(vo.type)">{{vo.type}} </span>
+								|
+								<span v-for="(nvo,index) in nname">
+									{{index === 0 ?'':'&nbsp;|&nbsp;'}}
+									<a>{{nvo}}</a>
 								</span>
+								<span class="img-margin">
+									<span>
+										<img src="../img/like_off.png" @click="likeOn()" class="img-size img-hover" v-if="Lcheck === 0 || sessionId ==='' ">
+										<img src="../img/like_on.png" @click="likeOff()" class="img-size img-hover" v-if="Lcheck !== 0 && sessionId !=='' ">
+										<span class="img-text">
+											<b>{{likeCount}}</b>
+										</span>
+									</span>
+									<img src="../img/eye.png" class="img-size ">
+									<span class="img-text">
+										<b>{{vo.hit}}</b>
+									</span>
+									<span @click="copyLink()" class="img-hover">
+										<img src="../img/share.png" class="img-size ">
+										<span> </span>
+									</span>
 								</span>
 							</p>
 							<h4 class="fw-bold mb-3">{{vo.namekor}}</h4>
@@ -172,11 +231,31 @@
 							</p>
 							<h5 class="fw-bold mb-3">{{vo.price}}({{vo.vol}})</h5>
 							<div class="d-flex mb-4">
-								<b class="font-style">평점</b> <span v-for="as in 5" class="no-style"><i :class="{'text-secondary-wine':vo.score>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>&nbsp; <b class="font-style" style="color: orange">{{formattedValue}}</b>
+								<b class="font-style">평점</b>
+								<span v-for="as in 5" class="no-style">
+									<i :class="{'text-secondary-wine':vo.score>=as}" style="margin-right: 2px;" class="fa fa-star"></i>
+								</span>
+								&nbsp; <b class="font-style" style="color: orange">{{formattedValue}}</b>
 							</div>
 							<div class="d-flex mb-4">
 								<p>
-									<b class="font-style">당도</b> <span v-for="as in 5" class="no-style"><i :class="{'text-wine':vo.sugar>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>&nbsp; <b class="font-style">산도</b> <span v-for="as in 5" class="no-style"><i :class="{'text-wine':vo.acid>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>&nbsp; <b class="font-style">바디</b> <span v-for="as in 5" class="no-style"><i :class="{'text-wine':vo.body>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>&nbsp; <b class="font-style">탄닌</b> <span v-for="as in 5" class="no-style"><i :class="{'text-wine':vo.tannin>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>&nbsp;
+									<b class="font-style">당도</b>
+									<span v-for="as in 5" class="no-style">
+										<i :class="{'text-wine':vo.sugar>=as}" style="margin-right: 2px;" class="fa fa-star"></i>
+									</span>
+									&nbsp; <b class="font-style">산도</b>
+									<span v-for="as in 5" class="no-style">
+										<i :class="{'text-wine':vo.acid>=as}" style="margin-right: 2px;" class="fa fa-star"></i>
+									</span>
+									&nbsp; <b class="font-style">바디</b>
+									<span v-for="as in 5" class="no-style">
+										<i :class="{'text-wine':vo.body>=as}" style="margin-right: 2px;" class="fa fa-star"></i>
+									</span>
+									&nbsp; <b class="font-style">탄닌</b>
+									<span v-for="as in 5" class="no-style">
+										<i :class="{'text-wine':vo.tannin>=as}" style="margin-right: 2px;" class="fa fa-star"></i>
+									</span>
+									&nbsp;
 								</p>
 							</div>
 							<div>
@@ -198,8 +277,11 @@
 
 							<div class="d-flex align-items-center mb-5">
 
-								<a class="btn border rounded-pill px-4 py-2 ms-3 aorb" @click="handleAddToCart()"> <i class="fa-solid fa-cart-plus " style="color: #881824;"></i> Add to cart
-								</a> <a class="btn border rounded-pill px-4 py-2 ms-3 aorb" @click="handleBuyNow()"> <i class="fa-solid fa-credit-card " style="color: #881824;"></i> Buy Now
+								<a class="btn border rounded-pill px-4 py-2 ms-3 aorb" @click="handleAddToCart()">
+									<i class="fa-solid fa-cart-plus " style="color: #881824;"></i> Add to cart
+								</a>
+								<a class="btn border rounded-pill px-4 py-2 ms-3 aorb" @click="handleBuyNow()">
+									<i class="fa-solid fa-credit-card " style="color: #881824;"></i> Buy Now
 								</a>
 							</div>
 							<div style="text-align: right;">
@@ -224,13 +306,34 @@
 										<div class="row g-4">
 											<div class="col-6">
 												<ul class="info-list" style="width: 1230px;">
-													<li><span class="title">· 생산자</span> <span><a :href="'../maker/detail.do?no='+vo.maker" class="a-color">{{ vo.makerkor != null ? vo.makerkor : '정보없음' }} / {{ vo.makereng != null ? vo.makereng : '' }}</a></span></li>
-													<li><span class="title">· 국가/생산지역</span> <span v-for="(nvo,index) in nname">{{index === 0 ?'':'&nbsp;|&nbsp;'}}<a :href="'../nation/detail.do?no='+nnolink[index]" class="a-color">{{ nvo != null ? nvo : '정보없음' }}</a>
-													</span></li>
-													<li><span class="title">· 주요품종</span> <span v-for="(gvo,index) in gname">{{index === 0 ? '':'&nbsp;|&nbsp;'}}<a :href="'../grape/detail.do?no='+gnolink[index]" class="a-color">{{ gvo != null ? gvo : '정보없음' }}</a>
-													</span></li>
-													<li><span class="title">· 도수</span> <span class="content">{{ vo.alcohol != null ? vo.alcohol : '정보없음' }}</span></li>
-													<li><span class="title">· 추천음식</span> <span class="content">{{ vo.food != null ? vo.food : '정보없음' }}</span></li>
+													<li>
+														<span class="title">· 생산자</span>
+														<span>
+															<a :href="'../maker/detail.do?no='+vo.maker" class="a-color">{{ vo.makerkor != null ? vo.makerkor : '정보없음' }} / {{ vo.makereng != null ? vo.makereng : '' }}</a>
+														</span>
+													</li>
+													<li>
+														<span class="title">· 국가/생산지역</span>
+														<span v-for="(nvo,index) in nname">
+															{{index === 0 ?'':'&nbsp;|&nbsp;'}}
+															<a :href="'../nation/detail.do?no='+nnolink[index]" class="a-color">{{ nvo != null ? nvo : '정보없음' }}</a>
+														</span>
+													</li>
+													<li>
+														<span class="title">· 주요품종</span>
+														<span v-for="(gvo,index) in gname">
+															{{index === 0 ? '':'&nbsp;|&nbsp;'}}
+															<a :href="'../grape/detail.do?no='+gnolink[index]" class="a-color">{{ gvo != null ? gvo : '정보없음' }}</a>
+														</span>
+													</li>
+													<li>
+														<span class="title">· 도수</span>
+														<span class="content">{{ vo.alcohol != null ? vo.alcohol : '정보없음' }}</span>
+													</li>
+													<li>
+														<span class="title">· 추천음식</span>
+														<span class="content">{{ vo.food != null ? vo.food : '정보없음' }}</span>
+													</li>
 												</ul>
 											</div>
 										</div>
@@ -242,10 +345,20 @@
 										<div class="row g-4">
 											<div class="col-6">
 												<ul class="info-list" style="width: 1230px;">
-													<li><span class="title">· 판매자 정보</span> <span class="content">{{vo.seller!=null ? sellerName:'정보없음'}}</span></li>
-													<li><span class="title">· 신고하기</span> <span class="content">WineFine 은 소비자의 보호와 사이트의 안전거래를 위해 신고 센터를 운영하고 있습니다. <br> 안전 거레를 저해하는 경우 신고하여 주시기 바랍니다.
-													</span></li>
-													<li><span class="title"></span> <input type="button" value="신고하기" class="report" @click="changeModal(true)"></li>
+													<li>
+														<span class="title">· 판매자 정보</span>
+														<span class="content">{{vo.seller!=null ? sellerName:'정보없음'}}</span>
+													</li>
+													<li>
+														<span class="title">· 신고하기</span>
+														<span class="content">
+															WineFine 은 소비자의 보호와 사이트의 안전거래를 위해 신고 센터를 운영하고 있습니다. <br> 안전 거레를 저해하는 경우 신고하여 주시기 바랍니다.
+														</span>
+													</li>
+													<li>
+														<span class="title"></span>
+														<input type="button" value="신고하기" class="report" @click="changeModal(true)">
+													</li>
 												</ul>
 											</div>
 										</div>
@@ -257,7 +370,14 @@
 										<div class="row g-4">
 											<div class="col-6">
 												<ul class="info-list" style="width: 1230px;">
-													<li><span class="title">· 문의 게시판</span> <span class="content" style="text-align: right; margin-right: 15px;"><a href="../replyboard/insert3.do"><b>글쓰기</b></a></span></li>
+													<li>
+														<span class="title">· 문의 게시판</span>
+														<span class="content" style="text-align: right; margin-right: 15px;">
+															<a href="../replyboard/insert3.do">
+																<b>글쓰기</b>
+															</a>
+														</span>
+													</li>
 													<li>
 														<table class="table">
 															<thead style="background-color: #efefef;">
@@ -273,8 +393,20 @@
 															<tbody v-for="(re,index) in relist">
 																<tr>
 																	<td class="text-center">{{boTocount - index +1}}</td>
-																	<td width=35%><span style="color: darkred" v-if="id!==re.userid&&re.secret===1&&re.group_step===0"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;비밀글입니다</span> <span style="color: darkred" v-else-if="id!==re.recvid&&re.secret===1&&re.group_step===1">ㄴ&nbsp;<i class="fa fa-lock" aria-hidden="true"></i>&nbsp;비밀글입니다
-																	</span> <a :href="'../replyboard/detail.do?wrno='+re.wrno" v-else><span v-if="re.group_step===1">ㄴ</span><span v-if="re.type===2">[{{cnos[re.cno]}}]&nbsp;</span> <span v-if="vo.type===3">[{{cno[vo.cno]}}]&nbsp;</span>{{re.subject}}</a></td>
+																	<td width=35%>
+																		<span style="color: darkred" v-if="id!==re.userid&&re.secret===1&&re.group_step===0">
+																			<i class="fa fa-lock" aria-hidden="true"></i>&nbsp;비밀글입니다
+																		</span>
+																		<span style="color: darkred" v-else-if="id!==re.recvid&&re.secret===1&&re.group_step===1">
+																			ㄴ&nbsp;<i class="fa fa-lock" aria-hidden="true"></i>&nbsp;비밀글입니다
+																		</span>
+																		<a :href="'../replyboard/detail.do?wrno='+re.wrno" v-else>
+																			<span v-if="re.group_step===1">ㄴ</span>
+																			<span v-if="re.type===2">[{{cnos[re.cno]}}]&nbsp;</span>
+																			<span v-if="vo.type===3">[{{cno[vo.cno]}}]&nbsp;</span>
+																			{{re.subject}}
+																		</a>
+																	</td>
 																	<td class="text-center">{{re.nickname}}</td>
 																	<td class="text-center">{{re.dbday}}</td>
 																	<td class="text-center">{{re.hit}}</td>
@@ -285,11 +417,11 @@
 													</li>
 												</ul>
 											</div>
-												<div class="col-12 text-center">
-													<div style="text-align: center;" v-if="bocount < boTocount">
-								<button class="form-control" style="background-color: #57102F; color: white; width: 100px; height: 110px;" @click="viewMore2()">더보기</button>
-													</div>
+											<div class="col-12 text-center">
+												<div style="text-align: center;" v-if="bocount < boTocount">
+													<button class="form-control" style="background-color: #57102F; color: white; width: 100px; height: 110px;" @click="viewMore2()">더보기</button>
 												</div>
+											</div>
 
 										</div>
 									</div>
@@ -310,7 +442,11 @@
 											<b>{{vw.nickname}}</b>
 										</h5>
 									</td>
-									<td style="width: 140px;" class="text-center">별점 <span v-for="as in 5" class="no-style"><i :class="{'text-secondary-wine':vw.srating>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>
+									<td style="width: 140px;" class="text-center">
+										별점
+										<span v-for="as in 5" class="no-style">
+											<i :class="{'text-secondary-wine':vw.srating>=as}" style="margin-right: 2px;" class="fa fa-star"></i>
+										</span>
 									</td>
 									<td style="width: 130px;" class="text-center">
 										<h5 style="width: 210px">
@@ -320,7 +456,8 @@
 									<td style="text-align: right;">
 										<button class="btn btn-md rounded-circle" @click="reviewDelete(vw.wrvno)" v-if="vw.userid === sessionId">
 											<i class="fa fa-times text-danger"></i>
-										</button> <img src="../img/Report.png" alt="Report" style="width: 30px; height: auto;" class="img-hover" @click="changeModal2(true, vw.wrvno)">
+										</button>
+										<img src="../img/Report.png" alt="Report" style="width: 30px; height: auto;" class="img-hover" @click="changeModal2(true, vw.wrvno)">
 									</td>
 								</tr>
 							</table>
@@ -341,8 +478,10 @@
 							<div class="d-flex align-items-center" style="margin-bottom: 10px; margin-left: 10px;">
 								<table>
 									<tr>
-										<td style="width: 150px;"><b>별점</b> <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="srating" style="display: none;"> <i :class="{'text-wine':srating>=ss}" style="margin-right: 2px;" class="fa fa-star"></i>
-										</label></td>
+										<td style="width: 150px;">
+											<b>별점</b> <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="srating" style="display: none;"> <i :class="{'text-wine':srating>=ss}" style="margin-right: 2px;" class="fa fa-star"></i>
+											</label>
+										</td>
 									</tr>
 								</table>
 							</div>
@@ -434,31 +573,66 @@
 				<table class="table" style="margin-top: 50px;">
 					<tr>
 						<th width="20%" class="text-center">신고대상 ID :</th>
-						<td width="20%" class="text-center backcor"><b>{{sellerName}}</b></td>
+						<td width="20%" class="text-center backcor">
+							<b>{{sellerName}}</b>
+						</td>
 						<th width="20%" class="text-center">상품명 :</th>
-						<td width="40%" class="text-center backcor"><b>{{vo.namekor}}</b></td>
+						<td width="40%" class="text-center backcor">
+							<b>{{vo.namekor}}</b>
+						</td>
 					</tr>
 					<tr>
 						<th width="20%" class="text-center">카테고리 :</th>
-						<td colspan="3"><select style="width: 175px;" v-model="category" @change="selectCategory($event)">
+						<td colspan="3">
+							<select style="width: 175px;" v-model="category" @change="selectCategory($event)">
 								<option value="상품관련">상품관련</option>
 								<option value="배송관련">배송관련</option>
 								<option value="기타신고">기타신고</option>
-						</select></td>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<th width="20%" class="text-center">신고 사유:</th>
-						<td colspan="3"><textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
-						</textarea></td>
+						<td colspan="3">
+							<textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
+						</textarea>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="4" class="rmbtn" style="text-align: center; border-bottom: none;">
-							<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport()">접수</button> &nbsp;&nbsp;
+							<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport()">접수</button>
+							&nbsp;&nbsp;
 							<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal(false)">취소</button>
 						</td>
 					</tr>
 				</table>
 			</div>
+		</div>
+
+		<div v-if="cookieCheck===0&&vo.nbno!==0" class="layer-popup" id="popup" :class="{active:popupVisible}">
+			<div class="layer-popup-header">
+				<span class="layer-popup-close" style="text-align: right;" @click="popupClose()">X</span>
+			</div>
+			<table class="table t" style="table-layout: fixed; margin-top: 10px;">
+				<tr>
+					<th width="20%">제목</th>
+					<td colspan="3" style="border: 1px solid #e1e1e1">
+						<p>{{nvo.subject}}</p>
+					</td>
+				</tr>
+				<tr>
+					<th width="20%">보낸이</th>
+					<td width="30%">{{nvo.nickname}}</td>
+					<th width="20%">작성일</th>
+					<td width="30%" style="border: 1px solid #e1e1e1">{{nvo.dbday}}</td>
+				</tr>
+				<tr>
+					<td colspan="4" class="content-box">
+						<pre>{{nvo.content}}</pre>
+					</td>
+				</tr>
+			</table>
+			<p style="text-align: right;cursor: default;" @click="cookieClose(vo.wno)">□오늘 하루 보지 않음</p>
 		</div>
 
 		<div class="modal" :class="{ show: showModal2 }" @click.self="changeModal(false)">
@@ -467,26 +641,35 @@
 				<table class="table" style="margin-top: 50px;">
 					<tr>
 						<th width="20%" class="text-center">신고대상 ID :</th>
-						<td width="20%" class="text-center backcor"><b>{{sellerName}}</b></td>
+						<td width="20%" class="text-center backcor">
+							<b>{{sellerName}}</b>
+						</td>
 						<th width="20%" class="text-center">상품명 :</th>
-						<td width="40%" class="text-center backcor"><b>{{vo.namekor}}</b></td>
+						<td width="40%" class="text-center backcor">
+							<b>{{vo.namekor}}</b>
+						</td>
 					</tr>
 					<tr>
 						<th width="20%" class="text-center">카테고리 :</th>
-						<td colspan="3"><select style="width: 175px;" v-model="category2" @change="selectCategory2($event)">
+						<td colspan="3">
+							<select style="width: 175px;" v-model="category2" @change="selectCategory2($event)">
 								<option value="폭언/욕설">폭언/욕설</option>
 								<option value="불법광고">불법광고</option>
 								<option value="기타신고">기타신고</option>
-						</select></td>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<th width="20%" class="text-center">신고 사유:</th>
-						<td colspan="3"><textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
-						</textarea></td>
+						<td colspan="3">
+							<textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
+						</textarea>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="4" class="rmbtn" style="text-align: center; border-bottom: none;">
-							<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport2()">접수</button> &nbsp;&nbsp;
+							<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport2()">접수</button>
+							&nbsp;&nbsp;
 							<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal2(false)">취소</button>
 						</td>
 					</tr>
@@ -525,6 +708,7 @@
 	            review: '',
 	            srating: 1,
 	            reviewListData: [],
+	            popupVisible:false,
 	            count: 4,
 	            bocount: 4,
 	            isOn: false,
@@ -535,6 +719,8 @@
 	            sellerName: '',
 	            wrvno:0,
 	            relist:[],
+	            nvo:{},
+	            cookieCheck:0,
     			curpage: 1,
     			totalpage: 0,
     			startPage: 0,
@@ -613,6 +799,9 @@
 	    		}).catch(error => {
 	    			console.log(error.response)
 	    		})	    		
+	    	},
+	    	popupClose(){
+	    		this.popupVisible=false
 	    	},
 	    	likeOff(){
 	    		if(this.sessionId == ''){
@@ -735,6 +924,15 @@
 	        		console.log(error.response)
 	        	})
 	        },
+	        cookieClose(wno){
+	        	axios.get('../shop/cookieClose.do', {
+	        		params:{
+	        			wno:wno
+	        		}
+	        	}).then(response=>{
+	        		this.popupVisible=false
+	        	})
+	        },
 	        handleBuyNow() {
 	            if (this.sessionId) {
 	            	if(this.black !== 0){
@@ -831,6 +1029,10 @@
    				 }).then(response=>{
  	 	          	 console.log(response.data)
 		   	         this.vo = response.data.vo
+		   	         this.nvo=response.data.nvo
+		   	         this.cookieCheck=response.data.cookieCheck
+		   	         if(this.cookieCheck!==1)
+		   	        	 this.popupVisible=true
 		   	         this.gname = response.data.gname
 		   	         this.nname = response.data.nname
 		   	         this.mname = response.data.mname

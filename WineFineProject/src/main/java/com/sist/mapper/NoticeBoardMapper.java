@@ -36,4 +36,5 @@ public interface NoticeBoardMapper {
 	
 	@Select("SELECT MAX(nbno) FROM noticeboard")
 	public int noticeGetNum();
+	
 }
