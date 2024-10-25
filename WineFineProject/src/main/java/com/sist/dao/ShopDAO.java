@@ -140,7 +140,10 @@ public class ShopDAO {
 		return mapper.isPro(map);
 	}
 	
-	
+	public int findBuyer (int wno, String userid) {
+		return mapper.findBuyer(wno, userid);
+	}
+
 
 
 

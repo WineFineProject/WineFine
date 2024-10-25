@@ -127,6 +127,7 @@ public class ShopRestController {
 		int reviewCount = wservice.reviewTotalCount(wno);
 		int likeCount = lservice.wineLikeCount(wno);
 		String sellerName = sservice.selectUsername (wno);
+		
 
 		
 		String[] gnolink = {};
@@ -162,6 +163,11 @@ public class ShopRestController {
 			Lcheck = lservice.likeCheck(wno, id);
 		}		
 		map.put("Lcheck", Lcheck);			
+		
+		if (id != null) {
+			int buyer = sservice.findBuyer(wno,id);
+			map.put("buyer", buyer);
+		}
 
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);

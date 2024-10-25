@@ -251,6 +251,10 @@ public interface ShopMapper {
 			+ "FETCH FIRST 1 ROWS ONLY ")
 	public int isPro (Map map);
 	
+//	구매한 사람 찾기 
+	@Select("SELECT (COUNT(*)) FROM wine_payment WHERE wno = #{wno} AND userid = #{userid} ")
+	public int findBuyer (@Param("wno")int wno, @Param("userid")String userid);
+	
 }
 
 
