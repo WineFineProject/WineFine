@@ -299,6 +299,12 @@ public class ShopServiceImpl implements ShopService{
 	public int adminWinetotalCount(Map map) {
 		return wDao.adminWinetotalCount(map);
 	}
+	
+	@Override
+	public int findBuyer(int wno, String userid) {
+		// TODO Auto-generated method stub
+		return sdao.findBuyer(wno, userid);
+	}
 }
 
 

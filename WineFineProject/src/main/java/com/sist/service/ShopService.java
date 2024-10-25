@@ -86,4 +86,6 @@ public interface ShopService {
 	
 	public List<WineVO> adminAllWineList(Map map);
 	public int adminWinetotalCount(Map map);
+//	구매자 찾기	
+	public int findBuyer (int wno, String userid);
 }
