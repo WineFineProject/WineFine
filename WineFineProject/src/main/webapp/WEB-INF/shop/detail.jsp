@@ -539,7 +539,8 @@
     			totalpage: 0,
     			startPage: 0,
     			endPage: 0,
-    			buyer: 0
+    			buyer: 0,
+    			black: 0
 	        }
 	    },
 	    mounted() {
@@ -736,6 +737,10 @@
 	        },
 	        handleBuyNow() {
 	            if (this.sessionId) {
+	            	if(this.black !== 0){
+	            		alert('구매하실 수 없습니다\n판매자에게 문의해 주세요 ')
+	            		return
+	            	}
 	                window.location.href = '../shop/buy.do?wno=' + this.vo.wno;
 	            } else {
 	                alert('로그인 후 사용이 가능합니다.');
@@ -853,6 +858,8 @@
 			          this.sellerName = response.data.sellerName
 			          this.reviewCheck = response.data.reviewCheck
 			          this.buyer = response.data.buyer
+			          this.black = response.data.black
+			          console.log("seller : " + this.vo.seller)
 		        }).catch(error => {
 		            console.error('데이터 로드 오류:', error.response)
 		        })

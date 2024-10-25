@@ -305,6 +305,12 @@ public class ShopServiceImpl implements ShopService{
 		// TODO Auto-generated method stub
 		return sdao.findBuyer(wno, userid);
 	}
+	
+	@Override
+	public int blackList(String userid, String seller) {
+		// TODO Auto-generated method stub
+		return sdao.blackList(userid, seller);
+	}
 }
 
 

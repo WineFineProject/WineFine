@@ -126,9 +126,7 @@ public class ShopRestController {
 		List<WineReviewVO> reviewListData = wservice.reviewList(wno, count);
 		int reviewCount = wservice.reviewTotalCount(wno);
 		int likeCount = lservice.wineLikeCount(wno);
-		String sellerName = sservice.selectUsername (wno);
-		
-
+		String sellerName = sservice.selectUsername (wno);		
 		
 		String[] gnolink = {};
 		if (vo.getGrape() != null) {
@@ -167,6 +165,11 @@ public class ShopRestController {
 		if (id != null) {
 			int buyer = sservice.findBuyer(wno,id);
 			map.put("buyer", buyer);
+		}
+		
+		if (id != null) {
+			int black = sservice.blackList(id, vo.getSeller());
+			map.put("black", black);
 		}
 
 		ObjectMapper mapper = new ObjectMapper();

@@ -34,9 +34,9 @@
 	<!-- 와인 목록 출력 -->
 
 	<select id="wineListData2" resultMap="wineMap" parameterType="hashmap">
-		SELECT wno, namekor, nameeng, type, price, poster, nickname, num
-		FROM (SELECT wno, namekor, nameeng, type, price, poster, nickname, rownum as num
-		FROM (SELECT w.wno, w.namekor, w.nameeng, w.type, w.price, w.poster, m.nickname
+		SELECT wno, namekor, nameeng, type, price, poster, nickname, state, num
+		FROM (SELECT wno, namekor, nameeng, type, price, poster, nickname, state, rownum as num
+		FROM (SELECT w.wno, w.namekor, w.nameeng, w.type, w.price, w.poster, w.state, m.nickname
 		FROM wine w JOIN wine_member m ON w.seller=m.userid
 		WHERE namekor LIKE '%'||#{fd}||'%'
 		<if test="acid!=0">AND acid=#{acid} </if>

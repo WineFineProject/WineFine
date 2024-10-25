@@ -40,7 +40,8 @@
 .selectAd:hover {
 	background-color: #e0e0e0; /* hover 시 배경색 */
 }
-.noborder{
+
+.noborder {
 	border: none;
 	border-bottom: 2px solid #881824;
 }
@@ -78,20 +79,22 @@
 								<th width="43%" class="noborder text-center" style="border-top: 1px solid;">주문상품</th>
 								<th width="15%" class="noborder text-center" style="border-top: 1px solid;">가격</th>
 								<th width="15%" class="noborder text-center" style="border-top: 1px solid;">수량</th>
-								<th width="20%" class="noborder text-center" style="border-top: 1px solid;border-right : 1px solid;" >총 금액</th>
+								<th width="20%" class="noborder text-center" style="border-top: 1px solid; border-right: 1px solid;">총 금액</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<th scope="row" class="align-middle" style="border-right: none;"><img :src="vo.poster" class="img-fluid me-5" style="width: 80px; height: 80px;" alt=""></th>
-								<td class="align-middle text-center" >
-									<p class="mb-0"><b>{{ vo.namekor }}</b></p>
-								</td>
-								<td class="align-middle text-center"	>
-									<p class="mb-0">{{ vo.price }} 원</p>
-								</td>								
 								<td class="align-middle text-center">
-									<div class="input-group quantity" style="width: 100px;margin: 0 auto;">
+									<p class="mb-0">
+										<b>{{ vo.namekor }}</b>
+									</p>
+								</td>
+								<td class="align-middle text-center">
+									<p class="mb-0">{{ vo.price }} 원</p>
+								</td>
+								<td class="align-middle text-center">
+									<div class="input-group quantity" style="width: 100px; margin: 0 auto;">
 										<input type="number" class="form-control form-control-sm text-center border-0" v-model.number="quantity" min="1" style="text-align: center;" />
 									</div>
 								</td>
@@ -109,20 +112,17 @@
 					<div class="col-3 " style="height: 385px; overflow: auto; overflow-x: hidden;">
 						<h3>배송지선택</h3>
 						<br>
-						<table v-for="(user, index) in userDeli" :class="['coupondiv', 'selectAd', {'selected': selectAddr.wdno === user.wdno}]" 
-						style="width: 290px; height: 150px; margin-bottom: 10px; border-radius: 0px;">
-<!-- 							<thead> -->
-<!-- 								<tr> -->
-<!-- 									<th style="border-bottom: none;"></th> -->
-<!-- 								</tr> -->
-<!-- 							</thead> -->
+						<table v-for="(user, index) in userDeli" :class="['coupondiv', 'selectAd', {'selected': selectAddr.wdno === user.wdno}]" style="width: 290px; height: 150px; margin-bottom: 10px; border-radius: 0px;">
+							<!-- 							<thead> -->
+							<!-- 								<tr> -->
+							<!-- 									<th style="border-bottom: none;"></th> -->
+							<!-- 								</tr> -->
+							<!-- 							</thead> -->
 							<tbody>
 								<tr>
 									<td>
 										<div class="form-check " style="padding: 10px 10px 0px 10px; cursor: pointer;">
-											<input class="form-check-input" type="radio" name="flexRadioDefault" :id="'flexRadioDefault'+index" style="display: none;"> 
-											<label class="form-check-label" :for="'flexRadioDefault'+index" @click="selectAddress(index)" style="cursor: pointer"> 
-												<b>{{user.name}}</b>
+											<input class="form-check-input" type="radio" name="flexRadioDefault" :id="'flexRadioDefault'+index" style="display: none;"> <label class="form-check-label" :for="'flexRadioDefault'+index" @click="selectAddress(index)" style="cursor: pointer"> <b>{{user.name}}</b>
 												<p>{{user.addr1}}</p>
 												<p>{{user.addr2}}</p>
 											</label>
@@ -147,8 +147,7 @@
 									<tr>
 										<td>
 											<div style="margin-top: 10px; width: 290px;">
-												<label for="search"> 쿠폰 검색</label> 
-												<input type="text" class="form-control cou" value='쿠폰을 선택하세요' @click="selectCou()" readonly>
+												<label for="search"> 쿠폰 검색</label> <input type="text" class="form-control cou" value='쿠폰을 선택하세요' @click="selectCou()" readonly>
 												<div class="result-list cou" id="listCou" v-if="isVisible" v-for="sale in psvo">
 													<li @click="selectProduct(99999)">쿠폰 선택 안 함</li>
 													<li v-for="(coupon, index) in cvo" class="result-item" @click="selectProduct(index)"><a>{{coupon.title }} ({{ coupon.discount }}%)</a></li>
@@ -159,8 +158,7 @@
 									</tr>
 
 									<tr>
-										<td style="border-bottom: none; display: flex;">
-										<input type="number" style="width: 290px;" class="text-center form-control" @keyup="checkPoint()" v-model="point" min="0" :max="vo.price">
+										<td style="border-bottom: none; display: flex;"><input type="number" style="width: 290px;" class="text-center form-control" @keyup="checkPoint()" v-model="point" min="0" :max="vo.price">
 
 											<button class="btn btn-md  bg-light  " style="margin-left: 5px;" @click="allPoint()">전액사용</button></td>
 									</tr>
@@ -189,7 +187,7 @@
 
 								<div class="d-flex justify-content-between">
 									<h5 class="mb-0 me-4">진행중인 프로모션</h5>
-									<div class="">										
+									<div class="">
 										<p class="mb-0" v-if="promo === 0 ">없음</p>
 										<p class="mb-0" v-for="sale in psvo" v-if="!isCoupon">{{sale.discount != 0 ? sale.title +' ('+sale.discount+'%'+')' : '없음' }}</p>
 										<p class="mb-0" v-for="sale in psvo" v-if="isCoupon">없음</p>
@@ -216,12 +214,12 @@
 
 								<br>
 
-							    <div class="d-flex justify-content-between">
+								<div class="d-flex justify-content-between">
 									<h5 class="mb-0 me-4">적립 예정 포인트</h5>
 									<div class="">
 										<p class="mb-0">{{plpoint()}} 원</p>
 									</div>
-								</div> 
+								</div>
 
 							</div>
 
@@ -231,10 +229,10 @@
 
 						</div>
 					</div>
-<div style="display: flex; justify-content: center; margin-top: 110px;">
-    <button class="btn btn-default winecor" style="width: 150px; color: white; margin-right: 10px;" @click="payment">결제하기</button>
-    <button class="btn btn-default winecor" style="width: 150px; color: white;" onclick="history.back();">취소</button>
-</div>
+					<div style="display: flex; justify-content: center; margin-top: 110px;">
+						<button class="btn btn-default winecor" style="width: 150px; color: white; margin-right: 10px;" @click="payment">결제하기</button>
+						<button class="btn btn-default winecor" style="width: 150px; color: white;" onclick="history.back();">취소</button>
+					</div>
 
 
 
@@ -418,7 +416,7 @@ let buyApp = Vue.createApp({
                 console.log(response.data)  
                 if (response.data === "yes") {
                 	alert("구매 성공!")
-	                window.location.href = '../shop/detail.do?wno=' + this.vo.wno
+	                window.location.href = '../main/main.do'
                 } else {
                     alert("구매 실패\n" + response.data)
                     return

@@ -88,4 +88,6 @@ public interface ShopService {
 	public int adminWinetotalCount(Map map);
 //	구매자 찾기	
 	public int findBuyer (int wno, String userid);
+//	블랙 대상 찾기
+	public int blackList (String userid,String seller);
 }

@@ -255,17 +255,9 @@ public interface ShopMapper {
 	@Select("SELECT (COUNT(*)) FROM wine_payment WHERE wno = #{wno} AND userid = #{userid} ")
 	public int findBuyer (@Param("wno")int wno, @Param("userid")String userid);
 	
+//	블랙 구매 못하게
+	@Select("SELECT (COUNT(*)) FROM blacklist WHERE recvid = #{userid} AND sendid = #{seller} ")
+	public int blackList (@Param("userid")String userid,@Param("seller")String seller);
+	
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

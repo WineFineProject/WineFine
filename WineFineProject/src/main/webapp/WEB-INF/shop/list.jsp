@@ -253,6 +253,8 @@
 											</div>
 										</a>
 									</div>
+									
+									
 									<!-- 상품 list end -->
 									<div class="col-12 text-center" >
 							        <div class="pagination-area d-sm-flex mt-15" style="justify-content: center">

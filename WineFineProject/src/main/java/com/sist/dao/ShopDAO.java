@@ -144,6 +144,10 @@ public class ShopDAO {
 		return mapper.findBuyer(wno, userid);
 	}
 
+	public int blackList (String userid,String seller) {
+		return mapper.blackList(userid, seller);
+	}
+
 
 
 
