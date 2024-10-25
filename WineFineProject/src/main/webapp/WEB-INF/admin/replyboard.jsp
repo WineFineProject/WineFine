@@ -9,9 +9,9 @@
 </head>
 <body>
 	<div class="row" id="replyBoardList">
-		<h3 class="text-center">1:1 문의게시판</h3>
-		<div class="row" style="margin-top: 50px">
-		<table class="table table-hover">
+		<h3 class="table-title text-center">1:1 문의게시판</h3>
+		<div class="row" style="margin-top: 20px">
+		<table class="table trb">
 			<tr>
 				<th width=10% class="text-center">번호</th>
 				<th width=35% class="text-center">제목</th>
@@ -32,42 +32,15 @@
 				</td>
 			</tr>
 		</table>
-		<table class="table">
-			<tr>
-				<td class="text-center">
-					<button t class="btn btn-sm btn-primary" @click="replyList(startPage>1?curPage-1:curPage)">이전</button>
+		<div class="text-center">
+					<button type="button" class="btn btn-sm btn-primary" @click="replyList(curPage>1?curPage-1:curPage)">이전</button>
 					{{curPage}} page / {{totalPage}} page
 					<button type="button" class="btn btn-sm btn-primary" @click="replyList(curPage<totalPage?curPage+1:curPage)">다음</button>
-				</td>
-			</tr>
-		</table>
+		</div>
 		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
 			<div class="modal-content" style="height: 485px; width: 800px;">
 				<span class="close" @click="changeModal(false)">&times;</span>
 				<h3 class="text-center">답변</h3>
-				<!-- <table>
-					<tr>
-						<th width="10%" class="text-center">닉네임</th>
-						<td width="23%"><span class="form-control">{{detail.nickname}}</span></td>
-						<th width="10%" class="text-center">작성일</th>
-						<td width="23%"><span class="form-control">{{detail.dbday}}</span></td>
-						<th width="10%" class="text-center">조회수</th>
-						<td width="23%"><span class="form-control">{{detail.hit}}</span></td>
-					</tr>
-					<tr>
-						<th width="10%" class="text-center" style="margin-top: 15px;">제목</th>
-						<td colspan="5"><span class="form-control" style="margin-top: 15px;">{{detail.subject}}</span></td>
-					</tr>
-					<tr>
-						<th width="10%" class="text-center">내용</th>
-						<td colspan="5"><span style="height: 200px; margin-top: 15px;" class="form-control">{{detail.content}}</span></td>
-					</tr>
-				</table>
-				<div style="text-align: right; margin-top: 10px;">
-					<button class="btn btn-sm btn-danger" @click="updatePage()">수정</button>
-					<button class="btn btn-sm btn-danger" @click="deleteAnswer(detail.wrno)">삭제</button>
-				</div>
-			</div> -->
 				<h2 class="post-title">{{detail.subject}}</h2>
 				<div class="post-meta">
 					<span class="author-name">{{detail.nickname}}</span> <span class="meta-separator">|</span> <span class="post-date">{{detail.dbday}}</span> <span class="meta-separator">|</span> <span class="view-count"><i class="fas fa-eye"></i>&nbsp;{{detail.hit}}</span>

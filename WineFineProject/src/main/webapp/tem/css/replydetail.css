@@ -11,10 +11,25 @@
     margin-bottom: 20px; 
 }
 
+.trb th, .trb td {
+    border: 1px solid #ddd;
+}
+
+.trb th {
+    background-color: #f8f8f8;
+    color: #333;
+}
+
 .post-title {
     font-size: 24px;
     color: #6F2C3E; 
     margin: 10px 0; 
+}
+
+.table-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
 }
 
 .post-meta {

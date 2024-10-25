@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="list" class="row"> 
-        <h3 class="text-center">가입 대기 목록</h3>
+        <h3 class="table-title text-center">가입 대기 목록</h3>
         <table class="table" style="margin-top: 20px">
             <thead class="text-center">
                 <tr>

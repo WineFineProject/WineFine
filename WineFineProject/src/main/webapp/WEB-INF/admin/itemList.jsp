@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +9,17 @@
 </head>
 <body>
 	<div class="row" id="itemListApp">
+		<div style="text-align: left;margin-bottom: 10px;">
+			<label><input type="checkbox" :value="1" name="filter"
+				v-model="filter" @change="showInfo()">판매중</label> <label><input
+				type="checkbox" :value="2" name="filter" v-model="filter"
+				@change="showInfo()">품절</label> <label><input
+				type="checkbox" :value="3" name="filter" v-model="filter"
+				@change="showInfo()">판매중단</label> <label><input
+				type="checkbox" :value="7" name="filter" v-model="filter"
+				@change="showInfo()">판매제한</label>
+		</div>
 		<table class="table mp">
-			<tr>
-				<td colspan="9">
-					<label><input type="checkbox" :value="1" name="filter" v-model="filter" @change="showInfo()">판매중</label> <label><input type="checkbox" :value="2" name="filter" v-model="filter" @change="showInfo()">품절</label> <label><input type="checkbox" :value="3" name="filter" v-model="filter" @change="showInfo()">판매중단</label> <label><input type="checkbox" :value="7" name="filter" v-model="filter" @change="showInfo()">판매제한</label>
-				</td>
-			</tr>
 			<tr>
 				<th width="5%" class="text-center">번호</th>
 				<th width="5%" class="text-center"></th>
@@ -28,11 +34,10 @@
 			<template v-for="(vo, index) in list">
 				<tr @click="moreInfo(index)">
 					<td width="5%" class="text-center">{{vo.wno}}</td>
-					<td width="5%" class="text-center">
-						<img :src="vo.poster" style="width: 35px; height: 58px">
-					</td>
+					<td width="5%" class="text-center"><img :src="vo.poster"
+						style="width: 35px; height: 58px"></td>
 					<td width="30%" class="text-center scrollable-text">
-						<p>{{vo.namekor}}</p>
+						<p style="margin-bottom: 0px;">{{vo.namekor}}</p>
 					</td>
 					<td width="5%" class="text-center">{{vo.stack}}</td>
 					<td width="10%" class="text-center">{{vo.price}}</td>
@@ -40,7 +45,8 @@
 					<td width="10%" class="text-center">{{vo.state===1?'판매중':vo.state===2?'품절':vo.state===3?'판매중단':'판매제한'}}</td>
 					<td width="15%" class="text-center">{{vo.dbday}}</td>
 					<td width="10%" class="text-center">
-						<button class="btn btn-sm border-wine" v-if="vo.state!=7" @click="wineCancel(index)">판매제한</button>
+						<button class="btn btn-sm border-wine" v-if="vo.state!=7"
+							@click="wineCancel(index)">판매제한</button>
 					</td>
 				</tr>
 				<tr v-if="isShow[index]">
@@ -69,63 +75,64 @@
 						</table>
 					</td>
 				</tr>
-				<tr v-if="isShow[index]">
-					<td colspan="9" style="padding: 0px;">
-						<table class="table" style="margin-bottom: 0px;">
-							<tr>
-								<th width="50%" class="text-center">음식매칭</th>
-								<th width="50%" class="text-center">향</th>
-							</tr>
-							<tr style="vertical-align: middle;">
-								<td width="50%" class="text-center">{{vo.food}}</td>
-								<td width="50%" class="text-center">{{vo.aroma}}</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr v-if="isShow[index]">
-					<td colspan="9" style="padding: 0px;">
-						<table class="table" style="margin-bottom: 0px;">
-							<tr>
-								<th width="8%" class="text-center">타입</th>
-								<th width="20%" class="text-center">판매자</th>
-								<th width="24%" class="text-center">주요품종</th>
-								<th width="24%" class="text-center">생산지</th>
-								<th width="24%" class="text-center">생산자</th>
-							</tr>
-							<tr style="vertical-align: middle;">
-								<td width="8%" class="text-center">{{vo.type}}</td>
-								<td width="20%" class="text-center">{{vo.mvo.nickName}}</td>
-								<td width="24%" class="text-center scrollable-text">
-									<p>{{vo.grape}}</p>
-								</td>
-								<td width="24%" class="text-center scrollable-text">
-									<p>{{vo.nation}}</p>
-								</td>
-								<td width="24%" class="text-center">{{vo.maker}}</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
+			<tr v-if="isShow[index]">
+				<td colspan="9" style="padding: 0px;">
+					<table class="table" style="margin-bottom: 0px;">
+						<tr>
+							<th width="50%" class="text-center">음식매칭</th>
+							<th width="50%" class="text-center">향</th>
+						</tr>
+						<tr style="vertical-align: middle;">
+							<td width="50%" class="text-center">{{vo.food}}</td>
+							<td width="50%" class="text-center">{{vo.aroma}}</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr v-if="isShow[index]">
+				<td colspan="9" style="padding: 0px;">
+					<table class="table" style="margin-bottom: 0px;">
+						<tr>
+							<th width="8%" class="text-center">타입</th>
+							<th width="20%" class="text-center">판매자</th>
+							<th width="24%" class="text-center">주요품종</th>
+							<th width="24%" class="text-center">생산지</th>
+							<th width="24%" class="text-center">생산자</th>
+						</tr>
+						<tr style="vertical-align: middle;">
+							<td width="8%" class="text-center">{{vo.type}}</td>
+							<td width="20%" class="text-center">{{vo.mvo.nickName}}</td>
+							<td width="24%" class="text-center scrollable-text">
+								<p>{{vo.grape}}</p>
+							</td>
+							<td width="24%" class="text-center scrollable-text">
+								<p>{{vo.nation}}</p>
+							</td>
+							<td width="24%" class="text-center">{{vo.maker}}</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
 			</template>
 		</table>
 		<div class="col-12 text-center">
-			<div class="pagination-area d-sm-flex mt-15" style="justify-content: center">
+			<div class="pagination-area d-sm-flex mt-15"
+				style="justify-content: center">
 				<nav aria-label="#">
 					<ul class="pagination" style="display: flex;">
-						<li class="page-item" v-if="startPage>1">
-							<a class="page-link" @click="iList(startPage-1)">
-								<i class="fa fa-angle-double-left" aria-hidden="true"></i> 이전
-							</a>
-						</li>
-						<li :class="{'page-item active': i === curPage, 'page-item': i !== curPage}" v-for="i in pageRange">
-							<a class="page-link" @click="iList(i)">{{ i }}</a>
-						</li>
-						<li class="page-item" v-if="endPage<totalPage">
-							<a class="page-link" @click="iList(endPage+1)" style="margin-left: 4px;">
-								다음 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-							</a>
-						</li>
+						<li class="page-item" v-if="startPage>1"><a class="page-link"
+							@click="iList(startPage-1)"> <i
+								class="fa fa-angle-double-left" aria-hidden="true"></i> 이전
+						</a></li>
+						<li
+							:class="{'page-item active': i === curPage, 'page-item': i !== curPage}"
+							v-for="i in pageRange"><a class="page-link"
+							@click="iList(i)">{{ i }}</a></li>
+						<li class="page-item" v-if="endPage<totalPage"><a
+							class="page-link" @click="iList(endPage+1)"
+							style="margin-left: 4px;"> 다음 <i
+								class="fa fa-angle-double-right" aria-hidden="true"></i>
+						</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -136,13 +143,15 @@
 					</div>
 					<div class="mb-3">
 						<div style="margin-top: 10px;">
-							<input type="text" v-model="message" ref="message" @keyup.enter="sendMessage()" class="r-boxs">
+							<input type="text" v-model="message" ref="message"
+								@keyup.enter="sendMessage()" class="r-boxs">
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<script>
+	</div>
+	<script>
 let itemListApp=Vue.createApp({
 	data(){
 		return{

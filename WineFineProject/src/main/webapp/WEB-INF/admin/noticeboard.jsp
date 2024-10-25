@@ -40,8 +40,12 @@
     text-overflow: ellipsis;
     width:400px !important;
 }
+
+.asd th, .asd td {
+    border: 1px solid #ddd;
+}
+
 .btableth {
-    font-size: 18px;
     margin-bottom: 15px;
     color: #333;
     background-color: #f8f8f8;
@@ -49,11 +53,16 @@
 .ectbtn{
 	width:18% !important;
 }
+.table-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
 </style>
 </head>
 <body>
   <div class="container" id="anbList">
-    <h3 class="text-center" style="color: #333;">공지사항 관리</h3>
+    <h3 class="table-title text-center" style="color: #333;">공지사항 관리</h3>
     <div class="row">
       <table class="cTable">
         <tr>
@@ -68,7 +77,7 @@
     	 </td>
         </tr>
       </table>
-      <table class="table table-fixed">
+      <table class="table table-fixed asd">
        <thead>
         <tr class="btableth">
          <th width="5%" class="text-center">번호</th>
@@ -107,32 +116,25 @@
          <td width="15%" class="text-center">{{vo.hit}}</td>
         </tr>
        </tbody>
-       <tfoot style="border-color:white;">
-       <tr>
-        <td colspan="3" class="text-left">
-          <!-- 관리자만 글쓰기 버튼 보이게 -->
+      </table>
+      <div>
           <c:if test="${sessionScope.userId!=null }">
                 <div class="login">
                   <sec:authorize access="hasRole('ROLE_ADMIN')">         
-            		<a href="../admin/noticeinsert.do" class="btn btn-sm" style="background-color: #FFF7B3; color:#333; float:left;">공지글쓰기</a>   
+            		<a href="../admin/noticeinsert.do" class="btn btn-sm" style="background-color: #FFEC96; color:#333; float:left;">글쓰기</a>   
                   </sec:authorize>
                 </div>
              </c:if>
-           </td>
-        </tr>
-        <tr>
-          <td colspan="7" class="text-center">
-            <input type=button value="<" class="btn-sm btn-danger" @click="prev()">
+      </div>
+       <div class="text-center">
+            <input type=button value="<" class="btn btn-sm btn-danger" @click="prev()">
                 &nbsp;
                 <span v-for="i in range(startPage,endPage)"
                 :class="{'page-item active': i === curpage, 'page-item': i !== curpage}" 
                 @click="pageChange(i)"> &nbsp; {{i}} &nbsp; </span>
                 &nbsp; 
-            <input type=button value=">" class="btn-sm btn-danger" @click="next()">
-          </td>
-          </tr>
-       </tfoot>
-      </table>
+            <input type=button value=">" class="btn btn-sm btn-danger" @click="next()">
+      </div>
     </div>
   </div>
   <script>

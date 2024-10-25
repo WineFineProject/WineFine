@@ -8,9 +8,9 @@
 </head>
 <body>
     <div id="list" class="row"> 
-        <h3 class="text-center">회원 목록</h3>
-        <table class="table" style="margin-top: 20px">
-            <thead class="text-center">
+        <h3 class="table-title text-center">회원 목록</h3>
+        <table class="table" style="margin-top: 20px;">
+            <thead class="text-center" style="margin-bottom: 0px">
                 <tr>
                     <th width="5%">번호</th>
                     <th width="10%">아이디</th>
@@ -34,19 +34,19 @@
                 </tr>
                 <tr v-if="isShow[index]">
 						<td colspan="9" style="padding: 0px;">
-							<table class="table" style="border: none;">
+							<table class="table" style="border: none;margin-bottom: 0px">
 								<tr>
 									<th width="12%">생일</th>
-									<th width="15%">전화번호</th>
-									<th width="40%">주소</th>
+									<th width="12%">전화번호</th>
+									<th width="43%">주소</th>
 									<th width="11%">등급</th>
 									<th width="10%">포인트</th>
 									<th width="12%">가입일</th>
 								</tr>
 								<tr>
 									<td width="12%">{{vo.birthday}}</td>
-									<td width="15%">{{vo.phone}}</td>
-									<td width="40%">({{vo.post}})&nbsp;{{vo.addr1}}{{vo.addr2}}</td>
+									<td width="12%">{{vo.phone}}</td>
+									<td width="43%">({{vo.post}})&nbsp;{{vo.addr1}}{{vo.addr2}}</td>
 									<td width="11%"><button type="button" @click="downBtn(index)" style="border:none; background-color: white; float: left;"><i class="fa-solid fa-caret-down"></i></button>{{vo.grade}}<button type="button" @click="upBtn(index)" style="border:none; background-color: white;float: right;"><i class="fa-solid fa-caret-up"></i></button></td>
 									<td width="10%">{{vo.point}}</td>
 									<td width="12%">{{vo.regday}}</td>
