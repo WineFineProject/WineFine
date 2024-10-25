@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://unpkg.com/vue@3"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
 <style type="text/css">
 .coupondiv {
 	border: solid 1px;
@@ -233,6 +233,9 @@
 						<button class="btn btn-default winecor" style="width: 150px; color: white; margin-right: 10px;" @click="payment">결제하기</button>
 						<button class="btn btn-default winecor" style="width: 150px; color: white;" onclick="history.back();">취소</button>
 					</div>
+					<div>
+						<button @click="requestPay()">test</button>
+					</div>
 
 
 
@@ -257,6 +260,8 @@
 	</div>
 	<!-- Copyright End -->
 	<script>	
+    var IMP = window.IMP; 
+    IMP.init("imp68206770");
 let buyApp = Vue.createApp({
     data() {
         return {
@@ -320,9 +325,54 @@ let buyApp = Vue.createApp({
         });
     },
     methods: {
+		requestPay() {
+		    IMP.request_pay({
+		        pg: "html5_inicis",
+		        pay_method: "card",
+		        merchant_uid: "ORD20180131-"+this.wno,   // 주문번호
+		        name: this.vo.namekor,
+		        amount: this.totalPayment,         // 숫자 타입
+		        buyer_email: '',
+		        buyer_name: '',
+		        buyer_tel: '',
+		        buyer_addr: '',
+		        buyer_postcode: ''
+		     }, function (rsp) { // callback	
+		    	  // axios 요청 전에 현재 상태의 값을 로그로 출력
+					let selCoupon = !this.isCoupon ? 0 : this.selectedCoupon.mcno
+					pay=this.totalPayment
+					plus = this.plpoint
+     axios.post('../shop/payment_vue.do', null, {
+         params: { // 실제 전달하는 데이터
+             wno: this.wno,
+             wdno: this.selectAddr.wdno,
+             psno: this.promo !== 0 
+             	  ? (this.isCoupon ? 0 : this.psvo[0].psno) 
+             	  : 0, 
+             account: this.quantity,
+             mcno: selCoupon,
+             mipoint: this.point,
+             plpoint: this.plpoint(), 	                
+             payment: this.totalPayment
+         }
+     }).then(response => {
+         console.log(response.data)            
+         if (response.data === "yes") {
+         	
+         	alert("구매 성공!")
+             window.location.href = '../main/main.do'
+         } else {
+             alert("구매 실패\n" + response.data)
+             return
+         }
+     }).catch(error => {
+         console.log(error.response)  
+     })
+		    });
+	    },
 	    plpoint() {	    		    	
 		   	if(this.userGrade === '1'){
-		   		return 100
+		   		return 0
 		   	}
 		   	if (this.userGrade === '2'){
 		   		return Math.round(this.totalPayment * 0.005) 
@@ -395,6 +445,7 @@ let buyApp = Vue.createApp({
         },
         payment() {
             alert('결제 처리중')
+            
             // axios 요청 전에 현재 상태의 값을 로그로 출력
 						let selCoupon = !this.isCoupon ? 0 : this.selectedCoupon.mcno
 						pay=this.totalPayment
@@ -413,8 +464,9 @@ let buyApp = Vue.createApp({
 	                payment: this.totalPayment
                 }
             }).then(response => {
-                console.log(response.data)  
+                console.log(response.data)            
                 if (response.data === "yes") {
+                	
                 	alert("구매 성공!")
 	                window.location.href = '../main/main.do'
                 } else {
