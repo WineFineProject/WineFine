@@ -99,18 +99,14 @@
 	</insert>
 	<!-- mypage 사용 가능 쿠폰 -->
 	<select id="mypageMyCouponList" resultMap="MyCouponMap" parameterType="String">
-		SELECT MCNO, title, pcno, discount, pcid, TO_CHAR(startdate,'YYYY-MM-DD') as startDay, TO_CHAR(enddate,
-		'YYYY-MM-DD') as endDay, (SELECT target FROM promotion_coupon WHERE my_coupon.pcno=promotion_coupon.pcno) as target,
+		SELECT MCNO, title, pcno, discount, pcid, TO_CHAR(startdate,'YYYY-MM-DD') as startDay, TO_CHAR(enddate,'YYYY-MM-DD') as endDay, (SELECT target FROM promotion_coupon WHERE my_coupon.pcno=promotion_coupon.pcno) as target,
 		(SELECT type FROM promotion_coupon WHERE my_coupon.pcno=promotion_coupon.pcno) as type,
 		CASE
-		WHEN (SELECT type FROM promotion_coupon WHERE
-		my_coupon.pcno=promotion_coupon.pcno) = 3 THEN (SELECT namekor FROM wine WHERE wno = (SELECT target FROM promotion_coupon WHERE
-		promotion_coupon.pcno = my_coupon.pcno))
+		WHEN (SELECT type FROM promotion_coupon WHERE my_coupon.pcno=promotion_coupon.pcno) = 3 THEN (SELECT namekor FROM wine WHERE wno = (SELECT target FROM promotion_coupon WHERE promotion_coupon.pcno = my_coupon.pcno))
 		ELSE NULL
 		END as namekor ,
 		(SELECT nickname FROM wine_member WHERE pcid=wine_member.userid) as nickName
-		FROM
-		my_coupon WHERE recvid=#{id} AND state=0
+		FROM my_coupon WHERE recvid=#{id} AND state=0 AND trunc(enddate)&gt;=trunc(sysdate)
 		ORDER BY MCNO ASC
 	</select>
 </mapper>

@@ -52,7 +52,7 @@
 					<td width="5%" class="text-center"><img :src="vo.wvo.poster" style="width: 35px; height: 58px"></td>
 					<td width="30%" class="text-center scrollable-text"><p>{{vo.wvo.namekor}}</p></td>
 					<td width="5%" class="text-center">{{vo.account}}</td>
-					<td width="10%" class="text-center">{{vo.payment}}</td>
+					<td width="10%" class="text-center">{{vo.payment.toLocaleString()}}원</td>
 					<td width="15%" class="text-center">{{vo.state===0?'결제완료':vo.state===1?'배송준비중':vo.state===2?'배송중':vo.state===7?'반품요청':vo.state===9?'반품':vo.state===8?'구매취소':'배송완료'}}</td>
 					<td width="20%" class="text-center">{{vo.dbday}}</td>
 					<td width="10%" class="text-center"><button class="btn btn-sm border-wine" v-if="vo.state<2" @click="returnRequest(index)">취소</button></td>
@@ -91,7 +91,7 @@
 								<td width="20%" class="text-center">{{vo.mipoint}}</td>
 								<td width="20%" class="text-center">{{vo.mcno!==0?vo.mcvo.title:vo.psno!==0?vo.svo.title:'할인적용 안함'}}</td>
 								<td width="20%" class="text-center">{{vo.mcno!==0?vo.mcvo.discount+'%':vo.psno!==0?vo.svo.discount+'%':'할인적용 안함'}}</td>
-								<td width="20%" class="text-center">{{grade===1?vo.payment*0:grade===2?Math.trunc(vo.payment*0.005):Math.trunc(vo.payment*0.015)}}</td>
+								<td width="20%" class="text-center">{{vo.plpoint}}</td>
 							</tr>
 						</table>
 						<table class="table mp">

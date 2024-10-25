@@ -130,11 +130,11 @@
 		WHERE (num BETWEEN #{start} AND #{end}) AND state=9
 	</select>
 	<select id="myPaymentList" parameterType="hashmap" resultMap="payMap">
-		SELECT wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,
+		SELECT wpno, wno, account, payment, mipoint, plpoint, wdno, mcno, psno, state, userid, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,
 		namekor, poster, price, type, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, maker, grape, nation, nickname, seller, num
-		FROM (SELECT wpno, wno, account, payment, mipoint, wdno, mcno, psno, state, userid, regdate,
+		FROM (SELECT wpno, wno, account, payment, mipoint, plpoint, wdno, mcno, psno, state, userid, regdate,
 		namekor, poster, price, type, name, post, addr1, addr2, msg, ctitle, cdiscount, stitle, sdiscount, maker, grape, nation, nickname, seller, rownum as num
-		FROM (SELECT wp.wpno, wp.wno, wp.account, wp.payment, wp.mipoint, wp.wdno, wp.mcno, wp.psno, wp.state, wp.userid, wp.regdate,
+		FROM (SELECT wp.wpno, wp.wno, wp.account, wp.payment, wp.mipoint, wp.plpoint, wp.wdno, wp.mcno, wp.psno, wp.state, wp.userid, wp.regdate,
 		wvo.namekor, wvo.poster, wvo.price, wvo.type, dvo.name, dvo.post, dvo.addr1, dvo.addr2, dvo.msg, mcvo.title as ctitle, mcvo.discount as cdiscount, svo.title as stitle, svo.discount as sdiscount,
 		(SELECT m.namekor FROM maker m WHERE m.no = wvo.maker) AS maker,
 		(SELECT LISTAGG(g.namekor, ', ') WITHIN
