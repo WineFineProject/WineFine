@@ -9,8 +9,8 @@ import com.sist.vo.*;
 @Service
 public class ReplyBoardServiceImpl implements ReplyBoardService{
 	@Autowired
-	private ReplyDAO dao;
-
+	private ReplyDAO dao;	
+	
 	@Override
 	public List<ReplyBoardVO> replyListData(int start, int end, String userid) {
 		// TODO Auto-generated method stub
@@ -84,5 +84,21 @@ public class ReplyBoardServiceImpl implements ReplyBoardService{
 	@Override
 	public List<ReplyBoardVO> adminReplyListData(Map map) {
 		return dao.adminReplyListData(map);
+	}
+	
+	@Override
+	public List<ReplyBoardVO> shopReplyListData(int count, String userid,int wno) {
+		// TODO Auto-generated method stub		
+		return dao.shopReplyListData(count, userid, wno);
+	}
+	
+	@Override
+	public int shopReplyCount() {
+		return dao.shopReplyCount();
+	}
+	
+	@Override
+	public int shopReplyTotalPage() {
+		return dao.shopReplyTotalPage();
 	}
 }

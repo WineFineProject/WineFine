@@ -105,7 +105,7 @@ public interface ShopMapper {
 	@Select("SELECT mcno, title, discount, TO_CHAR(enddate,'YYYY-MM-DD') as endDay "
 	        + "FROM my_coupon  "
 	        + "WHERE recvid = #{id} "
-	        + "AND state = 1 "
+	        + "AND state = 0 "
 	        + "AND SYSDATE BETWEEN startdate AND enddate ")
 	public List<MyCouponVO> selectCoupon(String id);
 	

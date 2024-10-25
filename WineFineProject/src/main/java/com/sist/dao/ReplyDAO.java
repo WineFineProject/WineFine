@@ -15,13 +15,25 @@ import com.sist.vo.*;
 public class ReplyDAO {
 	@Autowired
 	private ReplyBoardMapper mapper;
-
+	
+	public List<ReplyBoardVO> shopReplyListData(int count, String userid, int wno){
+		return mapper.shopReplyListData(count, userid, wno);
+	}
+	
+	public int shopReplyTotalPage() {
+		return mapper.shopReplyTotalPage();
+	}
+	
 	public List<ReplyBoardVO> replyListData(int start, int end, String userid) {
 		return mapper.replyListData(start, end, userid);
 	}
 
 	public int replyCount() {
 		return mapper.replyCount();
+	}
+	
+	public int shopReplyCount() {
+		return mapper.shopReplyCount();
 	}
 
 	public void replyInsert(ReplyBoardVO vo) {

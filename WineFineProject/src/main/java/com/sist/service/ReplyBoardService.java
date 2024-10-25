@@ -16,4 +16,7 @@ public interface ReplyBoardService {
 	public void replyAnswerDelete(int wrno);
 	public void sellerReplyUpdate(ReplyBoardVO vo);
 	public List<ReplyBoardVO> adminReplyListData(Map map);
+	public List<ReplyBoardVO> shopReplyListData(int count, String userid,int wno);
+	public int shopReplyTotalPage();
+	public int shopReplyCount();
 }

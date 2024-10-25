@@ -402,6 +402,7 @@
     				this.selectAroma = []
     				this.selectType = []
     				this.fprice = 1000000
+    				this.searchWine = ''
     				this.dataRecv()
     			},
     			prev(){

@@ -37,6 +37,12 @@ public class ReplyBoardController {
 	{
 		return "replyboard/insert1";
 	}
+	// 회원 -> 판매자 게시글 작성
+	@GetMapping("replyboard/insert3.do")
+	public String replyboardInsert3()
+	{
+		return "replyboard/insert3";
+	}
 	// 판매자 게시글 작성
 	@GetMapping("replyboard/insert2.do")
 	public String replyboardInsert2()

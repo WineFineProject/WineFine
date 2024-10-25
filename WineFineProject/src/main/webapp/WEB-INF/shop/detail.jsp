@@ -68,7 +68,6 @@
 	border: solid 1px black !important;
 }
 /* ///////////////////////////////////////////////////////////// */
-
 .image-margin {
 	width: 15px;
 	height: 15px;
@@ -132,10 +131,12 @@
 .text-secondary-wine {
 	color: #881824 !important;
 }
-.backcor{
-	background-color: lightgray;	
+
+.backcor {
+	background-color: lightgray;
 }
-.aorb:hover{
+
+.aorb:hover {
 	border: 1px solid #881824 !important;
 	color: #881824;
 }
@@ -149,11 +150,11 @@
 			<div class="row g-4 mb-5" style="width: 1600px;">
 				<div class="col-xl-10">
 					<div class="row g-4">
-<div class="col-lg-5">
-    <div class="border rounded d-flex justify-content-center align-items-center" style="width: 400px; height: 600px; border-color: #881824 !important;">
-        <img :src="vo.poster" class="img-fluid rounded" alt="Image" style="max-width: 100%; max-height: 100%;">
-    </div>
-</div>
+						<div class="col-lg-5">
+							<div class=" rounded d-flex justify-content-center align-items-center" style="width: 400px; height: 600px;">
+								<img :src="vo.poster" class="img-fluid rounded" alt="Image" style="max-width: 100%; max-height: 100%;">
+							</div>
+						</div>
 
 
 						<div class="col-lg-7">
@@ -198,8 +199,7 @@
 							<div class="d-flex align-items-center mb-5">
 
 								<a class="btn border rounded-pill px-4 py-2 ms-3 aorb" @click="handleAddToCart()"> <i class="fa-solid fa-cart-plus " style="color: #881824;"></i> Add to cart
-								</a> 
-								<a class="btn border rounded-pill px-4 py-2 ms-3 aorb" @click="handleBuyNow()"> <i class="fa-solid fa-credit-card " style="color: #881824;"></i> Buy Now
+								</a> <a class="btn border rounded-pill px-4 py-2 ms-3 aorb" @click="handleBuyNow()"> <i class="fa-solid fa-credit-card " style="color: #881824;"></i> Buy Now
 								</a>
 							</div>
 							<div style="text-align: right;">
@@ -257,11 +257,11 @@
 										<div class="row g-4">
 											<div class="col-6">
 												<ul class="info-list" style="width: 1230px;">
-													<li><span class="title">· 문의 게시판</span> <span class="content"></span></li>
+													<li><span class="title">· 문의 게시판</span> <span class="content" style="text-align: right; margin-right: 15px;"><a href="../replyboard/insert3.do"><b>글쓰기</b></a></span></li>
 													<li>
 														<table class="table">
 															<thead style="background-color: #efefef;">
-																<tr class="text-center">																
+																<tr class="text-center">
 																	<th width="10%">번호</th>
 																	<th width="40%">제목</th>
 																	<th width="13%">작성자</th>
@@ -270,231 +270,240 @@
 																	<th width="10%">상태</th>
 																</tr>
 															</thead>
-															<tbody>
+															<tbody v-for="(re,index) in relist">
 																<tr>
-																	<td class="text-center">인덱스처리</td>
-																	<td>[타입(관련)]테스트 입니다</td>
-																	<td class="text-center">ping</td>
-																	<td class="text-center">2024-10-21</td>
-																	<td class="text-center">123</td>
-																	<td class="text-center">답변완료</td>
+																	<td class="text-center">{{boTocount - index +1}}</td>
+																	<td width=35%><span style="color: darkred" v-if="id!==re.userid&&re.secret===1&&re.group_step===0"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;비밀글입니다</span> <span style="color: darkred" v-else-if="id!==re.recvid&&re.secret===1&&re.group_step===1">ㄴ&nbsp;<i class="fa fa-lock" aria-hidden="true"></i>&nbsp;비밀글입니다
+																	</span> <a :href="'../replyboard/detail.do?wrno='+re.wrno" v-else><span v-if="re.group_step===1">ㄴ</span><span v-if="re.type===2">[{{cnos[re.cno]}}]&nbsp;</span> <span v-if="vo.type===3">[{{cno[vo.cno]}}]&nbsp;</span>{{re.subject}}</a></td>
+																	<td class="text-center">{{re.nickname}}</td>
+																	<td class="text-center">{{re.dbday}}</td>
+																	<td class="text-center">{{re.hit}}</td>
+																	<td class="text-center">{{re.isreply === 0 ? '답변대기' : '답변완료'}}</td>
 																</tr>
 															</tbody>
 														</table>
 													</li>
 												</ul>
-
+												<div class="col-12 text-center">
+													<div style="text-align: center;" v-if="bocount < boTocount">
+														<button @click="viewMore2()">
+															<h5>더보기</h5>
+														</button>
+													</div>
+												</div>
 											</div>
+
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div style="height: 15px;"></div>
+					</div>
+					<div style="height: 15px;"></div>
 
-						<h4 class="mb-5 fw-bold">리뷰( 총 {{reviewCount.toLocaleString()}} 개)</h4>
-						<div class="row g-4" style="align-items: center;">
-							<div v-for="vw in reviewListData" style="display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid lightgray; margin-bottom: 20px;">
+					<h4 class="mb-5 fw-bold">리뷰( 총 {{reviewCount.toLocaleString()}} 개)</h4>
+					<div class="row g-4" style="align-items: center;">
+						<div v-for="vw in reviewListData" style="display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid lightgray; margin-bottom: 20px;">
 
-								<table style="width: 100%">
+							<table style="width: 100%">
+								<tr>
+									<td style="width: 130px;" class="text-center">
+										<h5>
+											<b>{{vw.nickname}}</b>
+										</h5>
+									</td>
+									<td style="width: 140px;" class="text-center">별점 <span v-for="as in 5" class="no-style"><i :class="{'text-secondary-wine':vw.srating>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>
+									</td>
+									<td style="width: 130px;" class="text-center">
+										<h5 style="width: 210px">
+											<b>{{vw.dbday}}</b>
+										</h5>
+									</td>
+									<td style="text-align: right;">
+										<button class="btn btn-md rounded-circle" @click="reviewDelete(vw.wrvno)" v-if="vw.userid === sessionId">
+											<i class="fa fa-times text-danger"></i>
+										</button> <img src="../img/Report.png" alt="Report" style="width: 30px; height: auto;" class="img-hover" @click="changeModal2(true, vw.wrvno)">
+									</td>
+								</tr>
+							</table>
+							<pre class="form-control" style="width: 100%; height: 110px; resize: none; margin-right: 10px;">{{vw.content}}</pre>
+
+						</div>
+
+						<div style="text-align: center;" v-if="count < reviewCount">
+							<button @click="viewMore()">
+								<h5>더보기</h5>
+							</button>
+						</div>
+
+						<div v-if="sessionId == ''">
+							<h4>로그인 후 작성이 가능합니다</h4>
+						</div>
+						<template v-if="sessionId != ''">
+							<div class="d-flex align-items-center">
+								<table>
 									<tr>
-										<td style="width: 140px;" class="text-center">별점 <span v-for="as in 5" class="no-style"><i :class="{'text-secondary-wine':vw.srating>=as}" style="margin-right: 2px;" class="fa fa-star"></i> </span>
-										</td>
-										<td style="width: 130px;" class="text-center">
+										<th style="width: 130px; border: none;" class="text-center">
 											<h5>
-												<b>{{vw.nickname}}</b>
+												<b>{{sessionId}}</b>
 											</h5>
-										</td>
-										<td style="width: 130px;" class="text-center">
-											<h5 style="width: 210px">
-												<b>{{vw.dbday}}</b>
-											</h5>
-										</td>
-										<td style="text-align: right;">
-											<button class="btn btn-md rounded-circle" @click="reviewDelete(vw.wrvno)" v-if="vw.userid === sessionId">
-												<i class="fa fa-times text-danger"></i>
-											</button> <img src="../img/Report.png" alt="Report" style="width: 30px; height: auto;" class="img-hover" @click="changeModal2(true, vw.wrvno)">
+										</th>
+										<td style="width: 150px;">별점 : <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="srating" style="display: none;"> <i :class="{'text-wine':srating>=ss}" style="margin-right: 2px;" class="fa fa-star"></i>
+										</label>
 										</td>
 									</tr>
 								</table>
-								<pre class="form-control" style="width: 100%; height: 110px; resize: none; margin-right: 10px;">{{vw.content}}</pre>
-
 							</div>
 
-							<div style="text-align: center;" v-if="count < reviewCount">
-								<button @click="viewMore()">
-									<h5>더보기</h5>
-								</button>
+							<div v-if="sessionId !== ''" style="display: flex; justify-content: center; align-items: center;">
+								<textarea rows="4" cols="62" ref="review" v-model="review" class="form-control" style="width: 100%; resize: none; margin-right: 10px;"></textarea>
+								<button class="form-control" style="background-color: #57102F; color: white; width: 100px; height: 110px;" @click="reviewInsert()">리뷰쓰기</button>
 							</div>
 
-							<div v-if="sessionId == ''">
-								<h4>로그인 후 작성이 가능합니다</h4>
-							</div>
-							<template v-if="sessionId != ''">
-								<div class="d-flex align-items-center">
-									<table>
-										<tr>
-											<th style="width: 130px; border: none;" class="text-center">
-												<h5>
-													<b>{{sessionId}}</b>
-												</h5>
-											</th>
-											<td style="width: 150px;">별점 : <label v-for="ss in 5" class="no-style" style="cursor: pointer;"> <input type="radio" name="sugarStars" :value="ss" v-model="srating" style="display: none;"> <i :class="{'text-wine':srating>=ss}" style="margin-right: 2px;" class="fa fa-star"></i>
-											</label>
-											</td>
-										</tr>
-									</table>
-								</div>
-
-								<div v-if="sessionId !== ''" style="display: flex; justify-content: center; align-items: center;">
-										<textarea rows="4" cols="62" ref="review" v-model="review" class="form-control" style="width: 100%; resize: none; margin-right: 10px;"></textarea>
-										<button class="form-control" style="background-color: #57102F; color: white; width: 100px; height: 110px;" @click="reviewInsert()">리뷰쓰기</button>
-								</div>
-
-							</template>
-						</div>
-
-					</div>
-				</div>
-
-			</div>
-
-			<div class="col-lg-12" style="border-bottom: solid 1px #80808036;">
-				<h3>관련와인</h3>
-				<br>
-				<nav>
-					<div class="nav nav-tabs mb-3">
-						<button class="nav-link active custom-nav-link" type="button" role="tab" id="nav-tab1" data-bs-toggle="tab" data-bs-target="#tab1-content" aria-controls="tab1-content" aria-selected="true">생산자</button>
-						<button class="nav-link border-white custom-nav-link" type="button" role="tab" id="nav-tab2" data-bs-toggle="tab" data-bs-target="#tab2-content" aria-controls="tab2-content" aria-selected="false">판매자</button>
-
-					</div>
-				</nav>
-
-				<div class="tab-content mb-5">
-					<!-- 1번탭 내용 -->
-					<div class="tab-pane active" id="tab1-content" role="tabpanel" aria-labelledby="nav-tab1">
-						<div class="px-2">
-							<div class="vesitable">
-								<h3 class="fw-bold mb-0">&nbsp; "{{vo.makerkor}}" 의 다른 상품</h3>
-								<br>
-								<div class="owl-carousel vegetable-carousel justify-content-center">
-									<div class="border rounded position-relative vesitable-item otherWine" v-for="mk in otherMaker" :key="mk.wno" style="width: 250px; border-color: #881824 !important">
-										<a :href="'../shop/detail.do?wno=' + mk.wno + '&page=' + 2">
-											<div style="width: 250px; height: 250px;">
-												<img :src="mk.poster" class="img-fluid rounded-top" alt="" style="width: 250px; height: 267px; padding: 24px 24px 0;">
-											</div>
-											<div class="px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;" :class="wineClass(mk.type)">{{mk.type}}</div>
-											<div class="p-4 pb-0 rounded-bottom" style="width: 250px; height: 140px;">
-												<h4 style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; line-height: 1.2; max-height: 2.4em; width: 200px;">{{mk.namekor}}</h4>
-												<div class="d-flex justify-content-between flex-lg-wrap">
-													<p class="text-dark fs-5 fw-bold" v-if="mk.price != null">{{mk.price}} ({{mk.vol}})</p>
-													<p class="text-dark fs-5 fw-bold" v-if="mk.price === null">{{mk.price}} ({{mk.vol}})</p>
-												</div>
-											</div>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
+						</template>
 					</div>
 
-					<!-- 2번탭 내용 -->
-					<div class="tab-pane" id="tab2-content" role="tabpanel" aria-labelledby="nav-tab2">
-						<div class="px-2">
-							<div class="vesitable">
-								<h3 class="fw-bold mb-0">&nbsp; "{{sellerName}}" 의 Top 5</h3>
-								<br>
-								<div class="owl-carousel vegetable-carousel justify-content-center" style="overflow-x: auto;">
-									<div class="border rounded position-relative vesitable-item otherWine" v-for="sl in otherSeller" :key="sl.wno" style="width: 250px; border-color: #881824 !important">
-										<a :href="'../shop/detail.do?wno=' + sl.wno + '&page=' + 2">
-											<div style="width: 250px; height: 250px;">
-												<img :src="sl.poster" class="img-fluid rounded-top" alt="" style="width: 250px; height: 267px; padding: 24px 24px 0;">
-											</div>
-											<div class="px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;" :class="wineClass(sl.type)">{{sl.type}}</div>
-											<div class="p-4 pb-0 rounded-bottom" style="width: 250px; height: 140px;">
-												<h4 style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; line-height: 1.2; max-height: 2.4em; width: 200px;">{{sl.namekor}}</h4>
-												<div class="d-flex justify-content-between flex-lg-wrap">
-													<p class="text-dark fs-5 fw-bold" v-if="sl.price != null">{{sl.price}} ({{sl.vol}})</p>
-													<p class="text-dark fs-5 fw-bold" v-if="sl.price === null">가격문의 ({{sl.vol}})</p>
-												</div>
-											</div>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
-
-			<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
-				<div class="modal-content" style="width: 650px; height: 400px;">
-					<h3 class="text-center">신고하기</h3>
-					<table class="table" style="margin-top: 50px;">
-						<tr>
-							<th width="20%" class="text-center">신고대상 ID :</th>
-							<td width="20%" class="text-center backcor"><b>{{sellerName}}</b></td>
-							<th width="20%" class="text-center">상품명 :</th>
-							<td width="40%" class="text-center backcor"><b>{{vo.namekor}}</b></td>
-						</tr>
-						<tr>
-							<th width="20%" class="text-center">카테고리 :</th>
-							<td colspan="3"><select style="width: 175px;" v-model="category" @change="selectCategory($event)">
-									<option value="상품관련">상품관련</option>
-									<option value="배송관련">배송관련</option>
-									<option value="기타신고">기타신고</option>
-							</select></td>
-						</tr>
-						<tr>
-							<th width="20%" class="text-center">신고 사유:</th>
-							<td colspan="3"><textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
-						</textarea></td>
-						</tr>
-						<tr>
-							<td colspan="4" class="rmbtn" style="text-align: center; border-bottom: none;">
-								<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport()">접수</button> &nbsp;&nbsp;
-								<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal(false)">취소</button>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>		
-			
-			<div class="modal" :class="{ show: showModal2 }" @click.self="changeModal(false)">
-				<div class="modal-content" style="width: 650px; height: 400px;">
-					<h3 class="text-center">신고하기</h3>
-					<table class="table" style="margin-top: 50px;">
-						<tr>
-							<th width="20%" class="text-center">신고대상 ID :</th>
-							<td width="20%" class="text-center backcor"><b>{{sellerName}}</b></td>
-							<th width="20%" class="text-center">상품명 :</th>
-							<td width="40%" class="text-center backcor"><b>{{vo.namekor}}</b></td>
-						</tr>
-						<tr>
-							<th width="20%" class="text-center">카테고리 :</th>
-							<td colspan="3"><select style="width: 175px;" v-model="category2" @change="selectCategory2($event)">
-									<option value="폭언/욕설">폭언/욕설</option>
-									<option value="불법광고">불법광고</option>
-									<option value="기타신고">기타신고</option>
-							</select></td>
-						</tr>
-						<tr>
-							<th width="20%" class="text-center">신고 사유:</th>
-							<td colspan="3"><textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
-						</textarea></td>
-						</tr>
-						<tr>
-							<td colspan="4" class="rmbtn" style="text-align: center; border-bottom: none;">
-								<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport2()">접수</button> &nbsp;&nbsp;
-								<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal2(false)">취소</button>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-
 
 		</div>
+
+		<div class="col-lg-12" style="border-bottom: solid 1px #80808036;">
+			<h3>관련와인</h3>
+			<br>
+			<nav>
+				<div class="nav nav-tabs mb-3">
+					<button class="nav-link active custom-nav-link" type="button" role="tab" id="nav-tab1" data-bs-toggle="tab" data-bs-target="#tab1-content" aria-controls="tab1-content" aria-selected="true">생산자</button>
+					<button class="nav-link border-white custom-nav-link" type="button" role="tab" id="nav-tab2" data-bs-toggle="tab" data-bs-target="#tab2-content" aria-controls="tab2-content" aria-selected="false">판매자</button>
+
+				</div>
+			</nav>
+
+			<div class="tab-content mb-5">
+				<!-- 1번탭 내용 -->
+				<div class="tab-pane active" id="tab1-content" role="tabpanel" aria-labelledby="nav-tab1">
+					<div class="px-2">
+						<div class="vesitable">
+							<h3 class="fw-bold mb-0">&nbsp; "{{vo.makerkor}}" 의 다른 상품</h3>
+							<br>
+							<div class="owl-carousel vegetable-carousel justify-content-center">
+								<div class="border rounded position-relative vesitable-item otherWine" v-for="mk in otherMaker" :key="mk.wno" style="width: 250px; border-color: #881824 !important">
+									<a :href="'../shop/detail.do?wno=' + mk.wno + '&page=' + 2">
+										<div style="width: 250px; height: 250px;">
+											<img :src="mk.poster" class="img-fluid rounded-top" alt="" style="width: 250px; height: 267px; padding: 24px 24px 0;">
+										</div>
+										<div class="px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;" :class="wineClass(mk.type)">{{mk.type}}</div>
+										<div class="p-4 pb-0 rounded-bottom" style="width: 250px; height: 140px;">
+											<h4 style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; line-height: 1.2; max-height: 2.4em; width: 200px;">{{mk.namekor}}</h4>
+											<div class="d-flex justify-content-between flex-lg-wrap">
+												<p class="text-dark fs-5 fw-bold" v-if="mk.price != null">{{mk.price}} ({{mk.vol}})</p>
+												<p class="text-dark fs-5 fw-bold" v-if="mk.price === null">{{mk.price}} ({{mk.vol}})</p>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 2번탭 내용 -->
+				<div class="tab-pane" id="tab2-content" role="tabpanel" aria-labelledby="nav-tab2">
+					<div class="px-2">
+						<div class="vesitable">
+							<h3 class="fw-bold mb-0">&nbsp; "{{sellerName}}" 의 Top 5</h3>
+							<br>
+							<div class="owl-carousel vegetable-carousel justify-content-center" style="overflow-x: auto;">
+								<div class="border rounded position-relative vesitable-item otherWine" v-for="sl in otherSeller" :key="sl.wno" style="width: 250px; border-color: #881824 !important">
+									<a :href="'../shop/detail.do?wno=' + sl.wno + '&page=' + 2">
+										<div style="width: 250px; height: 250px;">
+											<img :src="sl.poster" class="img-fluid rounded-top" alt="" style="width: 250px; height: 267px; padding: 24px 24px 0;">
+										</div>
+										<div class="px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;" :class="wineClass(sl.type)">{{sl.type}}</div>
+										<div class="p-4 pb-0 rounded-bottom" style="width: 250px; height: 140px;">
+											<h4 style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; line-height: 1.2; max-height: 2.4em; width: 200px;">{{sl.namekor}}</h4>
+											<div class="d-flex justify-content-between flex-lg-wrap">
+												<p class="text-dark fs-5 fw-bold" v-if="sl.price != null">{{sl.price}} ({{sl.vol}})</p>
+												<p class="text-dark fs-5 fw-bold" v-if="sl.price === null">가격문의 ({{sl.vol}})</p>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
+			<div class="modal-content" style="width: 650px; height: 400px;">
+				<h3 class="text-center">신고하기</h3>
+				<table class="table" style="margin-top: 50px;">
+					<tr>
+						<th width="20%" class="text-center">신고대상 ID :</th>
+						<td width="20%" class="text-center backcor"><b>{{sellerName}}</b></td>
+						<th width="20%" class="text-center">상품명 :</th>
+						<td width="40%" class="text-center backcor"><b>{{vo.namekor}}</b></td>
+					</tr>
+					<tr>
+						<th width="20%" class="text-center">카테고리 :</th>
+						<td colspan="3"><select style="width: 175px;" v-model="category" @change="selectCategory($event)">
+								<option value="상품관련">상품관련</option>
+								<option value="배송관련">배송관련</option>
+								<option value="기타신고">기타신고</option>
+						</select></td>
+					</tr>
+					<tr>
+						<th width="20%" class="text-center">신고 사유:</th>
+						<td colspan="3"><textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
+						</textarea></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="rmbtn" style="text-align: center; border-bottom: none;">
+							<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport()">접수</button> &nbsp;&nbsp;
+							<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal(false)">취소</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="modal" :class="{ show: showModal2 }" @click.self="changeModal(false)">
+			<div class="modal-content" style="width: 650px; height: 400px;">
+				<h3 class="text-center">신고하기</h3>
+				<table class="table" style="margin-top: 50px;">
+					<tr>
+						<th width="20%" class="text-center">신고대상 ID :</th>
+						<td width="20%" class="text-center backcor"><b>{{sellerName}}</b></td>
+						<th width="20%" class="text-center">상품명 :</th>
+						<td width="40%" class="text-center backcor"><b>{{vo.namekor}}</b></td>
+					</tr>
+					<tr>
+						<th width="20%" class="text-center">카테고리 :</th>
+						<td colspan="3"><select style="width: 175px;" v-model="category2" @change="selectCategory2($event)">
+								<option value="폭언/욕설">폭언/욕설</option>
+								<option value="불법광고">불법광고</option>
+								<option value="기타신고">기타신고</option>
+						</select></td>
+					</tr>
+					<tr>
+						<th width="20%" class="text-center">신고 사유:</th>
+						<td colspan="3"><textarea rows="4" cols="30" style="width: 100%; resize: none;" v-model="content">
+						</textarea></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="rmbtn" style="text-align: center; border-bottom: none;">
+							<button type="button" class="rmbtn btn-sm btn-success" @click="sendReport2()">접수</button> &nbsp;&nbsp;
+							<button type="button" class="rmbtn btn-sm btn-danger" @click="changeModal2(false)">취소</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+
+	</div>
 	</div>
 	<!-- Single Product End -->
 	<script>
@@ -525,19 +534,58 @@
 	            srating: 1,
 	            reviewListData: [],
 	            count: 4,
+	            bocount: 4,
 	            isOn: false,
 	            reviewCount: 0,
 	            likeCount: 0,
 	            Lcheck: 0,
 	            reviewCheck: 0,
 	            sellerName: '',
-	            wrvno:0
+	            wrvno:0,
+	            relist:[],
+    			curpage: 1,
+    			totalpage: 0,
+    			startPage: 0,
+    			endPage: 0
 	        }
 	    },
 	    mounted() {
 	        this.dataRecv()
 	    },
 	    methods: {
+			prev(){
+				if(this.curpage === 1){
+					alert('첫 페이지 입니다')
+					return
+				}
+			        this.curpage = this.curpage - 10;
+			        this.dataRecv();   			    
+			},
+			next() {
+			    if (this.curpage >= this.totalpage) {
+			        alert('마지막 페이지 입니다');
+			        return;
+			    }
+			    
+			    // 현재 페이지에서 총 페이지를 넘지 않도록 다음 페이지 계산
+			    let nextPage = this.curpage + 10;
+			    this.curpage = nextPage <= this.totalpage ? nextPage : this.totalpage;
+			    this.dataRecv();
+			},
+    		pageChange(page){
+    			this.curpage=page
+    			this.dataRecv()
+    		},
+    		range(start,end){
+    			let arr=[]
+    			let len=end-start
+    			for(let i=0;i<=len;i++)
+    			{
+    				arr[i]=start
+    				start++
+    			}
+    			return arr;
+    		},
 		    wineClass(type) {
     		      switch (type) {
     		        case '레드':
@@ -749,7 +797,29 @@
 	        	this.count += 4
 	        	this.dataRecv()
 	        },
+	        viewMore2(){
+	        	this.bocount += 4
+	        	this.dataRecv()
+	        },
    			 dataRecv(){
+				axios.get('../replyboard/shoplist_vue.do',{
+					params:{
+						wno: this.wno,
+						page: this.curpage,
+						count: this.bocount
+					}
+				}).then(response => {
+					console.log(response.data)
+					this.relist = response.data.list
+					this.recount = response.data.count
+					this.totalpage = response.data.totalpage
+					this.startpage = response.data.startpage
+					this.endpage = response.data.endpage
+					this.boTocount = response.data.boTocount
+				}).catch(error => {
+					console.log(error.response)
+				})
+    			
    				 axios.get('../shop/detail_vue.do',{
    					 params:{
 						wno: this.wno,

@@ -53,13 +53,14 @@ public class ReplyBoardRestController {
 		int count = rService.replyCount();
 		int totalpage = (int) (Math.ceil(count / (double) rowSize));
 		count = count - ((curpage * rowSize) - rowSize);
-
+				
 		map.put("list", list);
 		map.put("curpage", curpage);
 		map.put("totalpage", totalpage);
 		map.put("count", count);
-		map.put("today", new SimpleDateFormat("yyy-MM-dd").format(new Date()));
+		map.put("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 
+		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);
 
@@ -209,4 +210,36 @@ public class ReplyBoardRestController {
 
 		return json;
 	}
+	// shop게시판 목록
+	@GetMapping(value = "replyboard/shoplist_vue.do", produces = "text/plain;charset=UTF-8")
+	public String shopReplyboardList(int count, String page, HttpSession session, int wno) throws Exception {
+		String userid = (String) session.getAttribute("userId");
+		if (userid == null) {
+			userid = "";
+		}
+		
+		if (page == null)
+			page = "1";
+		int curpage = Integer.parseInt(page);
+		Map map = new HashMap();
+		int rowSize = 10;
+		int start = (rowSize * curpage) - (rowSize - 1);
+		int end = rowSize * curpage;
+		List<ReplyBoardVO> list = rService.shopReplyListData(count, userid, wno);
+		int boTocount = rService.shopReplyCount();
+		int totalpage = rService.shopReplyTotalPage();
+		
+		map.put("list", list);
+		map.put("boTocount", boTocount);
+		map.put("curpage", curpage);
+		map.put("totalpage", totalpage);
+		map.put("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(map);
+		
+		return json;
+	}
+
 }

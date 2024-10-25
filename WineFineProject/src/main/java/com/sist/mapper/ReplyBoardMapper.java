@@ -10,6 +10,21 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 public interface ReplyBoardMapper {
+//	총 갯수
+	@Select("SELECT CEIL (COUNT(*)) FROM wine_replyboard WHERE type = 1")
+	public int shopReplyTotalPage();
+	
+	// shop목록
+	@Select("SELECT wrno,userid,nickname,subject, TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cno,type,"
+			+ "recvid,wno,group_id,group_step,isreply,hit,secret,num "
+			+ "FROM (SELECT wrno,userid,nickname,subject,regdate,cno,type,"
+			+ "recvid,wno,group_id,group_step,isreply,hit,secret,rownum as num "
+			+ "FROM (SELECT wrno,userid,nickname,subject,regdate,cno,type,"
+			+ "recvid,wno,group_id,group_step,isreply,hit,secret "
+			+ "FROM wine_replyboard WHERE type =1 ORDER BY group_id DESC , group_step ASC)) "
+			+ "WHERE rownum <= #{count} AND wno = #{wno} ")
+	public List<ReplyBoardVO> shopReplyListData(@Param("count")int count, @Param("userid") String userid ,
+			@Param("wno")int wno);
 	// 목록
 	@Select("SELECT wrno,userid,nickname,subject," + "TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cno,type,"
 			+ "recvid,wno,group_id,group_step,isreply,hit,secret,num "
@@ -49,6 +64,9 @@ public interface ReplyBoardMapper {
 
 	@Select("SELECT COUNT(*) FROM wine_replyboard WHERE type!=1 AND group_step=0")
 	public int replyCount();
+	
+	@Select("SELECT COUNT(*) FROM wine_replyboard WHERE type =1 AND group_step=0")
+	public int shopReplyCount();
 
 	// 작성
 	@Insert("INSERT INTO wine_replyboard(wrno, userid, nickname, subject, content, regdate, cno, type, recvid, wno, "

@@ -66,14 +66,6 @@
 		</div>
 		<!-- Modal Search End -->
 
-
-		<!-- Single Page Header start -->
-		<div class="container-fluid page-header py-5">
-			<h1 class="text-center text-white display-6">구매</h1>
-		</div>
-		<!-- Single Page Header End -->
-
-
 		<!-- Cart Page Start -->
 		<div class="container-fluid py-5">
 			<div class="container py-5">
@@ -82,20 +74,20 @@
 					<table class="table col-11">
 						<thead>
 							<tr>
-								<th width="7%" class="noborder"></th>
-								<th width="43%" class="noborder text-center">주문상품</th>
-								<th width="15%" class="noborder text-center">가격</th>
-								<th width="15%" class="noborder text-center">수량</th>
-								<th width="20%" class="noborder text-center">총 금액</th>
+								<th width="7%" class="noborder" style="border-left: 1px solid; border-top: 1px solid;"></th>
+								<th width="43%" class="noborder text-center" style="border-top: 1px solid;">주문상품</th>
+								<th width="15%" class="noborder text-center" style="border-top: 1px solid;">가격</th>
+								<th width="15%" class="noborder text-center" style="border-top: 1px solid;">수량</th>
+								<th width="20%" class="noborder text-center" style="border-top: 1px solid;border-right : 1px solid;" >총 금액</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<th scope="row" class="align-middle"><img :src="vo.poster" class="img-fluid me-5" style="width: 80px; height: 80px;" alt=""></th>
+								<th scope="row" class="align-middle" style="border-right: none;"><img :src="vo.poster" class="img-fluid me-5" style="width: 80px; height: 80px;" alt=""></th>
 								<td class="align-middle text-center" >
 									<p class="mb-0"><b>{{ vo.namekor }}</b></p>
 								</td>
-								<td class="align-middle text-center">
+								<td class="align-middle text-center"	>
 									<p class="mb-0">{{ vo.price }} 원</p>
 								</td>								
 								<td class="align-middle text-center">
@@ -103,7 +95,7 @@
 										<input type="number" class="form-control form-control-sm text-center border-0" v-model.number="quantity" min="1" style="text-align: center;" />
 									</div>
 								</td>
-								<td class="align-middle text-center">
+								<td class="align-middle text-center" style="border-right: 1px solid lightgray;">
 									<p class="mb-0">{{ (vo.price * quantity).toLocaleString() }} 원</p>
 								</td>
 
@@ -284,7 +276,7 @@ let buyApp = Vue.createApp({
             promo: 0,
             isCoupon:false,
             pay:0,
-            plus: 0
+            plus: 0           
         };
     },
     computed: {
