@@ -149,6 +149,7 @@
 			<div class="row g-4 justify-content-center">
 				<div class="col-lg-3" style="margin-bottom: 10px; margin-top: 10px;"
 					v-for="wvo in wList">
+					<a :href="'../shop/detailBefore.do?wno=' + wvo.wno">
 					<div class="rounded position-relative fruite-item">
 						<div class="fruite-img text-center"
 							style="border: 1px solid darkred; border-radius: 10px 10px 0 0; over-flow: hidden; border-bottom: none;">
@@ -167,12 +168,10 @@
 							</p>
 							<div class="d-flex justify-content-between flex-lg-wrap">
 								<p class="text-dark fw-bold mb-0 fs-6">{{wvo.price}}</p>
-								<a href="#"
-									class="btn border border-wine rounded-pill text-wine"><i
-									class="fa fa-shopping-bag text-wine"></i> Add to cart</a>
 							</div>
 						</div>
 					</div>
+				  </a>
 				</div>
 				<div class="text-center">
 					<button type="button"

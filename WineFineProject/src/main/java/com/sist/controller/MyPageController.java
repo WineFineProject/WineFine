@@ -66,4 +66,9 @@ public class MyPageController {
  public String mypagePayment() {
 	 return "mypage/myPayment";
  }
+ //회원 탈퇴
+ @GetMapping("mypage/my_member_exit.do")
+ public String mypagememberexit() {
+	 return "mypage/my_member_exit";
+ }
 }

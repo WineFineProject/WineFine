@@ -2,6 +2,7 @@ package com.sist.mapper;
 
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -57,8 +58,41 @@ public interface MypageMapper {
 	@Select("SELECT CEIL(COUNT(*)/10.0) FROM boardreply WHERE id=#{userid}")
 	public int myboardReplyTotalPage(Map map);
 	
-	 
+	//회원 탈퇴
 	
+	//예약내역 존재 여부 확인
+	@Select("SELECT COUNT(*) FROM wine_reserve WHERE userid=#{userid}")
+	public int myreservecount(String userid);
+	
+	//게시판 닉네임 바꾸기(게시글, 댓글)
+	@Update("UPDATE board SET nickname='탈퇴한 사용자' WHERE userid=#{userid} ")
+	public void bchangenick(String userid);
+	@Update("UPDATE boardreply SET nickname='탈퇴한 사용자' WHERE userid=#{userid} ")
+	public void brchangenick(String userid);
+	
+	//리뷰 삭제 
+	@Delete("DELETE FROM wine_review WHERE userid=#{userid} ")
+	public void reviewdelete(String userid);
+	
+	//좋아요 삭제
+	@Delete("DELETE FROM winelike WHERE userid=#{userid} ")
+	public void likedelete(String userid);
+	
+	//예약 내역 삭제
+	@Delete("DELETE FROM wine_reserve WHERE userid=#{userid} ")
+	public void reservedelete(String userid);
+	
+	//비밀번호 변경
+	
+	
+	
+	//진행중인 주문 수 확인
+	@Select("SELECT COUNT(*) FROM wine_payment WHERE userid=#{userid} AND state < 3 ")
+	public int ingpaycount(String userid);
+	
+	//권한 변경
+	@Update("UPDATE authority SET authority='ROLE_CANCEL' WHERE userId=#{userId}")
+	public void Authorityupdate(String userid);
 	 
 }
 
