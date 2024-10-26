@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/cart.css">
 </head>
 <body>
 	<div class="container-fluid page-header py-5">
@@ -15,7 +16,7 @@
 		<div class="container py-5">
 			<div class="row">
 					<div class="table-responsive" id="cartListApp">
-						<table class="table">
+						<table class="table mp">
 							<thead>
 								<tr>
 									<th width="5%" scope="col">번호</th>
@@ -56,22 +57,20 @@
 										<p class="mb-0 mt-4">{{vo.dbday}}</p>
 									</td>
 									<td class="text-center">
-										<button @:click="deleteCart(vo.cno)" class="btn btn-md rounded-circle bg-light border mt-4">
+										<button style="margin:0px !important" @:click="deleteCart(vo.cno)" class="btn btn-md rounded-circle bg-light border mt-4">
 											<i class="fa fa-times text-danger"></i>
 										</button>
-										<a :href="'../shop/buy.do?wno='+vo.wno+'&account='+vo.account" class="btn btn-md rounded-circle bg-light border mt-4">
+										<a style="margin:0px !important" :href="'../shop/buy.do?wno='+vo.wno+'&account='+vo.account" class="btn btn-md rounded-circle bg-light border mt-4">
 										<i class="fa fa-credit-card"></i>
 										</a>
-									</td>
-									<td>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="text-center">
-						<button class="btn btn-sm border-wine" @click="cList(curPage>1?curPage-1:curPage)">이전</button>
+						<button class="btn btn-sm btn-wine" @click="cList(curPage>1?curPage-1:curPage)">이전</button>
 						{{curPage}}page/{{totalPage}}page
-						<button class="btn btn-sm border-wine" @click="cList(curPage<totalPage?curPage+1:curPage)">다음</button>
+						<button class="btn btn-sm btn-wine" @click="cList(curPage<totalPage?curPage+1:curPage)">다음</button>
 						</div>
 					</div>
 			</div>
