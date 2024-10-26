@@ -6,83 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="../tem/css/payment.css">
-<style>
-#orderList{
-	width: 1120px;
-	margin-left: 10px;
-}
-.ipagination {
-	display: inline-flex;
-	align-items: center;
-	cursor: pointer;
-}
-.page-item.active {
-	background-color: #FFCC52;
-	display: inline-block !important;
-}
-.scrollable-text {
-	position: relative;
-	overflow: hidden;
-	white-space: nowrap;
-}
-.scrollable-text p {
-	display: inline-block;
-	white-space: nowrap;
-	transform: translateX(0);
-}
-.scrollable-text:hover p {
-	transform: translateX(-100%);
-	transition: transform 5s linear;
-}
-.scrollable-text p {
-	transition: none;
-}
-.ordercheck{
-	border-left: hidden;
-	border-right: hidden;
-	border-top: hidden;
-	border-bottom:2px solid #E66E5B;
-	text-align: center;
-	padding-top:10px;
-	padding-bottom:10px;
-}
-.orderchecktd{
-	border-bottom:2px solid #E66E5B;
-	text-align: center;
-	padding-top: 10px;
-	padding-bottom:10px;
-	color:black;
-}
-.table111{
-	margin-bottom:15px;
-}
-.table1111{
-	margin-bottom:0px;
-}
-.table1111 th, .table11111 th
-{
-	background-color: #f8f9fa;
-}
-.orderbtn{
-	font-size:18px;
-	color: darkred;
-}
-#olistth{
-    background-color: #f8f8f8;
-    color: #333;
-}
-.rmbtn{
-	text-align:center;
-	margin-right:8px;
-}
-
-</style>
+<link rel="stylesheet" href="../tem/css/orderlist.css">
 </head>
 <body>
 <div class="container" id="orderList">
 	<div class="row">
-	<h3 class="text-center" style="color: #333;"> 주문 현황 </h3>
+	<h3 class="table-title text-center"> 주문 현황 </h3>
 		<table class="table111">
 		<tr id="olistth">
 			<th width="15%" class="ordercheck"> 전체주문 </th>

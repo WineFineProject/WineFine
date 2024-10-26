@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="row" id="adminItemApp">
-	 <h3 class="table-title">상품 등록/수정 대기</h3>
+	 <h3 class="table-title">상품 승인 대기</h3>
 		<table class="table mp">
 			<tr>
 				<th width="7%" class="text-center">품번</th>

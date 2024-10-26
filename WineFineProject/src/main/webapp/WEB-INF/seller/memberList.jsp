@@ -42,7 +42,7 @@
 					</tr>
 					<tr v-if="isShow[index]">
 						<td colspan="9" style="padding: 0px;">
-							<table class="table" style="border: none;">
+							<table class="table" style="border: none;margin-bottom: 0px">
 								<tr>
 									<th>생일</th>
 									<th>전화번호</th>
@@ -65,16 +65,14 @@
 			</tbody>
 		</table>
 		<div class="modal" :class="{ show: showModal }">
-			<div class="modal-content" style="height: 220px;">
+			<div class="modal-content" style="height: 300px;">
 				<div class="modal-header">
                 <h4 class="modal-title">사유 작성</h4>
             </div>
-            <div class="mb-3">
             <div style="margin-top: 10px;">
-                <input type="text" v-model="message" ref="message"
-					@keyup.enter="sendMessage()" class="r-boxs">
+                <textarea v-model="message" ref="message"
+					@keyup.enter="sendMessage()" class="r-boxs"></textarea>
             </div>
-			</div>
 		</div>
 		</div>
 		<div class="col-12 text-center" >
@@ -94,6 +92,7 @@
              </nav>
           </div>
        </div>
+      </div>
 	<script>
         let memberListApp=Vue.createApp({
             data() {

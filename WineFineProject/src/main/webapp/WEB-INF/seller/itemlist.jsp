@@ -5,66 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/itemlist.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<style type="text/css">
-.ipagination {
-	display: inline-flex;
-	align-items: center;
-	cursor: pointer;
-}
-
-.page-item.active {
-	background-color: #FFCC52;
-	display: inline-block !important;
-}
-
-.allitem {
-	width: 10%;
-
-}
-.table th, .table td{
-    overflow: hidden;
-    text-overflow: ellipsis; 
-    white-space: nowrap; 
-}
-.editable {
-	text-decoration: underline;
-	text-underline-position: under;
-	cursor: pointer;
-}
-.itemlistright{
-	text-align: right;
-}
-.itemlisttop{
-	margin-right: 5px;
-}
-.ilisttable
-{	
-	table-layout: fixed;
-	text-align: center;
-}
-.dbtn{
- 	display: inline-block; 
-    padding: 2px 4px; 
-    text-decoration: none; 
-    color: gray; 
-    background-color: white; 
-    border: 1px solid  #E66E5B; 
-    border-radius: 5px; 
-    font-size:14px;
-    margin-left:3px;
-}
-#ilistth{
-	background-color: #f8f8f8;
-    color: #333;
-}
-</style>
 </head>
 <body>
 	<div class="container" id="itemList">
-		<h3 class="text-center" style="width: 100%; margin-bottom:10px; color:black;">&emsp;판매 상품 조회</h3>
+		<h3 class="table-title text-center">&emsp;판매 상품 조회</h3>
 		<div class="row">
 			<div class="itemlistright">
+			<div class="span-container">
+        <span style="font-weight: bold;">총 {{iCount}} 개</span>
+    </div>
 				<select v-model="sortOrder" class="itemlisttop">
 					<option value="recent">최근등록순</option>
 					<option value="popular">인기순</option>
@@ -74,9 +25,8 @@
 					@click="saveAllChanges">변경 내용 저장</button>
 				<button type="button" class="itemlisttop allitem"
 					@click="deleteSelected()">선택 삭제</button>
-				<span style="float: left; font-weight: bold;">총 {{iCount}} 개</span>
 			</div>
-			<table class="table ilisttable">
+			<table class="table ilisttable mp">
 				<tr id="ilistth">
 					<th width="5%">선택</th>
 					<th width="8%">상품번호</th>
@@ -96,7 +46,7 @@
 					<td width="8%">{{vo.wno}}</td>
 					<td width="5%">
 					<img :src="vo.poster" style="width: 40px; height: 60px"></td>
-					<td width="17%" class="editable ilistnamekor" style="text-align: left;">
+					<td width="17%" class="editable ilistnamekor" style="text-align: left;border-left:hidden">
 					<input v-if="vo.isEditingName" v-model="vo.namekor"/> 
 					<span v-else @dblclick="vo.isEditingName = true">{{ vo.namekor }}</span>
 					</td>
@@ -133,19 +83,25 @@
 						<button type="button" class="btn-sm" style="border:transparent; background-color: transparent" v-on:click="itemDelete(vo)"><i class="fa-solid fa-trash-can"></i></button>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="12" class="text-center">
-						<div class="ipagination">
-							<input type=button value="<" class=" btn-sm
-								btn-danger" @click="prev()"> &nbsp; <span
-								v-for="i in range(startPage,endPage)"
-								:class="{'page-item active': i === curpage, 'page-item': i !== curpage}"
-								@click="pageChange(i)"> &nbsp; {{i}} &nbsp; </span> &nbsp; <input
-								type=button value=">" class="btn-sm btn-danger" @click="next()">
-						</div>
-					</td>
-				</tr>
 			</table>
+			<div class="col-12 text-center" >
+							        <div class="pagination-area d-sm-flex mt-15" style="justify-content: center">
+							            <nav aria-label="#">
+							               <ul class="pagination" style="display: flex;">
+							                   <li class="page-item" v-if="startPage>1">
+							                     <a class="page-link" @click="prev()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> 이전</a>
+							                    </li>
+							                     <li :class="{'page-item active': i === curpage, 'page-item': i !== curpage}"
+								                    v-for="i in range(startPage, endPage)">
+								                    <a class="page-link" @click="pageChange(i)">{{ i }}</a>
+								                </li>
+							                     <li class="page-item" v-if="endPage<totalpage">
+							                      <a class="page-link" @click="next()" style="margin-left: 4px;">다음 <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+							                     </li>
+							                 </ul>
+							             </nav>
+							          </div>
+							       </div>
 		</div>
 	</div>
 	<script>

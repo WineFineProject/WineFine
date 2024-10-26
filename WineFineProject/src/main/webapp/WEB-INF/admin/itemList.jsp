@@ -20,22 +20,22 @@
 			<input type="checkbox" :value="7" name="filter" v-model="filter" @change="showInfo()">
 			<label style="margin: 0 10px 0 5px;">판매제한</label> 
 		</div>
-		<table class="table mp">
+		<table class="table mp" style="table-layout:fixed;">
 			<tr>
-				<th width="5%" class="text-center">품번</th>
-				<th width="5%" class="text-center"></th>
+				<th width="7%" class="text-center">품번</th>
+				<th width="6%" class="text-center"></th>
 				<th width="30%" class="text-center">제품명</th>
 				<th width="5%" class="text-center">재고</th>
 				<th width="10%" class="text-center">판매액</th>
 				<th width="10%" class="text-center">타입</th>
 				<th width="10%" class="text-center">상태</th>
-				<th width="15%" class="text-center">상품등록일</th>
+				<th width="13%" class="text-center">상품등록일</th>
 				<th width="10%" class="text-center"></th>
 			</tr>
 			<template v-for="(vo, index) in list">
 				<tr @click="moreInfo(index)">
-					<td width="5%" class="text-center">{{vo.wno}}</td>
-					<td width="5%" class="text-center"><img :src="vo.poster"
+					<td width="7%" class="text-center">{{vo.wno}}</td>
+					<td width="6%" class="text-center"><img :src="vo.poster"
 						style="width: 35px; height: 55px"></td>
 					<td width="30%" class="text-center scrollable-text">
 						<p style="margin-bottom: 0px;">{{vo.namekor}}</p>
@@ -44,7 +44,7 @@
 					<td width="10%" class="text-center">{{vo.price}}</td>
 					<td width="10%" class="text-center">{{vo.type}}</td>
 					<td width="10%" class="text-center">{{vo.state===1?'판매중':vo.state===2?'품절':vo.state===3?'판매중단':'판매제한'}}</td>
-					<td width="15%" class="text-center">{{vo.dbday}}</td>
+					<td width="12%" class="text-center">{{vo.dbday}}</td>
 					<td width="10%" class="text-center">
 						<button class="btn btn-sm btn-border-wine" v-if="vo.state!=7"
 							@click="wineCancel(index)">판매제한</button>
@@ -138,16 +138,14 @@
 				</nav>
 			</div>
 			<div class="modal" :class="{ show: showModal }">
-				<div class="modal-content" style="height: 220px;">
+				<div class="modal-content" style="height: 300px;">
 					<div class="modal-header">
 						<h4 class="modal-title">사유 작성</h4>
 					</div>
-					<div class="mb-3">
 						<div style="margin-top: 10px;">
-							<input type="text" v-model="message" ref="message"
-								@keyup.enter="sendMessage()" class="r-boxs">
+							<textarea v-model="message" ref="message"
+								@keyup.enter="sendMessage()" class="r-boxs2"></textarea>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>

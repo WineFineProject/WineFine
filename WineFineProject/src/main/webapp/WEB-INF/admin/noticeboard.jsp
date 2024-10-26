@@ -45,7 +45,7 @@
          	<span v-if="vo.cno==5">[이벤트]</span>
          	<span v-if="vo.cno==6">[상품]</span>
          </td>
-         <td width="40%" class="blistsub"><a :href="'noticedetail.do?bno='+vo.bno">{{vo.subject}}</a></td>
+         <td width="40%" style="text-align: left"><a :href="'noticedetail.do?bno='+vo.bno">{{vo.subject}}</a></td>
          <td width="15%" class="text-center">관리자</td>
          <td width="15%" class="text-center">{{vo.dbday}}</td>
          <td width="15%" class="text-center">{{vo.hit}}</td>

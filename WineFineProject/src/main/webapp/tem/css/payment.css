@@ -145,6 +145,16 @@
     border-radius: 10px; 
 }
 
+.r-boxs2 {
+    border: 1px solid #e1e1e1; 
+    padding: 15px; 
+    height: 160px; 
+    overflow-y: auto; 
+    border-radius: 10px; 
+    width: 455px;
+    resize:none;
+}
+
 .scrollable-text {
     position: relative;
     overflow: hidden;

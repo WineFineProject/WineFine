@@ -27,7 +27,7 @@
 				<td width="25%" class="text-center">{{vo.wvo.mvo.nickName}}</td>
 				<td width="10%" class="text-center">{{vo.wvo.type}}</td>
 				<td width="10%" class="text-center">{{vo.wvo.price}}</td>
-				<td width="10%" class="text-center"><button class="btn btn-sm border-wine" @click="deleteLike(vo.lno)">취소</button></td>
+				<td width="10%" class="text-center"><button class="btn btn-sm btn-border-wine" @click="deleteLike(vo.lno)">취소</button></td>
 			</tr>
 		</table>
 		<div style="height: 10px;"></div>

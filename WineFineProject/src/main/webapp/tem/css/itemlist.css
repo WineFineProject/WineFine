@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+#itemList{
+    max-width: 1200px;
+    margin: 0 auto;
+	margin-left: 10px;
+}
+
+.table-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.mp {
+    width: 100% !important;
+    max-width: 1200px;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.mp th, .mp td {
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.mp th {
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-wine {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+}
+
+.btn-wine:hover {
+    background-color: #a93226;
+}
+
+.pagination {
+	cursor: pointer;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #881824; 
+    color: white; 
+    border: solid 1px #881824 !important;
+}
+
+.pagination .page-item .page-link {
+    color: #881824; 
+    border: solid 1px #881824 !important;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #f1f1f1; 
+}
+
+.allitem {
+	width: 10%;
+
+}
+.mp th, .mp td{
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+}
+.editable {
+	text-decoration: underline;
+	text-underline-position: under;
+	cursor: pointer;
+}
+.ilisttable
+{	
+	table-layout: fixed;
+	text-align: center;
+}
+#ilistth{
+	background-color: #f8f8f8;
+    color: #333;
+}
+.itemlistright {
+    display: flex; /* Flexbox 사용 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: space-between; /* 양 끝으로 배치 */
+}
+
+.itemlistright .span-container {
+    flex-grow: 1; /* 나머지 공간을 차지 */
+}
+.itemlisttop{
+	margin-right: 5px;
+}

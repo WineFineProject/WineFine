@@ -5,14 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/replydetail.css">
 </head>
 <body>
 	<div class="row" id="noticeList">
-		<h3 class="text-center">공지사항</h3>
+		<h3 class="table-title text-center">공지사항</h3>
 		<div>
 		  <a href="../seller/noticeInsert.do" class="btn btn-sm" style="background-color: #FCD500;margin-bottom: 10px">글쓰기</a>
 		</div>
-		<table class="table table-hover">
+		<table class="table trb">
 			<tr>
 				<th width=10% class="text-center">번호</th>
 				<th width=35% class="text-center">제목</th>
@@ -28,19 +29,19 @@
 				<td width=10% class="text-center">{{vo.hit}}</td>
 			</tr>
 		</table>
-		<div class="text-center" style="margin-top: 50px">
-           <a href="#" class="btn btn-sm btn-primary">이전</a>
-             {{curpage}} page / {{totalpage}} pages
-           <a href="#" class="btn btn-sm btn-primary">다음</a>
-          </div>
+		<div class="text-center">
+					<button type="button" class="btn btn-sm btn-primary" @click="noticeList(curPage>1?curPage-1:curPage)">이전</button>
+					{{curPage}} page / {{totalPage}} page
+					<button type="button" class="btn btn-sm btn-primary" @click="noticeList(curPage<totalPage?curPage+1:curPage)">다음</button>
+		</div>
 	</div>
 	<script>
 	let noticeApp=Vue.createApp({
 		data(){
 			return{
 				list:[],
-				curpage:1,
-				totalpage:0,
+				curPage:1,
+				totalPage:0,
 				count:0
 			}
 		},

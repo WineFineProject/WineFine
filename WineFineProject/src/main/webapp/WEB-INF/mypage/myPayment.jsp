@@ -55,7 +55,7 @@
 					<td width="10%" class="text-center">{{vo.payment.toLocaleString()}}원</td>
 					<td width="15%" class="text-center">{{vo.state===0?'결제완료':vo.state===1?'배송준비중':vo.state===2?'배송중':vo.state===7?'반품요청':vo.state===9?'반품':vo.state===8?'구매취소':'배송완료'}}</td>
 					<td width="20%" class="text-center">{{vo.dbday}}</td>
-					<td width="10%" class="text-center"><button class="btn btn-sm border-wine" v-if="vo.state<2" @click="returnRequest(index)">취소</button></td>
+					<td width="10%" class="text-center"><button class="btn btn-sm btn-border-wine" v-if="vo.state<2" @click="returnRequest(index)">반품</button></td>
 				</tr>
 				<tr v-if="isShow[index]">
 					<!-- 
@@ -120,7 +120,7 @@
 		</div>
 		<div class="modal" :class="{ show: showModal }" click.self="changeModal(false)">
 			<div class="modal-content" style="height: 250px;" >
-				<h3 class="text-center">사유 작성</h3>
+				<h4 class="text-center">사유 작성</h4>
 				<table class="table">
 					<tr>
 						<th width="25%">환불사유</th>
@@ -137,7 +137,7 @@
 					</tr>
 				</table>
 				<div style="text-align: right;">
-				<button class="btn btn-sm border-wine" @click="sendMessage()">신청</button>
+				<button class="btn btn-sm btn-wine" @click="sendMessage()">신청</button>
 				</div>
 			</div>
 		</div>

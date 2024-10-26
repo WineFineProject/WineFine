@@ -3,12 +3,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Insert title here</title>
 <link rel="stylesheet" href="../tem/css/replydetail.css">
 </head>
 <body>
-	<div class="row" id="noticeTable">
-		<h3 class="text-center" style="margin-bottom: 30px">공지사항</h3>
+	<div id="noticeTable" style="margin-top: 50px">
 		<div>
         <div class="detail-box" style="width:800px;margin: 0 auto">
             <h2 class="post-title">{{detail.subject}}</h2>

@@ -6,60 +6,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<style>
-#accountingList{
-	width: 1120px;
-	margin-left: 10px;
-}
-#table222{
-	 text-align: center;
-	 display: inline;
-}
-.acctopbtn{
-	border:none;
-	color:darkred;
-}
-#atlistth{
-    background-color: #f8f8f8;
-    color: #333;
-}
-.acccheck{
-	border-left: hidden;
-	border-right: hidden;
-	border-top: hidden;
-	border-bottom:2px solid #E66E5B !important;
-	text-align: center;
-	padding-top:10px;
-	padding-bottom:10px;
-}
-.accchecktd{
-	border-bottom:2px solid #E66E5B !important;
-	text-align: center;
-	padding-top: 10px;
-	padding-bottom:10px;
-	color:black;
-}
-.acheckbtn{
-	display: inline;
-	width: 200px;
-	height:40px;
-	vertical-align: bottom;
-	margin-top: 70px;
-}
-.rmbtn{
-	text-align:center;
-	margin-right:8px;
-}
-.acctable{
-    text-align:center;
-}
-</style>
+<link rel="stylesheet" href="../tem/css/orderlist.css">
 </head>
 <body>
 	<div class="container" id="accountingList">
 		<div class="row">
-			<h3 class="text-center table-title" style="color: #333;" >정산 관리</h3>
-			<div class="row">
+			<h3 class="text-center table-title">정산 관리</h3>
+			<div class="row" style="padding:0px">
 			<table class="table" id="table222" style="width:50%;">
 			<tr id="atlistth">
 				<th class="acccheck">정산 신청일</th>

@@ -25,8 +25,9 @@
 .r-boxs {
     border: 1px solid #e1e1e1; 
     padding: 15px; 
-    height: 80px;
+    height: 180px;
     width: 455px; 
     overflow-y: auto; 
     border-radius: 10px; 
+    resize:none;
 }

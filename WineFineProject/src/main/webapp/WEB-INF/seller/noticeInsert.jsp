@@ -3,12 +3,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1 문의게시판</title>
+<title>Insert title here</title>
 <link rel="stylesheet" href="../tem/css/replyinsert.css">
 </head>
 <body>
 	<div class="row" id="noticeTable">
-		<h3 class="text-center">공지사항 작성</h3>
+		<h3 class="table-title text-center">공지사항 작성</h3>
 		<div class="form-group" style="margin-top: 10px;">
 			<label>공지 대상을 선택하세요</label>
 			<div style="margin-top: 5px;">
@@ -53,10 +53,10 @@
 				<label for="secret" style="margin-right: 5px;">팝업공지 등록</label>
 				<input type="checkbox" id="secret" v-model="isNotice">
 			</div>
-			<div style="margin-top: 10px;"></div>
-			<div class="text-center">
-				<button type="button" class="btn btn-primary" @click="insertNotice()">등록</button>
-				<input type="button" class="btn btn-secondary" value="취소" onclick="javascript:history.back()">
+			<div style="margin-top: 30px;"></div>
+			 <div class="button-group text-center">
+				<input type="submit" class="btn btn-primary" value="등록" @click="insertNotice()">
+				<input type="button" class="btn btn-danger" value="취소" onclick="javascript:history.back()">
 			</div>
 		</div>
 	</div>

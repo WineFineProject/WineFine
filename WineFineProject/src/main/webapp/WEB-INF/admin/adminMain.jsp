@@ -67,7 +67,7 @@
 							<a href="../admin/itemList.do">상품 목록</a>
 						</li>
 						<li class="list-group-item">
-							<a href="../admin/wineAccept.do">상품등록/수정 대기</a>
+							<a href="../admin/wineAccept.do">상품 승인 대기</a>
 						</li>
 						<li class="list-group-item">
 							<a href="../admin/accCheck.do">정산 관리</a>

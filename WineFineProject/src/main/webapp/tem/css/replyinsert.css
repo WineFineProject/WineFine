@@ -15,6 +15,17 @@
 	max-width: 900px; 
     margin: 0 auto;
 }
+
+#noticeTable{
+	max-width: 900px; 
+    margin: 0 auto;
+}
+
+#anbInsert{
+	max-width: 900px; 
+    margin: 0 auto;
+}
+
 .result-item {
     display: flex; 
     align-items: center; 
