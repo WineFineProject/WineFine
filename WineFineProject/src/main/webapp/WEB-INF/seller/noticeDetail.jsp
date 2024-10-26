@@ -8,8 +8,7 @@
 </head>
 <body>
 	<div id="noticeTable" style="margin-top: 50px">
-		<div>
-        <div class="detail-box" style="width:800px;margin: 0 auto">
+        <div class="detail-box">
             <h2 class="post-title">{{detail.subject}}</h2>
             <div class="post-meta">
                 <span class="author-name">{{detail.nickname}}</span>
@@ -21,10 +20,10 @@
             <div class="content-box">{{detail.content}}</div>
             <div class="button-group">
                 <a :href="'../seller/noticeUpdate.do?nbno='+detail.nbno" class="btn btn-primary">수정</a>
+                <input type=button value="삭제" class="btn btn-danger">
                 <a href="../seller/notice.do" class="btn btn-secondary">목록</a>
             </div>
         </div>
-    </div>
 	</div>
 	<script>
 	let noticeDetailApp=Vue.createApp({
