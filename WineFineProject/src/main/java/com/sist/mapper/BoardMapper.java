@@ -14,17 +14,17 @@ import com.sist.vo.*;
 
 public interface BoardMapper {
 	// 전체 게시글 목록
-	@Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
-			 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
-			 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount "
+	@Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, num "
+			 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, rownum as num "
+			 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit "
 			 +"FROM board WHERE cno<=3 ORDER BY bno DESC)) "
 			 +"WHERE num BETWEEN #{start} AND #{end}")
 	 public List<BoardVO> boardListData(@Param("start") int start, @Param("end") int end);
 	
 	// 카테고리 별 목록 
-	 @Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
-			 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
-			 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount "
+	 @Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, num "
+			 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, rownum as num "
+			 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit "
 			 +"FROM board WHERE cno = #{cno} ORDER BY bno DESC)) "
 			 +"WHERE num BETWEEN #{start} AND #{end}")
 	 public List<BoardVO> boardTypeListData(@Param("cno") int type, @Param("start") int start, @Param("end") int end);
@@ -70,17 +70,17 @@ public interface BoardMapper {
 	 
 	// 게시글 검색(작성자-닉네임)
 	// 전체 게시글 목록
-		@Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
-				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
-				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount "
+		@Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit num "
+				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, rownum as num "
+				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit "
 				 +"FROM board WHERE nickname LIKE '%'||#{find}||'%' AND cno<=3 ORDER BY bno DESC)) "
 				 +"WHERE num BETWEEN #{start} AND #{end}")
 		 public List<BoardVO> boardfindnListData(@Param("find") String find, @Param("start") int start, @Param("end") int end);
 		
 		// 카테고리 별 목록 
-		 @Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
-				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
-				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount "
+		 @Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit num "
+				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, rownum as num "
+				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit "
 				 +"FROM board WHERE cno = #{cno} AND nickname LIKE '%'||#{find}||'%' ORDER BY bno DESC)) "
 				 +"WHERE num BETWEEN #{start} AND #{end}")
 		 public List<BoardVO> boardfindTypenListData(@Param("cno") int type, @Param("find") String find, @Param("start") int start, @Param("end") int end);
@@ -95,17 +95,17 @@ public interface BoardMapper {
 		 
 		 // 게시글 검색(제목)
 		// 전체 게시글 목록
-			@Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
-					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
-					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount "
+			@Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, num "
+					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, rownum as num "
+					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit "
 					 +"FROM board WHERE subject LIKE '%'||#{find}||'%' AND cno<=3 ORDER BY bno DESC)) "
 					 +"WHERE num BETWEEN #{start} AND #{end}")
 			 public List<BoardVO> boardfindsListData(@Param("find") String find, @Param("start") int start, @Param("end") int end);
 			
 			// 카테고리 별 목록 
-			 @Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, filecount, num "
-					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount, rownum as num "
-					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, filecount "
+			 @Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, num "
+					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, rownum as num "
+					 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit "
 					 +"FROM board WHERE cno = #{cno} AND subject LIKE '%'||#{find}||'%' ORDER BY bno DESC)) "
 					 +"WHERE num BETWEEN #{start} AND #{end}")
 			 public List<BoardVO> boardfindTypesListData(@Param("cno") int type, @Param("find") String find, @Param("start") int start, @Param("end") int end);

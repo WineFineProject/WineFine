@@ -24,14 +24,11 @@ public interface ReportMapper {
 	  @Result(property = "bvo.subject",column = "subject"),
 	  @Result(property = "bvo.content",column = "content1"),
 	  @Result(property = "bvo.dbday",column = "dbdate"),
-	  @Result(property = "bvo.cno",column = "cno"),
-	  @Result(property = "bvo.filename",column = "filename"),
-	  @Result(property = "bvo.filesize",column = "filesize"),
-	  @Result(property = "bvo.filecount",column = "filecount")
+	  @Result(property = "bvo.cno",column = "cno")
   })
   @Select("SELECT wr.wreno, wr.type, wr.category, wr.content, wr.userid, wr.rid, wr.tno,"
   		+ "TO_CHAR(wr.regdate, 'YYYY-MM-DD') as dbday, wr.state, b.bno, b.id, b.nickname, b.subject,"
-		+ "b.content as content1, TO_CHAR(b.regdate, 'YYYY-MM-DD') as dbdate, b.cno, b.filename, b.filesize, b.filecount "  
+		+ "b.content as content1, TO_CHAR(b.regdate, 'YYYY-MM-DD') as dbdate, b.cno "  
   		+ "FROM wine_report wr JOIN board b ON wr.tno=b.bno "
   		+ "WHERE wr.wreno=#{wreno}")
   public Wine_ReportVO reportBoardData(int wreno);
