@@ -9,7 +9,8 @@
 </head>
 <body>
 	<div class="row" id="replyBoardList">
-		<h3 class="text-center">1:1 문의게시판</h3>
+		<h3 class="table-title text-center">1:1 문의게시판</h3>
+		<div class="row" style="margin-top: 20px">
 		<table style="margin-bottom: 10px">
 			<tr>
 				<td class="text-right">
@@ -17,7 +18,7 @@
 				</td>
 			</tr>
 		</table>
-		<table class="table table-hover">
+		<table class="table trb">
 			<tr>
 				<th width=10% class="text-center">번호</th>
 				<th width=35% class="text-center">제목</th>
@@ -33,47 +34,25 @@
 				<td width=10% class="text-center">{{vo.dbday}}</td>
 				<td width=7% class="text-center">{{vo.hit}}</td>
 				<td width=10% class="text-center">
-					<a v-if="vo.isreply==0" :href="'../seller/replyInsert.do?wrno='+vo.wrno">답변대기</a>
-					<span v-if="vo.isreply==1" style="cursor: pointer;" @click="detailAnswer(vo.group_id, index)">답변완료</sapn>
+					<a v-if="vo.isreply==0" style="color: green" :href="'../seller/replyInsert.do?wrno='+vo.wrno">답변대기</a>
+					<span v-if="vo.isreply==1" style="cursor: pointer;color: orange" @click="detailAnswer(vo.group_id, index)">답변완료</sapn>
 				</td>
 			</tr>
 		</table>
 		<table>
 			<tr>
 				<td class="text-center">
-					<button t class="btn btn-sm btn-danger" @click="replyList(startPage>1?curPage-1:curPage)">이전</button>
+					<button t class="btn btn-sm btn-primary" @click="replyList(startPage>1?curPage-1:curPage)">이전</button>
 					{{curPage}} page / {{totalPage}} page
-					<button type="button" class="btn btn-sm btn-danger" @click="replyList(curPage<totalPage?curPage+1:curPage)">다음</button>
+					<button type="button" class="btn btn-sm btn-primary" @click="replyList(curPage<totalPage?curPage+1:curPage)">다음</button>
 				</td>
 			</tr>
 		</table>
 		<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
-			<div class="modal-content" style="height: 485px; width: 800px;margin-top: 120px;">
+			<div class="modal-content"  style="height: 600px; width: 800px;margin-top:70px;padding:20px 30px;">
 				<span class="close" @click="changeModal(false)">&times;</span>
-				<h3 class="text-center">답변</h3>
-				<!-- <table>
-					<tr>
-						<th width="10%" class="text-center">닉네임</th>
-						<td width="23%"><span class="form-control">{{detail.nickname}}</span></td>
-						<th width="10%" class="text-center">작성일</th>
-						<td width="23%"><span class="form-control">{{detail.dbday}}</span></td>
-						<th width="10%" class="text-center">조회수</th>
-						<td width="23%"><span class="form-control">{{detail.hit}}</span></td>
-					</tr>
-					<tr>
-						<th width="10%" class="text-center" style="margin-top: 15px;">제목</th>
-						<td colspan="5"><span class="form-control" style="margin-top: 15px;">{{detail.subject}}</span></td>
-					</tr>
-					<tr>
-						<th width="10%" class="text-center">내용</th>
-						<td colspan="5"><span style="height: 200px; margin-top: 15px;" class="form-control">{{detail.content}}</span></td>
-					</tr>
-				</table>
-				<div style="text-align: right; margin-top: 10px;">
-					<button class="btn btn-sm btn-danger" @click="updatePage()">수정</button>
-					<button class="btn btn-sm btn-danger" @click="deleteAnswer(detail.wrno)">삭제</button>
-				</div>
-			</div> -->
+				<h4 class="text-center" style="margin-top: 10px;">답변 확인</h4>
+				<div class="detail-box">
 				<h2 class="post-title">{{detail.subject}}</h2>
 				<div class="post-meta">
 					<span class="author-name">{{detail.nickname}}</span> <span class="meta-separator">|</span> <span class="post-date">{{detail.dbday}}</span> <span class="meta-separator">|</span> <span class="view-count"><i class="fas fa-eye"></i>&nbsp;{{detail.hit}}</span>
@@ -83,49 +62,51 @@
 					<button type="button" class="btn btn-secondary" @click="updatePage()">수정</button>
 					<button type="button" class="btn btn-danger" @click="deleteAnswer(detail.wrno)">삭제</button>
 				</div>
+			  </div>	
 			</div>
 		</div>
 		<div class="modal" :class="{ show: showModal2 }" @click.self="changeModal2(false)">
-			<div class="modal-content" style="height: 600px; width: 800px;margin-top: 120px;">
+			<div class="modal-content" style="height: 600px; width: 800px;margin-top:70px;padding:20px 30px;">
 				<span class="close" @click="changeModal2(false)">&times;</span>
-				<h3 class="text-center">답변 작성</h3>
-				<div class="form-group" style="margin-top: 10px;">
-					<table class="table">
+				<h4 class="text-center" style="margin-top: 10px;">답변 수정</h4>
+				<div class="form-group" style="margin-top: 20px;">
+					<table class="table trb">
 						<tr>
-							<th width="10%" class="text-center">질문 카테고리</th>
-							<td width="90%">
-								<span class="form-control">{{cnos[quest.cno]}}</span>
+							<th width="20%" class="text-center">질문 카테고리</th>
+							<td width="80%">
+								<span class="f-control">{{cnos[quest.cno]}}</span>
 							</td>
 						</tr>
 						<tr>
-							<th width="10%" class="text-center">질문 제목</th>
-							<td width="90%">
-								<span class="form-control">{{quest.subject}}</span>
+							<th width="20%" class="text-center">질문 제목</th>
+							<td width="80%">
+								<span class="f-control">{{quest.subject}}</span>
 							</td>
 						</tr>
 						<tr>
-							<th width="10%" class="text-center">질문 내용</th>
-							<td width="90%">
-								<span class="form-control">{{quest.content}}</span>
+							<th width="20%" class="text-center">질문 내용</th>
+							<td width="80%">
+								<span class="f-control">{{quest.content}}</span>
 							</td>
 						</tr>
 					</table>
-					<div class="form-group" style="margin-top: 10px;">
+					<div class="form-group" style="margin-top: 30px;text-align:left">
 						<label for="subject">제목</label>
 						<input type="text" class="form-control" ref="subject" v-model="subject" id="subject" placeholder="제목을 입력하세요">
 					</div>
-					<div class="form-group" style="margin-top: 10px;">
+					<div class="form-group" style="margin-top: 10px;text-align:left">
 						<label for="content">내용</label>
 						<textarea class="form-control" ref="content" v-model="content" id="content" rows="5" style="resize: none;" placeholder="공지 내용을 입력하세요"></textarea>
 					</div>
-					<div style="margin-top: 10px;"></div>
-					<div class="text-center">
+					<div style="margin-top: 50px;"></div>
+					<div class="button-group">
 						<button type="button" class="btn btn-primary" @click="sellerUpdate">등록</button>
-						<input type="button" class="btn btn-secondary" value="취소" @click="updatePage()">
+						<input type="button" class="btn btn-danger" value="취소" @click="updatePage()">
 					</div>
 				</div>
 			</div>
 		</div>
+	 </div>	
 	</div>
 	<script>
 		let sellerReplyListApp=Vue.createApp({

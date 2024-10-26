@@ -5,14 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>1:1 문의게시판</title>
-<script src="https://unpkg.com/vue@3"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <link rel="stylesheet" href="../tem/css/replyinsert.css">
 </head>
 <body>
-<div class="container" style="width: 800px;">
-   <div class="row">
-        <h3 class="text-center" style="margin-top:50px;">1:1 문의 게시판</h3>
+   <div class="row" id="replyInsertApp">
+        <h3 class="table-title text-center" style="margin-top:20px;">문의 작성</h3>
             <div class="form-group">
                 <label for="category">카테고리 선택</label>
                 <select class="form-control" id="category" v-model="cno" ref="cno">
@@ -58,14 +55,13 @@
 			    <input type="checkbox" id="secret" v-model="isSecret" style="margin-right: 5px;">
 			    <label for="secret">비밀글</label>
 			</div>
-            <div style="margin-top: 10px;"></div>
-            <div class="text-center">
-			    <button type="button" class="btn btn-primary" @click="sendBtn">등록</button>
-			    <input type="button" class="btn btn-secondary" value="취소" @click="cancelBtn">
+			<div style="margin-top: 50px;"></div>
+			<div class="text-center button-group">
+				<button type="button" class="btn btn-primary" @click="sendBtn">등록</button>
+				<input type="button" class="btn btn-danger" value="취소" @click="cancelBtn">
 			</div>
         </div>   
     </div>
-  </div>  
     <script>
     let insertApp=Vue.createApp({
         data() {
@@ -148,7 +144,7 @@
                     })
             }
         }
-    }).mount('.row')
+    }).mount('#replyInsertApp')
 </script>
 </body>
 </html>

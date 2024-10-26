@@ -9,6 +9,21 @@
     margin-bottom: 15px;
     color: #333;
 }
+.mp {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.mp th, .mp td {
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+}
+.mp th {
+    background-color: #f8f8f8;
+    color: #333;
+}
 .ipagination {
 	display: inline-flex;
 	align-items: center;
@@ -50,16 +65,6 @@
 	padding-top: 10px;
 	padding-bottom:10px;
 	color:black;
-}
-.table111{
-	margin-bottom:15px;
-}
-.table1111{
-	margin-bottom:0px;
-}
-.table1111 th, .table11111 th
-{
-	background-color: #f8f9fa;
 }
 .orderbtn{
 	font-size:18px;

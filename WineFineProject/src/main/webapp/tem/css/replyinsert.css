@@ -7,6 +7,10 @@
     border-radius: 5px;
     margin-top: 5px;
 }
+#replyUpdateApp{
+	max-width: 900px; 
+    margin: 0 auto;
+}
 #replyInsertApp{
 	max-width: 900px; 
     margin: 0 auto;

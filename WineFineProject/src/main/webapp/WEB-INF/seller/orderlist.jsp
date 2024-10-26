@@ -12,7 +12,7 @@
 <div class="container" id="orderList">
 	<div class="row">
 	<h3 class="table-title text-center"> 주문 현황 </h3>
-		<table class="table111">
+		<table class="mp">
 		<tr id="olistth">
 			<th width="15%" class="ordercheck"> 전체주문 </th>
 			<th width="10%" class="ordercheck"> 결제완료 </th>
@@ -34,7 +34,7 @@
 			<td width="15%" class="orderchecktd"> {{returnCompleted}} </td>
 		</tr>
 		</table>
-		<table class="table">
+		<table class="table mp">
 			<tr id="olistth">
 				<th width="10%" class="text-center">주문번호</th>
 				<th width="12%" class="text-center">날짜</th>
@@ -61,13 +61,13 @@
 			</tr>
 			<tr v-if="isShow[index]">
 			<td colspan="9" style="padding: 0px;">
-				<table class="table table1111">
+				<table class="table mp" style="margin-bottom: 0px">
 						<tr>
 						<th width="15%" class="text-center">정가</th>
 						<th width="25%" class="text-center">{{vo.mcno!==0?'적용쿠폰':'적용할인'}}</th>
 						<th width="20%" class="text-center">할인율</th>
-						<th width="20%" class="text-center">사용적립금</th>
-						<th width="20%" class="text-center">지급적립금</th>
+						<th width="20%" class="text-center">사용 포인트</th>
+						<th width="20%" class="text-center">지급 포인트</th>
 						</tr>
 						<tr>
 						<td width="15%" class="text-center">{{vo.wvo.price}}</td>
@@ -77,7 +77,7 @@
 						<td width="20%" class="text-center">{{vo.plpoint}}</td>
 						</tr>
 					</table>
-					<table class="table table11111">
+					<table class="table mp" style="margin-bottom: 0px">
 						<tr>
 						<th width="15%" class="text-center">배송지명</th>
 						<th width="10%" class="text-center">우편번호</th>
@@ -109,32 +109,31 @@
 		</table>
 	</div>
 	 <div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
-			<div class="modal-content">
+			<div class="modal-content" style="height: 320px">
+			<h4 class="modal-title text-center">반품 요청 상세보기</h4>
 				<span class="close" @click="changeModal(false)">&times;</span>
-				<table class="table" style="margin-top: 50px; border: 1px solid lightgray;">
+				<table class="table mp" style="margin-top: 10px;">
 					<tr>
-						<th width="30%">반품 신청 ID : </th>
+						<th width="30%" class="text-center">반품 신청 ID</th>
 						<td width="70%">{{sendid}}</td>
 					</tr>
 					<tr>
-						<th width="30%">반품 신청일 : </th>
+						<th width="30%" class="text-center">반품 신청일</th>
 						<td width="70%">{{dbday}}</td>
 					</tr>
 					<tr>
-						<th width="30%">반품 신청 사유:</th>
+						<th width="30%" class="text-center">반품 신청 사유</th>
 						<td width="70%">{{subject}}</td>
 					</tr>
 					<tr>
-						<th width="30%">상세 사유:</th>
+						<th width="30%" class="text-center">상세 사유</th>
 						<td width="70%"><span style="width: 300px; height:400px;">{{content}}</span>
 					</tr>
-					<tr>
-						<td colspan="2" class="rmbtn">
-							<button type="button" class="rmbtn btn-sm btn-danger" @click="orderReturnCheck(wpno)">승인</button>
-							<button type="button" class="rmbtn btn-sm btn-secondary" @click="changeModal(false)">취소</button>
-						</td>
-					</tr>
 				</table>
+						<div class="rmbtn text-center" style="margin:0px">
+							<button type="button" class="rmbtn btn btn-sm btn-danger" @click="orderReturnCheck(wpno)">승인</button>
+							<button type="button" class="rmbtn btn btn-sm btn-secondary" @click="changeModal(false)">취소</button>
+						</div>
 			</div>
 		</div>
 	</div>

@@ -81,10 +81,10 @@
 						<table class="table mp">
 							<tr>
 								<th width="20%" class="text-center">판매가</th>
-								<th width="20%" class="text-center">사용적립금</th>
+								<th width="20%" class="text-center">사용 포인트</th>
 								<th width="20%" class="text-center">{{vo.mcno!==0?'적용쿠폰':'적용할인'}}</th>
 								<th width="20%" class="text-center">할인율</th>
-								<th width="20%" class="text-center">적립된금액</th>
+								<th width="20%" class="text-center">적립된 포인트</th>
 							</tr>
 							<tr>
 								<td width="20%" class="text-center">{{vo.wvo.price}}</td>

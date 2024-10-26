@@ -35,7 +35,7 @@
                 </tr>
                 <tr v-if="isShow[index]">
 						<td colspan="9" style="padding: 0px;">
-							<table class="table" style="border: none;">
+							<table class="table" style="border: none;margin-bottom: 0px">
 								<tr>
 									<th width="15%">설립일</th>
 									<th width="20%">전화번호</th>
