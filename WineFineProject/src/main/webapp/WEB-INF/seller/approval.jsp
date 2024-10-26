@@ -6,19 +6,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../tem/css/coupon.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 	<div class="container" id="approvalList">
 		<div class="row">
-			<table class="table" style="margin-bottom: 30px">
+			<table class="table" style="margin-bottom: 30px; color: #333;">
 			<tr>
-				<td width="20%">
+				<td width="15%">
 					승인 대기 : {{wCount}} 개
 				</td>
-				<td width="20%">
+				<td width="15%">
 					승인 반려 : {{dCount}} 개
 				</td>
-				<td width="60%"></td>
+				<td width="70%"></td>
 			</tr>
 			</table>
 			<h4 class="text-center table-title">승인 대기 목록</h4>
@@ -51,7 +52,7 @@
 					<th width="15%">생산자</th>
 					<th width="10%">가격</th>
 					<th width="10%">등록일</th>
-					<th width="10%">삭제</th>
+					<th width="10%">상품 삭제</th>
 				</tr>
 				<tr v-for="vo in dList" :key="vo.wno" id="inner-table">
 				  <td width="15%">{{vo.wno}}</td>
@@ -61,7 +62,7 @@
 				  <td width="10%">{{vo.price}}</td>
 				  <td width="10%">{{vo.dbday}}</td>
 				  <td width="10%">
-				  	<button type="button" @click="itemDelete(vo)">삭제</button>
+				  	<button type="button" class="btn-sm" style="border:transparent; background-color: transparent; color:darkred;" @click="itemDelete(vo)"><i class="fa-solid fa-trash-can"></i></button>
 				  </td>
 				</tr>
 			</table>

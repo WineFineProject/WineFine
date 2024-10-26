@@ -193,7 +193,7 @@ public interface ItemMapper {
 			+ "		WHEN enddate IS NULL THEN '-' "
 			+ "		ELSE TO_CHAR(enddate, 'YYYY-MM-DD') "
 			+ "END as edbday "
-			+ "FROM wine_acc WHERE userid = #{userid}")
+			+ "FROM wine_acc WHERE userid = #{userid} ORDER BY acno DESC ")
 	public List<AccVO> sellerAccList(@Param("userid") String userid);
 	
 	// 정산 정보 출력

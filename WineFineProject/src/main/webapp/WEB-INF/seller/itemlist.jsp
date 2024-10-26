@@ -10,21 +10,19 @@
 </head>
 <body>
 	<div class="container" id="itemList">
-		<h3 class="table-title text-center">&emsp;판매 상품 조회</h3>
+		<h3 class="table-title text-center">&emsp;판매 상품 목록</h3>
 		<div class="row">
 			<div class="itemlistright">
-			<div class="span-container">
-        <span style="font-weight: bold;">총 {{iCount}} 개</span>
-    </div>
-				<select v-model="sortOrder" class="itemlisttop">
+               <span id="icountdata">총 {{iCount}} 개</span>
+				<select v-model="sortOrder" class="itemlisttop fleft">
 					<option value="recent">최근등록순</option>
 					<option value="popular">인기순</option>
 				</select>
-				<button type="button" @click="dataRecv()" class="itemlisttop">조회</button>
-				<button type="button" class="itemlisttop allitem"
-					@click="saveAllChanges">변경 내용 저장</button>
-				<button type="button" class="itemlisttop allitem"
+				<button type="button" @click="dataRecv()" class="itemlisttop rbtn">조회</button>
+				<button type="button" class="itemlisttop dbtn"
 					@click="deleteSelected()">선택 삭제</button>
+				<button type="button" class="itemlisttop sbtn"
+					@click="saveAllChanges">변경 내용 저장</button>
 			</div>
 			<table class="table ilisttable mp">
 				<tr id="ilistth">
@@ -44,8 +42,8 @@
 				<tr v-for="vo in iList" :key="vo.wno">
 					<td width="5%"><input type="checkbox" v-model="vo.selected"></td>
 					<td width="8%">{{vo.wno}}</td>
-					<td width="5%">
-					<img :src="vo.poster" style="width: 40px; height: 60px"></td>
+					<td width="5%" style="padding-right:0px;">
+					<img :src="vo.poster" style="width: 40px; height: 60px;"></td>
 					<td width="17%" class="editable ilistnamekor" style="text-align: left;border-left:hidden">
 					<input v-if="vo.isEditingName" v-model="vo.namekor"/> 
 					<span v-else @dblclick="vo.isEditingName = true">{{ vo.namekor }}</span>
