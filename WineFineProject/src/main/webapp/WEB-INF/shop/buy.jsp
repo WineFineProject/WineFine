@@ -323,7 +323,7 @@ let buyApp = Vue.createApp({
                 return this.vo.price * this.quantity - this.point // 기본 가격 반환
             }
         }
-    },
+    }, 
     mounted() {
         axios.get('../shop/buypage_vue.do', {
             params: {
