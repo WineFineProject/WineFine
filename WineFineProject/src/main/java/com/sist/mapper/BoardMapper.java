@@ -70,7 +70,7 @@ public interface BoardMapper {
 	 
 	// 게시글 검색(작성자-닉네임)
 	// 전체 게시글 목록
-		@Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit num "
+		@Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, num "
 				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, rownum as num "
 				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit "
 				 +"FROM board WHERE nickname LIKE '%'||#{find}||'%' AND cno<=3 ORDER BY bno DESC)) "
@@ -78,7 +78,7 @@ public interface BoardMapper {
 		 public List<BoardVO> boardfindnListData(@Param("find") String find, @Param("start") int start, @Param("end") int end);
 		
 		// 카테고리 별 목록 
-		 @Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit num "
+		 @Select("SELECT bno, cno, subject, nickname, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, num "
 				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit, rownum as num "
 				 +"FROM (SELECT bno, cno, subject, nickname, regdate, hit "
 				 +"FROM board WHERE cno = #{cno} AND nickname LIKE '%'||#{find}||'%' ORDER BY bno DESC)) "
