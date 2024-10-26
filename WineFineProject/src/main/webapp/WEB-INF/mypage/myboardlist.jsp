@@ -59,7 +59,7 @@
 				  <tbody>
 				   <tr>
 					<td width="5%" class="text-center">{{list.length*curpage-index}}</td>
-					<td width="40%"><a :href="'../replyboard/detail.do?wrno='+vo.bno">{{vo.subject}}</a></td>
+					<td width="40%"><a :href="'../replyboard/detail.do?wrno='+vo.wrno">{{vo.subject}}</a></td>
 					<td width="12%" class="text-center">{{vo.nickname}}</td>
 					<td width="15%" class="text-center">{{vo.dbday}}</td>
 					<td width="8%" class="text-center">{{vo.hit}}</td>
