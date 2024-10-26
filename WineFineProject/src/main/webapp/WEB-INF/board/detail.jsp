@@ -65,7 +65,7 @@ font-family: 'OpenSans', sans-serif;
            <span class="post-date">{{vo.dbday}}</span>
            <span class="meta-separator">|</span>
            <span class="view-count"><i class="fas fa-eye"></i>&nbsp;{{vo.hit}}</span>
-          <div class="content-box">{{vo.content}}</div>
+	  <div class="content-box" v-html="formattedContent"></div>
        <div class="button-group">
             <a :href="'update.do?bno='+vo.bno" v-if="id === vo.id" class="btn btn-primary">수정</a>
             <input type=button value="삭제" v-if="id === vo.id" class="btn btn-danger"
@@ -210,9 +210,13 @@ font-family: 'OpenSans', sans-serif;
     			console.log(error.response)
     		})
     		
-    		// 댓글 읽기
     		this.replyRead()
     	},
+    	computed: {
+            formattedContent() {
+                return this.vo.content ? this.vo.content.replace(/\n/g, '<br>') : '';
+            }
+        },
     	methods:{
             	changeModal(check, report=null, reportType){
     				this.showModal=check

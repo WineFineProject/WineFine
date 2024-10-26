@@ -18,7 +18,7 @@
 			<span class="meta-separator">|</span> 
 			<span class="view-count"><i class="fas fa-eye"></i>&nbsp;{{vo.hit}}</span>
 			</div>
-			<div class="content-box">{{vo.content}}</div>
+			<div class="content-box" v-html="formattedContent"></div>
 			<div class="button-group">
 				<a :href="'../admin/noticeupdate.do?bno='+vo.bno" class="btn btn-primary">수정</a>
 				<input type=button value="삭제" class="btn btn-danger" ref="deleteBtn" @click="boardDelete()">
@@ -46,6 +46,11 @@
     			console.log(error.response)
     		})
     	},
+    	 computed: {
+             formattedContent() {
+                 return this.vo.content ? this.vo.content.replace(/\n/g, '<br>') : '';
+             }
+         },
     	methods:{
     		boardDelete(){
     			axios.get('../noticeboard/delete_vue.do',{
