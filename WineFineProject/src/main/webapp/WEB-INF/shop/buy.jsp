@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
 .coupondiv {
 	border: solid 1px;
@@ -40,11 +40,6 @@
 .selectAd:hover {
 	background-color: #e0e0e0; /* hover 시 배경색 */
 }
-
-.noborder {
-	border: none;
-	border-bottom: 2px solid #881824;
-}
 </style>
 </head>
 <body>
@@ -67,6 +62,14 @@
 		</div>
 		<!-- Modal Search End -->
 
+
+		<!-- Single Page Header start -->
+		<div class="container-fluid page-header py-5">
+			<h1 class="text-center text-white display-6">구매</h1>
+		</div>
+		<!-- Single Page Header End -->
+
+
 		<!-- Cart Page Start -->
 		<div class="container-fluid py-5">
 			<div class="container py-5">
@@ -75,33 +78,43 @@
 					<table class="table col-11">
 						<thead>
 							<tr>
-								<th width="7%" class="noborder" style="border-left: 1px solid; border-top: 1px solid;"></th>
-								<th width="43%" class="noborder text-center" style="border-top: 1px solid;">주문상품</th>
-								<th width="15%" class="noborder text-center" style="border-top: 1px solid;">가격</th>
-								<th width="15%" class="noborder text-center" style="border-top: 1px solid;">수량</th>
-								<th width="20%" class="noborder text-center" style="border-top: 1px solid; border-right: 1px solid;">총 금액</th>
+								<th scope="col"></th>
+								<th scope="col">상품명</th>
+								<th scope="col">가격</th>
+								<th scope="col">수량</th>
+								<th scope="col">총 금액</th>
+								<th scope="col"></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<th scope="row" class="align-middle" style="border-right: none;"><img :src="vo.poster" class="img-fluid me-5" style="width: 80px; height: 80px;" alt=""></th>
-								<td class="align-middle text-center">
-									<p class="mb-0">
-										<b>{{ vo.namekor }}</b>
-									</p>
+								<th scope="row" class="align-middle"><img :src="vo.poster" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt=""></th>
+								<td class="align-middle">
+									<p class="mb-0">{{ vo.namekor }}</p>
 								</td>
-								<td class="align-middle text-center">
+								<td class="align-middle">
 									<p class="mb-0">{{ vo.price }} 원</p>
 								</td>
-								<td class="align-middle text-center">
-									<div class="input-group quantity" style="width: 100px; margin: 0 auto;">
-										<input type="number" class="form-control form-control-sm text-center border-0" v-model.number="quantity" min="1" style="text-align: center;" />
+								<td class="align-middle">
+									<div class="input-group quantity" style="width: 100px;">
+										<!--          -버튼               <button class="btn btn-sm  rounded-circle bg-light border" @click="decreaseQuantity">
+                            <i class="fa fa-minus"></i>
+                        </button> -->
+										<input type="number" class="form-control form-control-sm text-center border-0" v-model.number="quantity" min="1" />
+
+										<!--          +버튼               <button class="btn btn-sm  rounded-circle bg-light border" @click="increaseQuantity">
+                            <i class="fa fa-plus"></i>
+                        </button> -->
 									</div>
 								</td>
-								<td class="align-middle text-center" style="border-right: 1px solid lightgray;">
+								<td class="align-middle">
 									<p class="mb-0">{{ (vo.price * quantity).toLocaleString() }} 원</p>
 								</td>
-
+								<td class="align-middle">
+									<button class="btn btn-md rounded-circle bg-light border">
+										<i class="fa fa-times text-danger"></i>
+									</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -112,17 +125,20 @@
 					<div class="col-3 " style="height: 385px; overflow: auto; overflow-x: hidden;">
 						<h3>배송지선택</h3>
 						<br>
-						<table v-for="(user, index) in userDeli" :class="['coupondiv', 'selectAd', {'selected': selectAddr.wdno === user.wdno}]" style="width: 290px; height: 150px; margin-bottom: 10px; border-radius: 0px;">
-							<!-- 							<thead> -->
-							<!-- 								<tr> -->
-							<!-- 									<th style="border-bottom: none;"></th> -->
-							<!-- 								</tr> -->
-							<!-- 							</thead> -->
+						<table v-for="(user, index) in userDeli" :class="['coupondiv', 'selectAd', {'selected': selectAddr.wdno === user.wdno}]" 
+						style="width: 290px; height: 150px; margin-bottom: 10px; border-radius: 0px">
+							<thead>
+								<tr>
+									<th style="border-bottom: none;"></th>
+								</tr>
+							</thead>
 							<tbody>
 								<tr>
 									<td>
 										<div class="form-check " style="padding: 10px 10px 0px 10px; cursor: pointer;">
-											<input class="form-check-input" type="radio" name="flexRadioDefault" :id="'flexRadioDefault'+index" style="display: none;"> <label class="form-check-label" :for="'flexRadioDefault'+index" @click="selectAddress(index)" style="cursor: pointer"> <b>{{user.name}}</b>
+											<input class="form-check-input" type="radio" name="flexRadioDefault" :id="'flexRadioDefault'+index" style="display: none;"> 
+											<label class="form-check-label" :for="'flexRadioDefault'+index" @click="selectAddress(index)" style="cursor: pointer"> 
+												<b>{{user.name}}</b>
 												<p>{{user.addr1}}</p>
 												<p>{{user.addr2}}</p>
 											</label>
@@ -147,7 +163,8 @@
 									<tr>
 										<td>
 											<div style="margin-top: 10px; width: 290px;">
-												<label for="search"> 쿠폰 검색</label> <input type="text" class="form-control cou" value='쿠폰을 선택하세요' @click="selectCou()" readonly>
+												<label for="search"> 쿠폰 검색</label> 
+												<input type="text" class="form-control cou" value='쿠폰을 선택하세요' @click="selectCou()" readonly>
 												<div class="result-list cou" id="listCou" v-if="isVisible" v-for="sale in psvo">
 													<li @click="selectProduct(99999)">쿠폰 선택 안 함</li>
 													<li v-for="(coupon, index) in cvo" class="result-item" @click="selectProduct(index)"><a>{{coupon.title }} ({{ coupon.discount }}%)</a></li>
@@ -158,7 +175,8 @@
 									</tr>
 
 									<tr>
-										<td style="border-bottom: none; display: flex;"><input type="number" style="width: 290px;" class="text-center form-control" @keyup="checkPoint()" v-model="point" min="0" :max="vo.price">
+										<td style="border-bottom: none; display: flex;">
+										<input type="number" style="width: 290px;" class="text-center form-control" @keyup="checkPoint()" v-model="point" min="0" :max="userPoint">
 
 											<button class="btn btn-md  bg-light  " style="margin-left: 5px;" @click="allPoint()">전액사용</button></td>
 									</tr>
@@ -188,9 +206,8 @@
 								<div class="d-flex justify-content-between">
 									<h5 class="mb-0 me-4">진행중인 프로모션</h5>
 									<div class="">
-										<p class="mb-0" v-if="promo === 0 ">없음</p>
-										<p class="mb-0" v-for="sale in psvo" v-if="!isCoupon">{{sale.discount != 0 ? sale.title +' ('+sale.discount+'%'+')' : '없음' }}</p>
-										<p class="mb-0" v-for="sale in psvo" v-if="isCoupon">없음</p>
+										<p class="mb-0" v-for="sale in psvo" v-if="!isCoupon">{{sale.discount != 0 ? sale.title +' ('+sale.discount+'%'+')' : '적용안함' }}</p>
+										<p class="mb-0" v-for="sale in psvo" v-if="isCoupon">적용안함</p>
 									</div>
 								</div>
 
@@ -214,12 +231,12 @@
 
 								<br>
 
-								<div class="d-flex justify-content-between">
+							    <div class="d-flex justify-content-between">
 									<h5 class="mb-0 me-4">적립 예정 포인트</h5>
 									<div class="">
 										<p class="mb-0">{{plpoint()}} 원</p>
 									</div>
-								</div>
+								</div> 
 
 							</div>
 
@@ -229,12 +246,8 @@
 
 						</div>
 					</div>
-					<div style="display: flex; justify-content: center; margin-top: 110px;">
-						<button class="btn btn-default winecor" style="width: 150px; color: white; margin-right: 10px;" @click="payment">결제하기</button>
+					<div style="text-align: center !important; margin-bottom: -40px; margin-top: 110px;">
 						<button class="btn btn-default winecor" style="width: 150px; color: white;" onclick="history.back();">취소</button>
-					</div>
-					<div>
-						<button @click="requestPay()">test</button>
 					</div>
 
 
@@ -259,9 +272,10 @@
 		</div>
 	</div>
 	<!-- Copyright End -->
+
+	<!-- Back to Top -->
+	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 	<script>	
-    var IMP = window.IMP; 
-    IMP.init("imp68206770");
 let buyApp = Vue.createApp({
     data() {
         return {
@@ -277,10 +291,9 @@ let buyApp = Vue.createApp({
             point: 0,
             userDeli: [],	// 배송지
             selectAddr: {}, // 선택한 주소에 wdno 가져오기
-            promo: 0,
             isCoupon:false,
             pay:0,
-            plus: 0           
+            plus: 0
         };
     },
     computed: {
@@ -288,14 +301,15 @@ let buyApp = Vue.createApp({
             return (this.vo.price * this.quantity).toLocaleString()
         },
         totalPayment() {
-            const selectedCouponDiscount = this.isCoupon ? this.selectedCoupon.discount : 0
-            const psvoDiscount = this.promo != 0  ? this.psvo[0].discount : 0
+            const selectedCouponDiscount = this.selectedCoupon ? this.selectedCoupon.discount : 0
+            const psvoDiscount = this.psvo.length > 0 ? this.psvo[0].discount : 0
+
             if (selectedCouponDiscount > psvoDiscount) {
-                return (this.vo.price * this.quantity * (1 - selectedCouponDiscount / 100) - this.point)                
+                return (this.vo.price * this.quantity * (1 - selectedCouponDiscount / 100) - this.point)
             } else if (psvoDiscount > 0) {
                 return (this.vo.price * this.quantity * (1 - psvoDiscount / 100) - this.point)
             } else {
-                return this.vo.price * this.quantity - this.point  // 기본 가격 반환
+                return this.totalPrice - this.point  // 기본 가격 반환
             }
         },
         
@@ -314,9 +328,6 @@ let buyApp = Vue.createApp({
             this.userDeli = response.data.userDeli             
             this.selectAddr = response.data.userDeli[0]
             this.userGrade = response.data.userGrade
-            this.promo = response.data.promo            
-    		console.log('tpam'+this.totalPayment)
-            console.log('프로모션 유무 0 x 1 o : ' + this.promo) 
             console.log('회원 등급:' + this.userGrade) 
             console.log('총 결제 금액:' + this.totalPayment)
             console.log(typeof this.totalPayment) 
@@ -325,54 +336,9 @@ let buyApp = Vue.createApp({
         });
     },
     methods: {
-		requestPay() {
-		    IMP.request_pay({
-		        pg: "html5_inicis",
-		        pay_method: "card",
-		        merchant_uid: "ORD20180131-"+this.wno,   // 주문번호
-		        name: this.vo.namekor,
-		        amount: this.totalPayment,         // 숫자 타입
-		        buyer_email: '',
-		        buyer_name: '',
-		        buyer_tel: '',
-		        buyer_addr: '',
-		        buyer_postcode: ''
-		     }, function (rsp) { // callback	
-		    	  // axios 요청 전에 현재 상태의 값을 로그로 출력
-					let selCoupon = !this.isCoupon ? 0 : this.selectedCoupon.mcno
-					pay=this.totalPayment
-					plus = this.plpoint
-     axios.post('../shop/payment_vue.do', null, {
-         params: { // 실제 전달하는 데이터
-             wno: this.wno,
-             wdno: this.selectAddr.wdno,
-             psno: this.promo !== 0 
-             	  ? (this.isCoupon ? 0 : this.psvo[0].psno) 
-             	  : 0, 
-             account: this.quantity,
-             mcno: selCoupon,
-             mipoint: this.point,
-             plpoint: this.plpoint(), 	                
-             payment: this.totalPayment
-         }
-     }).then(response => {
-         console.log(response.data)            
-         if (response.data === "yes") {
-         	
-         	alert("구매 성공!")
-             window.location.href = '../main/main.do'
-         } else {
-             alert("구매 실패\n" + response.data)
-             return
-         }
-     }).catch(error => {
-         console.log(error.response)  
-     })
-		    });
-	    },
 	    plpoint() {	    		    	
 		   	if(this.userGrade === '1'){
-		   		return 0
+		   		return 100
 		   	}
 		   	if (this.userGrade === '2'){
 		   		return Math.round(this.totalPayment * 0.005) 
@@ -419,25 +385,13 @@ let buyApp = Vue.createApp({
             	this.isVisible = false
             }
         },				
-        checkPoint() {        	
-            if (this.point >= this.userPoint) {                
-            	this.point = this.userPoint
-            	if(this.point > parseInt(this.vo.price)){
-            		this.point = this.vo.price
-            	}
+        checkPoint() {
+            if (this.point >= this.userPoint) {
+                this.point = this.userPoint
             }
-            
         },
         allPoint() {
-            console.log('test' + this.vo.price) 
-            if (this.userPoint > parseInt(this.vo.price)){
-            	this.point = this.vo.price
-            } else{
-                console.log('typeof point :' +typeof this.point) 
-                console.log('typeof userPoint :' +typeof this.userPoint) 
-                console.log('typeof vo.price :' +typeof this.vo.price) 
-	            this.point = this.userPoint          	
-            }                        
+            this.point = this.userPoint
         },
         selectAddress(index) {
             this.selectAddr = this.userDeli[index] // 선택한 배송지 정보를 selectAddr에 저장
@@ -445,18 +399,23 @@ let buyApp = Vue.createApp({
         },
         payment() {
             alert('결제 처리중')
-            
             // axios 요청 전에 현재 상태의 값을 로그로 출력
 						let selCoupon = !this.isCoupon ? 0 : this.selectedCoupon.mcno
 						pay=this.totalPayment
 						plus = this.plpoint
-	        axios.post('../shop/payment_vue.do', null, {
+            console.log("wno:", this.wno)
+            console.log("mipoint:", this.point)
+            console.log("적립금:",this.plpoint())
+            console.log("wdno:", this.selectAddr.wdno)
+            console.log("mcno:", selCoupon)
+            console.log("psno:", this.psvo[0].psno)
+            console.log("account:", this.quantity)
+            console.log("totalpayment:", this.totalPayment)
+            axios.post('../shop/payment_vue.do', null, {
                 params: { // 실제 전달하는 데이터
                     wno: this.wno,
                     wdno: this.selectAddr.wdno,
-                    psno: this.promo !== 0 
-                    	  ? (this.isCoupon ? 0 : this.psvo[0].psno) 
-                    	  : 0, 
+                    psno: this.isCoupon ? this.psvo[0].psno:0,
                     account: this.quantity,
                     mcno: selCoupon,
 	                mipoint: this.point,
@@ -464,11 +423,10 @@ let buyApp = Vue.createApp({
 	                payment: this.totalPayment
                 }
             }).then(response => {
-                console.log(response.data)            
+                console.log(response.data)  
                 if (response.data === "yes") {
-                	
                 	alert("구매 성공!")
-	                window.location.href = '../main/main.do'
+	                window.location.href = '../shop/detail.do?wno=' + this.vo.wno
                 } else {
                     alert("구매 실패\n" + response.data)
                     return
