@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.mp {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.mp th, .mp td {
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.mp p{
+	margin:0px !important;
+}
+.mp th {
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.btn-wine {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+}
+
+.btn-wine:hover {
+    background-color: #a93226;
+}
