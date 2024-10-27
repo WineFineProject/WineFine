@@ -57,4 +57,9 @@ public class BoardController {
 		model.addAttribute("bno", bno);
 		return "noticeboard/update";
 	}
+	@GetMapping("board/FaqList.do")
+	public String FAQ_list()
+	{
+		return "board/FaqList";
+	}
 }

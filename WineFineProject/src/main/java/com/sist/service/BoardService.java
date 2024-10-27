@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sist.vo.BoardReplyVO;
 import com.sist.vo.BoardVO;
+import com.sist.vo.FaqVO;
 import com.sist.vo.Wine_ReportVO;
 
 public interface BoardService {
@@ -44,4 +45,6 @@ public interface BoardService {
 	public BoardVO noticeboardDetailData(int bno);
 	public BoardVO noticeboardUpdateData(int bno);
 	public String noticeboardUpdate(BoardVO vo);
+	
+	public List<FaqVO> faqList();
 }

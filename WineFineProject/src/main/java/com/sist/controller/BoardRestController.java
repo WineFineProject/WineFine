@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.*;
 import com.sist.vo.*;
@@ -366,6 +367,15 @@ public class BoardRestController {
 	{
 		String result=bService.boardDelete(bno);
 		return result;
+	}
+	//faq
+	@GetMapping(value="board/FAQlist_vue.do",produces = "text/plain;charset=UTF-8")
+	public String FAQ_list() throws Exception
+	{
+		List<FaqVO> fList=bService.faqList();
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(fList);
+		return json;
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.sist.mapper.*;
 import com.sist.vo.BoardReplyVO;
 import com.sist.vo.BoardVO;
+import com.sist.vo.FaqVO;
 import com.sist.vo.Wine_ReportVO;
 
 @Repository
@@ -170,12 +171,14 @@ public class BoardDAO {
 		   String result="yes";
 		   mapper.noticeboardUpdate(vo);
 		   return result;
-	   }
-
-     
+	   }    
 	   // 댓글 정보
 	   public int boardInfo(int brno)
 	   {
 		   return mapper.boardInfo(brno);
+	   }
+// faq
+	   public List<FaqVO> faqList(){
+		   return mapper.faqList();
 	   }
 }

@@ -45,7 +45,7 @@ public interface BoardMapper {
 			 +"#{bno},#{cno},#{id},#{nickname},#{subject},#{content} )")
 	  public void boardInsert(BoardVO vo);
 	 
-	// 내용보기(번호, 타입, 아이디, 제목, 닉네임, 작성일, 내용, 조회수, 사진 파일명, 사진 용량, 사진개수) 
+	// 내용보기(번호, 타입, 아이디, 제목, 닉네임, 작성일, 내용, 조회수) 
 	 @Select("SELECT bno,cno,id,nickname,subject,content,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday, "
 			 +"hit "
 			 +"FROM board "
@@ -220,6 +220,9 @@ public interface BoardMapper {
 				 +"WHERE bno=#{bno}")
 		  public void noticeboardUpdate(BoardVO vo);
 		 
-		
+// FAQ 목록	
+		 @Select("SELECT fno,subject,content "
+				 +"FROM wine_faq ")
+		  public List<FaqVO> faqList();
 	
 }

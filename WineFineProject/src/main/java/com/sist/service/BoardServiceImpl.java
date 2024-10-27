@@ -226,4 +226,10 @@ public class BoardServiceImpl implements BoardService{
 		return dao.boardInfo(brno);
 	}
 
+	@Override
+	public List<FaqVO> faqList() {
+		// TODO Auto-generated method stub
+		return dao.faqList();
+	}
+
 }
