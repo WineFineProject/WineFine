@@ -270,7 +270,7 @@
 													<h6 class="text-ellipsis fon-cor-gr" style="margin-bottom: 0px;">{{ vo.nameeng }}</h6>
 													<div class="d-flex justify-content-between flex-lg-wrap text-center" v-if="vo.price!=null">
 														<p class="text-dark fs-5 fw-bold mb-0">
-															{{vo.price}}<br>
+															{{vo.state === 1 ? vo.price : '품절'}}<br>
 														</p>
 														<div style="display: inline-flex;">
 															<a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="width: 60px; display: flex; justify-content: center; align-items: center; margin-right: 10px; margin-left: 10px;" @click="handleAddToCart(index)"> <i class="fa-solid fa-cart-plus " style="color: #881824;"></i>

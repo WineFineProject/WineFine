@@ -15,11 +15,11 @@ public interface ShopMapper {
 	WNO NAMEKOR NAMEENG TYPE PRICE VOL SUGAR ACID BODY TANNIN AROMA FOOD
 	MAKER NATION GRAPE ALCOHOL SELLER STACK SCORE HIT REGDATE LIKECOUNT POSTER STATE
 	 */
-//	와인 총 갯수
+//	���씤 珥� 媛��닔
 	@Select("SELECT COUNT(*) "
 			+ "FROM wine")
 	public int wineCount();
-//	���씤 由ъ뒪�듃
+//	占쏙옙占쎌뵥 �뵳�딅뮞占쎈뱜
 	@Select("SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, num "
 	        + "FROM (SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster, rownum as num "
 	        + "FROM (SELECT wno, namekor, nameeng, seller, type, price, score, likecount, poster "
@@ -64,26 +64,26 @@ public interface ShopMapper {
 	public List<WineVO> wineFilter(Map map);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
-//	珥� �럹�씠吏�
+//	�룯占� 占쎈읂占쎌뵠筌욑옙
 	@Select("SELECT CEIL(COUNT(*)/12.0) FROM wine")
 	public int shopTotalPage();
 	
-//	議고쉶�닔
+//	鈺곌퀬�돳占쎈땾
 	@Update("UPDATE wine SET "
 			+ "hit=hit+1 "
 			+ "WHERE wno=#{wno} ")
 	public void hitIncrement(int wno);
 	
-//  �룷�룄紐�
+//  占쎈７占쎈즲筌륅옙
 	@Select("SELECT namekor FROM grape WHERE (SELECT grape FROM wine WHERE wno = #{wno}) LIKE '%'||no||'%' ")
 	public List<String> grapeName(int wno);
 
-//	�굹�씪紐�
+//	占쎄돌占쎌뵬筌륅옙
 	@Select("SELECT namekor FROM nation WHERE (SELECT nation FROM wine WHERE wno = #{wno}) LIKE '%'||no||'%' ")
 	public List<String> nationName(int wno); 
 
 	
-//	���씤 �긽�꽭蹂닿린
+//	占쏙옙占쎌뵥 占쎄맒占쎄쉭癰귣떯由�
 	@Select("SELECT w.wno, w.vol, w.type, w.tannin, w.sugar, w.state, w.stack, "
 	        + "w.seller, w.score, w.regdate, w.price, w.poster, w.nation, "
 	        + "w.namekor, w.nameeng, w.maker, w.likecount, w.hit, w.grape, "
@@ -94,14 +94,14 @@ public interface ShopMapper {
 	        + "WHERE w.wno = #{wno}")
 	public WineVO wineDetailData(int wno);
 
-//	���씤援щℓ �젙蹂�
-	@Select("SELECT wno, namekor, TO_NUMBER(REPLACE(REPLACE(price, '원', ''), ',', '')) AS price, poster, seller, type "
+//	占쏙옙占쎌뵥�뤃�됤꼻 占쎌젟癰귨옙
+	@Select("SELECT wno, namekor, TO_NUMBER(REPLACE(REPLACE(price, '�썝', ''), ',', '')) AS price, poster, seller, type "
 	        + "FROM wine "
 	        + "WHERE wno = #{wno}")
 	public WineVO winebuy(int wno);
 
 	
-//	�궗�슜 媛��뒫 荑좏룿 媛��졇�삤湲�
+//	占쎄텢占쎌뒠 揶쏉옙占쎈뮟 �뜎醫뤿？ 揶쏉옙占쎌죬占쎌궎疫뀐옙
 	@Select("SELECT mcno, title, discount, TO_CHAR(enddate,'YYYY-MM-DD') as endDay "
 	        + "FROM my_coupon  "
 	        + "WHERE recvid = #{id} "
@@ -109,7 +109,7 @@ public interface ShopMapper {
 	        + "AND SYSDATE BETWEEN startdate AND enddate ")
 	public List<MyCouponVO> selectCoupon(String id);
 	
-//	�봽濡쒕え�뀡 �꽭�씪
+//	占쎈늄嚥≪뮆�걟占쎈�� 占쎄쉭占쎌뵬
 	@Select("WITH filtered_promotion_sale AS ( "
 			+ "  SELECT * "
 			+ "  FROM promotion_sale "
@@ -126,7 +126,7 @@ public interface ShopMapper {
 			+ "FETCH FIRST 1 ROWS ONLY ")
 	public List<PromotionSaleVO> promotionGetSale(Map map);
 	
-//	媛숈� �깮�궛�옄
+//	揶쏆늿占� 占쎄문占쎄텦占쎌쁽
 	@Select("SELECT wno, type, namekor, price, vol, poster, hit "
 	        + "FROM (SELECT wno, type, namekor, price, vol, poster, hit "
 	        + "      FROM wine "
@@ -135,7 +135,7 @@ public interface ShopMapper {
 	        + "WHERE ROWNUM <= 5")
 	public List<WineVO> otherWine_maker(int wno);
 	
-//	媛숈� �뙋留ㅼ옄 
+//	揶쏆늿占� 占쎈솇筌띲끉�쁽 
 	@Select("SELECT wno, type, namekor, price, vol, poster, hit "
 	        + "FROM (SELECT wno, type, namekor, price, vol, poster, hit "
 	        + "      FROM wine "
@@ -144,49 +144,49 @@ public interface ShopMapper {
 	        + "WHERE ROWNUM <= 5")
 	public List<WineVO> otherWine_seller(int wno);
 
-//	�룷�씤�듃 媛��졇�삤湲�
+//	占쎈７占쎌뵥占쎈뱜 揶쏉옙占쎌죬占쎌궎疫뀐옙
 	@Select("SELECT point "
 			+ "FROM wine_member "
 			+ "WHERE userid = #{id}")
 	public String getPoint(String id);
 	
-//	�쉶�썝�벑湲� 媛��졇�삤湲�
+//	占쎌돳占쎌뜚占쎈쾻疫뀐옙 揶쏉옙占쎌죬占쎌궎疫뀐옙
 	@Select("SELECT grade "
 			+ "FROM wine_member "
 			+ "WHERE userid = #{id}")
 	public String getgrade(String id);
 	
-//	諛곗넚吏� 
+//	獄쏄퀣�꽊筌욑옙 
 	@Select("SELECT * "
 			+ "FROM wine_delivery "
 			+ "WHERE userid = #{id} "
 			+ "ORDER BY state DESC ")
 	public List<DeliveryVO> getDeli(String id);	
 	
-//	諛곗넚吏� 異붽��븯湲�
-//	INSERT INTO wine_delivery VALUES ('5','�뭾�꽦鍮뚮뵫', 'ping', '01016','�꽌�슱 媛뺣턿援� 4.19濡�21湲� 4', '1212', '1212', 0);
+//	獄쏄퀣�꽊筌욑옙 �빊遺쏙옙占쎈릭疫뀐옙
+//	INSERT INTO wine_delivery VALUES ('5','占쎈�억옙苑��뜮�슢逾�', 'ping', '01016','占쎄퐣占쎌뒻 揶쏅베�꽴�뤃占� 4.19嚥∽옙21疫뀐옙 4', '1212', '1212', 0);
 	@Insert("INSERT INTO wine_delivery (name, userid, post, addr1, addr2, msg, status) VALUES (#{name}, #{userid}, #{post}, #{addr1}, #{addr2}, #{msg}, 0) ")
 	public void addDeli(DeliveryVO vo);
 	
-//	�궗�슜 �쟻由쎄툑 李④컧�븯湲�
+//	占쎄텢占쎌뒠 占쎌읅�뵳�럡�닊 筌△몿而㏆옙釉�疫뀐옙
 	@Update("UPDATE wine_member SET "
 			+ "point = point - #{mipoint} "
 			+ "WHERE userid = #{userId} ")
 	public void usePoint (MemberVO vo);
 	
-//	寃곗젣 �쟻由쎄툑 異붽��븯湲�
+//	野껉퀣�젫 占쎌읅�뵳�럡�닊 �빊遺쏙옙占쎈릭疫뀐옙
 	@Update("UPDATE wine_member "
 	        + "SET point = point + #{plpoint} "
 	        + "WHERE userid = #{userId} ")
 	public void plusPoint(MemberVO vo);
 	
-//	荑좏룿 �궗�슜
+//	�뜎醫뤿？ 占쎄텢占쎌뒠
 	@Update("UPDATE my_coupon "
 			+ "SET state = 0 "
 			+ "WHERE mcno = #{mcno} ")
 	public void useCoupon(MyCouponVO vo);
 	
-//	�옣諛붽뎄�땲 ���옣
+//	占쎌삢獄쏅떽�럡占쎈빍 占쏙옙占쎌삢
 	@Insert("INSERT INTO wine_cart (cno, wno, userid, account, regdate) "
 	        + "VALUES (wc_cno_seq.nextval, #{wno}, #{userid}, #{account}, SYSDATE)")
 	public void insertCart(Wine_CartVO vo);
@@ -200,12 +200,12 @@ public interface ShopMapper {
 			+"WHERE wno=#{wno}")
 	public int wineCartwnoCount(int wno);
 	
-//	援щℓ ���옣
+//	�뤃�됤꼻 占쏙옙占쎌삢
 	@Insert("INSERT INTO wine_payment (wpno, wno, account, payment, mipoint, plpoint, wdno, mcno, psno, state, userid, regdate) "
 	        + "VALUES (wp_wpno_seq.nextval, #{wno}, #{account}, #{payment}, #{mipoint}, #{plpoint}, #{wdno}, "
 	        + "#{mcno}, #{psno}, 0, #{userid}, SYSDATE) ")
 	public void insertPayment(Wine_PaymentVO vo);
-//	援щℓ 異붽�
+//	�뤃�됤꼻 �빊遺쏙옙
 	@Update("UPDATE wine_payment SET "
 			+ "account = account + #{account} "
 			+ "WHERE wno = #{wno} ")
@@ -215,7 +215,7 @@ public interface ShopMapper {
 			+ "WHERE wpno = #{wpno}")
 	public int wineBuywpnoCount(int wpno);
 	
-//	�떊怨좏븯湲�
+//	占쎈뻿�⑥쥚釉�疫뀐옙
 	@Insert("INSERT INTO wine_report (WRENO, USERID, TYPE, TNO, STATE, RID, REGDATE, CONTENT, CATEGORY) "
 			+ "VALUES (wre_wreno_seq.nextval, #{userid}, #{type}, "
 			+ " #{tno}, #{state}, #{rid}, SYSDATE, #{content}, #{category}) ")
@@ -251,11 +251,11 @@ public interface ShopMapper {
 			+ "FETCH FIRST 1 ROWS ONLY ")
 	public int isPro (Map map);
 	
-//	구매한 사람 찾기 
+//	援щℓ�븳 �궗�엺 李얘린 
 	@Select("SELECT (COUNT(*)) FROM wine_payment WHERE wno = #{wno} AND userid = #{userid} ")
 	public int findBuyer (@Param("wno")int wno, @Param("userid")String userid);
 	
-//	블랙 구매 못하게
+//	釉붾옓 援щℓ 紐삵븯寃�
 	@Select("SELECT (COUNT(*)) FROM blacklist WHERE recvid = #{userid} AND sendid = #{seller} ")
 	public int blackList (@Param("userid")String userid,@Param("seller")String seller);
 	
