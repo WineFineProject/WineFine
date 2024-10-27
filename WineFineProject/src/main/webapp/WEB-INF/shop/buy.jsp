@@ -211,9 +211,6 @@
 						<button class="btn btn-default winecor" style="width: 150px; color: white; margin-right: 10px;" @click="onPayment()">결제하기</button>
 						<button class="btn btn-default winecor" style="width: 150px; color: white;" onclick="history.back();">취소</button>
 					</div>
-					<div>
-						<button @click="requestPay()">test</button>
-					</div>
 				</div>
 			</div>
 			<!-- Cart Page End -->

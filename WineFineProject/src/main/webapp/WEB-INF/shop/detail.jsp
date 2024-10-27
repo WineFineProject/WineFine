@@ -157,7 +157,7 @@
 															class="a-color">{{ gvo != null ? gvo : '정보없음' }}</a>
 													</span></li>
 													<li><span class="title">· 도수</span> <span
-														class="content">{{ vo.alcohol != null ? vo.alcohol
+														class="content">{{ vo.alcohol != null ? vo.alcohol +' %'
 															: '정보없음' }}</span></li>
 													<li><span class="title">· 추천음식</span> <span
 														class="content">{{ vo.food != null ? vo.food :
