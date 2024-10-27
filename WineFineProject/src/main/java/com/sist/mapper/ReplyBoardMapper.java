@@ -10,11 +10,11 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 public interface ReplyBoardMapper {
-//	珥� 媛��닔
-	@Select("SELECT CEIL (COUNT(*)) FROM wine_replyboard WHERE type = 1")
-	public int shopReplyTotalPage();
+//	�룯占� 揶쏉옙占쎈땾
+	@Select("SELECT CEIL (COUNT(*)) FROM wine_replyboard WHERE type = 1 AND wno = #{wno}")
+	public int shopReplyTotalPage(int wno);
 	
-	// shop紐⑸줉
+	// shop筌뤴뫖以�
 	@Select("SELECT wrno, userid, nickname, subject, TO_CHAR(regdate, 'YYYY-MM-DD') AS dbday, cno, type, "
 			+ "     recvid, wno, group_id, group_step, isreply, hit, secret, num "
 			+ "FROM (SELECT wrno, userid, nickname, subject, regdate, cno, type,recvid, wno, group_id, group_step, isreply, hit, secret, rownum AS num "
@@ -25,7 +25,7 @@ public interface ReplyBoardMapper {
 			+ "WHERE rownum <= #{count}) ")
 	public List<ReplyBoardVO> shopReplyListData(@Param("count")int count, @Param("userid") String userid ,
 			@Param("wno")int wno);
-	// 紐⑸줉
+	// 筌뤴뫖以�
 	@Select("SELECT wrno,userid,nickname,subject," + "TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cno,type,"
 			+ "recvid,wno,group_id,group_step,isreply,hit,secret,num "
 			+ "FROM (SELECT wrno,userid,nickname,subject,regdate,cno,type,"
@@ -37,7 +37,7 @@ public interface ReplyBoardMapper {
 	public List<ReplyBoardVO> replyListData(@Param("start") int start, @Param("end") int end,
 			@Param("userid") String userid);
 
-	// �뙋留ㅼ옄 紐⑸줉
+	// 占쎈솇筌띲끉�쁽 筌뤴뫖以�
 	@Select("SELECT wrno,userid,nickname,subject," + "TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cno,type,"
 			+ "recvid,wno,group_id,group_step,isreply,hit,secret, content, num "
 			+ "FROM (SELECT wrno,userid,nickname,subject,regdate,cno,type,"
@@ -48,7 +48,7 @@ public interface ReplyBoardMapper {
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<ReplyBoardVO> sellrReplyListData(Map map);
 
-	// 愿�由ъ옄 紐⑸줉
+	// �꽴占썹뵳�딆쁽 筌뤴뫖以�
 	@Select("SELECT wrno,userid,nickname,subject," + "TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cno,type,"
 			+ "recvid,wno,group_id,group_step,isreply,hit,secret, content, num "
 			+ "FROM (SELECT wrno,userid,nickname,subject,regdate,cno,type,"
@@ -68,44 +68,44 @@ public interface ReplyBoardMapper {
 	@Select("SELECT COUNT(*) FROM wine_replyboard WHERE type =1 AND group_step=0")
 	public int shopReplyCount();
 
-	// �옉�꽦
+	// 占쎌삂占쎄쉐
 	@Insert("INSERT INTO wine_replyboard(wrno, userid, nickname, subject, content, regdate, cno, type, recvid, wno, "
 			+ "group_id, group_step, isreply, secret) " + "VALUES((SELECT NVL(MAX(wrno)+1, 1) FROM wine_replyboard), "
 			+ "#{userid}, #{nickname}, #{subject}, #{content}, SYSDATE, #{cno}, #{type}, #{recvid}, #{wno}, "
 			+ "(SELECT NVL(MAX(wrno)+1, 1) FROM wine_replyboard), #{group_step}, 0, #{secret})")
 	public void replyInsert(ReplyBoardVO vo);
 
-	// �뙋留ㅼ옄 �떟蹂�湲� �옉�꽦
+	// 占쎈솇筌띲끉�쁽 占쎈뼗癰귨옙疫뀐옙 占쎌삂占쎄쉐
 	@Insert("INSERT INTO wine_replyboard(wrno, userid, nickname, subject, content, type, recvid, wno, group_id, group_step, secret, cno) "
 			+ "VALUES((SELECT NVL(MAX(wrno)+1, 1) FROM wine_replyboard), #{userid}, #{nickname}, #{subject}, #{content}, #{type}, #{recvid}, #{wno}, #{group_id}, 1, #{secret}, #{cno})")
 	public void sellerReplyInsert(ReplyBoardVO vo);
 
-	// 吏덈Ц湲� �떟蹂� �긽�깭
+	// 筌욌뜄揆疫뀐옙 占쎈뼗癰귨옙 占쎄맒占쎄묶
 	@Update("UPDATE wine_replyboard SET isreply=#{isreply} WHERE wrno=#{wrno}")
 	public void replyStateUpdate(@Param("isreply") int isreply, @Param("wrno") int wrno);
 
-	// 議고쉶�닔
+	// 鈺곌퀬�돳占쎈땾
 	@Update("UPDATE wine_replyboard SET " + "hit = hit+1 " + "WHERE wrno=#{wrno}")
 	public void hitIncrement(int wrno);
 
-	// �긽�꽭蹂닿린
+	// 占쎄맒占쎄쉭癰귣떯由�
 	public ReplyBoardVO replyDetailData(int wrno);
 
-	// �떟蹂� �긽�꽭蹂닿린
+	// 占쎈뼗癰귨옙 占쎄맒占쎄쉭癰귣떯由�
 	public ReplyBoardVO replyAnswerDetailData(int group_id);
 
-	// �궘�젣
+	// 占쎄텣占쎌젫
 	@Delete("DELETE FROM wine_replyboard WHERE group_id=#{group_id}")
 	public void replyDelete(int group_id);
 
-	// �떟蹂� �궘�젣
+	// 占쎈뼗癰귨옙 占쎄텣占쎌젫
 	@Delete("DELETE FROM wine_replyboard WHERE wrno=#{wrno}")
 	public void replyAnswerDelete(int wrno);
 
 	@Update("UPDATE wine_replyboard SET isreply=0 WHERE group_id=(SELECT group_id FROM wine_replyboard WHERE wrno=#{wrno})")
 	public void replyQuestStateUpdate(int wrno);
 
-	// �닔�젙
+	// 占쎈땾占쎌젟
 	@Update("UPDATE wine_replyboard SET subject=#{subject}, content=#{content}, cno=#{cno}, secret=#{secret} "
 			+ "WHERE wrno=#{wrno}")
 	public void replyUpdateData(ReplyBoardVO vo);

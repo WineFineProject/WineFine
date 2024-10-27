@@ -350,9 +350,17 @@
 										<div class="row g-4">
 											<div class="col-6">
 												<ul class="info-list" style="width: 1230px;">
-													<li><span class="title">· 판매자 정보</span> <span
-														class="content">{{vo.seller!=null ?
-															sellerName:'정보없음'}}</span></li>
+													<li><span class="title">· 판매자 정보</span> 
+													
+													<span class="content" v-if="vo.seller === null">
+														정보없음
+													</span>
+													
+													<span class="content" v-if="vo.seller !== null">
+														<a :href="'http://localhost:8080/controller/shop/sellerShop.do?id=' + vo.seller"> {{sellerName}}</a> 
+													</span>
+													
+													</li>												
 													<li><span class="title">· 신고하기</span> <span
 														class="content"> WineFine 은 소비자의 보호와 사이트의 안전거래를 위해
 															신고 센터를 운영하고 있습니다. <br> 안전 거레를 저해하는 경우 신고하여 주시기 바랍니다.
@@ -374,8 +382,10 @@
 													<li><span class="title">· 문의 게시판</span> <span
 														class="content"
 														style="text-align: right; margin-right: 15px;"> <a
-															href="../replyboard/insert3.do"> <b>글쓰기</b>
+															:href="'../replyboard/insert3.do?wno=' + vo.wno + '&namekor=' + encodeURIComponent(vo.namekor) + '&seller=' + encodeURIComponent(sellerName) + '&sellerid=' + encodeURIComponent(vo.seller)">
+																<b>글쓰기</b>
 														</a>
+
 													</span></li>
 													<li>
 														<table class="table">
@@ -415,8 +425,9 @@
 													</li>
 												</ul>
 											</div>
-											<div class="col-12 text-center">
-												<div style="text-align: center;" v-if="bocount < boTocount">
+											<div class="col-12 text-center"
+												style="display: flex; place-content: center;">
+												<div style="text-align: center;" v-if="bocount < totalpage">
 													<button class="form-control"
 														style="background-color: #57102F; color: white; width: 100px;"
 														@click="viewMore2()">더보기</button>
@@ -468,7 +479,8 @@
 								style="width: 100%; height: 110px; resize: none; margin-right: 10px;">{{vw.content}}</pre>
 						</div>
 						<div style="text-align: center;" v-if="count < reviewCount">
-							<button @click="viewMore()" style="background-color: #57102F; color: white; width: 100px;">
+							<button @click="viewMore()"
+								style="background-color: #57102F; color: white; width: 100px;">
 								<h5>더보기</h5>
 							</button>
 						</div>
@@ -504,92 +516,93 @@
 					</div>
 				</div>
 			</div>
-		<div class="col-lg-12" style="border-bottom: solid 1px #80808036;">
-			<h3>관련와인</h3>
-			<br>
-			<nav>
-				<div class="nav nav-tabs mb-3">
-					<button class="nav-link active custom-nav-link" type="button"
-						role="tab" id="nav-tab1" data-bs-toggle="tab"
-						data-bs-target="#tab1-content" aria-controls="tab1-content"
-						aria-selected="true">생산자</button>
-					<button class="nav-link border-white custom-nav-link" type="button"
-						role="tab" id="nav-tab2" data-bs-toggle="tab"
-						data-bs-target="#tab2-content" aria-controls="tab2-content"
-						aria-selected="false">판매자</button>
-				</div>
-			</nav>
-			<div class="tab-content mb-5">
-				<!-- 1번탭 내용 -->
-				<div class="tab-pane active" id="tab1-content" role="tabpanel"
-					aria-labelledby="nav-tab1">
-					<div class="px-2">
-						<div class="vesitable">
-							<h3 class="fw-bold mb-0">&nbsp; "{{vo.makerkor}}" 의 다른 상품</h3>
-							<br>
-							<div
-								class="owl-carousel vegetable-carousel justify-content-center">
+			<div class="col-lg-12" style="border-bottom: solid 1px #80808036;">
+				<h3>관련와인</h3>
+				<br>
+				<nav>
+					<div class="nav nav-tabs mb-3">
+						<button class="nav-link active custom-nav-link" type="button"
+							role="tab" id="nav-tab1" data-bs-toggle="tab"
+							data-bs-target="#tab1-content" aria-controls="tab1-content"
+							aria-selected="true">생산자</button>
+						<button class="nav-link border-white custom-nav-link"
+							type="button" role="tab" id="nav-tab2" data-bs-toggle="tab"
+							data-bs-target="#tab2-content" aria-controls="tab2-content"
+							aria-selected="false">판매자</button>
+					</div>
+				</nav>
+				<div class="tab-content mb-5">
+					<!-- 1번탭 내용 -->
+					<div class="tab-pane active" id="tab1-content" role="tabpanel"
+						aria-labelledby="nav-tab1">
+						<div class="px-2">
+							<div class="vesitable">
+								<h3 class="fw-bold mb-0">&nbsp; "{{vo.makerkor}}" 의 다른 상품</h3>
+								<br>
 								<div
-									class="border rounded position-relative vesitable-item otherWine"
-									v-for="mk in otherMaker" :key="mk.wno"
-									style="width: 250px; border-color: #881824 !important">
-									<a :href="'../shop/detail.do?wno=' + mk.wno + '&page=' + 2">
-										<div style="width: 250px; height: 250px;">
-											<img :src="mk.poster" class="img-fluid rounded-top" alt=""
-												style="width: 250px; height: 267px; padding: 24px 24px 0;">
-										</div>
-										<div class="px-3 py-1 rounded position-absolute"
-											style="top: 10px; right: 10px;" :class="wineClass(mk.type)">{{mk.type}}</div>
-										<div class="p-4 pb-0 rounded-bottom"
-											style="width: 250px; height: 140px;">
-											<h4
-												style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; line-height: 1.2; max-height: 2.4em; width: 200px;">{{mk.namekor}}</h4>
-											<div class="d-flex justify-content-between flex-lg-wrap">
-												<p class="text-dark fs-5 fw-bold" v-if="mk.price != null">{{mk.price}}
-													({{mk.vol}})</p>
-												<p class="text-dark fs-5 fw-bold" v-if="mk.price === null">{{mk.price}}
-													({{mk.vol}})</p>
+									class="owl-carousel vegetable-carousel justify-content-center">
+									<div
+										class="border rounded position-relative vesitable-item otherWine"
+										v-for="mk in otherMaker" :key="mk.wno"
+										style="width: 250px; border-color: #881824 !important">
+										<a :href="'../shop/detail.do?wno=' + mk.wno + '&page=' + 2">
+											<div style="width: 250px; height: 250px;">
+												<img :src="mk.poster" class="img-fluid rounded-top" alt=""
+													style="width: 250px; height: 267px; padding: 24px 24px 0;">
 											</div>
-										</div>
-									</a>
+											<div class="px-3 py-1 rounded position-absolute"
+												style="top: 10px; right: 10px;" :class="wineClass(mk.type)">{{mk.type}}</div>
+											<div class="p-4 pb-0 rounded-bottom"
+												style="width: 250px; height: 140px;">
+												<h4
+													style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; line-height: 1.2; max-height: 2.4em; width: 200px;">{{mk.namekor}}</h4>
+												<div class="d-flex justify-content-between flex-lg-wrap">
+													<p class="text-dark fs-5 fw-bold" v-if="mk.price != null">{{mk.price}}
+														({{mk.vol}})</p>
+													<p class="text-dark fs-5 fw-bold" v-if="mk.price === null">{{mk.price}}
+														({{mk.vol}})</p>
+												</div>
+											</div>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- 2번탭 내용 -->
-				<div class="tab-pane" id="tab2-content" role="tabpanel"
-					aria-labelledby="nav-tab2">
-					<div class="px-2">
-						<div class="vesitable">
-							<h3 class="fw-bold mb-0">&nbsp; "{{sellerName}}" 의 Top 5</h3>
-							<br>
-							<div
-								class="owl-carousel vegetable-carousel justify-content-center"
-								style="overflow-x: auto;">
+					<!-- 2번탭 내용 -->
+					<div class="tab-pane" id="tab2-content" role="tabpanel"
+						aria-labelledby="nav-tab2">
+						<div class="px-2">
+							<div class="vesitable">
+								<h3 class="fw-bold mb-0">&nbsp; "{{sellerName}}" 의 Top 5</h3>
+								<br>
 								<div
-									class="border rounded position-relative vesitable-item otherWine"
-									v-for="sl in otherSeller" :key="sl.wno"
-									style="width: 250px; border-color: #881824 !important">
-									<a :href="'../shop/detail.do?wno=' + sl.wno + '&page=' + 2">
-										<div style="width: 250px; height: 250px;">
-											<img :src="sl.poster" class="img-fluid rounded-top" alt=""
-												style="width: 250px; height: 267px; padding: 24px 24px 0;">
-										</div>
-										<div class="px-3 py-1 rounded position-absolute"
-											style="top: 10px; right: 10px;" :class="wineClass(sl.type)">{{sl.type}}</div>
-										<div class="p-4 pb-0 rounded-bottom"
-											style="width: 250px; height: 140px;">
-											<h4
-												style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; line-height: 1.2; max-height: 2.4em; width: 200px;">{{sl.namekor}}</h4>
-											<div class="d-flex justify-content-between flex-lg-wrap">
-												<p class="text-dark fs-5 fw-bold" v-if="sl.price != null">{{sl.price}}
-													({{sl.vol}})</p>
-												<p class="text-dark fs-5 fw-bold" v-if="sl.price === null">가격문의
-													({{sl.vol}})</p>
+									class="owl-carousel vegetable-carousel justify-content-center"
+									style="overflow-x: auto;">
+									<div
+										class="border rounded position-relative vesitable-item otherWine"
+										v-for="sl in otherSeller" :key="sl.wno"
+										style="width: 250px; border-color: #881824 !important">
+										<a :href="'../shop/detail.do?wno=' + sl.wno + '&page=' + 2">
+											<div style="width: 250px; height: 250px;">
+												<img :src="sl.poster" class="img-fluid rounded-top" alt=""
+													style="width: 250px; height: 267px; padding: 24px 24px 0;">
 											</div>
-										</div>
-									</a>
+											<div class="px-3 py-1 rounded position-absolute"
+												style="top: 10px; right: 10px;" :class="wineClass(sl.type)">{{sl.type}}</div>
+											<div class="p-4 pb-0 rounded-bottom"
+												style="width: 250px; height: 140px;">
+												<h4
+													style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; line-height: 1.2; max-height: 2.4em; width: 200px;">{{sl.namekor}}</h4>
+												<div class="d-flex justify-content-between flex-lg-wrap">
+													<p class="text-dark fs-5 fw-bold" v-if="sl.price != null">{{sl.price}}
+														({{sl.vol}})</p>
+													<p class="text-dark fs-5 fw-bold" v-if="sl.price === null">가격문의
+														({{sl.vol}})</p>
+												</div>
+											</div>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -597,8 +610,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-		
+
 		<div class="modal" :class="{ show: showModal }"
 			@click.self="changeModal(false)">
 			<div class="modal-content" style="width: 650px; height: 400px;">
@@ -708,7 +720,7 @@
 		</div>
 	</div>
 	<!-- Single Product End -->
-<script>
+	<script>
 	let detailApp = Vue.createApp({
 	    data() {
 	        return {
@@ -756,7 +768,7 @@
     			black: 0
 	        }
 	    },
-	    mounted() {
+	    mounted() {	    	
 	        this.dataRecv()
 	    },
 	    methods: {
@@ -1087,6 +1099,9 @@
 			          this.buyer = response.data.buyer
 			          this.black = response.data.black
 			          console.log("seller : " + this.vo.seller)
+			          console.log("botocount : " + this.boTocount)			          
+			          console.log("bocount : " + this.bocount)			          
+			          console.log("totalpage : " + this.totalpage)			          
 		        }).catch(error => {
 		            console.error('데이터 로드 오류:', error.response)
 		        })

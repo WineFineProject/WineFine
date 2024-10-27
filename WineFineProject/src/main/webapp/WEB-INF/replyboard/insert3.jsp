@@ -29,8 +29,8 @@
 				    </div>
 				</div>
 				 <div  style="margin-top: 10px;">
-                <label for="search">상품 검색</label>
-                <input type="text" class="form-control" v-model="fd" :disabled="isFd" placeholder="상품명을 입력하세요" @keyup.enter="searchProducts">
+                <label for="search">상품명</label>
+                <input type="text" class="form-control" v-model="fd" :disabled="isFd" placeholder="" @keyup.enter="searchProducts" readonly>
                 <div class="result-list" v-if="foundProducts.length > 0">
                         <li v-for="product in foundProducts" :key="product.wno" class="result-item" @click="selectProduct(product)">
                             <img :src="product.poster" style="width: 30px;">
@@ -60,7 +60,7 @@
         </div>   
     </div>
     <script>
-    let insertApp=Vue.createApp({
+    let insertApp = Vue.createApp({
         data() {
             return {
                 contact: 1, 
@@ -70,12 +70,34 @@
                 title: '',
                 content: '',
                 selectedCategory: '',
-                isSecret: false ,
-                cno:1,
-                isFd:false,
-                select:{},
-                sendid:''
+                isSecret: false,
+                cno: 1,
+                isFd: false,
+                select: {},
+                sendid: '',
+                wno: '', 
+                namekor: '', 
+                seller: '', 
+                sellerid:''
             }
+        },
+        mounted() {
+            const urlParams = new URLSearchParams(window.location.search)
+            this.wno = urlParams.get('wno') // URL에서 wno 값을 가져와 설정
+            this.namekor = urlParams.get('namekor') // URL에서 namekor 값을 가져와 설정
+            this.seller = urlParams.get('seller') // URL에서 seller 값을 가져와 설정
+            this.sellerid = urlParams.get('sellerid')
+            
+            // sellerName에 seller 값을 할당
+            this.sellerName = this.seller 
+            this.fd = this.namekor
+            
+            console.log('wno: ' + this.wno)
+            console.log('namekor: ' + this.namekor)
+            console.log('seller: ' + this.seller)
+            console.log('sellerName: ' + this.sellerName) 
+            console.log('sellerid: ' + this.sellerid) 
+            
         },
         methods: {
             searchProducts() { 
@@ -129,11 +151,12 @@
                     content: this.content,
                     cno: this.cno,
                     type: this.contact,
-                    recvid: this.sendid,
-                    wno: this.select.wno,
+                    recvid: this.sellerid,
+                    wno: this.wno,
                     secret: secret
                 	}
                 }).then(response => {
+                		alert('문의가 등록되었습니다.')
                         history.back()
                     })
                     .catch(error => {

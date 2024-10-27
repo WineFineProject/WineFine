@@ -98,7 +98,7 @@ public class ReplyBoardServiceImpl implements ReplyBoardService{
 	}
 	
 	@Override
-	public int shopReplyTotalPage() {
-		return dao.shopReplyTotalPage();
+	public int shopReplyTotalPage(int wno) {
+		return dao.shopReplyTotalPage(wno);
 	}
 }

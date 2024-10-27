@@ -20,8 +20,8 @@ public class ReplyDAO {
 		return mapper.shopReplyListData(count, userid, wno);
 	}
 	
-	public int shopReplyTotalPage() {
-		return mapper.shopReplyTotalPage();
+	public int shopReplyTotalPage(int wno) {
+		return mapper.shopReplyTotalPage(wno);
 	}
 	
 	public List<ReplyBoardVO> replyListData(int start, int end, String userid) {

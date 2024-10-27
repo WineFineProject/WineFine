@@ -22,7 +22,7 @@ public class ReplyBoardRestController {
 	@Autowired
 	private ShopService sService;
 
-	// 와인 검색
+	// ���씤 寃��깋
 	@GetMapping(value = "replyboard/findWine.do", produces = "text/plain;charset=UTF-8")
 	public String searchWine(String fd, HttpSession session) throws Exception {
 		Map map = new HashMap();
@@ -34,7 +34,7 @@ public class ReplyBoardRestController {
 		return json;
 	}
 
-	// 게시판 목록
+	// 寃뚯떆�뙋 紐⑸줉
 	@GetMapping(value = "replyboard/listvue.do", produces = "text/plain;charset=UTF-8")
 	public String replyboardList(String page, HttpSession session) throws Exception {
 		String userid = (String) session.getAttribute("userId");
@@ -67,7 +67,7 @@ public class ReplyBoardRestController {
 		return json;
 	}
 
-	// 게시글 등록
+	// 寃뚯떆湲� �벑濡�
 	@PostMapping("replyboard/insertOk.do")
 	public String replyboardInsertOk(ReplyBoardVO vo, HttpSession session) {
 		vo.setUserid((String) session.getAttribute("userId"));
@@ -81,7 +81,7 @@ public class ReplyBoardRestController {
 		return "redirect:../replyboard/list.do";
 	}
 
-	// 게시글 상세
+	// 寃뚯떆湲� �긽�꽭
 	@GetMapping(value = "replyboard/detailvue.do", produces = "text/plain;charset=UTF-8")
 	public String replyboardDetailVue(int wrno) throws Exception {
 		ReplyBoardVO vo = rService.replyDetailData(wrno);
@@ -90,7 +90,7 @@ public class ReplyBoardRestController {
 		return json;
 	}
 
-	// 게시글 수정
+	// 寃뚯떆湲� �닔�젙
 	@GetMapping(value = "replyboard/updatevue.do", produces = "text/plain;charset=UTF-8")
 	public String replyboardUpdate(int wrno) throws Exception {
 		ReplyBoardVO vo = rService.replyDetail(wrno);
@@ -113,7 +113,7 @@ public class ReplyBoardRestController {
 		return result;
 	}
 
-	// 게시글 삭제
+	// 寃뚯떆湲� �궘�젣
 	@GetMapping(value = "replyboard/deletevue.do", produces = "text/plain;charset=UTF-8")
 	public String replyboardDelete(int wrno) throws Exception {
 		String result = "";
@@ -163,7 +163,7 @@ public class ReplyBoardRestController {
 	@PostMapping(value = "replyboard/adminReplyInsert.do", produces = "text/plain;charset=UTF-8")
 	public void adminReplyInsert(ReplyBoardVO vo) {
 		vo.setUserid("admin");
-		vo.setNickname("관리자");
+		vo.setNickname("愿�由ъ옄");
 		rService.sellerReplyInsert(vo);
 	}
 	
@@ -210,7 +210,7 @@ public class ReplyBoardRestController {
 
 		return json;
 	}
-	// shop게시판 목록
+	// shop寃뚯떆�뙋 紐⑸줉
 	@GetMapping(value = "replyboard/shoplist_vue.do", produces = "text/plain;charset=UTF-8")
 	public String shopReplyboardList(int count, String page, HttpSession session, int wno) throws Exception {
 		String userid = (String) session.getAttribute("userId");
@@ -227,7 +227,7 @@ public class ReplyBoardRestController {
 		int end = rowSize * curpage;
 		List<ReplyBoardVO> list = rService.shopReplyListData(count, userid, wno);
 		int boTocount = rService.shopReplyCount();
-		int totalpage = rService.shopReplyTotalPage();
+		int totalpage = rService.shopReplyTotalPage(wno);
 		
 		map.put("list", list);
 		map.put("boTocount", boTocount);
