@@ -19,7 +19,21 @@
 	border: none;
 	border-radius: 5px;
 }
-.pagination{
+.pagination .page-item.active .page-link {
+    background-color: #881824; 
+    color: white; 
+    border: solid 1px #881824 !important;
+}
+
+.pagination .page-item .page-link {
+    color: #881824; 
+    border: solid 1px #881824 !important;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #f1f1f1; 
+}
+.pagination {
 	cursor: pointer;
 }
 .r-boxs {

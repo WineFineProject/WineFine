@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+.EventList {
+	list-style-type: none; 
+	padding: 0; 
+	margin: 0; 
+}
+.item {
+	margin: 10px 0; 
+	padding: 10px;
+	border-bottom: 1px solid #ccc; 
+}
+.content {
+	font-size: 16px; 
+	display: -webkit-box; 
+	-webkit-box-orient: vertical; 
+	-webkit-line-clamp: 2;
+	overflow: hidden; 
+	text-overflow: ellipsis; 
+	max-width: 100%; 
+}
+.namekor {
+	font-size: 20px; 
+	font-weight: bold; 
+	display: inline;
+}
+.load-more {
+	margin-top: 20px; 
+	cursor: pointer; 
+	margin-top: 20px;
+	padding: 10px 20px; 
+	width: 240px;
+	height: 50px;
+	align-content: center;
+}
+.center {
+	display: flex;
+	justify-content: center; 
+	margin-top: 20px; 
+}
+.header-line {
+	border-top: 3px solid black;
+}
+.search-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.search-input {
+    width: 220px;
+    margin-bottom: 5px;
+	margin-left: auto;
+	padding: 5px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+.pagination .page-item.active .page-link {
+    background-color: #881824; 
+    color: white; 
+    border: solid 1px #881824 !important;
+}
+
+.pagination .page-item .page-link {
+    color: #881824; 
+    border: solid 1px #881824 !important;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #f1f1f1; 
+}
+.pagination {
+	cursor: pointer;
+}

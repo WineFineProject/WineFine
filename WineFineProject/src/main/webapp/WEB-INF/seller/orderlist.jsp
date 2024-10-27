@@ -96,16 +96,23 @@
 			</template>
 		</table>
 		<table>
-				<tr>
-					<td colspan="12" class="text-center">
-						<div class="ipagination">
-							<input type=button value="<" class=" btn-sm btn-danger" @click="prev()"> &nbsp; 
-							<span v-for="i in range(startPage,endPage)" :class="{'page-item active': i === curpage, 'page-item': i !== curpage}"
-								@click="pageChange(i)"> &nbsp; {{i}} &nbsp; </span> &nbsp; 
-							<input type=button value=">" class="btn-sm btn-danger" @click="next()">
-						</div>
-					</td>
-				</tr>	
+				<div class="col-12 text-center" >
+        <div class="pagination-area d-sm-flex mt-15" style="justify-content: center">
+            <nav aria-label="#">
+               <ul class="pagination" style="display: flex;">
+                   <li class="page-item" v-if="startPage>1">
+                     <a class="page-link" @click="prev()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> 이전</a>
+                    </li>
+                     <li :class="i===curpage?'page-item active':'page-item'" v-for="i in range(startPage,endPage)">
+                      <a class="page-link" @click="pageChange(i)">{{i}}</a>
+                     </li>
+                     <li class="page-item" v-if="endPage<totalpage">
+                      <a class="page-link" @click="next()">다음 <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                     </li>
+                 </ul>
+             </nav>
+          </div>
+       </div>
 		</table>
 	</div>
 	 <div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
@@ -170,6 +177,28 @@
     		this.dataRecv()
     	},
     	methods:{
+    		prev(){
+      			 this.curpage=this.startPage-1
+      			 this.nList()
+      		 },
+      		 next(){
+      			 this.curpage=this.endPage+1
+      			 this.nList()
+      		 },
+      		 pageChange(page){
+      			 this.curpage=page
+      			 this.nList()
+      		 },
+      		 range(start,end){
+      			 let arr=[]
+      			 let len=end-start
+      			 for(let i=0;i<=len;i++)
+      			 {
+      				 arr[i]=start
+      				 start++;
+      			 }
+      			 return arr
+      		 },
     		dataRecv(){
     			axios.get('../seller/orderList_vue.do',{
     				params:{
