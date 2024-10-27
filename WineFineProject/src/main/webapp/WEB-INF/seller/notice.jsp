@@ -29,7 +29,7 @@
 				<td width=10% class="text-center">{{vo.hit}}</td>
 			</tr>
 		</table>
-		<div class="text-center">
+		<div class="text-center" style="margin-top:30px">
 			<button type="button" class="btn btn-sm btn-primary" @click="noticeList(curPage>1?curPage-1:curPage)">이전</button>
 			{{curPage}} page / {{totalPage}} page
 			<button type="button" class="btn btn-sm btn-primary" @click="noticeList(curPage<totalPage?curPage+1:curPage)">다음</button>

@@ -39,7 +39,7 @@
 				</td>
 			</tr>
 		</table>
-		<table>
+		<table style="margin-top:30px">
 			<tr>
 				<td class="text-center">
 					<button t class="btn btn-sm btn-primary" @click="replyList(startPage>1?curPage-1:curPage)">이전</button>

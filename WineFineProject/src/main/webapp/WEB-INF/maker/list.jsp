@@ -3,81 +3,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../tem/css/info.css">
 <title>생산자</title>
-<style>
-.MakerList {
-	list-style-type: none; 
-	padding: 0; 
-	margin: 0; 
-}
-.item {
-	margin: 10px 0; 
-	padding: 10px;
-	border-bottom: 1px solid #ccc; 
-}
-.content {
-	font-size: 16px; 
-	display: -webkit-box; 
-	-webkit-box-orient: vertical; 
-	-webkit-line-clamp: 2;
-	overflow: hidden; 
-	text-overflow: ellipsis; 
-	max-width: 100%; 
-}
-.namekor {
-	font-size: 20px; 
-	font-weight: bold; 
-	display: inline;
-}
-.nameeng {
-	font-size: 20px; 
-	color: gray; 
-	display: inline; 
-	margin-left: 10px; 
-}
-.load-more {
-	margin-top: 20px; 
-	cursor: pointer; 
-	margin-top: 20px;
-	padding: 10px 20px; 
-	width: 240px;
-	height: 50px;
-	align-content: center;
-}
-.center {
-	display: flex;
-	justify-content: center; 
-	margin-top: 20px; 
-}
-.header-line {
-	border-top: 3px solid black;
-}
-.search-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-.search-input {
-    width: 220px;
-    margin-bottom: 5px;
-	margin-left: auto;
-	padding: 5px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
-.page-link {
-    position: relative;
-    display: block;
-    color : #881824 !important;
-    background-color: #fff;
-    border: 1px solid #881824 !important;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-.pagination{
-	cursor: pointer;
-}
-</style>
 </head>
 <body>
   <div class="container py-5">
