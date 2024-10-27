@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../tem/css/pwd.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript"
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -20,188 +21,147 @@
 		})
 	})
 </script>
-<style type="text/css">
-input[readonly] {
-	background-color: #f8f9fa; /* Bootstrap의 기본 옅은 회색 */
-	cursor: not-allowed;
-}
-
-.valid-feedback {
-	color: green;
-	display: none;
-}
-
-.invalid-feedback {
-	color: red;
-	display: none;
-}
-
-.btn {
-	min-width: 120px !important; /* 모든 버튼의 최소 너비 지정 */
-	text-align: center !important;
-	padding-left: 20px !important;
-	padding-right: 20px !important;
-}
-</style>
 </head>
 <body>
-	<div class="container-fluid py-5" id="edit2">
-		<div class="container py-5">
-			<div class="row">
-				<div class="col-lg-12">
-					<form @submit.prevent="submitForm">
-						<div class="container">
-
-							<div class="row mb-3">
-								<label class="col-sm-2 col-form-label">이름</label>
-								<div class="col-sm-5">
-									<input type="text" readonly class="form-control"
-										value="${sessionScope.userName}">
-								</div>
-							</div>
-
-							<div class="row mb-3">
-								<label class="col-sm-2 col-form-label">성별</label>
-								<div class="col-sm-5">
-									<input type="text" readonly class="form-control"
-										value="${sessionScope.sex}">
-								</div>
-							</div>
-
-							<div class="row mb-3">
-								<label class="col-sm-2 col-form-label">아이디</label>
-								<div class="col-sm-5">
-									<input type="text" readonly class="form-control"
-										value="${sessionScope.userId}">
-								</div>
-							</div>
-
-							<div class="row mb-3">
-								<label class="col-sm-2 col-form-label">닉네임</label>
-								<div class="col-sm-5">
-									<input type="text" class="form-control" v-model="nickName"
-										ref="nickName"
-										:class="{'is-valid': isNickNameChecked && isNickNameValid, 
-                                        	     'is-invalid': isNickNameChecked && !isNickNameValid}">
-									<div class="valid-feedback">사용 가능한 닉네임입니다.</div>
-									<div class="invalid-feedback">이미 사용중인 닉네임입니다.</div>
-								</div>
-								<div class="col-sm-3">
-									<button type="button"
-										class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
-										@click="checkNickName">중복확인</button>
-								</div>
-							</div>
-
-								<div class="row align mb-3">
-									<label class="col-sm-2 col-form-label">우편번호</label>
-									<div class="col-sm-5">
-										<input type="text" readonly class="form-control"
-											v-model="post" ref="post" id="post">
-									</div>
-									<div class="col-sm-3">
-										<button type="button"
-											class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
-											@click="openDaumPostcode">검색</button>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-sm-2 col-form-label">주소*</label>
-									<div class="col-sm-10">
-										<input type="text" readonly class="form-control" id="addr1"
-											v-model="addr1" ref="addr1"><br> <input
-											type="text" class="form-control" v-model="addr2" ref="addr2">
-									</div>
-								</div>
-								<div class="row mb-3">
-									<label class="col-sm-2 col-form-label">전화</label>
-									<div class="col-sm-5">
-										<input type="text" class="form-control" v-model="phone"
-											ref="phone"
-											:class="{'is-valid': isPhoneChecked && isPhoneValid, 
-                                        	     'is-invalid': isPhoneChecked && !isPhoneValid}">
-										<div class="valid-feedback">사용 가능한 전화번호입니다.</div>
-										<div class="invalid-feedback">이미 등록된 전화번호입니다.</div>
-									</div>
-									<div class="col-sm-3">
-										<button type="button"
-											class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
-											@click="checkPhone">중복확인</button>
-									</div>
-								</div>
-								<div class="row mb-3">
-									<label class="col-sm-2 col-form-label">이메일</label>
-									<div class="col-sm-5">
-										<input type="text" class="form-control" v-model="email"
-											ref="email"
-											:class="{'is-valid': isEmailChecked && isEmailValid, 
-                                           'is-invalid': isEmailChecked && !isEmailValid}">
-										<div class="valid-feedback">사용 가능한 이메일입니다.</div>
-										<div class="invalid-feedback">이미 등록된 이메일입니다.</div>
-									</div>
-									<div class="col-sm-3">
-										<button type="button"
-											class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
-											@click="checkEmail">중복확인</button>
-									</div>
-								</div>
-
-								<div class="form-group mb-3">
-								    <label>현재 비밀번호 확인</label>
-								    <div class="input-group">
-								        <input type="password" 
-								               class="form-control" 
-								               v-model="currentPassword"
-								               ref="passwordInput"
-								               :disabled="isPasswordVerified"
-								               placeholder="현재 비밀번호를 입력하세요">
-								        <button type="button" 
-								                class="btn btn-outline-secondary"
-								                @click="verifyPassword"
-								                :disabled="isPasswordVerified">
-								            비밀번호 확인
-								        </button>
-								    </div>
-								    <small class="form-text text-success" v-if="isPasswordVerified">
-								        <i class="fas fa-check"></i> 비밀번호가 확인되었습니다
-								    </small>
-								</div>
-
-							</div>
-
-							<div>
-								<div class="text-center mb-2" v-if="!canSubmit">
-									<small class="text-danger"> 다음 항목을 확인해주세요: <span
-										v-if="!isNickNameChecked || !isNickNameValid">닉네임 중복확인</span>
-										<span
-										v-if="(!isNickNameChecked || !isNickNameValid) && (!isPhoneChecked || !isPhoneValid || !isEmailChecked || !isEmailValid || !addr2.trim())">,
-									</span> <span v-if="!isPhoneChecked || !isPhoneValid">전화번호 중복확인</span>
-										<span
-										v-if="(!isPhoneChecked || !isPhoneValid) && (!isEmailChecked || !isEmailValid || !addr2.trim())">,
-									</span> <span v-if="!isEmailChecked || !isEmailValid">이메일 중복확인</span>
-										<span
-										v-if="(!isEmailChecked || !isEmailValid) && !addr2.trim()">,
-									</span> <span v-if="!addr2.trim()">상세주소 입력</span> <span
-										v-if="!addr2.trim() && !isPasswordValid">, </span> <span
-										v-if="!isPasswordChecked || !isPasswordValid">비밀번호 확인</span>
-									</small>
-								</div>
-								<input type="submit"
-									class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
-									value="변경" :disabled="!canSubmit">
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
-									type="button"
-									class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-secondary"
-									value="취소" @click="goBack()">
-								<!-- </td>
-									</tr> -->
-
-							</div>
-					</form>
+	<div id="edit2">
+		<form @submit.prevent="submitForm">
+			<h3 class="table-title">회원정보 수정</h3>
+			<div class="round">
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">이름</label>
+					<div class="col-sm-5">
+						<input type="text" readonly class="form-control"
+							value="${sessionScope.userName}">
+					</div>
 				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">성별</label>
+					<div class="col-sm-5">
+						<input type="text" readonly class="form-control"
+							value="${sessionScope.sex}">
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">아이디</label>
+					<div class="col-sm-5">
+						<input type="text" readonly class="form-control"
+							value="${sessionScope.userId}">
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">닉네임</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" v-model="nickName"
+							ref="nickName"
+							:class="{'is-valid': isNickNameChecked && isNickNameValid, 
+                                        	     'is-invalid': isNickNameChecked && !isNickNameValid}">
+						<div class="valid-feedback">사용 가능한 닉네임입니다.</div>
+						<div class="invalid-feedback">이미 사용중인 닉네임입니다.</div>
+					</div>
+					<div class="col-sm-3">
+						<button type="button"
+							class="obtn primary"
+							@click="checkNickName">중복확인</button>
+					</div>
+				</div>
+
+				<div class="row align mb-3">
+					<label class="col-sm-2 col-form-label">우편번호</label>
+					<div class="col-sm-5">
+						<input type="text" readonly class="form-control" v-model="post"
+							ref="post" id="post">
+					</div>
+					<div class="col-sm-3">
+						<button type="button"
+							class="obtn primary"
+							@click="openDaumPostcode">검색</button>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">주소*</label>
+					<div class="col-sm-10">
+						<input type="text" readonly class="form-control" id="addr1"
+							v-model="addr1" ref="addr1"><br> <input type="text"
+							class="form-control" v-model="addr2" ref="addr2">
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">전화</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" v-model="phone"
+							ref="phone"
+							:class="{'is-valid': isPhoneChecked && isPhoneValid, 
+                                        	     'is-invalid': isPhoneChecked && !isPhoneValid}">
+						<div class="valid-feedback">사용 가능한 전화번호입니다.</div>
+						<div class="invalid-feedback">이미 등록된 전화번호입니다.</div>
+					</div>
+					<div class="col-sm-3">
+						<button type="button"
+							class="obtn primary"
+							@click="checkPhone">중복확인</button>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">이메일</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" v-model="email"
+							ref="email"
+							:class="{'is-valid': isEmailChecked && isEmailValid, 
+                                           'is-invalid': isEmailChecked && !isEmailValid}">
+						<div class="valid-feedback">사용 가능한 이메일입니다.</div>
+						<div class="invalid-feedback">이미 등록된 이메일입니다.</div>
+					</div>
+					<div class="col-sm-3">
+						<button type="button"
+							class="obtn primary"
+							@click="checkEmail">중복확인</button>
+					</div>
+				</div>
+
+				<div class="form-group mb-3">
+					<label class="text-left" style="margin-bottom: 10px">비밀번호 확인</label>
+					<div class="input-group">
+						<input type="password" class="form-control"
+							v-model="currentPassword" ref="passwordInput"
+							:disabled="isPasswordVerified" placeholder="비밀번호를 입력하세요">
+						<button type="button" class="obtn secondary"
+							@click="verifyPassword" :disabled="isPasswordVerified">
+							비밀번호 확인</button>
+					</div>
+					<small class="form-text text-success" v-if="isPasswordVerified">
+						<i class="fas fa-check"></i> 비밀번호가 확인되었습니다
+					</small>
+				</div>
+
 			</div>
-		</div>
+
+			<div>
+				<div class="text-center mb-2" v-if="!canSubmit">
+					<small class="text-danger"> 다음 항목을 확인해주세요: <span
+						v-if="!isNickNameChecked || !isNickNameValid">닉네임 중복확인</span> <span
+						v-if="(!isNickNameChecked || !isNickNameValid) && (!isPhoneChecked || !isPhoneValid || !isEmailChecked || !isEmailValid || !addr2.trim())">,
+					</span> <span v-if="!isPhoneChecked || !isPhoneValid">전화번호 중복확인</span> <span
+						v-if="(!isPhoneChecked || !isPhoneValid) && (!isEmailChecked || !isEmailValid || !addr2.trim())">,
+					</span> <span v-if="!isEmailChecked || !isEmailValid">이메일 중복확인</span> <span
+						v-if="(!isEmailChecked || !isEmailValid) && !addr2.trim()">,
+					</span> <span v-if="!addr2.trim()">상세주소 입력</span> <span
+						v-if="!addr2.trim() && !isPasswordValid">, </span> <span
+						v-if="!isPasswordChecked || !isPasswordValid">비밀번호 확인</span>
+					</small>
+				</div>
+				<input type="submit"
+					class="obtn primary"
+					value="변경" :disabled="!canSubmit">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+					type="button"
+					class="obtn secondary"
+					value="취소" @click="goBack()">
+
+			</div>
+		</form>
 	</div>
 	<script>
 		let edit2App = Vue.createApp({

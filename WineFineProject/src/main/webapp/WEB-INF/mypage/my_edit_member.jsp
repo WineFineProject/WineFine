@@ -5,62 +5,48 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-    .text-primary {
-      color: #722F37 !important;
-    }
-    .border-secondary {
-      border-color: red !important;
-    }
-  </style>
+<link rel="stylesheet" href="../tem/css/pwd.css">
 </head>
 <body>
-	<div class="container-fluid py-5" id="mbList">
-		<div class="container py-5">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="table-responsive" id="MyTable">
-						<table class="table" border="1">
-							<tr>
-								<th><b>이름</b></th>
-								<td>${sessionScope.userName}</td>	
-							</tr>
-							<tr>
-								<th><b>성별</b></th>
-								<td>${sessionScope.sex }</td>
-							</tr>
-							<tr>
-								<th><b>아이디</b></th>
-								<td>${sessionScope.userId}</td>
-							</tr>	
-							<tr>
-								<th><b>닉네임</b></th>
-								<td>${sessionScope.nickName}</td>					
-							</tr>
-							<tr>
-								<th><b>주소</b></th>
-								<td>${sessionScope.address }</td>
-							</tr>
-							<tr>
-								<th><b>전화</b></th>
-								<td>${sessionScope.phone }</td>
-							</tr>
-							<tr>
-								<th><b>이메일</b></th>
-								<td>${sessionScope.email }</td>
-							</tr>
-							
-						</table>
-						<div>
-							 <a href="../mypage/my_edit2_member.do" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
-						        <span>수정하기</span>
-						    </a>
-						</div>
-						
-					</div>
-				</div>
+	<div id="mbList">
+		<div id="MyTable">
+			<h3 class="table-title">회원정보 수정</h3>
+			<div class="round">
+			<div class="input-f">
+                <label>이름</label>
+                <input type="text" readonly value="${sessionScope.userName}">
+            </div>
+            <div class="input-f">
+                <label>성별</label>
+                <input type="text" readonly value="${sessionScope.sex}">
+            </div>
+            <div class="input-f">
+                <label>아이디</label>
+                <input type="text" readonly value="${sessionScope.userId}">
+            </div>
+            <div class="input-f">
+                <label>닉네임</label>
+                <input type="text" readonly value="${sessionScope.nickName}">
+            </div>
+             <div class="input-f">
+                <label>주소</label>
+                <input type="text" readonly value="${sessionScope.address}">
+            </div>
+            <div class="input-f">
+                <label>전화</label>
+                <input type="text" readonly value="${sessionScope.phone}">
+            </div>
+             <div class="input-f">
+                <label>이메일</label>
+                <input type="text" readonly value="${sessionScope.email}">
+            </div>
+			<div style="margin-top: 30px">
+				<a href="../mypage/my_edit2_member.do" class="sub-btn">
+					<span>수정하기</span>
+				</a>
 			</div>
 		</div>
 	</div>
+</div>	
 </body>
 </html>

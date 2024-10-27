@@ -1,6 +1,38 @@
 @charset "UTF-8";
 
+.obtn {
+    border-radius: 25px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.obtn.primary {
+    background-color: #78c75d;
+}
+
+.obtn.secondary {
+    background-color: #ffb74d;
+}
+
+.obtn.primary:hover {
+    background-color: #9de57d;
+}
+
+.obtn.secondary:hover {
+    background-color: #ffcc80;
+}
+
 #myPwdApp {
+	width: 1500px;
+	max-width: 1200px;
+	margin: auto;
+	background: #fff;
+	padding: 20px;
+}
+
+#MyTable {
 	width: 1500px;
 	max-width: 1200px;
 	margin: auto;
@@ -22,6 +54,30 @@
 	background: white;
 	border-radius: 10px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-f {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.input-f label {
+	width: 20%;
+	font-weight: bold;
+	color: #555;
+	font-size: 18px;
+}
+
+.input-f input {
+	width: 75%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 20px;
+	outline: none;
+	background-color: #f1f1f1;
+	font-size: 16px;
 }
 
 .input-field {
@@ -85,17 +141,17 @@
 }
 
 .input-field {
-    position: relative; /* 위치 설정을 위한 속성 */
+	position: relative; /* 위치 설정을 위한 속성 */
 }
 
 .error-message {
-    position: absolute; /* 절대 위치 설정 */
-    color: red;
-    font-size: 12px;
-    right: 10px; /* 입력창 내부 왼쪽에 위치 */
-    display: inline-block; /* 블록 형태로 표시 */
+	position: absolute; /* 절대 위치 설정 */
+	color: red;
+	font-size: 12px;
+	right: 10px; /* 입력창 내부 왼쪽에 위치 */
+	display: inline-block; /* 블록 형태로 표시 */
 }
 
 .font_green {
-	color: #00a200!important;
+	color: #00a200 !important;
 }
