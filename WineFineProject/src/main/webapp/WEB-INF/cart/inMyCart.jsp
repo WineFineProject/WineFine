@@ -9,6 +9,13 @@
 <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
+<!-- Cart Header start -->
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">장바구니</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+            </ol>
+        </div>
+        <!-- Cart Header End -->
         <!-- Cart Area -->
         <div class="container-fluid py-5">
             <div class="container py-5">        
