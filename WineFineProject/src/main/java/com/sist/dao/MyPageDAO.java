@@ -25,6 +25,22 @@ public class MyPageDAO {
 	public MemberVO getMyId(String userId) {
 		return mapper.getMyId(userId);
 	}
+	public int nickCheck(String nickName,String userId) {
+		return mapper.nickCheck(nickName,userId);
+	}
+	
+	public int phoneCheck(String phone,String userId) {
+		return mapper.phoneCheck(phone,userId);
+	}
+	
+	
+	public int emailCheck(String email,String userId) {
+		return mapper.emailCheck(email,userId);
+	}
+	
+	public String memberGetPwd(String userId) {
+		return mapper.memberGetPwd(userId);
+	}
 
 	public void updateMyInfo(MemberVO vo) {
 		mapper.updateMyInfo(vo);

@@ -1,12 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript"
-	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <style type="text/css">
 .coupondiv {
@@ -52,21 +50,16 @@
 <body>
 	<div class="shopcontainer">
 		<!-- Modal Search Start -->
-		<div class="modal fade" id="searchModal" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-fullscreen">
 				<div class="modal-content rounded-0">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Search by
-							keyword</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
+						<h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body d-flex align-items-center">
 						<div class="input-group w-75 mx-auto d-flex">
-							<input type="search" class="form-control p-3"
-								placeholder="keywords" aria-describedby="search-icon-1">
-							<span id="search-icon-1" class="input-group-text p-3"><i
+							<input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1"> <span id="search-icon-1" class="input-group-text p-3"><i
 								class="fa fa-search"></i></span>
 						</div>
 					</div>
@@ -82,24 +75,16 @@
 					<table class="table col-11">
 						<thead>
 							<tr>
-								<th width="7%" class="noborder"
-									style="border-left: 1px solid; border-top: 1px solid;"></th>
-								<th width="43%" class="noborder text-center"
-									style="border-top: 1px solid;">주문상품</th>
-								<th width="15%" class="noborder text-center"
-									style="border-top: 1px solid;">가격</th>
-								<th width="15%" class="noborder text-center"
-									style="border-top: 1px solid;">수량</th>
-								<th width="20%" class="noborder text-center"
-									style="border-top: 1px solid; border-right: 1px solid;">총
-									금액</th>
+								<th width="7%" class="noborder" style="border-left: 1px solid; border-top: 1px solid;"></th>
+								<th width="43%" class="noborder text-center" style="border-top: 1px solid;">주문상품</th>
+								<th width="15%" class="noborder text-center" style="border-top: 1px solid;">가격</th>
+								<th width="15%" class="noborder text-center" style="border-top: 1px solid;">수량</th>
+								<th width="20%" class="noborder text-center" style="border-top: 1px solid; border-right: 1px solid;">총 금액</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<th scope="row" class="align-middle" style="border-right: none;"><img
-									:src="vo.poster" class="img-fluid me-5"
-									style="width: 80px; height: 80px;" alt=""></th>
+								<th scope="row" class="align-middle" style="border-right: none;"><img :src="vo.poster" class="img-fluid me-5" style="width: 80px; height: 80px;" alt=""></th>
 								<td class="align-middle text-center">
 									<p class="mb-0">
 										<b>{{ vo.namekor }}</b>
@@ -109,41 +94,29 @@
 									<p class="mb-0">{{ vo.price }} 원</p>
 								</td>
 								<td class="align-middle text-center">
-									<div class="input-group quantity"
-										style="width: 100px; margin: 0 auto;">
-										<input type="number"
-											class="form-control form-control-sm text-center border-0"
-											v-model.number="quantity" min="1" style="text-align: center;" />
+									<div class="input-group quantity" style="width: 100px; margin: 0 auto;">
+										<input type="number" class="form-control form-control-sm text-center border-0" v-model.number="quantity" min="1" style="text-align: center;" />
 									</div>
 								</td>
-								<td class="align-middle text-center"
-									style="border-right: 1px solid lightgray;">
-									<p class="mb-0">{{ (vo.price * quantity).toLocaleString()
-										}} 원</p>
+								<td class="align-middle text-center" style="border-right: 1px solid lightgray;">
+									<p class="mb-0">{{ (vo.price * quantity).toLocaleString() }} 원</p>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div class="row g-4 justify-content-center">
-					<div class="col-3 "
-						style="height: 385px; overflow: auto; overflow-x: hidden;">
+					<div class="col-3 " style="height: 385px; overflow: auto; overflow-x: hidden;">
 						<h3>배송지선택</h3>
 						<br>
-						<table v-for="(user, index) in userDeli"
-							:class="['coupondiv', 'selectAd', {'selected': selectAddr.wdno === user.wdno}]"
+						<table v-for="(user, index) in userDeli" :class="['coupondiv', 'selectAd', {'selected': selectAddr.wdno === user.wdno}]"
 							style="width: 290px; height: 150px; margin-bottom: 10px; border-radius: 0px;">
 							<tbody>
 								<tr>
 									<td>
-										<div class="form-check "
-											style="padding: 10px 10px 0px 10px; cursor: pointer;">
-											<input class="form-check-input" type="radio"
-												name="flexRadioDefault" :id="'flexRadioDefault'+index"
-												style="display: none;"> <label
-												class="form-check-label" :for="'flexRadioDefault'+index"
-												@click="selectAddress(index)" style="cursor: pointer">
-												<b>{{user.name}}</b>
+										<div class="form-check " style="padding: 10px 10px 0px 10px; cursor: pointer;">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" :id="'flexRadioDefault'+index" style="display: none;"> <label class="form-check-label"
+												:for="'flexRadioDefault'+index" @click="selectAddress(index)" style="cursor: pointer"> <b>{{user.name}}</b>
 												<p>{{user.addr1}}</p>
 												<p>{{user.addr2}}</p>
 											</label>
@@ -166,31 +139,21 @@
 									<tr>
 										<td>
 											<div style="margin-top: 10px; width: 290px;">
-												<label for="search"> 쿠폰 검색</label> <input type="text"
-													class="form-control cou" value='쿠폰을 선택하세요'
-													@click="selectCou()" readonly>
-												<div class="result-list cou" id="listCou" v-if="isVisible"
-													v-for="sale in psvo">
+												<label for="search"> 쿠폰 검색</label> <input type="text" class="form-control cou" value='쿠폰을 선택하세요' @click="selectCou()" readonly>
+												<div class="result-list cou" id="listCou" v-if="isVisible" v-for="sale in psvo">
 													<li @click="selectProduct(99999)">쿠폰 선택 안 함</li>
-													<li v-for="(coupon, index) in cvo" class="result-item"
-														@click="selectProduct(index)"><a>{{coupon.title
-															}} ({{ coupon.discount }}%)</a></li>
+													<li v-for="(coupon, index) in cvo" class="result-item" @click="selectProduct(index)"><a>{{coupon.title }} ({{ coupon.discount }}%)</a></li>
 												</div>
 											</div>
 										</td>
 									</tr>
 									<tr>
-										<td style="border-bottom: none; display: flex;"><input
-											type="number" style="width: 290px;"
-											class="text-center form-control" @keyup="checkPoint()"
-											v-model="point" min="0" :max="vo.price">
+										<td style="border-bottom: none; display: flex;"><input type="number" style="width: 290px;" class="text-center form-control" @keyup="checkPoint()" v-model="point" min="0" :max="vo.price">
 
-											<button class="btn btn-md  bg-light  "
-												style="margin-left: 5px;" @click="allPoint()">전액사용</button></td>
+											<button class="btn btn-md  bg-light  " style="margin-left: 5px;" @click="allPoint()">전액사용</button></td>
 									</tr>
 									<tr>
-										<td style="border-bottom: none;">잔여 적립금 [ {{userPoint}} ]
-											원</td>
+										<td style="border-bottom: none;">잔여 적립금 [ {{userPoint}} ] 원</td>
 									</tr>
 								</tbody>
 							</table>
@@ -199,25 +162,21 @@
 					<div class="col-5 ">
 						<h3>총 결제 금액</h3>
 						<div class="bg-light rounded">
-							<div class="p-4"
-								style="border: solid 1px; border-radius: 15px 15px 0px 0px; border-bottom: solid 1px gainsboro;">
+							<div class="p-4" style="border: solid 1px; border-radius: 15px 15px 0px 0px; border-bottom: solid 1px gainsboro;">
 								<div class="d-flex justify-content-between">
 									<h5 class="mb-0 me-4">상품 목록</h5>
 									<div class="">
 										<p class="mb-0 ">{{vo.namekor}}</p>
 									</div>
 								</div>
-								<p class="mb-0 text-end">수량 : {{quantity}} 개 &nbsp;&nbsp;
-									{{totalPrice}} 원</p>
+								<p class="mb-0 text-end">수량 : {{quantity}} 개 &nbsp;&nbsp; {{totalPrice}} 원</p>
 							</div>
-							<div class="p-4"
-								style="border: solid 1px; border-top: solid 1px gainsboro;">
+							<div class="p-4" style="border: solid 1px; border-top: solid 1px gainsboro;">
 								<div class="d-flex justify-content-between">
 									<h5 class="mb-0 me-4">진행중인 프로모션</h5>
 									<div class="">
 										<p class="mb-0" v-if="promo === 0 ">없음</p>
-										<p class="mb-0" v-for="sale in psvo" v-if="!isCoupon">{{sale.discount
-											!= 0 ? sale.title +' ('+sale.discount+'%'+')' : '없음' }}</p>
+										<p class="mb-0" v-for="sale in psvo" v-if="!isCoupon">{{sale.discount != 0 ? sale.title +' ('+sale.discount+'%'+')' : '없음' }}</p>
 										<p class="mb-0" v-for="sale in psvo" v-if="isCoupon">없음</p>
 									</div>
 								</div>
@@ -225,16 +184,14 @@
 								<div class="d-flex justify-content-between">
 									<h5 class="mb-0 me-4">사용 쿠폰</h5>
 									<div class="">
-										<p class="mb-0">{{ isCoupon? selectedCoupon.title +'
-											('+selectedCoupon.discount+'%'+')' : '적용안함' }}</p>
+										<p class="mb-0">{{ isCoupon? selectedCoupon.title +'('+selectedCoupon.discount+'%'+')' : '적용안함' }}</p>
 									</div>
 								</div>
 								<br>
 								<div class="d-flex justify-content-between">
 									<h5 class="mb-0 me-4">사용 적립금</h5>
 									<div class="">
-										<p class="mb-0">{{ point != null ? point + ' 원' : '적용안함'
-											}}</p>
+										<p class="mb-0">{{ point != null ? point + ' 원' : '적용안함' }}</p>
 									</div>
 								</div>
 								<br>
@@ -245,21 +202,14 @@
 									</div>
 								</div>
 							</div>
-							<div class="py-4 border-top  justify-content-between use"
-								@click="payment"
-								style="border: solid 1px; border-radius: 0px 0px 15px 15px; border-top: none !important;">
-								<h5 class="mb-0 ps-4  text-center">[
-									{{totalPayment.toLocaleString()}} 원 ] 결제하기</h5>
+							<div class="py-4 border-top  justify-content-between use" @click="payment" style="border: solid 1px; border-radius: 0px 0px 15px 15px; border-top: none !important;">
+								<h5 class="mb-0 ps-4  text-center">[ {{totalPayment.toLocaleString()}} 원 ] 결제하기</h5>
 							</div>
 						</div>
 					</div>
-					<div
-						style="display: flex; justify-content: center; margin-top: 110px;">
-						<button class="btn btn-default winecor"
-							style="width: 150px; color: white; margin-right: 10px;"
-							@click="payment">결제하기</button>
-						<button class="btn btn-default winecor"
-							style="width: 150px; color: white;" onclick="history.back();">취소</button>
+					<div style="display: flex; justify-content: center; margin-top: 110px;">
+						<button class="btn btn-default winecor" style="width: 150px; color: white; margin-right: 10px;" @click="onPayment()">결제하기</button>
+						<button class="btn btn-default winecor" style="width: 150px; color: white;" onclick="history.back();">취소</button>
 					</div>
 					<div>
 						<button @click="requestPay()">test</button>
@@ -272,13 +222,10 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-							<span class="text-light"><a href="#"><i
-									class="fas fa-copyright text-light me-2"></i>Your Site Name</a>,
-								All right reserved.</span>
+							<span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
 						</div>
 						<div class="col-md-6 my-auto text-center text-md-end text-white">
-							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML
-								Codex</a>
+							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
 						</div>
 					</div>
 				</div>
@@ -286,7 +233,7 @@
 		</div>
 	</div>
 	<!-- Copyright End -->
-<script>
+	<script>
 let buyApp = Vue.createApp({
     data() {
         return {
@@ -421,7 +368,6 @@ let buyApp = Vue.createApp({
             console.log('선택한 주소 wdno:', this.selectAddr.wdno) // wdno 출력
         },
         payment() {
-            alert('결제 처리중')
             let selCoupon = !this.isCoupon ? 0 : this.selectedCoupon.mcno
             pay = this.totalPayment
             plus = this.plpoint
@@ -429,9 +375,7 @@ let buyApp = Vue.createApp({
                 params: { // 실제 전달하는 데이터
                     wno: this.wno,
                     wdno: this.selectAddr.wdno,
-                    psno: this.promo !== 0
-                        ? (this.isCoupon ? 0 : this.psvo[0].psno)
-                        : 0,
+                    psno: this.promo !== 0 ? (this.isCoupon ? 0 : this.psvo[0].psno): 0,
                     account: this.quantity,
                     mcno: selCoupon,
                     mipoint: this.point,
@@ -441,10 +385,8 @@ let buyApp = Vue.createApp({
             }).then(response => {
                 console.log(response.data)
                 if (response.data === "yes") {
-                    alert("구매 성공!")
                     window.location.href = '../main/main.do'
                 } else {
-                    alert("구매 실패\n" + response.data)
                     return
                 }
             }).catch(error => {
@@ -456,6 +398,33 @@ let buyApp = Vue.createApp({
                 return false
             }
             return true
+        },
+        onPayment(){
+        	_this=this
+        	if(this.totalPayment!==0){
+	        	var IMP = window.IMP; 
+	        	IMP.init("imp60688173");
+	        	axios.get('../seller/memberDetailInfo.do').then(response=>{
+		        	let memInfo=response.data
+		        	IMP.request_pay({
+		                pg: "tosspay.tosstest",
+		                pay_method: "card",
+		                merchant_uid: "ORD20180131-0000011",   // 주문번호
+		                name: this.vo.namekor,
+		                amount: this.totalPayment,         // 숫자 타입
+		                buyer_email: memInfo.email,
+		                buyer_name: memInfo.nickName,
+		                buyer_tel: memInfo.phone!==null?memInfo.phone:'',
+		                buyer_addr: memInfo.addr1+" "+memInfo.addr2,
+		                buyer_postcode: memInfo.post
+		            }, function (rsp) { // callback
+		            	_this.payment()
+		            })
+	        	})
+	        }
+        	else{
+        		this.payment()
+        	}
         }
     }
 }).mount('.shopcontainer')

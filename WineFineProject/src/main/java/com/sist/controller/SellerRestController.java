@@ -219,6 +219,10 @@ public class SellerRestController {
 		JsonMapper mapper = new JsonMapper();
 		return mapper.writeValueAsString(vo);
 	}
+	@GetMapping(value = "seller/vueNoticeDelete.do", produces = "text/plain;charset=UTF-8")
+	public void sellerVueNoticeDelete(int nbno) {
+		nService.noticeDelete(nbno);
+	}
 	@GetMapping(value = "seller/vueSellerHomeInfo.do", produces = "text/plain;charset=UTF-8")
 	public String sellerVueHomeInfo(HttpSession session) throws Exception{
 		String id=(String)session.getAttribute("userId");

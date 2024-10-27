@@ -17,7 +17,22 @@ public interface MypageMapper {
 	// 개인 정보 불러오기
 	@Select("SELECT * FROM wine_member WHERE userId=#{userId}")
 	public MemberVO	getMyId(@Param("userId") String userId);
+	@Select("SELECT userPwd FROM wine_member WHERE userId=#{userId}")
+	public String memberGetPwd(@Param("userId") String userId);
 	
+	// 중복 체크
+	@Select("SELECT COUNT(*) FROM wine_member WHERE nickName=#{nickName} AND userId!=#{userId}")
+	public int nickCheck(@Param("nickName") String nickName,@Param("userId") String userId);
+	
+	@Select("SELECT COUNT(*) FROM wine_member WHERE phone=#{phone} AND userId!=#{userId}")
+	public int phoneCheck(@Param("phone") String phone,@Param("userId") String userId);
+	
+	@Select("SELECT COUNT(*) FROM wine_member WHERE email=#{email} AND userId!=#{userId}")
+	public int emailCheck(@Param("email") String email,@Param("userId") String userId);
+	
+	@Select("SELECT userPwd FROM wine_member WHERE userId=#{userId}")
+	public String checkPwd(@Param("userId")String userId);
+
 	// 개인 정보 수정
 	@Update("UPDATE wine_member SET nickname=#{nickname},post=#{post},addr1=#{addr1},addr2=#{addr2},phone=#{phone},email=#{email} "
 			+ "WHERE userId=#{userId}")

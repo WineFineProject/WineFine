@@ -53,4 +53,9 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	public int noticeGetNum() {
 		return dao.noticeGetNum();
 	}
+	
+	@Override
+	public void noticeDelete(int nbno) {
+		dao.noticeDelete(nbno);
+	}
 }

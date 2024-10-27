@@ -22,6 +22,29 @@ public class MypageServiceImpl implements MypageService {
 		// TODO Auto-generated method stub
 		return dao.getMyId(userId);
 	}
+	@Override
+	public int nickCheck(String nickName,String userId) {
+		// TODO Auto-generated method stub
+		return dao.nickCheck(nickName,userId);
+	}
+	
+	@Override
+	public int phoneCheck(String phone, String userId) {
+		// TODO Auto-generated method stub
+		return dao.emailCheck(phone, userId);	
+	}
+
+	@Override
+	public int emailCheck(String email, String userId) {
+		// TODO Auto-generated method stub
+		return dao.emailCheck(email, userId);
+	}
+	
+	@Override
+	public String memberGetPwd(String userId) {
+		// TODO Auto-generated method stub
+		return dao.memberGetPwd(userId);
+	}
 
 	@Override
 	public void updateMyInfo(MemberVO vo) {

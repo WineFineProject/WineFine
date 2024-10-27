@@ -2,6 +2,7 @@ package com.sist.mapper;
 
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -37,4 +38,9 @@ public interface NoticeBoardMapper {
 	@Select("SELECT MAX(nbno) FROM noticeboard")
 	public int noticeGetNum();
 	
+	@Delete("DELETE FROM noticeboard WHERE nbno=#{nbno}")
+	public void noticeDelete(int nbno);
+	
+	@Update("UPDATE wine SET nbno=0 WHERE nbno=#{nbno}")
+	public void wineNoticeDelete(int nbno);
 }

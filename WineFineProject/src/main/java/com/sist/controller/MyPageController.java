@@ -3,6 +3,8 @@ package com.sist.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +25,9 @@ public class MyPageController {
 	 return "mypage/my_edit_member";
  }
  @GetMapping("mypage/my_edit2_member.do")
- public String myEdit2() {
+ public String myEdit2(HttpSession session, Model model) {
+	 String id = (String)session.getAttribute("userId");
+	 model.addAttribute("id",id);
 	 return "mypage/my_edit2_member";
  }
  

@@ -36,12 +36,12 @@
 									</td>
 									<td scope="row">
 										<div class="d-flex align-items-center">
-											<img :src="vo.wvo.poster" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;">
+											<a :href="'../shop/detailBefore.do?wno='+vo.wno"><img :src="vo.wvo.poster" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;"></a>
 										</div>
 									</td>
 									<td class="scrollable-text">
 										<p class="mb-0 mt-4">
-											<b style="font-size: 1.2em">{{vo.wvo.namekor}}</b>
+											<b style="font-size: 1.2em"><a :href="'../shop/detailBefore.do?wno='+vo.wno">{{vo.wvo.namekor}}</a></b>
 										</p>
 									</td>
 									<td>

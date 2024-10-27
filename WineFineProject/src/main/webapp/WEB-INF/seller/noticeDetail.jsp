@@ -20,7 +20,7 @@
             <div class="content-box">{{detail.content}}</div>
             <div class="button-group">
                 <a :href="'../seller/noticeUpdate.do?nbno='+detail.nbno" class="btn btn-primary">수정</a>
-                <input type=button value="삭제" class="btn btn-danger">
+                <input type="button" @click="deleteBoard()" value="삭제" class="btn btn-danger">
                 <a href="../seller/notice.do" class="btn btn-secondary">목록</a>
             </div>
         </div>
@@ -40,9 +40,19 @@
 					nbno:this.nbno
 				}
 			}).then(response=>{
-				console.log(response.data)
 				this.detail=response.data
 			})
+		},
+		methods:{
+			deleteBoard(){
+				axios.get('../seller/vueNoticeDelete.do', {
+					params:{
+						nbno:this.nbno
+					}
+				}).then(response=>{
+					location.href='../seller/notice.do'
+				})
+			}
 		}
 	}).mount('#noticeTable')
 	</script>

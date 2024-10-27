@@ -43,4 +43,9 @@ public class NoticeBoardDAO {
 	public int noticeGetNum() {
 		return mapper.noticeGetNum();
 	}
+	
+	public void noticeDelete(int nbno) {
+		mapper.wineNoticeDelete(nbno);
+		mapper.noticeDelete(nbno);
+	}
 }

@@ -109,6 +109,14 @@ public class MemberRestController {
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(map);
 	}
+	@GetMapping(value = "seller/memberDetailInfo.do", produces = "text/plain;charset=UTF-8")
+	public String memberDetailInfo(HttpSession session) throws Exception {
+		String id=(String)session.getAttribute("userId");
+		MemberVO member = mService.memberDetail(id);
+		System.out.println(member);
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(member);
+	}
 	
 	// 회원 대기 목록
 	@GetMapping(value = "admin/memberWaitVue.do", produces = "text/plain;charset=UTF-8")

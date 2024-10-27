@@ -14,4 +14,5 @@ public interface NoticeBoardService {
 	public NoticeBoardVO noticeDetailData(int nbno);
 	public void noticeBoardPopupUpdate(Map map);
 	public int noticeGetNum();
+	public void noticeDelete(int nbno);
 }

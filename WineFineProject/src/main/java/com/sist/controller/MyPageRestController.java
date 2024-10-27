@@ -50,29 +50,103 @@ public class MyPageRestController {
 	public String myInfo(@SessionAttribute("userId") String userId) throws Exception
 	{	
 		
-		MemberVO vo=mService.getMyId(userId);
+		MemberVO vo = mService.getMyId(userId);
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;
 	}
 	
-	@PostMapping(value = "mypage/edit2_ok_vue_do", produces = "application/json")
-	public String myInfo_ok(MemberVO vo) throws Exception
-	{
-		String result="";
-	   try
-	   {
-		   
-		   mService.updateMyInfo(vo);
-		   result="yes";
-		   
-	   }catch(Exception ex)
-	   {
-		   result=ex.getMessage();   
-	   }
-	   return result;
-	    
-	}
+	/*
+	 * @PostMapping(value = "mypage/edit2_ok_vue_do",produces =
+	 * "text/plain;charset=UTF-8") public String myInfo_ok(@RequestBody MemberVO vo,
+	 * 
+	 * @SessionAttribute("userId") String userId) throws Exception {
+	 * vo.setUserId(userId);
+	 * 
+	 * MemberVO updateMember = mService.updateMyInfo(vo);
+	 * 
+	 * ObjectMapper mapper = new ObjectMapper(); String json =
+	 * mapper.writeValueAsString(updateMember); return json; }
+	 */
+	
+	
+	 @GetMapping("/mypage/nickname_check_vue.do")
+	    public String nickCheck(HttpSession session,String nickName,String userId) {
+		 String sessionUserId = (String) session.getAttribute("userId");
+	     int count = mService.nickCheck(nickName, userId);	     
+	     return count == 0 ? "yes" : "no";
+	    }
+	 
+	 @GetMapping("/mypage/phone_check_vue.do")
+	    public String phoneCheck(HttpSession session,String phone, String userId) {
+		 	String sessionUserId = (String) session.getAttribute("userId");
+//		 	Map map = new HashMap();
+//	     
+//		 	map.put("phone",phone);
+//	     	map.put("userId", userId);
+	        int count = mService.phoneCheck(phone, userId);
+	        return count == 0 ? "yes" : "no";
+	    }
+	
+	 @GetMapping("/mypage/email_check_vue.do")
+	    public String emailCheck(HttpSession session,String email, String userId) {
+		 	String sessionUserId = (String) session.getAttribute("userId");
+//		 	Map map = new HashMap();
+//	     
+//	     	map.put("email",email);
+//	     	map.put("userId", userId);
+	        int count = mService.emailCheck(email, userId);
+	        return count == 0 ? "yes" : "no";
+	    }
+	 
+	 @PostMapping("/mypage/verify_password.do")
+	 public String verifyPassword(String userId, String currentPassword, HttpSession session)
+	 {
+		 System.out.println("===== 비밀번호 확인 디버깅 =====");
+	        System.out.println("전달된 userId: " + userId);
+	        System.out.println("전달된 비밀번호: " + currentPassword);
+	        
+	        try {
+	            String dbPassword = mService.memberGetPwd(userId);
+	            System.out.println("DB 저장 비밀번호: " + dbPassword);
+	            
+	            if (dbPassword == null) {
+	                System.out.println("DB에서 비밀번호를 찾을 수 없습니다.");
+	                return "no";
+	            }
+	            
+	            // BCrypt matches 메서드로 비밀번호 비교
+	            boolean matches = encoder.matches(currentPassword, dbPassword);
+	            System.out.println("비밀번호 일치 여부: " + matches);
+	            
+	            return matches ? "yes" : "no";
+	            
+	        } catch (Exception e) {
+	            System.out.println("에러 발생: " + e.getMessage());
+	            e.printStackTrace();
+	            return "no";
+	        }
+	    }	    
+		
+	 @PostMapping(value = "mypage/my_edit2_member_ok_vue.do", produces = "text/plain;charset=UTF-8")
+		public String myInfo_ok(MemberVO vo) throws Exception
+		{
+			String result="";
+			   try
+			   {
+				   System.out.println("Recv MemberVO: "+vo); // MemberVO Log
+				   mService.updateMyInfo(vo);
+				   result="yes";
+				   
+			   }catch(Exception ex)
+			   {
+				   ex.printStackTrace();
+				   result=ex.getMessage();   
+			   }
+			   return result;
+		
+		}
+
 	
 	@GetMapping(value = "mypage/vueCouponList.do", produces = "text/plain;charset=UTF-8")
 	public String mypageVueCouponList(HttpSession session) throws Exception{
