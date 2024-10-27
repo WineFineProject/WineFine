@@ -225,12 +225,12 @@
 															<tr v-if="relist.length===0"><td colspan="6">문의내역이 없습니다.</td></tr>
 															<tbody v-for="(re,index) in relist">
 																<tr>
-																	<td class="text-center">{{boTocount - index +1}}</td>
+																	<td class="text-center">{{totalpage - index}}</td>
 																	<td width=35%><span style="color: darkred"
-																		v-if="id!==re.userid&&re.secret===1&&re.group_step===0">
+																		v-if="sessionId!==re.userid&&re.secret===1&&re.group_step===0">
 																			<i class="fa fa-lock" aria-hidden="true"></i>&nbsp;비밀글입니다
 																	</span> <span style="color: darkred"
-																		v-else-if="id!==re.recvid&&re.secret===1&&re.group_step===1">
+																		v-else-if="sessionId!==re.recvid&&re.secret===1&&re.group_step===1">
 																			ㄴ&nbsp;<i class="fa fa-lock" aria-hidden="true"></i>&nbsp;비밀글입니다
 																	</span> <a :href="'../replyboard/detail.do?wrno='+re.wrno"
 																		v-else> <span v-if="re.group_step===1">ㄴ</span> <span
@@ -241,8 +241,11 @@
 																	<td class="text-center">{{re.nickname}}</td>
 																	<td class="text-center">{{re.dbday}}</td>
 																	<td class="text-center">{{re.hit}}</td>
-																	<td class="text-center">{{re.isreply === 0 ?
-																		'답변대기' : '답변완료'}}</td>
+																	<td class="text-center"><span
+																		v-if="re.group_step === 1" style="color: blue;">문의
+																			답변</span> <span v-else-if="re.isreply === 0"
+																		style="color: #881824;">답변대기</span> <span v-else
+																		style="color: green;">답변완료</span></td>
 																</tr>
 															</tbody>
 														</table>

@@ -398,6 +398,7 @@
     	        		}        		
     	        	}).then(response=>{
     	        		console.log(response.data)
+    	        		this.dataRecv()
     	        		alert("장바구니에 추가되었습니다.")
     	        	}).catch(error=>{
     	        		console.log(error.response)

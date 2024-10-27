@@ -202,8 +202,8 @@
 									</div>
 								</div>
 							</div>
-							<div class="py-4 border-top  justify-content-between use" @click="payment" style="border: solid 1px; border-radius: 0px 0px 15px 15px; border-top: none !important;">
-								<h5 class="mb-0 ps-4  text-center">[ {{totalPayment.toLocaleString()}} 원 ] 결제하기</h5>
+							<div class="py-4 border-top  justify-content-between " style="border: solid 1px; border-radius: 0px 0px 15px 15px; border-top: none !important;">
+								<h5 class="mb-0 ps-4  text-center">총 결제 금액[ {{totalPayment.toLocaleString()}} 원 ] </h5>
 							</div>
 						</div>
 					</div>
