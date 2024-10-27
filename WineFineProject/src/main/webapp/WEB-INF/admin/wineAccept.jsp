@@ -76,7 +76,7 @@
 						</table>
 					</td>
 					<td>
-						<a class="btn btn-sm border-wine" :href="'../shop/detail.do?wno='+vo.wno" target="_blank">미리보기</a>
+						<a class="btn btn-sm btn-wine" :href="'../shop/detail.do?wno='+vo.wno" target="_blank">미리보기</a>
 					</td>
 				</tr>
 			</template>

@@ -474,7 +474,7 @@
 		<div v-if="cookieCheck===0&&vo.nbno!==0" class="layer-popup"
 			id="popup" :class="{active:popupVisible}">
 			<div class="layer-popup-header">
-			<h4 class="modal-title centered">공지사항</h4>
+			<h4 class="modal-title centered">판매자 공지</h4>
 				<span class="layer-popup-close" style="text-align: right;"
 					@click="popupClose()">X</span>
 			</div>
@@ -486,7 +486,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th width="20%" class="centered">보낸이</th>
+					<th width="20%" class="centered">판매자</th>
 					<td width="40%" class="centered">{{nvo.nickname}}</td>
 					<th width="10%" class="centered">작성일</th>
 					<td width="30%" class="centered" style="border: 1px solid #e1e1e1">{{nvo.dbday}}</td>

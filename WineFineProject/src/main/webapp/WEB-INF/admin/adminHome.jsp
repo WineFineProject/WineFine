@@ -6,33 +6,27 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <link rel="stylesheet" href="../tem/css/graph.css">
+<link rel="stylesheet" href="../tem/css/payment.css">
 </head>
 <body>
 	<div class="row" id="myHomeApp">
-		<table class="table t">
+	<h3 class="table-titlee text-center">홈페이지 현황</h3>
+		<table class="table mp">
 			<tr>
-				<th width="40%" class="text-center">금일 결제</th>
-				<td width="40%" class="text-center">{{nonePayment}}건</td>
+				<th width="15%" class="text-center">금일 결제</th>
+				<th width="17%" class="text-center">승인 안한 상품등록</th>
+				<th width="17%" class="text-center">승인 안한 쿠폰신청</th>
+				<th width="17%" class="text-center">승인 안한 배너신청</th>
+				<th width="17%" class="text-center">승인 안한 할인신청</th>
+				<th width="17%" class="text-center">답변 안한 문의</th>
 			</tr>
 			<tr>
-				<th width="40%" class="text-center">승인 안한 상품등록</th>
-				<td width="40%" class="text-center">{{noneItem}}건</td>
-			</tr>
-			<tr>
-				<th width="40%" class="text-center">승인 안한 쿠폰신청</th>
-				<td width="40%" class="text-center">{{noneCoupon}}건</td>
-			</tr>
-			<tr>
-				<th width="40%" class="text-center">승인 안한 배너신청</th>
-				<td width="40%" class="text-center">{{noneBanner}}건</td>
-			</tr>
-			<tr>
-				<th width="40%" class="text-center">승인 안한 할인신청</th>
-				<td width="40%" class="text-center">{{noneSale}}건</td>
-			</tr>
-			<tr>
-				<th width="40%" class="text-center">답변 안한 문의</th>
-				<td width="40%" class="text-center">{{noneAnswer}}건</td>
+				<td width="15%" class="text-center">{{nonePayment}}건</td>
+				<td width="17%" class="text-center">{{noneItem}}건</td>
+				<td width="17%" class="text-center">{{noneCoupon}}건</td>
+				<td width="17%" class="text-center">{{noneBanner}}건</td>
+				<td width="17%" class="text-center">{{noneSale}}건</td>
+				<td width="17%" class="text-center">{{noneAnswer}}건</td>
 			</tr>
 		</table>
 		<div class="wrap border-wine" style="border: 1px solid;">

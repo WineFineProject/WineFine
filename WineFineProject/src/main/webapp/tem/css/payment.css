@@ -50,6 +50,20 @@
     color: #333;
 }
 
+.table-titlee {
+    font-size: 27px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.titlee {
+	padding: 0px; 
+	margin: 0px;
+	font-size: 22px;
+	font-weight:bold;
+    margin-bottom: 15px;
+    color: #333;
+}
 .mp {
     width: 100%;
     border-collapse: collapse;
