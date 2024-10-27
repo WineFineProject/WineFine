@@ -17,7 +17,7 @@
 }
 
 .winecor {
-	background-color: #881824;
+	background-color: #881824; 
 	color: white;
 }
 
