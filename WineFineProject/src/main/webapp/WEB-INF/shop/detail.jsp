@@ -29,7 +29,7 @@
 	transform: translate(-50%, -50%);
 	width: 400px;
 	background-color: white;
-	padding: 20px;
+	padding: 20px; 
 	z-index: 9999;
 	display: none;
 }
