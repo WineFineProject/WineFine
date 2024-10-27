@@ -103,6 +103,18 @@
 	height: 260px;
 }
 
+.centered {
+    text-align: center;
+    vertical-align: middle;
+}
+.ttt th, .ttt td {
+    border: 1px solid #ddd;
+}
+
+.ttt th {
+    background-color: #f8f8f8;
+    color: #333;
+}
 .chat_list {
 	position: fixed;
 	right: 95px;

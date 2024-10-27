@@ -5,185 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Wine Detail</title>
-
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<style type="text/css">
-.layer-popup-bg {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.7);
-	z-index: 9998;
-	display: none;
-}
-
-.layer-popup {
-	border: 1px solid black;
-	display: none;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 400px;
-	background-color: white;
-	padding: 20px; 
-	z-index: 9999;
-	display: none;
-}
-
-.layer-popup-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.layer-popup-header h2 {
-	margin: 0;
-}
-
-.layer-popup-close {
-	cursor: pointer;
-}
-
-.info-list {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-}
-
-.info-list li {
-	display: flex;
-	justify-content: flex-start;
-	margin-bottom: 10px;
-}
-
-.info-list .title {
-	width: 150px; /* 제목의 고정 너비 설정 */
-	font-weight: bold;
-}
-
-.info-list .content {
-	flex-grow: 1; /* 내용이 유동적으로 확장되도록 설정 */
-}
-
-.custom-nav-link {
-	border: 1px solid #dee2e6 !important; /* 모든 테두리 유지 */
-	border-top: 3px solid #881824 !important;
-	border-bottom: none !important; /* 아래쪽 테두리 제거 */
-	color: black !important;
-}
-/* /////////////////////////////////////////////////////////// */
-.winecor {
-	background-color: #881824 !important;
-	color: white !important;
-}
-
-.rose {
-	background-color: #eb9ba6 !important;
-	color: white !important;
-}
-
-.Fortified {
-	background-color: #efb76f !important;
-	color: white !important;
-}
-
-.sparkling {
-	background-color: #cdd381 !important;
-	color: white !important;
-}
-
-.atherwine {
-	background-color: #75528b !important;
-	color: white !important;
-}
-
-.whitecor {
-	background-color: white !important;
-	color: black !important;
-	border: solid 1px black !important;
-}
-/* ///////////////////////////////////////////////////////////// */
-.image-margin {
-	width: 15px;
-	height: 15px;
-}
-
-.font-style {
-	margin-right: 10px;
-	font-size: 17px;
-}
-
-.img-size {
-	width: 20px;
-	margin-right: 4px;
-}
-
-.img-margin {
-	margin-left: auto;
-}
-
-.img-text {
-	color: black;
-	margin-left: 3px;
-	margin-right: 6px;
-}
-
-.label.no-style {
-	padding: 0;
-	color: inherit;
-	width: 16px;
-}
-
-.a-color {
-	color: gray;
-}
-
-.img-hover {
-	cursor: pointer;
-}
-
-.report {
-	padding: -0.75rem 0.5rem;
-	font-size: 0.875rem;
-}
-
-.otherWine {
-	overflow: hidden;
-	width: 202px;
-	text-overflow: ellipsis;
-}
-
-.active {
-	display: block !important;
-}
-
-.vegetable-carousel {
-	display: flex !important; /* 가로로 배치 */
-	overflow-x: hidden;
-}
-
-.vesitable-item {
-	flex: 0 0 auto; /* 아이템이 고정 크기를 유지하도록 설정 */
-	margin-right: 10px; /* 아이템 사이 간격 */
-}
-
-.text-secondary-wine {
-	color: #881824 !important;
-}
-
-.backcor {
-	background-color: lightgray;
-}
-
-.aorb:hover {
-	border: 1px solid #881824 !important;
-	color: #881824;
-}
-</style>
+<link rel="stylesheet" href="../tem/css/winedetail.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
@@ -445,24 +268,21 @@
 					<div class="row g-4" style="align-items: center;">
 						<div v-for="vw in reviewListData"
 							style="display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid lightgray; margin-bottom: 20px;">
-
+                     <div style="align-self: self-start;"><span
+										v-for="as in 5" class="no-style"> <i
+											:class="{'text-secondary-wine':vw.srating>=as}"
+											style="margin-bottom: 12px;" class="fa fa-star"></i>
+									</span>
+									</div>
 							<table style="width: 100%">
 								<tr>
-									<td style="width: 130px;" class="text-center">
+									<td style="width: 80px;" class="text-center">
 										<h5>
 											<b>{{vw.nickname}}</b>
 										</h5>
 									</td>
-									<td style="width: 140px;" class="text-center">별점 <span
-										v-for="as in 5" class="no-style"> <i
-											:class="{'text-secondary-wine':vw.srating>=as}"
-											style="margin-right: 2px;" class="fa fa-star"></i>
-									</span>
-									</td>
-									<td style="width: 130px;" class="text-center">
-										<h5 style="width: 210px">
+									<td style="width: 180px;" class="text-center">
 											<b>{{vw.dbday}}</b>
-										</h5>
 									</td>
 									<td style="text-align: right;">
 										<button class="btn btn-md rounded-circle"
@@ -492,7 +312,7 @@
 								style="margin-bottom: 10px; margin-left: 10px;">
 								<table>
 									<tr>
-										<td style="width: 150px;"><b>별점</b> <label
+										<td style="width: 150px;"><b></b> <label
 											v-for="ss in 5" class="no-style" style="cursor: pointer;">
 												<input type="radio" name="sugarStars" :value="ss"
 												v-model="srating" style="display: none;"> <i
@@ -507,7 +327,7 @@
 								style="display: flex; justify-content: center; align-items: center;">
 								<textarea rows="4" cols="62" ref="review" v-model="review"
 									class="form-control"
-									style="width: 100%; resize: none; margin-right: 10px;"></textarea>
+									style="width: 100%; resize: none; margin-right: 10px;" placeholder="리뷰를 입력해주세요"></textarea>
 								<button class="form-control"
 									style="background-color: #57102F; color: white; width: 100px; height: 110px;"
 									@click="reviewInsert()">리뷰쓰기</button>
@@ -537,7 +357,7 @@
 						aria-labelledby="nav-tab1">
 						<div class="px-2">
 							<div class="vesitable">
-								<h3 class="fw-bold mb-0">&nbsp; "{{vo.makerkor}}" 의 다른 상품</h3>
+								<h3 class="fw-bold mb-0">&nbsp; {{vo.makerkor}}의 다른 상품</h3>
 								<br>
 								<div
 									class="owl-carousel vegetable-carousel justify-content-center">
@@ -574,7 +394,7 @@
 						aria-labelledby="nav-tab2">
 						<div class="px-2">
 							<div class="vesitable">
-								<h3 class="fw-bold mb-0">&nbsp; "{{sellerName}}" 의 Top 5</h3>
+								<h3 class="fw-bold mb-0">&nbsp; {{sellerName}}의 Top 5</h3>
 								<br>
 								<div
 									class="owl-carousel vegetable-carousel justify-content-center"
@@ -654,24 +474,25 @@
 		<div v-if="cookieCheck===0&&vo.nbno!==0" class="layer-popup"
 			id="popup" :class="{active:popupVisible}">
 			<div class="layer-popup-header">
+			<h4 class="modal-title centered">공지사항</h4>
 				<span class="layer-popup-close" style="text-align: right;"
 					@click="popupClose()">X</span>
 			</div>
-			<table class="table t" style="table-layout: fixed; margin-top: 10px;">
+			<table class="table mp" style="table-layout: fixed; margin-top: 10px;">
 				<tr>
-					<th width="20%">제목</th>
-					<td colspan="3" style="border: 1px solid #e1e1e1">
-						<p>{{nvo.subject}}</p>
+					<th width="20%" class="centered">제목</th>
+					<td colspan="3" style="border: 1px solid #e1e1e1;vertical-align: middle">
+						<p style="margin:0px">{{nvo.subject}}</p>
 					</td>
 				</tr>
 				<tr>
-					<th width="20%">보낸이</th>
-					<td width="30%">{{nvo.nickname}}</td>
-					<th width="20%">작성일</th>
-					<td width="30%" style="border: 1px solid #e1e1e1">{{nvo.dbday}}</td>
+					<th width="20%" class="centered">보낸이</th>
+					<td width="40%" class="centered">{{nvo.nickname}}</td>
+					<th width="10%" class="centered">작성일</th>
+					<td width="30%" class="centered" style="border: 1px solid #e1e1e1">{{nvo.dbday}}</td>
 				</tr>
 				<tr>
-					<td colspan="4" class="content-box"><pre>{{nvo.content}}</pre>
+					<td colspan="4" class="round"><pre>{{nvo.content}}</pre>
 					</td>
 				</tr>
 			</table>

@@ -62,7 +62,7 @@
 				<button class="exitbtn" @click="openModal()" >회원 탈퇴</button>
 		</div>
 		<div class="modal" :class="{ show: showModal }" @click.self="closeModal()">
-			<div class="modal-content" style="width: 420px; height: 300px; padding-bottom:10px; padding-top:70px;">
+			<div class="modal-content" style="width: 320px; height: 250px; padding-bottom:10px; padding-top:30px;">
 				<span class="close" @click="closeModal()">&times;</span>
 				<table class="table exittable" id="coupon-table">
 					<tr>

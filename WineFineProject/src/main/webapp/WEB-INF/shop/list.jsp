@@ -120,6 +120,38 @@
 	background-color: #881824 !important;
 	color: white !important;
 }
+.form-range {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+}
+
+.form-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #ff4081;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.form-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.form-range::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #fcc2d6 0%, #fcc2d6 var(--value), #ddd var(--value), #ddd 100%);
+}
+
+.form-range::-moz-range-track {
+    background: linear-gradient(to right, #fcc2d6 0%, #fcc2d6 var(--value), #ddd var(--value), #ddd 100%);
+}
 </style>
 </head>
 <body>
@@ -138,19 +170,16 @@
 										<small>초기화&nbsp;<i class="fa-solid fa-rotate-right"></i></small>
 									</p>
 								</div>
-
-								<b>TYPE :</b> <small>{{selectType}}</small><br> <b>FOOD :</b> <small>{{selectFoods}}</small><br> <b>AROMA :</b> <small>{{selectAroma}}</small><br> <b>PRICE :</b> <small>{{fprice == 1000000 ? '전체' : fprice + '원'}}</small>
 							</div>
 							<div class="col-1" style="width: 32px;"></div>
-							<div class="col-6" style="padding-top: 20px;">
-								<div class="input-group w-100 mx-auto d-flex">
-									<input type="text" @keyup.enter="sfw()" class="form-control " placeholder="와인 검색" aria-describedby="search-icon-1 " v-model="searchWine"><span id="search-icon-1" class="input-group-text thispointer"><i class="fa fa-search" @click="sfw()"></i></span>
-								</div>
-							</div>
-							<!-- 							<div class="col-xl-1"></div>							 -->
 							<div class="col-2">
 								<div style="padding: 30px 0px 0px 0px; text-align: left;">
 									<h5 style="text-align: right;">전체 와인 ({{this.wineTcount.toLocaleString()}})</h5>
+								</div>
+							</div>
+							<div class="col-6" style="padding-top: 20px;text-align: right;">
+								<div class="input-group w-100 mx-auto d-flex">
+									<input type="text" @keyup.enter="sfw()" class="form-control " placeholder="와인 검색" aria-describedby="search-icon-1 " v-model="searchWine"><span id="search-icon-1" class="input-group-text thispointer"><i class="fa fa-search" @click="sfw()"></i></span>
 								</div>
 							</div>
 						</div>
@@ -160,7 +189,7 @@
 
 									<div class="col-lg-12">
 										<div class="mb-3">
-											<h4>종류</h4>
+											<h5>종류</h5>
 											<div class="mb-2">
 												<ul class="filter-box" style="display: flex; flex-wrap: wrap; list-style: none; padding: 0;">
 													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('레드') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="레드">레드</label></li>
@@ -176,13 +205,13 @@
 
 									<div class="col-lg-12">
 										<div class="mb-3">
-											<h4 class="mb-2">가격</h4>
+											<h5 class="mb-2">가격</h5>
 											<input @change="dataRecv()" type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="10000" max="1000000" value="0" step="30000" v-model="fprice"> <span>{{fprice == 1000000 ? '전체' : fprice}}</span>
 										</div>
 									</div>
 									<div class="col-lg-12">
 										<div class="mb-3">
-											<h4>음식매칭</h4>
+											<h5>음식매칭</h5>
 											<div class="mb-2">
 												<ul class="filter-box" style="display: flex; flex-wrap: wrap; padding: 0; list-style-type: none;">
 													<li v-for="food in foodList" style="flex: 0 0 50%; box-sizing: border-box;"><label class="boxPointer" :class="{'item-wine':selectFoods.includes(food) }"><input @change="filterChange()" name="food" type="checkbox" v-model="selectFoods" class="thispointer" style="display: none" :value="food">{{food}}</label></li>
@@ -192,7 +221,7 @@
 									</div>
 									<div class="col-lg-12">
 										<div class="mb-3">
-											<h4>맛</h4>
+											<h5>맛</h5>
 											<ul class="filter-box">
 												<li style="text-align: center;">당도 &nbsp;<label v-for="ss in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="sugarStars" :value="ss" v-model="sugar" style="display: none;"><i :class="{'text-wine':sugar>=ss}" style="margin-right: 2px;" class="fa fa-circle"></i>
 												</label>
@@ -212,7 +241,7 @@
 
 									<div class="col-lg-12">
 										<div class="mb-3">
-											<h4>아로마</h4>
+											<h5>아로마</h5>
 											<div class="mb-2">
 												<ul class="filter-box" style="display: flex; flex-wrap: wrap; padding: 0; list-style-type: none;">
 													<li v-for="ar in aromaList" style="flex: 0 0 50%; box-sizing: border-box;"><label class="boxPointer" :class="{'item-wine':selectAroma.includes(ar) }"><input @change="filterChange()" name="ar" type="checkbox" v-model="selectAroma" style="display: none" :value="ar">{{ar}}</label></li>
@@ -444,6 +473,11 @@
         			this.curpage=1
         			this.dataRecv()
         		},
+        		updateSliderValue() {
+        	        const slider = document.getElementById('rangeInput')
+        	        const value = (slider.value - slider.min) / (slider.max - slider.min) * 100
+        	        slider.style.setProperty('--value', value + '%')
+        	    },
         		dataRecv(){
         			let typeStr='전체'
         			if(this.selectType.length!==0)
@@ -485,6 +519,7 @@
         				this.aromaList = response.data.aromaList
         				this.foodList = response.data.foodList
         				this.selectPrice = response.data.selectPrice
+        				this.updateSliderValue()
             			console.log('검색값 : ' + this.searchWine)
         			}).catch(error=>{
         				console.log(error.response)

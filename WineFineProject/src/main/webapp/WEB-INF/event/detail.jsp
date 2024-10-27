@@ -5,103 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>이벤트 상세 페이지</title>
+<link rel="stylesheet" href="../tem/css/event.css">
 <style>
-.namekor {
-	font-size: 32px;
-	font-weight: bold;
-	color: black;
-}
-
-.nameeng {
-	font-size: 20px;
-	color: gray;
-	margin-left: 10px;
-}
-
 table {
 	border-collapse: collapse;
 }
-
-.item, .ti {
-	border: 1px solid #ccc;
-	padding: 10px 5px 10px 5px;
-	text-align: center;
-}
-
-.item {
-	color: black;
-	background-color: #D9D9D9;
-}
-
-.listBtn {
-	background-color: #96C4FF;
-}
-
-.reserveBtn {
-    background-color: #DB3774;
-}
-.reserveBtn, .listBtn {
-	cursor: pointer;
-	margin-top: 20px;
-	padding: 0px;
-	width: 200px;
-	height: 50px;
-	align-content: center;
-	font-weight:bold;
-	border: none;
-	border-radius: 20px;
-	color: white;
-	margin-left: 5px;
-}
-
-.header-line {
-	border-top: 3px solid black;
-	margin-top: 10px;
-}
-
-.button-container {
-	text-align: center;
-	margin-top: 20px;
-}
-
-#flavor {
-	display: flex;
-	display: flex;
-	gap: 20px;
-}
-
-.left-align {
-	text-align: left;
-}
-
-.fa-circle {
-	color: lightgray;
-}
-
-.fa-circle.filled {
-	color: #CF1D56;
-}
-
-.wine-type {
-	display: inline-block;
-	padding: 3px 8px; 
-	border-radius: 10px; 
-	font-weight: bold;
-	font-size: 14px; 
-}
-
-.type-red {
-	color: #fff;
-	background-color: #bb2d3b;
-	border: 1px solid #dc3545; 
-}
-
-.type-white {
-	color: #000000;
-	background-color: #ffffff;
-	border: 1px solid #000000;
-}
-
 </style>
 </head>
 <body>
@@ -130,6 +38,11 @@ table {
 		            <div style="margin-top: 50px;" class="text-center">
 		                <img :src="img" v-for="img in pList" style="width: 80%">
 		            </div>
+		            <div style="height: 50px"></div>
+			    <div class="row">
+			      <div id="map" style="width:100%;height:500px;"></div>
+			    </div>
+			    <div style="height: 30px"></div>
 				 <div class="button-container" style="margin-bottom: 500px"> 
 		           <input type="button" class="reserveBtn" @click="isLoggedIn ? changeModal(true) : showAlert('로그인 후 예약할 수 있습니다.')" value="예약하기">
 		           <input type="button" class="listBtn" @click="List" value="목록">
@@ -173,6 +86,7 @@ table {
                 	 pList:[],
                 	 weno:${weno},
                 	 showModal:false,
+                	 address:'',
                 	 person:1,
                 	 isLoggedIn: false,
                 	 sessionId:'${sessionScope.userId}'
@@ -181,13 +95,10 @@ table {
              mounted() {
             	 if(this.sessionId!=='')
             		 this.isLoggedIn=true
-                 this.dataRecv()
+            	this.dataRecv()
              },
              methods: {
-            	 showAlert(message) {
-            	        alert(message)
-            	    },
-                 dataRecv() {
+            	 dataRecv() {
                      axios.get('../event/detailVue.do',{
                     	 params:{
              				weno:this.weno
@@ -196,10 +107,25 @@ table {
                     	 console.log(response.data)
                              this.vo=response.data.vo
                              this.pList=response.data.pList
+                             this.address = response.data.vo.address
+                             if(window.kakao && window.kakao.map)
+              			   {
+              				   console.log("initMap")
+              	   			   this.initMap()
+              			   }
+              			   else
+              			   {
+              				   console.log("addScript")
+              	   			   this.addScript()
+              			   }
                          }).catch(error=>{
                              console.error(error)
                          })
                  },
+            	 showAlert(message) {
+            	        alert(message)
+            	    },
+                 
                  List() {
                      window.location.href='../event/list.do'
                  },
@@ -235,7 +161,57 @@ table {
                 			 alert('예약가능한 인원을 초과하였습니다')
                 		 }
                 	 })
-                 }
+                 },
+                 addScript(){
+      			   const script=document.createElement("script") // <script>
+      			   /* globel kakao */
+      			   script.onload=()=>kakao.maps.load(this.initMap)
+      			   script.src="https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=81b614544bac2d13f8e340a9007323f8&libraries=services"
+      			   document.head.appendChild(script)
+      		   },
+      		   initMap(){
+      			 if (!this.address) {
+      		        console.error("주소가 유효하지 않습니다:", this.address);
+      		        return; // 주소가 유효하지 않으면 메소드 종료
+      		    }
+      			   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+      			    mapOption = {
+      			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+      			        level: 3 // 지도의 확대 레벨
+      			    };  
+
+      			// 지도를 생성합니다    
+      			var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+      			// 주소-좌표 변환 객체를 생성합니다
+      			var geocoder = new kakao.maps.services.Geocoder();
+
+      			// 주소로 좌표를 검색합니다
+      			geocoder.addressSearch(this.address, function(result, status) {
+
+      			    // 정상적으로 검색이 완료됐으면 
+      			     if (status === kakao.maps.services.Status.OK) {
+
+      			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+      			        // 결과값으로 받은 위치를 마커로 표시합니다
+      			        var marker = new kakao.maps.Marker({
+      			            map: map,
+      			            position: coords
+      			        });
+
+      			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+      			        var infowindow = new kakao.maps.InfoWindow({
+      			            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+'시음회 장소'+'</div>'
+      			        });
+      			        infowindow.open(map, marker);
+
+      			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+      			        map.setCenter(coords);
+      			    } 
+      			}); 
+      			
+      		   }
              }
         }).mount('#eventDetail')
     </script>

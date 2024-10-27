@@ -85,9 +85,6 @@
 						</div>
 					</div>
 					<div class="d-flex m-3 me-0">
-						<button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
-							<i class="fas fa-search text-wine"></i>
-						</button>
 						<a class="position-relative me-4 my-auto" style="cursor: pointer;" @click="changeNotice()">
 							<i class="fas fa-comment-alt fa-2x"></i> <span :class="{hide:count===0}" class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">{{count}}</span>
 						</a>
@@ -138,18 +135,18 @@
 			<div class="modal" :class="{ show: showModal }" @click.self="changeModal(false)">
 				<div class="modal-content" style="height: 455px;">
 					<span class="close" @click="changeModal(false)">&times;</span>
-					<table class="table t" style="table-layout: fixed; margin-top: 25px;">
+					<table class="table ttt" style="table-layout: fixed; margin-top: 25px;">
 						<tr>
-							<th width="20%">제목</th>
+							<th class="centered" width="20%">제목</th>
 							<td colspan="3" class="scrollable-text" style="border: 1px solid #e1e1e1">
-								<p>{{select.subject}}</p>
+								<p style="margin-bottom: 0px">{{select.subject}}</p>
 							</td>
 						</tr>
 						<tr>
-							<th width="20%">보낸이</th>
-							<td width="30%">{{select.sendid}}</td>
-							<th width="20%">작성일</th>
-							<td width="30%" style="border: 1px solid #e1e1e1">{{select.dbday}}</td>
+							<th class="centered" width="20%">보낸이</th>
+							<td class="centered" width="30%">{{select.sendid}}</td>
+							<th class="centered" width="20%">작성일</th>
+							<td class="centered" width="30%" style="border: 1px solid #e1e1e1">{{select.dbday}}</td>
 						</tr>
 						<tr>
 							<td colspan="4" class="content-box">

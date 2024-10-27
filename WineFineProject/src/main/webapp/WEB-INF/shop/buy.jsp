@@ -127,7 +127,7 @@
 						</table>
 					</div>
 					<div class="col-4">
-						<h3>할인쿠폰 / 적립금</h3>
+						<h3>할인쿠폰 / 포인트</h3>
 						<div class="table-responsive coupondiv">
 							<table class="table">
 								<thead>
@@ -153,7 +153,7 @@
 											<button class="btn btn-md  bg-light  " style="margin-left: 5px;" @click="allPoint()">전액사용</button></td>
 									</tr>
 									<tr>
-										<td style="border-bottom: none;">잔여 적립금 [ {{userPoint}} ] 원</td>
+										<td style="border-bottom: none;">잔여 포인트 [ {{userPoint}} ] 원</td>
 									</tr>
 								</tbody>
 							</table>
@@ -189,7 +189,7 @@
 								</div>
 								<br>
 								<div class="d-flex justify-content-between">
-									<h5 class="mb-0 me-4">사용 적립금</h5>
+									<h5 class="mb-0 me-4">사용 포인트</h5>
 									<div class="">
 										<p class="mb-0">{{ point != null ? point + ' 원' : '적용안함' }}</p>
 									</div>
