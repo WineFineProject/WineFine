@@ -2,6 +2,8 @@ package com.sist.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Select;
+
 import com.sist.vo.MemberVO;
 
 public interface MemberService {
@@ -27,4 +29,6 @@ public interface MemberService {
     public void gradeIncrement(String userId);
     public void gradeDecrement(String userId);
     public void visitCheck(String pageid);
+  	public String idFindPhone(String phone);
+  	public String idFindEmail(String email);
 }

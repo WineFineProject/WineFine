@@ -126,4 +126,9 @@ public interface MemberMapper {
 
 	@Update("UPDATE authority SET authority='ROLE_SELLER' WHERE userId=#{userId}")
 	public void sellerAuthority(MemberVO vo);
+	
+	@Select("SELECT userId FROM wine_member WHERE phone=#{phone}")
+	public String idFindPhone(String phone);
+	@Select("SELECT userId FROM wine_member WHERE email=#{email}")
+	public String idFindEmail(String email);
 }

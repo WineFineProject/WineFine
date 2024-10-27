@@ -276,13 +276,13 @@
 									</div>
 							<table style="width: 100%">
 								<tr>
-									<td style="width: 80px;" class="text-center">
-										<h5>
+									<td>
+										<h5 style="display: inline-block;">
 											<b>{{vw.nickname}}</b>
 										</h5>
+											&nbsp;&nbsp;|&nbsp;&nbsp;<small><b>{{vw.dbday}}</b></small>
 									</td>
 									<td style="width: 180px;" class="text-center">
-											<b>{{vw.dbday}}</b>
 									</td>
 									<td style="text-align: right;">
 										<button class="btn btn-md rounded-circle"
@@ -312,7 +312,7 @@
 								style="margin-bottom: 10px; margin-left: 10px;">
 								<table>
 									<tr>
-										<td style="width: 150px;"><b></b> <label
+										<td style="width: 500px;"><b>{{nick}}&nbsp;&nbsp;</b> <label
 											v-for="ss in 5" class="no-style" style="cursor: pointer;">
 												<input type="radio" name="sugarStars" :value="ss"
 												v-model="srating" style="display: none;"> <i
@@ -548,6 +548,7 @@
 	            vo: {}, // 와인 상세 정보
 	            wno: '${wno}', 
 	            sessionId: '${session}',
+	            nick: '${nick}',
 	            list: [],
 	            msg: '',
 	            isUps: false,

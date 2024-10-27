@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -121,4 +122,10 @@ public class MemberDAO {
   public void visitCheck(String pageid) {
   	mapper.visitCheck(pageid);
   }
+	public String idFindPhone(String phone) {
+		return mapper.idFindPhone(phone);
+	}
+	public String idFindEmail(String email) {
+		return mapper.idFindEmail(email);
+	}
 }

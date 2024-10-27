@@ -45,7 +45,7 @@ $('#sign-up').click(function() {
 		<div class="login__content">
 			<div class="login__forms">
 				<!--         login form -->
-				<div id="loginApp" v-show="!showLogin">
+				<div id="loginApp" v-show="!showLogin&&!showFind">
 					<form action="../member/login.do" method="post" class="login__register" id="login-in">
 						<h1 class="login__title">Sign In</h1>
 						<div class="login__box">
@@ -59,19 +59,16 @@ $('#sign-up').click(function() {
 						<div class="login__box">
 							<input type="checkbox" class="login__input" name="remember-me">자동로그인
 						</div>
-						<div class="login__box">
 							<span class="text-center" style="color: red">${message }</span>
-						</div>
 						<button type="button" class="login__button" @click="login()">Sign In</button>
 						<div>
-							<span class="login__signin login__signin--signup" id="forgot">Forgot Account? </span>&nbsp;<span class="login__signin login__signin--signup"
-								id="forgotPwd">Forgot Password? </span><br> <span class="login__account login__account--account">Don't Have an Account?</span> <span
+							<span class="login__signin login__signin--signup" id="forgot" @click="showFindPage()">Forgot Account? </span><br> <span class="login__account login__account--account">Don't Have an Account?</span> <span
 								class="login__signin login__signin--signup" id="sign-up" @click="chagePage()">Sign Up</span>
 						</div>
 					</form>
 				</div>
 				<!-- 회원가입 -->
-				<div class="login__create" id="login-up" v-show="showLogin">
+				<div class="login__create" id="login-up" v-show="showLogin&&!showFind">
 					<form action="../member/joinOk.do" method="post" @submit.prevent="insertMember()" id="signupForm">
 						<h1 class="login__title">Create Account</h1>
 						<input type="hidden" v-model="addrEng" name="addrEng">
@@ -171,83 +168,41 @@ $('#sign-up').click(function() {
 					</form>
 				</div>
 				<!-- 아이디찾기 페이지 -->
-				<div class="login__find none" id="find-account">
+				<div class="login__find" id="find-account" v-if="!showLogin&&showFind">
 					<h1 class="login__title">Find Account</h1>
 					<div class="login__box" id="findType">
 						<i class='bx bx-search login__icon'></i>
 						<input type="text" placeholder="type" class="login__input" readonly>
-						<label class="login__input"> <input type="radio" value="1" name="type" id="type"> 전화번호
-						</label> <label class="login__input"> <input type="radio" value="2" name="type" id="type"> 이메일
+						<label class="login__input"> <input type="radio" :value="0" v-model="findMode" @change="dataReset()"> 전화번호
+						</label> <label class="login__input"> <input type="radio" :value="1" v-model="findMode" @change="dataReset()"> 이메일
 						</label>
 					</div>
-					<div class="login__box none" id="findPhone">
+					<div class="login__box" id="findPhone" v-if="findMode===0">
 						<i class='bx bx-phone login__icon'></i>
 						<input type="text" placeholder="Phone" class="login__input" readonly>
 						<div class="phone-container">
-							<select name="phone1" class="phone-prefix" style="margin-right: 6px;" id="phone1">
+							<select name="phone1" class="phone-prefix" style="margin-right: 6px;" v-model="findPhone1">
 								<option value="02">02</option>
 								<option value="010">010</option>
 								<option value="011">011</option>
 							</select>
-							<input type="text" placeholder="Phone" class="phone-input" style="margin-right: 6px;" id="phone2" maxlength="4">
-							<input type="text" placeholder="Phone" class="phone-input" id="phone3" maxlength="4">
+							<input type="text" placeholder="Phone" class="phone-input" style="margin-right: 6px;" v-model="findPhone2" maxlength="4">
+							<input type="text" placeholder="Phone" class="phone-input" v-model="findPhone3" maxlength="4">
 						</div>
 					</div>
-					<div class="login__box none" id="findEmail">
+					<div class="login__box" id="findEmail" v-if="findMode===1">
 						<i class='bx bx-search login__icon'></i>
-						<input type="text" placeholder="Email" class="login__input" id="findEmailData">
+						<input type="text" placeholder="Email" class="login__input" v-model="findEmail">
 					</div>
-					<div class="none" id="findBtn">
-						<span style="cursor: pointer;" class="login__button">Find</span>
+					<div id="findBtn">
+						<span style="cursor: pointer;" class="login__button" @click="findId()">Find</span>
 					</div>
-					<div id="findResultDiv none">
-						<span id="findResult" class="login__account login__account--account" style="font-size: 25px;"></span>
+					<div id="findResultDiv">
+						<span id="findResult" class="login__account login__account--account" style="font-size: 25px;">{{isFind?findIdData===''?'검색 결과가 없습니다':findIdData:''}}</span>
 					</div>
 					<div>
 						<span class="login__account login__account--account">Already have an Account?</span> <span class="login__signup login__signup--signup"
-							id="returnLogin">Sign In</span>
-					</div>
-				</div>
-				<!-- 비밀번호찾기 페이지 -->
-				<div class="login__find none" style="height: 360px !important;" id="find-Pwd">
-					<h1 class="login__title">Find Password</h1>
-					<div class="login__box" id="findIdPwd">
-						<i class='bx bx-user login__icon'></i>
-						<input type="text" placeholder="ID" class="login__input" id="idPwd">
-					</div>
-					<div class="login__box" id="findTypePwd">
-						<i class='bx bx-search login__icon'></i>
-						<input type="text" placeholder="type" class="login__input" readonly>
-						<label class="login__input"> <input type="radio" value="1" name="typePwd" id="typePwd"> 전화번호
-						</label> <label class="login__input"> <input type="radio" value="2" name="typePwd" id="typePwd"> 이메일
-						</label>
-					</div>
-					<div class="login__box none" id="findPhonePwd">
-						<i class='bx bx-phone login__icon'></i>
-						<input type="text" placeholder="Phone" class="login__input" readonly>
-						<div class="phone-container">
-							<select name="phone1Pwd" class="phone-prefix" style="margin-right: 6px;" id="phone1Pwd">
-								<option value="02">02</option>
-								<option value="010">010</option>
-								<option value="011">011</option>
-							</select>
-							<input type="text" placeholder="Phone" class="phone-input" style="margin-right: 6px;" id="phone2Pwd" maxlength="4">
-							<input type="text" placeholder="Phone" class="phone-input" id="phone3Pwd" maxlength="4">
-						</div>
-					</div>
-					<div class="login__box none" id="findEmailPwd">
-						<i class='bx bx-search login__icon'></i>
-						<input type="text" placeholder="Email" class="login__input" id="findEmailDataPwd">
-					</div>
-					<div class="none" id="findBtnPwd">
-						<span style="cursor: pointer;" class="login__button">Find</span>
-					</div>
-					<div id="findResultDivPwd none">
-						<span id="findResultPwd" class="login__account login__account--account" style="font-size: 25px;"></span>
-					</div>
-					<div>
-						<span class="login__account login__account--account">Already have an Account?</span> <span class="login__signup login__signup--signup"
-							id="returnLoginPwd">Sign In</span>
+							id="returnLogin" @click="findClose()">Sign In</span>
 					</div>
 				</div>
 			</div>
@@ -286,8 +241,16 @@ $('#sign-up').click(function() {
 				isPwdCheck:false,
 				isPwdValid:false,
 				showLogin:false,
+				showFind:false,
 				isSeller:0,
-				addrEng:''
+				addrEng:'',
+				findMode:0,
+				findEmail:'',
+				findPhone1:'02',
+				findPhone2:'',
+				findPhone3:'',
+				findIdData:'',
+				isFind:false
 			}
 		},
 		methods:{
@@ -490,6 +453,61 @@ $('#sign-up').click(function() {
 	   		 },
 	 		chagePage(){
 	 			 this.showLogin=!this.showLogin
+	 		 },
+	 		showFindPage(){
+	 			 this.showLogin=false
+	 			 this.showFind=true
+	 		 },
+	 		findClose(){
+	 			 this.showFind=false
+	 			 this.showLogin=false
+	 			 this.isFind=false
+	 			 this.findIdData=''
+	 			 this.findPhone1='02'
+	 			 this.findPhone2=''
+	 			 this.findPhone3=''
+	 			 this.findEmail=''
+	 		 },
+	 		findId(){
+	 			 if(this.findMode===0){
+	 				 if(this.findPhone2==='' || this.findPhone3===''){
+	 					 alert('전화번호를 전부 입력하세요')
+	 					 return
+	 				 }
+	 				let phoneNum=this.findPhone1+'-'+this.findPhone2+'-'+this.findPhone3
+	 				axios.get('../member/vueIdFindPhone.do',{
+	 					 params:{
+	 						 phone:phoneNum
+	 					 }
+	 				 }).then(response=>{
+	 					console.log(response.data)
+	 					this.isFind=true
+	 					this.findIdData=response.data
+	 				 })
+	 			 }
+	 			 else{
+	 				 if(this.findEmail===''){
+	 					 alert('이메일주소를 입력하세요')
+	 					 return
+	 				 }
+	 				 axios.get('../member/vueIdFindEmail.do',{
+	 					 params:{
+	 						 email:this.findEmail
+	 					 }
+	 				 }).then(response=>{
+	 					 console.log(response.data)
+	 					 this.isFind=true
+	 					 this.findIdData=response.data
+	 				 })
+	 			 }
+	 		 },
+	 		dataReset(){
+	 			this.isFind=false
+	 			 this.findIdData=''
+	 			 this.findPhone1='02'
+	 			 this.findPhone2=''
+	 			 this.findPhone3=''
+	 			 this.findEmail=''
 	 		 }
 		}
 	}).mount('.login')

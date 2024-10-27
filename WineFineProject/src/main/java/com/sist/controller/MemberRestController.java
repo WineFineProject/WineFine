@@ -170,4 +170,14 @@ public class MemberRestController {
 		return String.valueOf(count);
 	}
 
+	@GetMapping(value = "member/vueIdFindEmail.do", produces = "text/plain;charset=UTF-8")
+	public String vueIdFindEmail(String email) throws Exception{
+		String id=mService.idFindEmail(email);
+		return id;
+	}
+	@GetMapping(value = "member/vueIdFindPhone.do", produces = "text/plain;charset=UTF-8")
+	public String vueIdFindPhone(String phone) throws Exception{
+		String id=mService.idFindPhone(phone);
+		return id;
+	}
 }

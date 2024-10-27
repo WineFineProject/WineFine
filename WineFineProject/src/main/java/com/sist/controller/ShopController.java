@@ -45,8 +45,10 @@ public class ShopController {
 	@GetMapping("shop/detail.do")
 	public String shop_detail(int wno, Model model, HttpSession session) {
 		String id = (String)session.getAttribute("userId");
+		String nick = (String)session.getAttribute("nickName");
 		model.addAttribute("wno",wno);
 		model.addAttribute("session",id);
+		model.addAttribute("nick",nick);
 		return "shop/detail";
 	}
 	

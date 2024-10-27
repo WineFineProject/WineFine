@@ -115,4 +115,12 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		dao.noAccessMember(id);
 	}
+	@Override
+	public String idFindPhone(String phone) {
+		return dao.idFindPhone(phone);
+	}
+	@Override
+	public String idFindEmail(String email) {
+		return dao.idFindEmail(email);
+	}
 }
