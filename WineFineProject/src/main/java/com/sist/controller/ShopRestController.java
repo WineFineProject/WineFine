@@ -33,9 +33,8 @@ import oracle.jdbc.proxy.annotation.Post;
 
 @RestController
 public class ShopRestController {
-	String[] wtypes = { "", "레드", "화이트", "스파클링", "로제", "주정강화", "기타" };
-	String[] foods = { "소", "돼지", "양", "치킨", "피자", "비빔밥", "가리비", "아시아", "건육", "케이크", "튀김", "생선", "누들", "과일", "샐러드",
-			"치즈", "샴페인" };
+	String[] wtypes = { "", "레드", "화이트", "로제", "스파클링", "주정강화", "기타" };
+	String[] foods = { "소", "돼지", "양", "치킨", "피자", "비빔밥", "가리비", "아시아", "건육", "케이크", "튀김", "생선", "누들", "과일", "샐러드", "치즈", "샴페인" };
 	String[] aroma = { "꽃", "돌", "레몬", "말린과일", "베리", "사과", "숙성", "시나몬", "아몬드", "오크통", "크로와상", "파인애플", "파프리카", "허브" };
 
 	private ShopService sservice;
@@ -64,15 +63,7 @@ public class ShopRestController {
 			param.put("aroma", "");
 		if(param.get("fd")==null)
 			param.put("fd", "");
-//	    FilterVO filter = new FilterVO();
-//	    filter.setType(convertToList(param.get("type")));
-//	    filter.setFood(convertToList(param.get("food")));
-//	    filter.setAroma(convertToList(param.get("Aroma")));
-//	    filter.setPrice((String) param.get("price"));
-//	    filter.setSugarStars(parseInteger(param.get("sugarStars")));
-//	    filter.setAcidStars(parseInteger(param.get("acidStars")));
-//	    filter.setBodyStars(parseInteger(param.get("bodyStars")));
-//	    filter.setTanninStars(parseInteger(param.get("tanninStars")));
+
 		int rowsize = 12;
 		int start = (rowsize * page) - (rowsize - 1);
 		int end = rowsize * page;
@@ -92,7 +83,7 @@ public class ShopRestController {
 		if (endpage > totalpage)
 			endpage = totalpage;
 
-//		占쎈쐻占쎈윥占쎈ぅ占쎈쐻占쎈윪�얠±�쐻占쎈윞占쎈뙃�뜝�럥�걫占쎈쐻�뜝占� 癲ル슢�뀈泳�怨뀀눀占쎄섶占쎌굲占쎈빝�뜝占� => JSON => VueJS占쎌뒙占쎈뙔占쎌굲 占쎈쐻占쎈윪占쎌벁占쎈쐻占쎈윥�땻占�
+//		�뜝�럥�맶�뜝�럥�쑅�뜝�럥�걛�뜝�럥�맶�뜝�럥�쑋占쎌뼚짹占쎌맶�뜝�럥�쐾�뜝�럥�셾占쎈쐻占쎈윥占쎄괴�뜝�럥�맶占쎈쐻�뜝占� �솾�꺂�뒧占쎈�덃납占썸�⑤�����뜝�럡�꽫�뜝�럩援꿨뜝�럥鍮앾옙�쐻�뜝占� => JSON => VueJS�뜝�럩�뮋�뜝�럥�솕�뜝�럩援� �뜝�럥�맶�뜝�럥�쑋�뜝�럩踰곩뜝�럥�맶�뜝�럥�쑅占쎈빝�뜝占�
 		Map map = new HashMap();
 		map.put("list", filter);
 		map.put("totalpage", totalpage);
@@ -244,7 +235,7 @@ public class ShopRestController {
 		int pswno = vo.getWno();
 		map.put("wno", pswno);
 
-//		占쏙옙占쎌뿯 筌≪뼔�뮉 for �눧占�
+//		�뜝�룞�삕�뜝�럩肉� 嶺뚢돦堉뷂옙裕� for 占쎈닱�뜝占�
 		String s = vo.getType();
 		int typeIndex = 0;
 
@@ -282,8 +273,8 @@ public class ShopRestController {
 			sservice.insertPayment(vo);
 			sservice.useCoupon(mvo);
 
-			sservice.usePoint(memvo);// mipoint 諛쏆븘�빞�븿
-			sservice.plusPoint(memvo);// plpoint 諛쏆븘�빞�븿
+			sservice.usePoint(memvo);// mipoint 獄쏆룇釉섓옙鍮욑옙釉�
+			sservice.plusPoint(memvo);// plpoint 獄쏆룇釉섓옙鍮욑옙釉�
 
 			result = "yes";
 		} catch (Exception ex) {
@@ -414,7 +405,7 @@ public class ShopRestController {
 
     int totalSeconds = hoursInSeconds + minutesInSeconds + seconds;
 
-    System.out.println("현재 시간을 초로 환산한 값: " + totalSeconds);
+    System.out.println("�쁽�옱 �떆媛꾩쓣 珥덈줈 �솚�궛�븳 媛�: " + totalSeconds);
 		String id=(String)session.getAttribute("userId");
 		if(id==null)
 			id="guest";
