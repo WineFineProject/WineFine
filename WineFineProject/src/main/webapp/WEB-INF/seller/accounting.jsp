@@ -46,6 +46,7 @@
 					<th width="15%">수수료</th>
 					<th width="10%">VAT</th>
 				</tr>
+				<tr v-if="aList.length===0"><td colspan="7">정산 목록이 없습니다</td></tr>
 				<tr v-for="vo in aList" :key="vo.acno" id="inner-table">
 				  <td width="15%">{{vo.acno}}</td>
 				  <td width="15%">{{vo.rdbday}}</td>

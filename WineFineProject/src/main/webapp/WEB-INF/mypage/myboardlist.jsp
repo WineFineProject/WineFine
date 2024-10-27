@@ -24,6 +24,7 @@
 					<th width="8%">조회수</th>
 				</tr>
 			</thead>
+			<tr v-show="list.length===0"><td colspan="5">작성한 글이 없습니다</td></tr>
 			  <tr v-for="(vo,index) in list" style="cursor: pointer;">
 			   <td colspan="5" id="tmp" style="border:none">
 				<div>
@@ -44,6 +45,7 @@
 		</table>
 		<table v-if="type==='2'" class="table" id="coupon-table">
 			<thead>
+			<tr v-show="list.length===0"><td colspan="5">작성한 글이 없습니다</td></tr>
 				<tr>
 					<th width="5%">번호</th>
 					<th width="40%">제목</th>
@@ -72,6 +74,7 @@
 		</table>
 		<table v-if="type==='3'" class="table" id="coupon-table">
 			<thead>
+			<tr v-show="list.length===4"><td colspan="5">작성한 댓글이 없습니다</td></tr>
 				<tr>
 					<th width="8%">번호</th>
 					<th width="45%">내용</th>

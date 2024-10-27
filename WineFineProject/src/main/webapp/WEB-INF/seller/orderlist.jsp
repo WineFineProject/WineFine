@@ -46,6 +46,7 @@
 				<th width="9%" class="text-center">반품요청</th>
 				<th width="9%" class="text-center">주문취소</th>
 			</tr>
+			<tr v-if="oList.length===0"><td colspan="9">주문내역이 없습니다</td></tr>
 			<template v-for="(vo, index) in oList">
 			<tr @click="moreInfo(index)">
 				<td width="10%" class="text-center">{{vo.wpno}}</td>

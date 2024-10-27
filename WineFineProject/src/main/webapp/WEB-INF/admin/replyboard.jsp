@@ -20,6 +20,7 @@
 				<th width=7% class="text-center">조회수</th>
 				<th width=10% class="text-center">답변상태</th>
 			</tr>
+			<tr v-if="list.length===0"><td colspan="6">1:1문의가 없습니다.</td></tr>
 			<tr v-for="(vo, index) in list">
 				<td width=10% class="text-center">{{count-index}}</td>
 				<td width=35%><a :href="'../admin/replydetail.do?wrno='+vo.wrno">{{vo.subject}}</a></td>

@@ -28,6 +28,7 @@
 						<div>
 							<table style="width: 100%" id="inner-table">
 								<tbody>
+								<tr v-if="report.length===0"><td colspan="7">신고 내역이 없습니다.</td></tr>
 									<tr v-for="(vo,index) in report">
 										<td style="padding: 8px" width="5%">{{count-index}}</td>
 										<td width="20%">{{vo.category}}</td>

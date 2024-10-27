@@ -20,6 +20,7 @@
 				<th width="10%" class="text-center">신청일</th>
 				<th width="21%" class="text-center">승인/반려</th>
 			</tr>
+				<tr v-if="list.length===0"><td colspan="8">승인 대기중인 와인이 없습니다</td></tr>
 			<template v-for="(vo, index) in list">
 				<tr @click="checkInfo(index)">
 					<td width="7%" class="text-center">{{vo.wno}}</td>

@@ -38,6 +38,7 @@
         </tr>
        </thead>
 		<tbody v-if="type===0">
+		<tr v-if="list.length===0"><td colspan="6">작성한 공지가 없습니다</td></tr>
         <tr v-for="(vo, index) in list">
          <td width="5%" class="text-center">{{list.length - index}}</td>
          <td width="10%" class="text-center">
@@ -52,6 +53,7 @@
         </tr>
        </tbody>
        <tbody v-else>
+       <tr v-if="cList.length===0"><td colspan="6">작성한 공지가 없습니다</td></tr>
        <tr v-for="(vo, index) in cList">
          <td width="5%" class="text-center">{{cList.length - index}}</td>
          <td width="10%" class="text-center">

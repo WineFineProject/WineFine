@@ -26,6 +26,9 @@
 					<td style="padding: 0px;border:none" colspan="7">
 						<div>
 							<table style="width: 100%" id="inner-table">
+							<tr v-show="activeCoupon.length===0">
+										<td colspan="7">진행중인 프로모션이 없습니다</td>
+									</tr>
 								<tbody>
 									<tr v-for="vo in activeCoupon">
 										<td style="padding: 8px" width="21%">{{vo.title}}</td>
@@ -62,6 +65,9 @@
 						<div>
 							<table style="width: 100%" id="inner-table">
 								<tbody>
+								<tr v-show="waitCoupon.length===0">
+										<td colspan="7">승인대기중인 프로모션이 없습니다</td>
+									</tr>
 									<tr v-for="(avo, index) in waitCoupon">
 										<td width="21%">{{avo.title}}</td>
 										<td width="25%">{{avo.targetname}}</td>

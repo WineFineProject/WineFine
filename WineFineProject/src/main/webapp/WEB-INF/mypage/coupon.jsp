@@ -27,6 +27,9 @@
 						<div>
 							<table class="table" id="inner-table" style="width: 100%">
 								<tbody>
+								<tr>
+								<td v-show="myCoupon.length===0" colspan="7">수령한 쿠폰이 없습니다</td>
+								</tr>
 									<tr v-for="vo in myCoupon">
 										<td width="21%">{{vo.title}}</td>
 										<td width="25%">{{vo.sellname}}</td>
@@ -62,6 +65,9 @@
 						<div>
 							<table class="table" id="inner-table" style="width: 100%">
 								<tbody>
+								<tr>
+								<td v-show="activeCoupon.length===0" colspan="7">수령가능한 쿠폰이 없습니다</td>
+									</tr>
 									<tr v-for="(avo, index) in activeCoupon">
 										<td width="21%">{{avo.title}}</td>
 										<td width="25%">{{avo.targetname}}</td>

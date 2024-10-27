@@ -30,6 +30,7 @@
 								</tr>
 							</thead>
 							<tbody>
+							<tr v-if="list.length===0"><td colspan="8">추가한 상품이 없습니다</td></tr>
 								<tr v-for="vo in list">
 									<td>
 										<p class="mb-0 mt-4">{{vo.cno}}</p>

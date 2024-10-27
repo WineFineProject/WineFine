@@ -34,6 +34,7 @@
 						<div>
 							<table style="width: 100%" id="inner-table">
 								<tbody>
+									<tr v-if="activeCoupon.length===0"><td colspan="6">진행중인 프로모션이 없습니다</td></tr>
 									<tr v-for="vo in activeCoupon">
 										<td style="padding: 8px" width="21%">{{vo.title}}</td>
 										<td width="25%">{{vo.targetname}}</td>
@@ -68,7 +69,7 @@
 					<td style="padding: 0px;border:none" colspan="7">
 						<div>
 							<table style="width: 100%" id="inner-table">
-								<tbody>
+									<tr v-if="waitCoupon.length===0"><td colspan="7">승인 대기중인 프로모션이 없습니다</td></tr>
 									<tr v-for="avo in waitCoupon">
 										<td style="padding: 8px" width="21%">{{avo.title}}</td>
 										<td width="25%">{{avo.targetname}}</td>
@@ -80,7 +81,6 @@
 											<button @click="deletePromotion(avo.pcno)" class="btn btn-sm border-wine rounded-pill text-wine" type="button">X</button>
 										</td>
 									</tr>
-								</tbody>
 							</table>
 						</div>
 					</td>

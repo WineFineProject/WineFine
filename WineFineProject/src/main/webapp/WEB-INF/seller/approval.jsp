@@ -33,6 +33,7 @@
 					<th width="10%">등록일</th>
 					<th width="10%">상태</th>
 				</tr>
+				<tr v-if="wList.length===0"><td colspan="7">승인 대기 목록이 없습니다</td></tr>
 				<tr v-for="vo in wList" :key="vo.wno" id="inner-table">
 				  <td width="15%">{{vo.wno}}</td>
 				  <td width="15%">{{vo.type}}</td>
@@ -54,6 +55,7 @@
 					<th width="10%">등록일</th>
 					<th width="10%">상품 삭제</th>
 				</tr>
+				<tr v-if="dList.length===0"><td colspan="7">승인 반려된 목록이 없습니다</td></tr>
 				<tr v-for="vo in dList" :key="vo.wno" id="inner-table">
 				  <td width="15%">{{vo.wno}}</td>
 				  <td width="15%">{{vo.type}}</td>

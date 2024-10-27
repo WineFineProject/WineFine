@@ -30,6 +30,7 @@
 					<th width="10%">VAT</th>
 					<th width="15%">승인/반려</th>
 				</tr>
+				<tr v-show="aList.length===0"><td colspan="8">정산 신청이 없습니다</td></tr>
 				<tr v-for="vo in aList" :key="vo.acno" class="mp">
 				  <td width="10%">{{vo.acno}}</td>
 				  <td width="10%">{{vo.userid}}</td>

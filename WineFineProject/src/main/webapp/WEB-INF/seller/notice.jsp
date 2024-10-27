@@ -21,6 +21,7 @@
 				<th width=15% class="text-center">작성일</th>
 				<th width=10% class="text-center">조회수</th>
 			</tr>
+			<tr v-if="list.length===0"><td colspan="5">작성한 공지가 없습니다</td></tr>
 			<tr v-for="(vo, index) in list">
 				<td width=10% class="text-center">{{count-index}}</td>
 				<td width=35%><a :href="'../seller/noticeDetail.do?nbno='+vo.nbno">{{vo.subject}}</a></td>

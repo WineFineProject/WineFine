@@ -38,6 +38,7 @@
 				</tr>
 			</thead>
 			<tbody class="text-center">
+			<tr v-if="black.length===0"><td colspan="9">블랙리스트 회원이 없습니다</td></tr>
 				<template v-for="(vo, index) in black">
 					<tr style="vertical-align: middle;"@click="detailMember(index)">
 						<td width="5%">{{index+1+(curpage-1)*10}}</td>

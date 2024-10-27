@@ -222,6 +222,7 @@
 																	<th width="10%">상태</th>
 																</tr>
 															</thead>
+															<tr v-if="relist.length===0"><td colspan="6">문의내역이 없습니다.</td></tr>
 															<tbody v-for="(re,index) in relist">
 																<tr>
 																	<td class="text-center">{{boTocount - index +1}}</td>

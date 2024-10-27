@@ -33,6 +33,7 @@
 						<div>
 							<table style="width: 100%" id="inner-table">
 								<tbody>
+								<tr v-if="activeBanner.length===0"><td colspan="6">진행중인 프로모션이 없습니다</td></tr>
 									<tr v-for="vo in activeBanner">
 										<td style="padding: 8px" width="23%">{{vo.title}}</td>
 										<td width="27%">{{vo.wvo.namekor}}</td>
@@ -65,6 +66,9 @@
 						<div>
 							<table style="width: 100%" id="inner-table">
 								<tbody>
+									<tr v-if="activeBanner.length===0">
+										<td colspan="5">승인 대기중인 프로모션이 없습니다</td>
+									</tr>
 									<tr v-for="avo in waitBanner">
 										<td style="padding: 8px" width="31%">{{avo.title}}</td>
 										<td width="35%">{{avo.wvo.namekor}}</td>

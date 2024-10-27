@@ -20,6 +20,9 @@
 				<th width="10%" class="text-center">가격</th>
 				<th width="10%" class="text-center"></th>
 			</tr>
+			<tr>
+			<td v-show="list.length===0" colspan="7">좋아요를 누른 제품이 없습니다</td>
+			</tr>
 			<tr v-for="vo in list">
 				<td width="5%" class="text-center">{{vo.lno}}</td>
 				<td width="5%" class="text-center"><img :src="vo.wvo.poster" style="width:40px;height: 58px"></td>

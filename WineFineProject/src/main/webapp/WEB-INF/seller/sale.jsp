@@ -34,6 +34,7 @@
 						<div>
 							<table style="width: 100%" id="inner-table">
 								<tbody>
+								<tr v-if="activeSale.length===0"><td colspan="7">진행중인 프로모션이 없습니다</td></tr>
 									<tr v-for="vo in activeSale">
 										<td style="padding: 8px" width="21%">{{vo.title}}</td>
 										<td width="25%">{{vo.targetname}}</td>
@@ -69,6 +70,7 @@
 						<div>
 							<table style="width: 100%" id="inner-table">
 								<tbody>
+									<tr v-if="waitSale.length===0"><td colspan="7">승인 대기중인 프로모션이 없습니다</td></tr>
 									<tr v-for="avo in waitSale">
 										<td style="padding: 8px" width="21%">{{avo.title}}</td>
 										<td width="25%">{{avo.targetname}}</td>

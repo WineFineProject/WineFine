@@ -9,6 +9,7 @@
 	height: 300px !important;
 	opacity: 0.4;
 	margin-top: 20px;
+	cursor: pointer;
 }
 .content {
 	font-size: 16px; 

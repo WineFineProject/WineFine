@@ -22,10 +22,13 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td style="padding: 0px; border:none" colspan="7">
+					<td style="padding: 0px; border: none" colspan="7">
 						<div>
 							<table style="width: 100%" id="inner-table">
 								<tbody>
+									<tr v-show="activeBanner.length===0">
+										<td colspan="6">진행중인 프로모션이 없습니다</td>
+									</tr>
 									<tr v-for="vo in activeBanner">
 										<td style="padding: 8px" width="23%">{{vo.title}}</td>
 										<td width="27%">{{vo.wvo.namekor}}</td>
@@ -53,8 +56,11 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr v-show="waitBanner.length===0">
+					<td colspan="5">신청대기중인 프로모션이 없습니다</td>
+				</tr>
 				<tr>
-					<td style="padding: 0px;border:none" colspan="7">
+					<td style="padding: 0px; border: none" colspan="7">
 						<div>
 							<table style="width: 100%" id="inner-table">
 								<tbody>

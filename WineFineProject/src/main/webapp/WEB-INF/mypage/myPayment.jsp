@@ -46,6 +46,7 @@
 				<th width="20%" class="text-center">구매일</th>
 				<th width="10%" class="text-center">반품신청</th>
 			</tr>
+			<tr v-if="list.length===0"><td colspan="8">구매한 와인기록이 없습니다</td></tr>
 			<template v-for="(vo, index) in list">
 				<tr @click="moreInfo(index)">
 					<td width="5%" class="text-center">{{vo.wpno}}</td>

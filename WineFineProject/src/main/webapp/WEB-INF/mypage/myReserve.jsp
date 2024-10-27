@@ -19,6 +19,7 @@
 				<th width="20%" class="text-center">신청일</th>
 				<th width="20%" class="text-center"></th>
 			</tr>
+			<tr v-if="list.length===0"><td colspan="7">예약내역이 없습니다</td></tr>
 			<tr v-for="vo in list">
 				<td width="5%" class="text-center">{{vo.rno}}</td>
 				<td width="30%" class="text-center">{{vo.evo.title}}</td>

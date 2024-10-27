@@ -19,6 +19,7 @@
 				<th width="13%" class="text-center">작성일</th>
 				<th width="10%" class="text-center"></th>
 			</tr>
+			<tr v-if="list.length===0"><td colspan="7">작성한 리뷰가 없습니다</td></tr>
 			<tr v-for="vo in list">
 				<td width="5%" class="text-center">{{vo.wrvno}}</td>
 				<td width="7%" class="text-center"><img :src="vo.wvo.poster" width="100%"></td>
