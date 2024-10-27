@@ -7,6 +7,24 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="../tem/css/orderlist.css">
+<style>
+#FAQList{
+	width:960px;
+	margin-top:20px;
+	
+}
+.fth, .ftd{
+	padding-top:5px;
+	padding-bottom:5px;
+	text-align:left !important;
+}
+.fth{
+	padding-left:5px;
+}
+.ftd{
+	padding-left:15px;
+}
+</style>
 </head>
 <body>
 <div class="container" id="FAQList">
@@ -15,10 +33,10 @@
 	<table class="table mp">
 	 <template v-for="(vo, index) in fList">
 		<tr id="olistth" @click="moreInfo(index)">
-			<th><i class="fa fa-quora" aria-hidden="true"></i> &nbsp; {{vo.subject}}</th>
+			<th class="fth">Q. &nbsp; {{vo.subject}}</th>
 		</tr>
 		<tr v-if="isShow[index]">
-			<td v-html="formattedContent(vo)"></td>
+			<td v-html="formattedContent(vo)" class="ftd"></td>
 		</tr>
 		</template>
 		</table>
@@ -36,8 +54,8 @@
     		this.dataRecv()
     	},
     	computed: {
-            formattedContent(vo) {
-                return this.vo.content ? this.vo.content.replace(/\n/g, '<br>') : '';
+            formattedContent() {
+            	return (vo) => vo.content ? vo.content.replace(/\n/g, '<br>') : ''
             }
         },
     	methods:{
