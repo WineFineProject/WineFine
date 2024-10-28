@@ -59,19 +59,20 @@
 }
 /* ///////////////////////////////////////////////////////////// */
 .pagination .page-item.active .page-link {
-    background-color: #881824; 
-    color: white; 
-    border: solid 1px #881824 !important;
+	background-color: #881824;
+	color: white;
+	border: solid 1px #881824 !important;
 }
 
 .pagination .page-item .page-link {
-    color: #881824; 
-    border: solid 1px #881824 !important;
+	color: #881824;
+	border: solid 1px #881824 !important;
 }
 
 .pagination .page-item .page-link:hover {
-    background-color: #f1f1f1; 
+	background-color: #f1f1f1;
 }
+
 .border-secondary {
 	border-color: #881824 !important;
 }
@@ -116,47 +117,56 @@
 	padding-right: 0.5rem !important;
 	padding-left: 0.5rem !important;
 }
-.paginav{
+
+.paginav {
 	background-color: #881824 !important;
 	color: white !important;
 }
+
 .form-range {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 8px;
-    background: #ddd;
-    border-radius: 5px;
+	-webkit-appearance: none;
+	width: 100%;
+	height: 8px;
+	background: #ddd;
+	border-radius: 5px;
 }
 
 .form-range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #ff4081;
-    cursor: pointer;
-    border-radius: 50%;
+	-webkit-appearance: none;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	background: #ff4081;
+	cursor: pointer;
+	border-radius: 50%;
 }
 
 .form-range::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	border-radius: 50%;
 }
 
 .form-range::-webkit-slider-runnable-track {
-    background: linear-gradient(to right, #fcc2d6 0%, #fcc2d6 var(--value), #ddd var(--value), #ddd 100%);
+	background: linear-gradient(to right, #fcc2d6 0%, #fcc2d6 var(- -value),
+		#ddd var(- -value), #ddd 100%);
 }
 
 .form-range::-moz-range-track {
-    background: linear-gradient(to right, #fcc2d6 0%, #fcc2d6 var(--value), #ddd var(--value), #ddd 100%);
+	background: linear-gradient(to right, #fcc2d6 0%, #fcc2d6 var(- -value),
+		#ddd var(- -value), #ddd 100%);
 }
 </style>
 </head>
 <body>
 	<div class="shopcontainer">
 		<!-- Fruits Shop Start-->
+		<div class="container-fluid page-header py-5">
+			<h1 class="text-center text-white display-6">상품목록</h1>
+			<ol class="breadcrumb justify-content-center mb-0">
+			</ol>
+		</div>
 		<div class="container-fluid fruite py-5">
 			<div class="container py-5">
 
@@ -177,9 +187,10 @@
 									<h5 style="text-align: right;">전체 와인 ({{this.wineTcount.toLocaleString()}})</h5>
 								</div>
 							</div>
-							<div class="col-6" style="padding-top: 20px;text-align: right;">
+							<div class="col-6" style="padding-top: 20px; text-align: right;">
 								<div class="input-group w-100 mx-auto d-flex">
-									<input type="text" @keyup.enter="sfw()" class="form-control " placeholder="와인 검색" aria-describedby="search-icon-1 " v-model="searchWine"><span id="search-icon-1" class="input-group-text thispointer"><i class="fa fa-search" @click="sfw()"></i></span>
+									<input type="text" @keyup.enter="sfw()" class="form-control " placeholder="와인 검색" aria-describedby="search-icon-1 " v-model="searchWine">
+									<span id="search-icon-1" class="input-group-text thispointer"><i class="fa fa-search" @click="sfw()"></i></span>
 								</div>
 							</div>
 						</div>
@@ -192,12 +203,24 @@
 											<h5>종류</h5>
 											<div class="mb-2">
 												<ul class="filter-box" style="display: flex; flex-wrap: wrap; list-style: none; padding: 0;">
-													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('레드') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="레드">레드</label></li>
-													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('화이트') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="화이트"> 화이트</label></li>
-													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('로제') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="로제"> 로제</label></li>
-													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('스파클링') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="스파클링"> 스파클링</label></li>
-													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('주정강화') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="주정강화"> 주정강화</label></li>
-													<li style="flex: 0 0 50%;"><label class="boxPointer" :class="{'item-wine':selectType.includes('기타') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="기타"> 기타</label></li>
+													<li style="flex: 0 0 50%;">
+														<label class="boxPointer" :class="{'item-wine':selectType.includes('레드') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="레드">레드</label>
+													</li>
+													<li style="flex: 0 0 50%;">
+														<label class="boxPointer" :class="{'item-wine':selectType.includes('화이트') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="화이트"> 화이트</label>
+													</li>
+													<li style="flex: 0 0 50%;">
+														<label class="boxPointer" :class="{'item-wine':selectType.includes('로제') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="로제"> 로제</label>
+													</li>
+													<li style="flex: 0 0 50%;">
+														<label class="boxPointer" :class="{'item-wine':selectType.includes('스파클링') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="스파클링"> 스파클링</label>
+													</li>
+													<li style="flex: 0 0 50%;">
+														<label class="boxPointer" :class="{'item-wine':selectType.includes('주정강화') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="주정강화"> 주정강화</label>
+													</li>
+													<li style="flex: 0 0 50%;">
+														<label class="boxPointer" :class="{'item-wine':selectType.includes('기타') }"><input @change="filterChange()" name="type" type="checkbox" v-model="selectType" style="display: none" value="기타"> 기타</label>
+													</li>
 												</ul>
 											</div>
 										</div>
@@ -206,7 +229,8 @@
 									<div class="col-lg-12">
 										<div class="mb-3">
 											<h5 class="mb-2">가격</h5>
-											<input @change="dataRecv()" type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="10000" max="1000000" value="0" step="30000" v-model="fprice"> <span>{{fprice == 1000000 ? '전체' : fprice}}</span>
+											<input @change="dataRecv()" type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="10000" max="1000000" value="0" step="30000" v-model="fprice">
+											<span>{{fprice == 1000000 ? '전체' : fprice}}</span>
 										</div>
 									</div>
 									<div class="col-lg-12">
@@ -214,7 +238,9 @@
 											<h5>음식매칭</h5>
 											<div class="mb-2">
 												<ul class="filter-box" style="display: flex; flex-wrap: wrap; padding: 0; list-style-type: none;">
-													<li v-for="food in foodList" style="flex: 0 0 50%; box-sizing: border-box;"><label class="boxPointer" :class="{'item-wine':selectFoods.includes(food) }"><input @change="filterChange()" name="food" type="checkbox" v-model="selectFoods" class="thispointer" style="display: none" :value="food">{{food}}</label></li>
+													<li v-for="food in foodList" style="flex: 0 0 50%; box-sizing: border-box;">
+														<label class="boxPointer" :class="{'item-wine':selectFoods.includes(food) }"><input @change="filterChange()" name="food" type="checkbox" v-model="selectFoods" class="thispointer" style="display: none" :value="food">{{food}}</label>
+													</li>
 												</ul>
 											</div>
 										</div>
@@ -223,17 +249,21 @@
 										<div class="mb-3">
 											<h5>맛</h5>
 											<ul class="filter-box">
-												<li style="text-align: center;">당도 &nbsp;<label v-for="ss in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="sugarStars" :value="ss" v-model="sugar" style="display: none;"><i :class="{'text-wine':sugar>=ss}" style="margin-right: 2px;" class="fa fa-circle"></i>
-												</label>
+												<li style="text-align: center;">
+													당도 &nbsp;<label v-for="ss in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="sugarStars" :value="ss" v-model="sugar" style="display: none;"><i :class="{'text-wine':sugar>=ss}" style="margin-right: 2px;" class="fa fa-circle"></i>
+													</label>
 												</li>
-												<li style="text-align: center;">산도 &nbsp;<label v-for="as in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="acidStars" :value="as" v-model="acid" style="display: none;"><i :class="{'text-wine':acid>=as}" style="margin-right: 2px;" class="fa fa-circle"></i>
-												</label>
+												<li style="text-align: center;">
+													산도 &nbsp;<label v-for="as in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="acidStars" :value="as" v-model="acid" style="display: none;"><i :class="{'text-wine':acid>=as}" style="margin-right: 2px;" class="fa fa-circle"></i>
+													</label>
 												</li>
-												<li style="text-align: center;">바디 &nbsp;<label v-for="bs in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="bodyStars" :value="bs" v-model="body" style="display: none;"><i :class="{'text-wine':body>=bs}" style="margin-right: 2px;" class="fa fa-circle"></i>
-												</label>
+												<li style="text-align: center;">
+													바디 &nbsp;<label v-for="bs in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="bodyStars" :value="bs" v-model="body" style="display: none;"><i :class="{'text-wine':body>=bs}" style="margin-right: 2px;" class="fa fa-circle"></i>
+													</label>
 												</li>
-												<li style="text-align: center;">탄닌 &nbsp;<label v-for="ts in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="tanninStars" :value="ts" v-model="tannin" style="display: none;"><i :class="{'text-wine':tannin>=ts}" style="margin-right: 2px;" class="fa fa-circle"></i>
-												</label>
+												<li style="text-align: center;">
+													탄닌 &nbsp;<label v-for="ts in 5" class="no-style" style="cursor: pointer; margin-right: 5px;"> <input @change="filterChange()" type="radio" name="tanninStars" :value="ts" v-model="tannin" style="display: none;"><i :class="{'text-wine':tannin>=ts}" style="margin-right: 2px;" class="fa fa-circle"></i>
+													</label>
 												</li>
 											</ul>
 										</div>
@@ -244,7 +274,9 @@
 											<h5>아로마</h5>
 											<div class="mb-2">
 												<ul class="filter-box" style="display: flex; flex-wrap: wrap; padding: 0; list-style-type: none;">
-													<li v-for="ar in aromaList" style="flex: 0 0 50%; box-sizing: border-box;"><label class="boxPointer" :class="{'item-wine':selectAroma.includes(ar) }"><input @change="filterChange()" name="ar" type="checkbox" v-model="selectAroma" style="display: none" :value="ar">{{ar}}</label></li>
+													<li v-for="ar in aromaList" style="flex: 0 0 50%; box-sizing: border-box;">
+														<label class="boxPointer" :class="{'item-wine':selectAroma.includes(ar) }"><input @change="filterChange()" name="ar" type="checkbox" v-model="selectAroma" style="display: none" :value="ar">{{ar}}</label>
+													</li>
 												</ul>
 											</div>
 										</div>
@@ -273,8 +305,11 @@
 															{{vo.state === 1 ? vo.price : '품절'}}<br>
 														</p>
 														<div style="display: inline-flex;">
-															<a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="width: 60px; display: flex; justify-content: center; align-items: center; margin-right: 10px; margin-left: 10px;" @click="handleAddToCart(index)"> <i class="fa-solid fa-cart-plus " style="color: #881824;"></i>
-															</a> <a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="width: 60px; display: flex; justify-content: center; align-items: center;" @click="handleBuyNow(index)"> <i class="fa-solid fa-credit-card " style="color: #881824;"></i>
+															<a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="width: 60px; display: flex; justify-content: center; align-items: center; margin-right: 10px; margin-left: 10px;" @click="handleAddToCart(index)">
+																<i class="fa-solid fa-cart-plus " style="color: #881824;"></i>
+															</a>
+															<a class="btn border border-secondary rounded-pill px-3 small-text ahover" style="width: 60px; display: flex; justify-content: center; align-items: center;" @click="handleBuyNow(index)">
+																<i class="fa-solid fa-credit-card " style="color: #881824;"></i>
 															</a>
 														</div>
 													</div>
@@ -282,27 +317,30 @@
 											</div>
 										</a>
 									</div>
-									
-									
+
+
 									<!-- 상품 list end -->
-									<div class="col-12 text-center" >
-							        <div class="pagination-area d-sm-flex mt-15" style="justify-content: center">
-							            <nav aria-label="#">
-							               <ul class="pagination" style="display: flex;">
-							                   <li class="page-item" v-if="startPage>1">
-							                     <a class="page-link" @click="prev()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> 이전</a>
-							                    </li>
-							                     <li :class="{'page-item active': i === curpage, 'page-item': i !== curpage}"
-								                    v-for="i in range(startPage, endPage)">
-								                    <a class="page-link" @click="pageChange(i)">{{ i }}</a>
-								                </li>
-							                     <li class="page-item" v-if="endPage<totalpage">
-							                      <a class="page-link" @click="next()" style="margin-left: 4px;">다음 <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-							                     </li>
-							                 </ul>
-							             </nav>
-							          </div>
-							       </div>
+									<div class="col-12 text-center">
+										<div class="pagination-area d-sm-flex mt-15" style="justify-content: center">
+											<nav aria-label="#">
+												<ul class="pagination" style="display: flex;">
+													<li class="page-item" v-if="startPage>1">
+														<a class="page-link" @click="prev()">
+															<i class="fa fa-angle-double-left" aria-hidden="true"></i> 이전
+														</a>
+													</li>
+													<li :class="{'page-item active': i === curpage, 'page-item': i !== curpage}" v-for="i in range(startPage, endPage)">
+														<a class="page-link" @click="pageChange(i)">{{ i }}</a>
+													</li>
+													<li class="page-item" v-if="endPage<totalpage">
+														<a class="page-link" @click="next()" style="margin-left: 4px;">
+															다음 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+														</a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+									</div>
 
 
 

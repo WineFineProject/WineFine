@@ -150,7 +150,7 @@ margin-top: 5px;
 			</div>
 		</div>
 		<div class="container" style="margin-top:50px">
-			<div class="row">
+			<div class="row" style="height: 470px;">
 				<div class="col-sm-8">
 					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/EnO0yzn91YA?si=3y6-2TgiwlCtEdxR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 				</div>

@@ -49,7 +49,7 @@ public class NaverNewsManager {
 			for (int i = 0; i<arr.size(); i++) {
 				JSONObject obj = (JSONObject) arr.get(i);
 				String title = (String) obj.get("title");
-				if (title.contains("와인")) {
+				if (title.contains("와인")||title.contains("wine")||title.contains("주류")) {
 					j++;
 					title=title.replace("<b>", "");
 					title=title.replace("</b>", "");
