@@ -29,6 +29,13 @@ label {
 .font_green {
 	color: green !important;
 }
+.login__icon, .login__title, .login__signup, .login__signin{
+	color:darkred;
+}
+.login__button{
+	background-color: darkred;
+	display: inline-block;
+}
 </style>
 <script type="text/javascript">
 $('#sign-up').click(function() {
@@ -57,7 +64,7 @@ $('#sign-up').click(function() {
 							<input type="password" placeholder="Password" class="login__input" name="userPwd" v-model="userPwdL" ref="userPwdL">
 						</div>
 						<div class="login__box">
-							<input type="checkbox" class="login__input" name="remember-me">자동로그인
+							<input type="checkbox" class="login__input" name="remember-me" style="max-inline-size: min-content;">자동로그인
 						</div>
 							<span class="text-center" style="color: red">${message }</span>
 						<button type="button" class="login__button" @click="login()">Sign In</button>
@@ -68,7 +75,7 @@ $('#sign-up').click(function() {
 					</form>
 				</div>
 				<!-- 회원가입 -->
-				<div class="login__create" id="login-up" v-show="showLogin&&!showFind">
+				<div class="login__create" id="login-up" v-show="showLogin&&!showFind" style="height: fit-content;">
 					<form action="../member/joinOk.do" method="post" @submit.prevent="insertMember()" id="signupForm">
 						<h1 class="login__title">Create Account</h1>
 						<input type="hidden" v-model="addrEng" name="addrEng">
@@ -195,7 +202,7 @@ $('#sign-up').click(function() {
 						<input type="text" placeholder="Email" class="login__input" v-model="findEmail">
 					</div>
 					<div id="findBtn">
-						<span style="cursor: pointer;" class="login__button" @click="findId()">Find</span>
+						<span style="cursor: pointer; border: 1px solid gray;" class="login__button" @click="findId()">Find</span>
 					</div>
 					<div id="findResultDiv">
 						<span id="findResult" class="login__account login__account--account" style="font-size: 25px;">{{isFind?findIdData===''?'검색 결과가 없습니다':findIdData:''}}</span>
