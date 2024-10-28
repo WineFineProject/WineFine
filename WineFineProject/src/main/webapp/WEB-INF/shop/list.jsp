@@ -124,38 +124,32 @@
 }
 
 .form-range {
-	-webkit-appearance: none;
-	width: 100%;
-	height: 8px;
-	background: #ddd;
-	border-radius: 5px;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
 }
-
 .form-range::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	appearance: none;
-	width: 20px;
-	height: 20px;
-	background: #ff4081;
-	cursor: pointer;
-	border-radius: 50%;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #ff4081;
+    cursor: pointer;
+    border-radius: 50%;
 }
-
 .form-range::-moz-range-thumb {
-	width: 20px;
-	height: 20px;
-	cursor: pointer;
-	border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 50%;
 }
-
 .form-range::-webkit-slider-runnable-track {
-	background: linear-gradient(to right, #fcc2d6 0%, #fcc2d6 var(- -value),
-		#ddd var(- -value), #ddd 100%);
+    background: linear-gradient(to right, #fcc2d6 0%, #fcc2d6 var(--value), #ddd var(--value), #ddd 100%);
 }
-
 .form-range::-moz-range-track {
-	background: linear-gradient(to right, #fcc2d6 0%, #fcc2d6 var(- -value),
-		#ddd var(- -value), #ddd 100%);
+    background: linear-gradient(to right, #fcc2d6 0%, #fcc2d6 var(--value), #ddd var(--value), #ddd 100%);
 }
 </style>
 </head>
@@ -230,7 +224,7 @@
 										<div class="mb-3">
 											<h5 class="mb-2">가격</h5>
 											<input @change="dataRecv()" type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="10000" max="1000000" value="0" step="30000" v-model="fprice">
-											<span>{{fprice == 1000000 ? '전체' : fprice}}</span>
+											<span>{{fprice == 1000000 ? '전체' : formatPoint(fprice)}}</span>
 										</div>
 									</div>
 									<div class="col-lg-12">
@@ -410,6 +404,11 @@
 				this.dataRecv()
         	},
     		methods:{
+    			formatPoint(point){
+    				const numericValue = point.toString().replace(/[^0-9]/g, '')
+    	            const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (numericValue ? '원' : '')
+    	            return formattedValue
+    			},
     	        handleBuyNow(SelectIndex) {
     	        	let wno = this.list[SelectIndex].wno
     	            if (this.sessionId) {
