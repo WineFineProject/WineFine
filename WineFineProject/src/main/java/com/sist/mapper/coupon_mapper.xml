@@ -109,4 +109,11 @@
 		FROM my_coupon WHERE recvid=#{id} AND state=0 AND trunc(enddate)&gt;=trunc(sysdate)
 		ORDER BY MCNO ASC
 	</select>
+	<select id="canUseCoupon" parameterType="hashmap" resultMap="MyCouponMap">
+	SELECT mc.mcno, mc.title, mc.discount, TO_CHAR(mc.enddate,'YYYY-MM-DD') as endDay, pc.type as type, pc.target 
+	FROM my_coupon mc JOIN promotion_coupon pc ON mc.pcno=pc.pcno
+	WHERE mc.state=0 AND trunc(sysdate) BETWEEN trunc(mc.startdate) AND trunc(mc.enddate) 
+	AND pc.userid=#{seller} AND mc.recvid=#{userid} 
+	AND (type=1 OR (type=2 AND pc.target=#{typeTarget}) OR (type=3 AND pc.target=#{wnoTarget}))
+	</select>
 </mapper>

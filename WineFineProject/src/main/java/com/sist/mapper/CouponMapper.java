@@ -1,6 +1,7 @@
 package com.sist.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.*;
 
@@ -29,6 +30,9 @@ public interface CouponMapper {
 	
 	// mypage ��� ���� ����
 	public List<MyCouponVO> mypageMyCouponList(String id);
+	public List<MyCouponVO> canUseCoupon(Map map);
+	
+	
 	
 	public List<PromotionCouponVO> promotionCouponListData(String id);
 	

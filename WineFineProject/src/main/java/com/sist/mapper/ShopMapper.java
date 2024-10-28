@@ -106,7 +106,7 @@ public interface ShopMapper {
 	        + "FROM my_coupon  "
 	        + "WHERE recvid = #{id} "
 	        + "AND state = 0 "
-	        + "AND SYSDATE BETWEEN startdate AND enddate ")
+	        + "AND trunc(SYSDATE) BETWEEN trunc(startdate) AND trunc(enddate) ")
 	public List<MyCouponVO> selectCoupon(String id);
 	
 //	占쎈늄嚥≪뮆�걟占쎈�� 占쎄쉭占쎌뵬

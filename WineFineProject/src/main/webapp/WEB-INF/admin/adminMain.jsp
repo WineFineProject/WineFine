@@ -76,7 +76,7 @@
 				</div>
 				<div class="panel panel-warning" style="margin-top: 15px;">
 					<div class="panel-heading">
-						<h3 class="panel-title sinav">프로모션 관리</h3>
+						<h3 class="panel-title sinav" style="font-size: 1.65rem !important;">프로모션관리</h3>
 					</div>
 					<!-- 사이드바 메뉴목록2 -->
 					<ul class="list-group">

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.BannerService;
+import com.sist.service.CouponService;
 import com.sist.service.LikeService;
 import com.sist.service.MemberService;
 import com.sist.service.NoticeBoardService;
@@ -35,48 +36,53 @@ import oracle.jdbc.proxy.annotation.Post;
 @RestController
 public class ShopRestController {
 	String[] wtypes = { "", "레드", "화이트", "로제", "스파클링", "주정강화", "기타" };
-	String[] foods = { "소", "돼지", "양", "치킨", "피자", "비빔밥", "가리비", "아시아", "건육", "케이크", "튀김", "생선", "누들", "과일", "샐러드", "치즈", "샴페인" };
+	String[] foods = { "소", "돼지", "양", "치킨", "피자", "비빔밥", "가리비", "아시아", "건육", "케이크", "튀김", "생선", "누들", "과일", "샐러드", "치즈",
+			"샴페인" };
 	String[] aroma = { "꽃", "돌", "레몬", "말린과일", "베리", "사과", "숙성", "시나몬", "아몬드", "오크통", "크로와상", "파인애플", "파프리카", "허브" };
-
+	@Autowired
+	private CouponService cService;
 	private ShopService sservice;
 	private MemberService mService;
 	private LikeService lservice;
 	private NoticeBoardService nService;
+
 	@Autowired
-	public ShopRestController(ShopService sservice, MemberService mService, LikeService lservice, NoticeBoardService nService) {
+	public ShopRestController(ShopService sservice, MemberService mService, LikeService lservice,
+			NoticeBoardService nService) {
 		this.sservice = sservice;
 		this.mService = mService;
 		this.lservice = lservice;
-		this.nService=nService;
+		this.nService = nService;
 	}
-	@Autowired BannerService bService;
+
+	@Autowired
+	BannerService bService;
 	@Autowired
 	WineReviewService wservice;
 
 	@RequestMapping(value = "shop/list_vue.do", produces = "text/plain;charset=UTF-8")
 	public String shop_list(int page, @RequestParam Map param) throws Exception {
 		System.out.println(param);
-		if(param.get("type")==null)
+		if (param.get("type") == null)
 			param.put("type", "");
-		if(param.get("food")==null)
+		if (param.get("food") == null)
 			param.put("food", "");
-		if(param.get("aroma")==null)
+		if (param.get("aroma") == null)
 			param.put("aroma", "");
-		if(param.get("fd")==null)
+		if (param.get("fd") == null)
 			param.put("fd", "");
 
 		int rowsize = 12;
 		int start = (rowsize * page) - (rowsize - 1);
 		int end = rowsize * page;
-		List<PromotionBannerVO> bList=bService.promotionBannerList2();
+		List<PromotionBannerVO> bList = bService.promotionBannerList2();
 		param.put("start", start);
 		param.put("end", end);
 		List<WineVO> filter = sservice.wineListData2(param);
 		int wineTcount = sservice.wineTotalCount(param);
-		
 
-		int totalpage = (int)(Math.ceil(wineTcount/12.0));
-		
+		int totalpage = (int) (Math.ceil(wineTcount / 12.0));
+
 		final int BLOCK = 10;
 		int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
 		int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
@@ -115,21 +121,21 @@ public class ShopRestController {
 
 	@GetMapping(value = "shop/detail_vue.do", produces = "text/plain;charset=UTF-8")
 	public String wine_detail(int wno, int count, HttpSession session, HttpServletRequest request) throws Exception {
-		String id = (String)session.getAttribute("userId");
-		String idtem=id;
-		if(idtem==null)
-			idtem="guest";
-		int cookieCheck=0;
-		Cookie[] cookies=request.getCookies();
-		if(cookies!=null) {
-			for(int i=cookies.length-1;i>=0;i--) {
-				if(cookies[i].getName().startsWith("page_"+idtem)){
-					if(cookies[i].getValue().equals(String.valueOf(wno)))
-					cookieCheck=1;
+		String id = (String) session.getAttribute("userId");
+		String idtem = id;
+		if (idtem == null)
+			idtem = "guest";
+		int cookieCheck = 0;
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = cookies.length - 1; i >= 0; i--) {
+				if (cookies[i].getName().startsWith("page_" + idtem)) {
+					if (cookies[i].getValue().equals(String.valueOf(wno)))
+						cookieCheck = 1;
 				}
 			}
 		}
-		
+
 		WineVO vo = sservice.wineDetail(wno);
 		List<String> gname = sservice.grapeName(wno);
 		List<String> nname = sservice.nationName(wno);
@@ -138,8 +144,8 @@ public class ShopRestController {
 		List<WineReviewVO> reviewListData = wservice.reviewList(wno, count);
 		int reviewCount = wservice.reviewTotalCount(wno);
 		int likeCount = lservice.wineLikeCount(wno);
-		String sellerName = sservice.selectUsername (wno);		
-		NoticeBoardVO nvo=nService.noticeDetailData(vo.getNbno());
+		String sellerName = sservice.selectUsername(wno);
+		NoticeBoardVO nvo = nService.noticeDetailData(vo.getNbno());
 		String[] gnolink = {};
 		if (vo.getGrape() != null) {
 			gnolink = vo.getGrape().split(",");
@@ -164,22 +170,22 @@ public class ShopRestController {
 		map.put("nvo", nvo);
 		map.put("cookieCheck", cookieCheck);
 		int reviewCheck = 0;
-		if(id != null) {	
-			reviewCheck =  wservice.reviewCheck(wno, id);
+		if (id != null) {
+			reviewCheck = wservice.reviewCheck(wno, id);
 		}
 		map.put("reviewCheck", reviewCheck);
-		
+
 		int Lcheck = 0;
-		if(id != null) {
-			Lcheck = lservice.likeCheck(wno, id);
-		}		
-		map.put("Lcheck", Lcheck);			
-		
 		if (id != null) {
-			int buyer = sservice.findBuyer(wno,id);
+			Lcheck = lservice.likeCheck(wno, id);
+		}
+		map.put("Lcheck", Lcheck);
+
+		if (id != null) {
+			int buyer = sservice.findBuyer(wno, id);
 			map.put("buyer", buyer);
 		}
-		
+
 		if (id != null) {
 			int black = sservice.blackList(id, vo.getSeller());
 			map.put("black", black);
@@ -218,13 +224,26 @@ public class ShopRestController {
 	public String wine_buy(int wno, HttpSession session) throws Exception {
 		WineVO vo = sservice.winebuy(wno);
 		String id = (String) session.getAttribute("userId");
-		List<MyCouponVO> cvo = sservice.selectCoupon(id);
 		String userPoint = sservice.getPoint(id);
 		String userGrade = sservice.getgrade(id);
 		List<DeliveryVO> userDeli = sservice.getDeli(id);
-
-		
 		Map map = new HashMap();
+
+		System.out.println(vo);
+		for (int i = 1; i <= 6; i++) {
+			if (vo.getType().equals(wtypes[i])) {
+				map.put("typeTarget", i);
+				System.out.println(i);
+				break;
+			}
+		}
+
+		map.put("userid", id);
+		map.put("seller", vo.getSeller());
+		map.put("wnoTarget", vo.getWno());
+		List<MyCouponVO> cvo = cService.canUseCoupon(map);
+		System.out.println(cvo);
+
 		map.put("vo", vo);
 		map.put("cvo", cvo);
 		map.put("userPoint", userPoint);
@@ -248,17 +267,17 @@ public class ShopRestController {
 			}
 		}
 		map.put("type", typeIndex);
-		
+
 		int promo = sservice.isPro(map);
 		map.put("promo", promo);
-		
+
 		List<PromotionSaleVO> psvo = sservice.promotionGetSale(map);
-		if(psvo != null ) {
-			map.put("psvo", psvo);			
-		}else {
+		if (psvo != null) {
+			map.put("psvo", psvo);
+		} else {
 			map.put("psvo", promo);
 		}
-		
+
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(map);
 		return json;
@@ -360,59 +379,56 @@ public class ShopRestController {
 
 		return "";
 	}
+
 	@GetMapping(value = "shop/vueReturnRequest.do", produces = "text/plain;charset=UTF-8")
 	public void shopVueReturnRequest(int wpno) {
 		sservice.paymentReturnReques(wpno);
 	}
 
 	@GetMapping(value = "wine/quickfindVue.do", produces = "text/plain;charset=UTF-8")
-	  public String wine_find(String namekor) throws Exception
-	  {
-		  
-		  String strUrl="http://localhost:9200/wine/_search?q=namekor="
-				  +URLEncoder.encode(namekor,"UTF-8");
-		  URL url=new URL(strUrl);
-		  
-		  HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-		  StringBuffer sb=new StringBuffer();
-		  if(conn!=null)
-		  {
-			  BufferedReader in=
-					  new BufferedReader(
-							  new InputStreamReader(conn.getInputStream(),"UTF-8"));
-			  while(true)
-			  {
-				  String data=in.readLine();
-				  if(data==null) break;
-				  sb.append(data);
-			  }
-			  in.close();
-		  }
-		  return sb.toString();
-	  }
-	
+	public String wine_find(String namekor) throws Exception {
+
+		String strUrl = "http://localhost:9200/wine/_search?q=namekor=" + URLEncoder.encode(namekor, "UTF-8");
+		URL url = new URL(strUrl);
+
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		StringBuffer sb = new StringBuffer();
+		if (conn != null) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+			while (true) {
+				String data = in.readLine();
+				if (data == null)
+					break;
+				sb.append(data);
+			}
+			in.close();
+		}
+		return sb.toString();
+	}
+
 	@GetMapping(value = "shop/wineDetailInfo.do", produces = "text/plain;charset=UTF-8")
-	public String shopWineDetailInfo(int wno)throws Exception{
-		WineVO vo=sservice.wineDetail(wno);
-		ObjectMapper mapper=new ObjectMapper();
+	public String shopWineDetailInfo(int wno) throws Exception {
+		WineVO vo = sservice.wineDetail(wno);
+		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(vo);
 	}
+
 	@GetMapping(value = "shop/cookieClose.do", produces = "text/plain;charset=UTF-8")
 	public void shopCookieClose(int wno, HttpServletResponse response, HttpSession session) {
 		LocalTime now = LocalTime.now();
 
-    int hoursInSeconds = now.getHour() * 3600;
-    int minutesInSeconds = now.getMinute() * 60;
-    int seconds = now.getSecond();
+		int hoursInSeconds = now.getHour() * 3600;
+		int minutesInSeconds = now.getMinute() * 60;
+		int seconds = now.getSecond();
 
-    int totalSeconds = hoursInSeconds + minutesInSeconds + seconds;
+		int totalSeconds = hoursInSeconds + minutesInSeconds + seconds;
 
-    System.out.println("�쁽�옱 �떆媛꾩쓣 珥덈줈 �솚�궛�븳 媛�: " + totalSeconds);
-		String id=(String)session.getAttribute("userId");
-		if(id==null)
-			id="guest";
-		Cookie cookie=new Cookie("page_"+id+"_"+wno, String.valueOf(wno));
-		cookie.setMaxAge(24*60*60-totalSeconds);
+		System.out.println("�쁽�옱 �떆媛꾩쓣 珥덈줈 �솚�궛�븳 媛�: " + totalSeconds);
+		String id = (String) session.getAttribute("userId");
+		if (id == null)
+			id = "guest";
+		Cookie cookie = new Cookie("page_" + id + "_" + wno, String.valueOf(wno));
+		cookie.setMaxAge(24 * 60 * 60 - totalSeconds);
 		response.addCookie(cookie);
 	}
 }

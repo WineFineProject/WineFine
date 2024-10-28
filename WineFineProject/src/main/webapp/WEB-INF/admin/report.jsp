@@ -65,7 +65,7 @@
                         <div class="r-box" style="text-align: left">{{detail.bvo.content}}</div>
                     </div>
                     <div style="float:right"> 
-                    <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-pen-to-square-plane"></i></button>
+                    <button class="btn-lg" @click="messageInsert()" style="background-color: transparent;border:transparent"><i class="fa-solid fa-pen-to-square"></i></button>
                     <button class="btn-lg" @Click="deleteReport(detail.tno, detail.type)" style="border:transparent;background-color: transparent"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 package com.sist.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,9 @@ public class CouponDAO {
 	}
 	public void couponDelete(int pcno) {
 		mapper.couponDelete(pcno);
+	}
+	
+	public List<MyCouponVO> canUseCoupon(Map map){
+		return mapper.canUseCoupon(map);
 	}
 }

@@ -1,6 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sist.vo.*;
 
@@ -17,4 +18,5 @@ public interface CouponService {
 	public List<PromotionCouponVO> sellerPromotionWaitList(String id);
 	public void promotionCouponEndUpdate();
 	public void couponDelete(int pcno);
+	public List<MyCouponVO> canUseCoupon(Map map);
 }

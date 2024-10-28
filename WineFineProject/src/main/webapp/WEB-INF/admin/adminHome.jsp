@@ -35,7 +35,7 @@
 				<div style="width: 8%;"></div>
 				<div style="width: 12%; margin-top: auto;" class="text-center" v-for="date in dates">
 					<div class="graph-bar" :data-value="date.visitCount"></div>
-					<div class="graph-legend" style="margin: 0px auto;">{{date.visitDay}}</div>
+					<div class="graph-legend" style="margin: 0px auto;font-size: 15px;">{{date.visitDay}}</div>
 				</div>
 			</div>
 			<div style="width: 8%;"></div>

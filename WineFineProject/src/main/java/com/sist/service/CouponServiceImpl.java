@@ -1,6 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,5 +63,9 @@ public class CouponServiceImpl implements CouponService{
 	@Override
 	public void couponDelete(int pcno) {
 		dao.couponDelete(pcno);
+	}
+	@Override
+	public List<MyCouponVO> canUseCoupon(Map map) {
+		return dao.canUseCoupon(map);
 	}
 }
