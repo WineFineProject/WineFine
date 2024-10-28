@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CodePen - Sign Up/Sign In Responsive form</title>
+<title>Login & SignUp</title>
 <link rel="stylesheet" href="../tem/css/membersstyle.css">
 <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
