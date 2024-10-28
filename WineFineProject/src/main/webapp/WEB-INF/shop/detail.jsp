@@ -300,7 +300,7 @@
 											<i class="fa fa-times text-danger"></i>
 										</button> <img src="../img/Report.png" alt="Report"
 										style="width: 30px; height: auto;" class="img-hover"
-										@click="changeModal2(true, vw.wrvno, index)">
+										@click="reportMemory(index)">
 									</td>
 								</tr>
 							</table>
@@ -509,7 +509,7 @@
 				@click="cookieClose(vo.wno)">□오늘 하루 보지 않음</p>
 		</div>
 		
-		<div class="modal" :class="{ show: showModal2 }"
+		<div class="modal" v-if="showModal2" :class="{ show: showModal2 }"
 			@click.self="changeModal2(false)">
 			<div class="modal-content" style="width: 650px; height: 400px;">
 				<h3 class="text-center">신고하기</h3>
@@ -517,7 +517,7 @@
 					<tr>
 						<th width="20%" class="centered">신고대상 ID</th>
 						<td width="20%" class="text-center" class="text-center" style="border: 1px solid #e1e1e1;vertical-align: middle">
-						<b></b>
+						<b>{{selReport.nickname}}</b>
 						</td>
 						<th width="20%" class="centered">상품명</th>
 						<td width="40%" class="text-center" class="text-center" style="border: 1px solid #e1e1e1;vertical-align: middle"><b>{{vo.namekor}}</b>
@@ -599,7 +599,8 @@
     			endPage: 0,
     			buyer: 0,
     			black: 0,
-    			reviewIndex: 0
+    			reviewIndex: 0,
+    			selReport:{}
 	        }
 	    },
 	    mounted() {	    	
@@ -726,9 +727,9 @@
 					params:{		  
 						userid: this.sessionId,
 		    			type: 4,
-		    			tno: this.wrvno,
+		    			tno: this.selReport.wrvno,
 		    			state: 0,
-		    			rid: this.vo.seller,
+		    			rid: this.selReport.nickname,
 		    			category: this.category2,
 		    			content: this.content	  	    			
 					}
@@ -753,12 +754,7 @@
 	    		}
 	    		
 	    	},
-	    	changeModal2(check, wrvno, index){
-	    		console.log('index' + index)
-	    		this.reviewIndex = index
-	    		console.log('index2' + this.reviewIndex)
-	    		console.log('test' + this.reviewListData)
-	    		this.wrvno=wrvno
+	    	changeModal2(check){
 	    		if(this.sessionId){
 		    		this.showModal2 = check	    			
 	    		}else {
@@ -876,6 +872,10 @@
 	        viewMore2(){
 	        	this.bocount += 4
 	        	this.dataRecv()
+	        },
+	        reportMemory(index){
+	        	this.selReport=this.reviewListData[index]
+	        	this.changeModal2(true)
 	        },
    			 dataRecv(){
 				axios.get('../replyboard/shoplist_vue.do',{
