@@ -139,10 +139,13 @@
 									<tr>
 										<td>
 											<div style="margin-top: 10px; width: 290px;">
-												<label for="search"> 쿠폰 검색</label> <input type="text" class="form-control cou" value='쿠폰을 선택하세요' @click="selectCou()" readonly>
-												<div class="result-list cou" id="listCou" v-if="isVisible" v-for="sale in psvo">
+												<label for="search"> 쿠폰 검색</label> 
+												<input type="text" class="form-control cou" value='쿠폰을 선택하세요' @click="selectCou()" readonly>
+												<div class="result-list cou" id="listCou" v-if="isVisible" >
+												<ul>
 													<li @click="selectProduct(99999)">쿠폰 선택 안 함</li>
 													<li v-for="(coupon, index) in cvo" class="result-item" @click="selectProduct(index)"><a>{{coupon.title }} ({{ coupon.discount }}%)</a></li>
+												</ul>
 												</div>
 											</div>
 										</td>
