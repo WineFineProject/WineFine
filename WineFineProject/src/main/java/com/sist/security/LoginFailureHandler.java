@@ -26,9 +26,9 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 		String errorMsg = "";
 		try {
 			if (exception instanceof BadCredentialsException) {
-				errorMsg = "아이디나 비밀번호가 틀립니다";
+				errorMsg = "아이디나 비밀번호가 일치하지 않습니다";
 			} else if (exception instanceof InternalAuthenticationServiceException) {
-				errorMsg = "아이디나 비밀번호가 틀립니다";
+				errorMsg = "아이디나 비밀번호가 일치하지 않습니다";
 			} else if (exception instanceof DisabledException) {
 				errorMsg = "휴먼 계정입니다";
 				// enabled=1 , 0
