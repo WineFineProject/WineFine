@@ -38,6 +38,9 @@ public class BannerDAO {
 	public List<PromotionBannerVO> promotionBannerList() {
 		return mapper.promotionBannerList();
 	}
+	public List<PromotionBannerVO> promotionBannerList2() {
+		return mapper.promotionBannerList2();
+	}
 
 	public void promotionclick(int pbno) {
 		mapper.promotionStackDecrement(pbno);

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sist.service.BannerService;
 import com.sist.service.LikeService;
 import com.sist.service.MemberService;
 import com.sist.service.NoticeBoardService;
@@ -48,7 +49,7 @@ public class ShopRestController {
 		this.lservice = lservice;
 		this.nService=nService;
 	}
-
+	@Autowired BannerService bService;
 	@Autowired
 	WineReviewService wservice;
 
@@ -67,7 +68,7 @@ public class ShopRestController {
 		int rowsize = 12;
 		int start = (rowsize * page) - (rowsize - 1);
 		int end = rowsize * page;
-
+		List<PromotionBannerVO> bList=bService.promotionBannerList2();
 		param.put("start", start);
 		param.put("end", end);
 		List<WineVO> filter = sservice.wineListData2(param);
@@ -94,6 +95,7 @@ public class ShopRestController {
 		map.put("wtypeList", wtypes);
 		map.put("foodList", foods);
 		map.put("aromaList", aroma);
+		map.put("bList", bList);
 //		map.put("filter", filter);
 
 		ObjectMapper mapper = new ObjectMapper();

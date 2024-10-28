@@ -34,6 +34,7 @@ public interface BannerMapper {
 	public List<PromotionBannerVO> promotionWaitBanner(String id);
 	public List<PromotionBannerVO> promotionActiveBanner(String id);
 	public List<PromotionBannerVO> promotionBannerList();
+	public List<PromotionBannerVO> promotionBannerList2();
 	
 	@Delete("DELETE FROM promotion_banner WHERE pbno=#{pbno}")
 	public void bannerDelete(int pbno);

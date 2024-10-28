@@ -11,6 +11,7 @@ public interface BannerService {
 	public void promotionApproval(int pbno);
 	public void promotionRejection(int pbno);
 	public List<PromotionBannerVO> promotionBannerList();
+	public List<PromotionBannerVO> promotionBannerList2();
 	public void promotionclick(int pbno);
 	public void bannerDelete(int pbno);
 }

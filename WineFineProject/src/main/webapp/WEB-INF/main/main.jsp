@@ -32,7 +32,6 @@
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
-	<tiles:insertAttribute name="head" />
 	<tiles:insertAttribute name="home" />
 	<div style="height: 30px;"></div>
 	<tiles:insertAttribute name="footer" />

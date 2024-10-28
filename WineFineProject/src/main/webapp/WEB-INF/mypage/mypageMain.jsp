@@ -28,7 +28,6 @@
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
-	<tiles:insertAttribute name="head" />
 	<div class=" container2 text-center" style="margin-left: 200px; margin-top: 20px;">
 		<div class="row">
 			<div class="col-lg-2">

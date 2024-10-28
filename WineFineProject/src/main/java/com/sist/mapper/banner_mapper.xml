@@ -33,4 +33,10 @@
 	JOIN wine_member wm ON pb.userid=wm.userId
 	WHERE pb.type=1 AND pb.state=1
 	</select>
+	<select id="promotionBannerList2" resultMap="bannerMap">
+	SELECT pbno, pb.userid, pb.stack, pb.wno, pb.type, w.namekor, w.poster, wm.nickName , w.price, w.type as wtype
+	FROM promotion_banner pb JOIN wine w ON pb.wno=w.wno
+	JOIN wine_member wm ON pb.userid=wm.userId
+	WHERE pb.type=2 AND pb.state=1
+	</select>
 </mapper>
