@@ -444,18 +444,18 @@
 			@click.self="changeModal(false)">
 			<div class="modal-content" style="width: 650px; height: 400px;">
 				<h3 class="text-center">신고하기</h3>
-				<table class="table" style="margin-top: 50px;">
+				<table class="table mp" style="margin-top: 20px;">
 					<tr>
-						<th width="20%" class="text-center">신고대상 ID :</th>
-						<td width="20%" class="text-center backcor"><b>{{sellerName}}</b>
+						<th width="20%" class="centered">신고대상 ID</th>
+						<td width="20%" class="text-center" style="border: 1px solid #e1e1e1;vertical-align: middle"><b>{{sellerName}}</b>
 						</td>
-						<th width="20%" class="text-center">상품명 :</th>
-						<td width="40%" class="text-center backcor"><b>{{vo.namekor}}</b>
+						<th width="20%" class="centered">상품명</th>
+						<td width="40%" class="text-center" style="border: 1px solid #e1e1e1;vertical-align: middle"><b>{{vo.namekor}}</b>
 						</td>
 					</tr>
 					<tr>
-						<th width="20%" class="text-center">카테고리 :</th>
-						<td colspan="3"><select style="width: 175px;"
+						<th width="20%" class="centered">카테고리</th>
+						<td colspan="3" style="border: 1px solid #e1e1e1;vertical-align: middle"><select style="width: 175px;"
 							v-model="category" @change="selectCategory($event)">
 								<option value="상품관련">상품관련</option>
 								<option value="배송관련">배송관련</option>
@@ -463,8 +463,8 @@
 						</select></td>
 					</tr>
 					<tr>
-						<th width="20%" class="text-center">신고 사유:</th>
-						<td colspan="3"><textarea rows="4" cols="30"
+						<th width="20%" class="text-center">신고 사유</th>
+						<td colspan="3" style="border: 1px solid #e1e1e1;vertical-align: middle"><textarea rows="4" cols="30"
 								style="width: 100%; resize: none;" v-model="content">
 						</textarea></td>
 					</tr>
@@ -512,18 +512,18 @@
 			@click.self="changeModal(false)">
 			<div class="modal-content" style="width: 650px; height: 400px;">
 				<h3 class="text-center">신고하기</h3>
-				<table class="table" style="margin-top: 50px;">
+				<table class="table mp" style="margin-top: 20px;">
 					<tr>
-						<th width="20%" class="text-center">신고대상 ID :</th>
-						<td width="20%" class="text-center backcor"><b>{{sellerName}}</b>
+						<th width="20%" class="centered">신고대상 ID</th>
+						<td width="20%" class="text-center" class="text-center" style="border: 1px solid #e1e1e1;vertical-align: middle"><b>{{sellerName}}</b>
 						</td>
-						<th width="20%" class="text-center">상품명 :</th>
-						<td width="40%" class="text-center backcor"><b>{{vo.namekor}}</b>
+						<th width="20%" class="centered">상품명</th>
+						<td width="40%" class="text-center" class="text-center" style="border: 1px solid #e1e1e1;vertical-align: middle"><b>{{vo.namekor}}</b>
 						</td>
 					</tr>
 					<tr>
-						<th width="20%" class="text-center">카테고리 :</th>
-						<td colspan="3"><select style="width: 175px;"
+						<th width="20%" class="centered">카테고리</th>
+						<td colspan="3" style="border: 1px solid #e1e1e1"><select style="width: 175px;"
 							v-model="category2" @change="selectCategory2($event)">
 								<option value="폭언/욕설">폭언/욕설</option>
 								<option value="불법광고">불법광고</option>
@@ -531,15 +531,15 @@
 						</select></td>
 					</tr>
 					<tr>
-						<th width="20%" class="text-center">신고 사유:</th>
-						<td colspan="3"><textarea rows="4" cols="30"
+						<th width="20%" class="text-center">신고 사유</th>
+						<td colspan="3" class="text-center" style="border: 1px solid #e1e1e1;vertical-align: middle"><textarea rows="4" cols="30"
 								style="width: 100%; resize: none;" v-model="content">
 						</textarea></td>
 					</tr>
 					<tr>
 						<td colspan="4" class="rmbtn"
 							style="text-align: center; border-bottom: none;">
-							<button type="button" class="rmbtn btn-sm btn-success"
+							<button type="button" class="rmbtn btn-sm btn-warning"
 								@click="sendReport2()">접수</button> &nbsp;&nbsp;
 							<button type="button" class="rmbtn btn-sm btn-danger"
 								@click="changeModal2(false)">취소</button>
@@ -815,7 +815,7 @@
 	        },
 	        reviewInsert(){
 	        	if(this.buyer === 0){
-	        		alert('상품을 구매한 사람만 작성이 가능합니다')
+	        		alert('상품을 구매한 사람만 작성 가능합니다')
 	        		this.review = ''
 	        		return
 	        	}
@@ -826,7 +826,7 @@
     			}
     			if(this.review === "")
     			{
-    				alert('내용을 입력 해 주세요')
+    				alert('내용을 입력해주세요')
     				this.$refs.review.focus()
     				return
     			}
