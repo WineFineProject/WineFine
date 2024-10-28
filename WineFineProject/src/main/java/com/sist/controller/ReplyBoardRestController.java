@@ -163,7 +163,7 @@ public class ReplyBoardRestController {
 	@PostMapping(value = "replyboard/adminReplyInsert.do", produces = "text/plain;charset=UTF-8")
 	public void adminReplyInsert(ReplyBoardVO vo) {
 		vo.setUserid("admin");
-		vo.setNickname("愿�由ъ옄");
+		vo.setNickname("관리자");
 		rService.sellerReplyInsert(vo);
 	}
 	
