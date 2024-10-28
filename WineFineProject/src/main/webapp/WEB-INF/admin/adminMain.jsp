@@ -32,9 +32,9 @@
 <tiles:insertAttribute name="header"/>
 	<div class=" container2 text-center">
 		<div class="row">
-			<div class="col-lg-1"></div>
-			<div class="col-lg-2">
-				<div class="panel panel-info">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-1" style="padding-left: 0px;padding-right: 0px;">
+				<div class="panel panel-info" style="margin-top: 15px;">
 					<div class="panel-heading">
 						<h3 class="panel-title">회원관리</h3>
 					</div>
@@ -57,7 +57,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="panel panel-warning">
+				<div class="panel panel-warning" style="margin-top: 15px;">
 					<div class="panel-heading">
 						<h3 class="panel-title sinav">상품관리</h3>
 					</div>
@@ -74,7 +74,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="panel panel-warning">
+				<div class="panel panel-warning" style="margin-top: 15px;">
 					<div class="panel-heading">
 						<h3 class="panel-title sinav">프로모션 관리</h3>
 					</div>
@@ -93,10 +93,10 @@
 				</div>
 			</div>
 
-			<div class="col-lg-8">
+			<div class="col-lg-7" style="padding-left: 50px;">
 				<tiles:insertAttribute name="adminHome" />
 			</div>
-			<div class="col-lg-1"></div>
+			<div class="col-lg-2"></div>
 			
 		</div>
 	</div>

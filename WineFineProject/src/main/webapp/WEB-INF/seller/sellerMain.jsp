@@ -31,9 +31,9 @@
 	<tiles:insertAttribute name="header" />
 	<div class=" container2">
 		<div class="row">
-			<div class="col-lg-1 text-center"></div>
-			<div class="col-lg-2 text-center">
-				<div class="panel panel-info">
+			<div class="col-lg-2 text-center"></div>
+			<div class="col-lg-1 text-center" style="padding-left: 0px;padding-right: 0px;">
+				<div class="panel panel-info" style="margin-top: 15px;">
 					<div class="panel-heading">
 						<h3 class="panel-title">상품관리</h3>
 					</div>
@@ -48,7 +48,7 @@
 						<li class="list-group-item"><a href="../seller/chart2.do">주간통계2</a></li>
 					</ul>
 				</div>
-				<div class="panel panel-warning">
+				<div class="panel panel-warning" style="margin-top: 15px;">
 					<div class="panel-heading">
 						<h3 class="panel-title sinav">고객관리</h3>
 					</div>
@@ -60,9 +60,9 @@
 						<li class="list-group-item"><a href="../seller/replyboard.do">1:1 문의</a></li>
 					</ul>
 				</div>
-				<div class="panel panel-warning">
+				<div class="panel panel-warning" style="margin-top: 15px;">
 					<div class="panel-heading">
-						<h3 class="panel-title sinav">프로모션관리</h3>
+						<h3 class="panel-title sinav" style="font-size: 1.65rem !important;">프로모션관리</h3>
 					</div>
 					<!-- 사이드바 메뉴목록2 -->
 					<ul class="list-group">
@@ -73,7 +73,7 @@
 				</div>
 			</div>
 
-			<div class="col-lg-8">
+			<div class="col-lg-7" style="padding-left: 50px;">
 				<tiles:insertAttribute name="sellerHome" />
 			</div>
 			<div class="col-lg-1"></div>

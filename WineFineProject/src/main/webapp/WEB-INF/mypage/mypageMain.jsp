@@ -28,40 +28,63 @@
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
-	<div class=" container2 text-center" style="margin-left: 200px; margin-top: 20px;">
+	<div class=" container2 text-center">
 		<div class="row">
-			<div class="col-lg-2">
-				<div class="panel panel-info">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-1" style="padding-left: 0px; padding-right: 0px;">
+				<div class="panel panel-info" style="margin-top: 15px;">
 					<div class="panel-heading">
 						<h3 class="panel-title">개인정보</h3>
 					</div>
 					<!-- 사이드바 메뉴목록1 -->
 					<ul class="list-group">
-						<li class="list-group-item"><a href="../mypage/my_edit_member.do">회원수정</a></li>
-						<li class="list-group-item"><a href="../mypage/mypwd.do">비밀번호 변경</a></li>
-						<li class="list-group-item"><a href="../mypage/my_member_exit.do">회원탈퇴</a></li>
-						<li class="list-group-item"><a href="../mypage/delivery.do">배송주소</a></li>
+						<li class="list-group-item">
+							<a href="../mypage/my_edit_member.do">회원수정</a>
+						</li>
+						<li class="list-group-item">
+							<a href="../mypage/mypwd.do">비밀번호 변경</a>
+						</li>
+						<li class="list-group-item">
+							<a href="../mypage/my_member_exit.do">회원탈퇴</a>
+						</li>
+						<li class="list-group-item">
+							<a href="../mypage/delivery.do">배송주소</a>
+						</li>
 					</ul>
 				</div>
-				<div class="panel panel-warning">
+				<div class="panel panel-warning" style="margin-top: 15px;">
 					<div class="panel-heading">
 						<h3 class="panel-title sinav">관리정보</h3>
 					</div>
 					<!-- 사이드바 메뉴목록2 -->
 					<ul class="list-group">
-						<li class="list-group-item"><a href="../mypage/coupon.do">쿠폰함</a></li>
-						<li class="list-group-item"><a href="../mypage/myPayment.do">구매내역</a></li>
-						<li class="list-group-item"><a href="../mypage/myReserve.do">예약내역</a></li>
-						<li class="list-group-item"><a href="../mypage/myboardlist.do">작성한글</a></li>
-						<li class="list-group-item"><a href="../mypage/myReview.do">작성리뷰</a></li>
-						<li class="list-group-item"><a href="../mypage/myLike.do">내좋아요</a></li>
+						<li class="list-group-item">
+							<a href="../mypage/coupon.do">쿠폰함</a>
+						</li>
+						<li class="list-group-item">
+							<a href="../mypage/myPayment.do">구매내역</a>
+						</li>
+						<li class="list-group-item">
+							<a href="../mypage/myReserve.do">예약내역</a>
+						</li>
+						<li class="list-group-item">
+							<a href="../mypage/myboardlist.do">작성한글</a>
+						</li>
+						<li class="list-group-item">
+							<a href="../mypage/myReview.do">작성리뷰</a>
+						</li>
+						<li class="list-group-item">
+							<a href="../mypage/myLike.do">내좋아요</a>
+						</li>
 					</ul>
 				</div>
 			</div>
 
-			<div class="col-lg-8">
+			<div class="col-lg-7" style="padding-left: 50px;">
 				<tiles:insertAttribute name="mypageHome" />
 			</div>
+			<div class="col-lg-2"></div>
+
 		</div>
 	</div>
 	<tiles:insertAttribute name="footer" />

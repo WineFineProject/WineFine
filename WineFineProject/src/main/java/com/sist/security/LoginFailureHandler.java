@@ -26,11 +26,11 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 		String errorMsg = "";
 		try {
 			if (exception instanceof BadCredentialsException) {
-				errorMsg = "¾ÆÀÌµğ³ª ºñ¹Ğ¹øÈ£°¡ Æ²¸³´Ï´Ù!!";
+				errorMsg = "ì•„ì´ë””ë‚˜ ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤";
 			} else if (exception instanceof InternalAuthenticationServiceException) {
-				errorMsg = "¾ÆÀÌµğ³ª ºñ¹Ğ¹øÈ£°¡ Æ²¸³´Ï´Ù!!";
+				errorMsg = "ì•„ì´ë””ë‚˜ ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤";
 			} else if (exception instanceof DisabledException) {
-				errorMsg = "ÈŞ¸Õ °èÁ¤ÀÔ´Ï´Ù!!";
+				errorMsg = "íœ´ë¨¼ ê³„ì •ì…ë‹ˆë‹¤";
 				// enabled=1 , 0
 			}
 		} catch (Exception ex) {

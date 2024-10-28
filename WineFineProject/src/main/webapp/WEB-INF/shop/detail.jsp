@@ -11,7 +11,7 @@
 <body>
 
 	<!-- Single Product Start -->
-	<div class="container-fluid py-5 mt-5 shopcontainer" style="margin-top: 0px;padding-top: 0px;" v-for="vo in list">
+	<div class="container-fluid py-5 mt-5 shopcontainer" style="margin-top: 0px !important;padding-top: 0px !important;" v-for="vo in list">
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">상품 정보</h1>
 		<ol class="breadcrumb justify-content-center mb-0">
