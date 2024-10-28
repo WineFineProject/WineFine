@@ -7,6 +7,11 @@
 <link rel="stylesheet" href="../tem/css/event2.css">
 </head>
 <body>
+  <div class="container-fluid page-header py-5">
+		<h1 class="text-center text-white display-6">시음회</h1>
+		<ol class="breadcrumb justify-content-center mb-0">
+		</ol>
+	</div>
   <div class="container py-5">
     <div class="row" id="EventList">
     <div class="search-container" style="padding: 0px">

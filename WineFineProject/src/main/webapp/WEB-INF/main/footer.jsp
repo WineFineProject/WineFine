@@ -20,7 +20,7 @@
 </style>
 </head>
 <body>
-	<div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5" id="footerApp">
+	<div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5" id="footerApp" style="padding: 0px 0px 0px 0px !important;margin: 0px;">
 		<div class="container py-5">
 			<div class="row g-5">
 				<div class="footer-item">
@@ -30,7 +30,7 @@
 				</div>
 				<div class="d-flex flex-column text-start footer-item col-sm-6" style="margin-top: 10px;">
 					<h4 class="text-light mb-3">WineFine Project&nbsp;&nbsp;</h4>
-					<p>멤버 : 김경주 | 김민선 | 이규혁 | 이은영 | 한혜진</p> <p>깃허브 : https://github.com/WineFineProject/WineFine</p> <p>10/18 ~ 11/11</p>
+					<p>멤버 : 김경주 | 김민선 | 이규혁 | 이은영 | 한혜진</p> <p>깃허브 : <a class="text-white-50" href="https://github.com/WineFineProject/WineFine" target="_blank">https://github.com/WineFineProject/WineFine</a></p> <p>프로젝트 기간 : 10/18 ~ 11/11</p>
 				</div>
 				<div class="footer-item col-sm-6" style="text-align: right;margin-top: 10px;">
 					<h4 class="text-light mb-3">Contact</h4>

@@ -7,6 +7,11 @@
 <title>주요 품종</title>
 </head>
 <body>
+  <div class="container-fluid page-header py-5">
+		<h1 class="text-center text-white display-6">주요품종</h1>
+		<ol class="breadcrumb justify-content-center mb-0">
+		</ol>
+	</div>
   <div class="container py-5">
     <div class="row" id="grapeList">
     <div class="search-container" style="padding: 0px">

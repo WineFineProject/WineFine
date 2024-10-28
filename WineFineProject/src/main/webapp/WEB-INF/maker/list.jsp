@@ -7,6 +7,11 @@
 <title>생산자</title>
 </head>
 <body>
+  <div class="container-fluid page-header py-5">
+		<h1 class="text-center text-white display-6">생산자</h1>
+		<ol class="breadcrumb justify-content-center mb-0">
+		</ol>
+	</div>
   <div class="container py-5">
     <div class="row" id="makerList">
     <div class="search-container" style="padding: 0px">
