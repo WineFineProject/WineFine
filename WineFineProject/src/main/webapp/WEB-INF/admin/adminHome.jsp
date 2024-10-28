@@ -29,7 +29,7 @@
 				<td width="17%" class="text-center">{{noneAnswer}}건</td>
 			</tr>
 		</table>
-		<div class="wrap border-wine" style="border: 1px solid;">
+		<div class="wrap">
 			<h2>7일간 방문자 수</h2>
 			<div class="row" style="height: 350px; margin: 0px auto;">
 				<div style="width: 8%;"></div>
