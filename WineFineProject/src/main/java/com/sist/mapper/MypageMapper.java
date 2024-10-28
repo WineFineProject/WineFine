@@ -34,7 +34,7 @@ public interface MypageMapper {
 	public String checkPwd(@Param("userId")String userId);
 
 	// 개인 정보 수정
-	@Update("UPDATE wine_member SET nickname=#{nickname},post=#{post},addr1=#{addr1},addr2=#{addr2},phone=#{phone},email=#{email} "
+	@Update("UPDATE wine_member SET nickname=#{nickName},post=#{post},addr1=#{addr1},addr2=#{addr2},phone=#{phone},email=#{email} "
 			+ "WHERE userId=#{userId}")
 	public void updateMyInfo(MemberVO vo);
 	

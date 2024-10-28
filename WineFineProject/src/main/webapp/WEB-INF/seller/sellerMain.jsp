@@ -76,7 +76,6 @@
 			<div class="col-lg-7" style="padding-left: 50px;">
 				<tiles:insertAttribute name="sellerHome" />
 			</div>
-			<div class="col-lg-1"></div>
 		</div>
 	</div>
 	<tiles:insertAttribute name="footer" />

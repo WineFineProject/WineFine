@@ -96,7 +96,6 @@
 			<div class="col-lg-7" style="padding-left: 50px;">
 				<tiles:insertAttribute name="adminHome" />
 			</div>
-			<div class="col-lg-2"></div>
 			
 		</div>
 	</div>
