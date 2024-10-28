@@ -275,7 +275,7 @@
 					<h4 class="mb-5 fw-bold">리뷰( 총
 						{{reviewCount.toLocaleString()}} 개)</h4>
 					<div class="row g-4" style="align-items: center;">
-						<div v-for="vw in reviewListData"
+						<div v-for="(vw,index) in reviewListData"
 							style="display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid lightgray; margin-bottom: 20px;">
                      <div style="align-self: self-start;"><span
 										v-for="as in 5" class="no-style"> <i
@@ -300,7 +300,7 @@
 											<i class="fa fa-times text-danger"></i>
 										</button> <img src="../img/Report.png" alt="Report"
 										style="width: 30px; height: auto;" class="img-hover"
-										@click="changeModal2(true, vw.wrvno)">
+										@click="changeModal2(true, vw.wrvno, index)">
 									</td>
 								</tr>
 							</table>
@@ -508,14 +508,16 @@
 			<p style="text-align: right; cursor: default;"
 				@click="cookieClose(vo.wno)">□오늘 하루 보지 않음</p>
 		</div>
+		
 		<div class="modal" :class="{ show: showModal2 }"
-			@click.self="changeModal(false)">
+			@click.self="changeModal2(false)">
 			<div class="modal-content" style="width: 650px; height: 400px;">
 				<h3 class="text-center">신고하기</h3>
 				<table class="table mp" style="margin-top: 20px;">
 					<tr>
 						<th width="20%" class="centered">신고대상 ID</th>
-						<td width="20%" class="text-center" class="text-center" style="border: 1px solid #e1e1e1;vertical-align: middle"><b>{{sellerName}}</b>
+						<td width="20%" class="text-center" class="text-center" style="border: 1px solid #e1e1e1;vertical-align: middle">
+						<b></b>
 						</td>
 						<th width="20%" class="centered">상품명</th>
 						<td width="40%" class="text-center" class="text-center" style="border: 1px solid #e1e1e1;vertical-align: middle"><b>{{vo.namekor}}</b>
@@ -596,7 +598,8 @@
     			startPage: 0,
     			endPage: 0,
     			buyer: 0,
-    			black: 0
+    			black: 0,
+    			reviewIndex: 0
 	        }
 	    },
 	    mounted() {	    	
@@ -750,7 +753,11 @@
 	    		}
 	    		
 	    	},
-	    	changeModal2(check, wrvno){
+	    	changeModal2(check, wrvno, index){
+	    		console.log('index' + index)
+	    		this.reviewIndex = index
+	    		console.log('index2' + this.reviewIndex)
+	    		console.log('test' + this.reviewListData)
 	    		this.wrvno=wrvno
 	    		if(this.sessionId){
 		    		this.showModal2 = check	    			
@@ -929,10 +936,8 @@
 			          this.reviewCheck = response.data.reviewCheck
 			          this.buyer = response.data.buyer
 			          this.black = response.data.black
-			          console.log("seller : " + this.vo.seller)
-			          console.log("botocount : " + this.boTocount)			          
-			          console.log("bocount : " + this.bocount)			          
-			          console.log("totalpage : " + this.totalpage)			          
+			          this.reviewIndex = response.data.reviewIndex	
+			          
 		        }).catch(error => {
 		            console.error('데이터 로드 오류:', error.response)
 		        })
